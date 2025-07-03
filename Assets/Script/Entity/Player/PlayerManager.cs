@@ -3,20 +3,27 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
 public class PlayerManager : AbstractEntity {
-    [SerializeField] private float smallJumpForce;
-    [SerializeField] private float bigJumpForce;
+    [Header("Jump System")]
+    [SerializeField] private float initialJumpForce;
+    [SerializeField] private float jumpMultipler;
+    [SerializeField] private float maxJumpTime;
+    private float jumpTimer;
+    private bool isJumping;
 
     private PlayerInput_Action inputActions;
     private Vector2 currentInput;
     private Rigidbody2D rb;
-    private bool isInAir;
-    private double holdingTime;
+    private Vector2 initialGravity;
+
+
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
+        initialGravity = Physics2D.gravity;
         inputActions = new PlayerInput_Action();
 
-        inputActions.Player.Jump.performed += OnJump;
+        inputActions.Player.Jump.performed += OnJumpPerformed;
+        inputActions.Player.Jump.canceled += OnJumpCanceled;
         inputActions.Player.Move.performed += OnMovePerformed;
         inputActions.Player.Move.canceled += OnMoveCanceled;
     }
@@ -26,10 +33,12 @@ public class PlayerManager : AbstractEntity {
     }
 
     private void OnDisable() {
-        inputActions.Player.Disable();
-        inputActions.Player.Jump.performed -= OnJump;
+        inputActions.Player.Jump.performed -= OnJumpPerformed;
+        inputActions.Player.Jump.canceled -= OnJumpCanceled;
         inputActions.Player.Move.performed -= OnMovePerformed;
         inputActions.Player.Move.canceled -= OnMoveCanceled;
+        
+        inputActions.Player.Disable();
     }
 
     public override void Attack() {
@@ -47,33 +56,39 @@ public class PlayerManager : AbstractEntity {
         currentInput = Vector2.zero;
     }
     
-    private void OnJump(InputAction.CallbackContext context) {
-        if(context.interaction is HoldInteraction) {
-            if(context.duration > 0.5 && context.duration < 1.2) {
-                holdingTime = context.duration;
-            }else if(context.duration > 1.2) {
-                holdingTime = 1.2;
-            } else {
-                holdingTime = 0.5;
-            }
-        }else if(context.interaction is PressInteraction) {
-
+    private void OnJumpPerformed(InputAction.CallbackContext context) {
+        if (isGrounded) {
+            rb.linearVelocityY = initialJumpForce;
+            isJumping = true;
         }
+    }
+
+    private void Jump() {
+        if (isJumping && rb.linearVelocityY > 0) {
+            jumpTimer += Time.deltaTime;
+            if (jumpTimer > maxJumpTime) isJumping = false;
+            rb.linearVelocityY += Mathf.Abs(initialGravity.y) * jumpMultipler * Time.fixedDeltaTime;
+        }
+    }
+
+    private void OnJumpCanceled(InputAction.CallbackContext context) {
+        isJumping = false;
+        jumpTimer = 0;
     }
 
 
     private void CheckGround() {
         isGrounded = Physics2D.OverlapCircle(groundCheckerTransform.position, groundCheckDistance, groundLayer);
-        isInAir = isGrounded ? false : isInAir;
+        rb.gravityScale = isGrounded ? 2 : 4;
     }
 
     private void Update() {
-        Move();
         CheckGround();
     }
 
 
     private void FixedUpdate() {
         Move();
+        Jump();
     }
 }

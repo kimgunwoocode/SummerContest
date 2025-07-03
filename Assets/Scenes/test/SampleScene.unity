@@ -298,15 +298,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 0
   attackRate: 0
-  walkSpeed: 5
+  walkSpeed: 250
   runSpeed: 0
   groundCheckDistance: 0.1
   groundCheckerTransform: {fileID: 2119527010}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  smallJumpForce: 5
-  bigJumpForce: 9.5
+  initialJumpForce: 10
+  jumpMultipler: 2.3
+  maxJumpTime: 3
 --- !u!114 &178429946
 MonoBehaviour:
   m_ObjectHideFlags: 0

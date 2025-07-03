@@ -113,7 +113,7 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
                     ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""6c2ab1b8-8984-453a-af3d-a3c78ae1679a"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -122,7 +122,7 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""852140f2-7766-474d-8707-702459ba45f3"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
@@ -142,7 +142,7 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
                     ""id"": ""f1ba0d36-48eb-4cd5-b651-1c94a6531f70"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Hold,Press(behavior=1)"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
