@@ -296,15 +296,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 461947d47eb422a4ca2fb3e613981d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 0
+  maxHP: 0
+  currentHP: 0
   attackRate: 0
   walkSpeed: 250
   runSpeed: 0
+  facingLeft: 0
   groundCheckDistance: 0.1
   groundCheckerTransform: {fileID: 2119527010}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  wallCheckDistance: 0
+  wallCheckerTransform: {fileID: 0}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  knockbackForce: {x: 0, y: 0}
+  knockbackDuration: 0
+  isknockBack: 0
   initialJumpForce: 10
   jumpMultipler: 2.3
   maxJumpTime: 3
