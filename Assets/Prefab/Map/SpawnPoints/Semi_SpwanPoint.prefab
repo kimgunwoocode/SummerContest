@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7406036366864112762}
   - component: {fileID: 5325527500429782734}
   m_Layer: 3
-  m_Name: SpwanPoint_Main
+  m_Name: Semi_SpwanPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3385739379391702840}
+  - {fileID: 7326023941685888263}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7406036366864112762
@@ -135,7 +135,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!1001 &7105341247894966941
+--- !u!1001 &3012043707310780578
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -192,8 +192,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
---- !u!4 &3385739379391702840 stripped
+--- !u!4 &7326023941685888263 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5505560654318433701, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
-  m_PrefabInstance: {fileID: 7105341247894966941}
+  m_PrefabInstance: {fileID: 3012043707310780578}
   m_PrefabAsset: {fileID: 0}
