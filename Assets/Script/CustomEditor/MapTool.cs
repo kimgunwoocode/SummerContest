@@ -96,14 +96,18 @@ public class MapTool : EditorWindow
                 Undo.RegisterCreatedObjectUndo(placed, "Place Map Element");
                 placed.transform.position = gridPoint;
 
-                // 📁 폴더 이름 추출 → 부모 설정
+                // 폴더 이름 → 카테고리 → 부모
                 string category = GetCategoryFromPath(selectedPrefab);
                 Transform parent = EnsureHierarchy(category);
                 placed.transform.SetParent(parent);
 
-                selectedPrefab = null; // 배치 후 선택 해제
+                // 설치한 프리팹을 Inspector에서 자동 선택
+                Selection.activeGameObject = placed;
+
+                selectedPrefab = null; // 자동 선택 해제
                 e.Use();
             }
+
 
             SceneView.RepaintAll();
         }
@@ -119,12 +123,12 @@ public class MapTool : EditorWindow
 
     string GetCategoryFromPath(GameObject prefab)
     {
-        string path = AssetDatabase.GetAssetPath(prefab); // Assets/Prefab/Map/Enemy/Bat.prefab
+        string path = AssetDatabase.GetAssetPath(prefab); // Assets/Prefab/Map/...
         string[] parts = path.Split('/');
         int mapIndex = System.Array.IndexOf(parts, "Map");
         if (mapIndex >= 0 && mapIndex + 1 < parts.Length)
         {
-            return parts[mapIndex + 1]; // ex: Enemy
+            return parts[mapIndex + 1];
         }
         return "Uncategorized";
     }
