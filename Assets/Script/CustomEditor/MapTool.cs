@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class MapTool : EditorWindow
 {
-    GameObject[] mapPrefabs;
+    Dictionary<string, List<GameObject>> categorizedPrefabs;
+    Dictionary<string, bool> foldoutStates;
     GameObject selectedPrefab;
     Vector2 scroll;
 
@@ -28,21 +29,31 @@ public class MapTool : EditorWindow
 
     void LoadPrefabs()
     {
+        categorizedPrefabs = new Dictionary<string, List<GameObject>>();
+        foldoutStates = new Dictionary<string, bool>();
+
         string[] guids = AssetDatabase.FindAssets("t:Prefab", new[] { "Assets/Prefab/Map" });
-        List<GameObject> list = new List<GameObject>();
+
         foreach (string guid in guids)
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
             GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-            if (prefab != null)
-                list.Add(prefab);
+            if (prefab == null) continue;
+
+            string category = GetCategoryFromPath(prefab);
+            if (!categorizedPrefabs.ContainsKey(category))
+            {
+                categorizedPrefabs[category] = new List<GameObject>();
+                foldoutStates[category] = true;
+            }
+
+            categorizedPrefabs[category].Add(prefab);
         }
-        mapPrefabs = list.ToArray();
     }
 
     void OnGUI()
     {
-        if (mapPrefabs == null || mapPrefabs.Length == 0)
+        if (categorizedPrefabs == null || categorizedPrefabs.Count == 0)
         {
             EditorGUILayout.HelpBox("No prefabs found in Assets/Prefab/Map", MessageType.Info);
             return;
@@ -51,15 +62,26 @@ public class MapTool : EditorWindow
         EditorGUILayout.LabelField("🧱 Map Prefabs", EditorStyles.boldLabel);
         scroll = EditorGUILayout.BeginScrollView(scroll);
 
-        foreach (GameObject prefab in mapPrefabs)
+        foreach (var kvp in categorizedPrefabs)
         {
-            if (prefab == null) continue;
+            string category = kvp.Key;
+            List<GameObject> prefabs = kvp.Value;
 
-            string label = selectedPrefab == prefab ? $"▶ {prefab.name}" : prefab.name;
-
-            if (GUILayout.Button(label))
+            foldoutStates[category] = EditorGUILayout.Foldout(foldoutStates[category], category, true);
+            if (foldoutStates[category])
             {
-                selectedPrefab = prefab;
+                EditorGUI.indentLevel++;
+                foreach (GameObject prefab in prefabs)
+                {
+                    if (prefab == null) continue;
+
+                    string label = selectedPrefab == prefab ? $"▶ {prefab.name}" : prefab.name;
+                    if (GUILayout.Button(label))
+                    {
+                        selectedPrefab = prefab;
+                    }
+                }
+                EditorGUI.indentLevel--;
             }
         }
 
@@ -104,10 +126,9 @@ public class MapTool : EditorWindow
                 // 설치한 프리팹을 Inspector에서 자동 선택
                 Selection.activeGameObject = placed;
 
-                selectedPrefab = null; // 자동 선택 해제
+                selectedPrefab = null;
                 e.Use();
             }
-
 
             SceneView.RepaintAll();
         }
@@ -123,12 +144,12 @@ public class MapTool : EditorWindow
 
     string GetCategoryFromPath(GameObject prefab)
     {
-        string path = AssetDatabase.GetAssetPath(prefab); // Assets/Prefab/Map/...
+        string path = AssetDatabase.GetAssetPath(prefab); // Assets/Prefab/Map/Category/Prefab.prefab
         string[] parts = path.Split('/');
         int mapIndex = System.Array.IndexOf(parts, "Map");
         if (mapIndex >= 0 && mapIndex + 1 < parts.Length)
         {
-            return parts[mapIndex + 1];
+            return parts[mapIndex + 1]; // e.g., "Enemy", "Ground"
         }
         return "Uncategorized";
     }
