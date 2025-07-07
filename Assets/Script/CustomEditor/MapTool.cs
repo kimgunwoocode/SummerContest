@@ -59,7 +59,7 @@ public class MapTool : EditorWindow
             return;
         }
 
-        EditorGUILayout.LabelField("🧱 Map Prefabs", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Map Prefabs", EditorStyles.boldLabel);
         scroll = EditorGUILayout.BeginScrollView(scroll);
 
         foreach (var kvp in categorizedPrefabs)
@@ -75,11 +75,22 @@ public class MapTool : EditorWindow
                 {
                     if (prefab == null) continue;
 
+                    EditorGUILayout.BeginHorizontal();
+
                     string label = selectedPrefab == prefab ? $"▶ {prefab.name}" : prefab.name;
                     if (GUILayout.Button(label))
                     {
                         selectedPrefab = prefab;
                     }
+
+                    // 프리팹 위치로 이동 버튼
+                    if (GUILayout.Button("E", GUILayout.Width(30)))
+                    {
+                        EditorGUIUtility.PingObject(prefab);
+                        Selection.activeObject = prefab;
+                    }
+
+                    EditorGUILayout.EndHorizontal();
                 }
                 EditorGUI.indentLevel--;
             }
@@ -118,12 +129,11 @@ public class MapTool : EditorWindow
                 Undo.RegisterCreatedObjectUndo(placed, "Place Map Element");
                 placed.transform.position = gridPoint;
 
-                // 폴더 이름 → 카테고리 → 부모
                 string category = GetCategoryFromPath(selectedPrefab);
                 Transform parent = EnsureHierarchy(category);
                 placed.transform.SetParent(parent);
 
-                // 설치한 프리팹을 Inspector에서 자동 선택
+                // 설치한 프리팹 선택 상태로 유지
                 Selection.activeGameObject = placed;
 
                 selectedPrefab = null;
@@ -144,12 +154,12 @@ public class MapTool : EditorWindow
 
     string GetCategoryFromPath(GameObject prefab)
     {
-        string path = AssetDatabase.GetAssetPath(prefab); // Assets/Prefab/Map/Category/Prefab.prefab
+        string path = AssetDatabase.GetAssetPath(prefab); // Assets/Prefab/Map/...
         string[] parts = path.Split('/');
         int mapIndex = System.Array.IndexOf(parts, "Map");
         if (mapIndex >= 0 && mapIndex + 1 < parts.Length)
         {
-            return parts[mapIndex + 1]; // e.g., "Enemy", "Ground"
+            return parts[mapIndex + 1];
         }
         return "Uncategorized";
     }
