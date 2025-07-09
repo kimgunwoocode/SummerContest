@@ -12,8 +12,8 @@ TagManager:
   - Water
   - UI
   - ClimbWall
-  - 
-  - 
+  - Enemy
+  - Player
   - 
   - 
   - 
@@ -40,6 +40,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Enemy
+    uniqueID: 1519208913
     locked: 0
   m_RenderingLayers:
   - Default

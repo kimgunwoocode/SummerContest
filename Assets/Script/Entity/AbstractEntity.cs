@@ -11,6 +11,7 @@ public abstract class AbstractEntity : MonoBehaviour
     [SerializeField] protected float walkSpeed;
     [SerializeField] protected float runSpeed;
     [SerializeField] protected bool facingLeft;
+    [SerializeField] protected int facingDir; // Left:-1, Right:1
 
     [Header("Ground Check")]
     [SerializeField] protected float groundCheckDistance = 0.1f;
