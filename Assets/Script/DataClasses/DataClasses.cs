@@ -15,23 +15,3 @@ public abstract class ItemData : ScriptableObject
     public ItemType itemType;
     public abstract void OnGetItem();
 }
-
-
-public class MapData
-{
-    public List<GameObject> InteractionObjects = new();
-    public int SpawnPoint = -1;
-}
-
-public class PlayerData
-{
-    public Dictionary<string, bool> PlayerSkill = new();
-}
-
-public class SaveData
-{
-    public List<bool> isObjectsInteracted = new();
-    public int SpawnPoint = -1;
-
-    public int money = 0;
-}

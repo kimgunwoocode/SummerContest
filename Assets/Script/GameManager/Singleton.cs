@@ -1,8 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Singleton : MonoBehaviour
 {
     public static Singleton GameManager_Instance { get; private set; }
+    public GameDataManager GameDataManager;
+    public MapDataManager MapDataManager;
 
     private void Awake()
     {

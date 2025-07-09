@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PushObject : MonoBehaviour
 {
@@ -14,7 +14,6 @@ public class PushObject : MonoBehaviour
     {
         if (!isPlayerTouching)
         {
-            // ������ ���� ����
             rb.linearVelocity = Vector2.zero;
         }
     }
@@ -23,12 +22,10 @@ public class PushObject : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            // �÷��̾ ������ ��Ҵ��� Ȯ��
             foreach (ContactPoint2D contact in collision.contacts)
             {
                 Vector2 normal = contact.normal.normalized;
 
-                // normal�� ��(0,1) �Ǵ� �Ʒ�(0,-1)�� �ƴϸ� ������ ���� ��
                 if (Mathf.Abs(normal.x) > 0.5f)
                 {
                     isPlayerTouching = true;
@@ -36,7 +33,6 @@ public class PushObject : MonoBehaviour
                 }
             }
 
-            // ��/�Ʒ������� ���� ���
             isPlayerTouching = false;
         }
     }
