@@ -26,8 +26,7 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float jumpBufferTime;
     [SerializeField] private float coyoteTime = 0.1f;
     private float coyoteCounter;
-    private float jumpTimer;
-    private float jumpBufferTimer;
+    private float jumpBufferCounter;
     private bool isJumping;
 
     internal Vector2 currentInput;
@@ -46,15 +45,19 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     internal void OnJumpPerformed(InputAction.CallbackContext context) {
-        if (coyoteCounter > 0) {
+        jumpBufferCounter = jumpBufferTime;
+    }
+
+    private void Jump() {
+        if (coyoteCounter > 0 && jumpBufferCounter > 0) {
             rb.linearVelocityY = initialJumpForce;
+            jumpBufferCounter = 0f;
             isJumping = true;
         }
     }
 
     internal void OnJumpCanceled(InputAction.CallbackContext context) {
         coyoteCounter = 0f;
-        jumpTimer = 0;
     }
 
     internal Vector2 GetMoveValue() {
@@ -111,11 +114,14 @@ public class PlayerMovement : MonoBehaviour {
     private void FixedUpdate() {
         CheckGround();
         CheckWall();
+        Jump();
 
         if (isGrounded) {
             coyoteCounter = coyoteTime;
         } else {
             coyoteCounter -= Time.fixedDeltaTime;
         }
+
+        jumpBufferCounter -= Time.fixedDeltaTime;
     }
 }
