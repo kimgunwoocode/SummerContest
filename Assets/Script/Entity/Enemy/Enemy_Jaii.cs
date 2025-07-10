@@ -20,13 +20,13 @@ public class Enemy_Jaii : Enemy
     protected override void Update()
     {
         base.Update();
-        
+
         HandleCharge();
     }
 
     void HandleCharge()
     {
-        if(!isknockBack) return;
+        if(!isKnockBack) return;
 
         walkSpeed += speedUpRate * Time.deltaTime;
         if(walkSpeed >= runSpeed) walkSpeed = runSpeed;
@@ -44,14 +44,14 @@ public class Enemy_Jaii : Enemy
     void TurnAround()
     {
         walkSpeed = defaultSpeed;
-        isknockBack = false;
+        isKnockBack = false;
         rb.linearVelocity = Vector2.zero;
         Stun();
     }
 
     void WallHit()
     {
-        isknockBack = false;
+        isKnockBack = false;
         walkSpeed = defaultSpeed;
         // anim.SetBool("hitWall", true);
         rb.linearVelocity = new Vector2(knockbackForce.x * -facingDir, knockbackForce.y);
@@ -78,7 +78,7 @@ public class Enemy_Jaii : Enemy
 
         isPlayerDetected = Physics2D.Raycast(transform.position, Vector2.right * facingDir, detectionRange, playerLayer);
 
-        if(isPlayerDetected && isGrounded) isknockBack = true;
+        if(isPlayerDetected && isGrounded) isKnockBack = true;
     }
 
     protected override void OnDrawGizmos() 

@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -40,7 +42,6 @@ public class Enemy : AbstractEntity
     protected virtual void Start()
     {
         currentHP = maxHP;
-        // facingDir = facingLeft ? -1 : 1;
 
         if(sr.flipX && facingLeft)
         {
@@ -53,6 +54,8 @@ public class Enemy : AbstractEntity
 
     protected virtual void Update()
     {
+        if(isKnockBack) return;
+
         HandleCollision();
         HandleAnimator();
 
@@ -83,27 +86,45 @@ public class Enemy : AbstractEntity
         // anim.SetTrigger("attack");
     }
 
-    public virtual void TakeDamage(int damage)
+    public override void TakeDamage(int damage, int hitDir)
     {
         currentHP -= damage;
 
-        if(currentHP == 0) Die();
+        if(currentHP == 0)
+        {
+            Die();
+        }
         else
         {
             // anim.SetTrigger("hit");
-            Knockback();
+            Knockback(hitDir);
         }
     }
 
-    protected virtual void Die()
+    protected void Knockback(int hitDir)
     {
-        col.enabled = false;
-        damageTrigger.SetActive(false);
-        // anim.SetTrigger("die");
-        rb.linearVelocity = new Vector2(rb.linearVelocityX, deathImpact);
+        if(isKnockBack) return;
+
+        StartCoroutine(KnockbackRoutine());
+        rb.linearVelocity = new Vector2(knockbackForce.x * hitDir, knockbackForce.y);
+
+    }
+
+    protected override void Die()
+    {
         isDead = true;
 
+        col.enabled = false;
+        if(damageTrigger != null) damageTrigger.SetActive(false);
+        // anim.SetTrigger("die");
+
+        // 죽기 모션
+        rb.linearVelocity = new Vector2(rb.linearVelocityX, deathImpact);
         if (Random.Range(0, 100) < 50) deathRotationDir *= -1;
+
+        gameObject.SetActive(false); 
+
+        // 돈 드랍
     }
 
     void HandleDeathRotation()
@@ -125,11 +146,6 @@ public class Enemy : AbstractEntity
         facingLeft = !facingLeft;
     }
 
-    protected virtual void Knockback()
-    {
-
-    }
-
     protected virtual void HandleAnimator()
     {
         // anim.SetFloat("velocityX", rb.linearVelocityX);
@@ -147,5 +163,13 @@ public class Enemy : AbstractEntity
         Gizmos.DrawLine(transform.position, new Vector2(transform.position.x ,transform.position.y - groundCheckDistance));
         Gizmos.DrawLine(groundCheckerTransform.position, new Vector2(groundCheckerTransform.position.x, transform.position.y - groundCheckDistance));
         Gizmos.DrawLine(transform.position, new Vector2(transform.position.x + (wallCheckDistance * facingDir), transform.position.y));
+    }
+
+    IEnumerator KnockbackRoutine()
+    {
+        isKnockBack = true;
+
+        yield return new WaitForSeconds(knockbackDuration);
+        isKnockBack = false;
     }
 }

@@ -25,17 +25,24 @@ public abstract class AbstractEntity : MonoBehaviour
     // [SerializeField] protected LayerMask wallLayer;
     protected bool isWall;
 
-    [Header("knockback")]
+    [Header("Attack")]
+    [SerializeField] Transform attackCheck;
+    [SerializeField] float attackCheckRadius;
+
+    [Header("Knockback")]
     [SerializeField] protected Vector2 knockbackForce;
     [SerializeField] protected float knockbackDuration;
-    [SerializeField] protected bool isknockBack;
-    protected int knockbackDir; // -1 or 1
+    protected bool isKnockBack;
 
     public abstract void Attack();
-    protected abstract void Move();
 
-    // public abstract void TakeDamage(int damage);
-    // protected abstract void Die();
-    // protected abstract void DoKnockback();
+    /// <summary>
+    /// 공격을 맞았을 때 호출되는 함수
+    /// </summary>
+    /// <param name="damage">입는 데미지 양</param>
+    /// <param name="hitDir">공격 방향 (1: 오른쪽, -1: 왼쪽)</param>
+    public abstract void TakeDamage(int damage, int hitDir);
+    protected abstract void Move();
+    protected abstract void Die();
 
 }

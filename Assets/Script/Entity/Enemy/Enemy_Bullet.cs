@@ -13,10 +13,12 @@ public class Enemy_Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) 
     {
+        int knockbackDir = (transform.position.x < other.transform.position.x) ? 1 : -1;
+        
         if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             // player 공격
-            // other.GetComponent<PlayerManager>().Knockback();
+            // other.GetComponent<PlayerManager>().TakeDamage(1, knockbackDir);
             Debug.Log("플레이어가 도깨비불에 맞음");
             Destroy(gameObject);
         }
