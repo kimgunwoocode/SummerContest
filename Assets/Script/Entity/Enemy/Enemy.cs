@@ -6,8 +6,11 @@ public class Enemy : AbstractEntity
     [Header("Enemy Details")]
     [SerializeField] protected float idleDuration;
     [SerializeField] protected GameObject damageTrigger;
+
+    [Space]
+    [SerializeField] protected Transform player;
     [SerializeField] protected LayerMask playerLayer;
-    [SerializeField] protected bool canMove;
+    protected bool isPlayerDetected;
 
     [Header("Death Details")]
     [SerializeField] protected float deathImpact;
@@ -15,12 +18,18 @@ public class Enemy : AbstractEntity
     protected bool isDead;
     int deathRotationDir = 1;
 
-    
     // protected Animator anim;
     protected Rigidbody2D rb;
     protected Collider2D col;
     protected float idleTimer;
     protected bool isFrontGrounded;
+    SpriteRenderer sr => GetComponent<SpriteRenderer>();
+
+    [ContextMenu("Change Facing Direction")]
+    public void FlipDefaultFacingDir()
+    {
+        sr.flipX = !sr.flipX;
+    }
 
     protected virtual void Awake()
     {
@@ -28,19 +37,69 @@ public class Enemy : AbstractEntity
         col = GetComponent<Collider2D>();
         // anim = GetComponent<Animator>();
     }
+    protected virtual void Start()
+    {
+        currentHP = maxHP;
+        // facingDir = facingLeft ? -1 : 1;
+
+        if(sr.flipX && facingLeft)
+        {
+            sr.flipX = false;
+            Turn();
+        }
+
+        InvokeRepeating(nameof(UpdatePlayerRef), 0, 1);
+    }
 
     protected virtual void Update()
     {
+        HandleCollision();
+        HandleAnimator();
+
         idleTimer -= Time.deltaTime;
 
         if(isDead) HandleDeathRotation();
     }
 
-    public virtual void Die()
+    void UpdatePlayerRef()
+    {
+        if(player == null)
+        {
+            GameObject playerObj = GameObject.FindWithTag("Player");
+            if (playerObj != null)
+            {
+                player = playerObj.transform;
+            }
+        }
+    }
+
+    protected override void Move()
+    {
+        
+    }
+
+    public override void Attack() 
+    {
+        // anim.SetTrigger("attack");
+    }
+
+    public virtual void TakeDamage(int damage)
+    {
+        currentHP -= damage;
+
+        if(currentHP == 0) Die();
+        else
+        {
+            // anim.SetTrigger("hit");
+            Knockback();
+        }
+    }
+
+    protected virtual void Die()
     {
         col.enabled = false;
         damageTrigger.SetActive(false);
-        // anim.SetTrigger("hit");
+        // anim.SetTrigger("die");
         rb.linearVelocity = new Vector2(rb.linearVelocityX, deathImpact);
         isDead = true;
 
@@ -52,27 +111,28 @@ public class Enemy : AbstractEntity
         transform.Rotate(0, 0, deathRotationSpeed * deathRotationDir * Time.deltaTime);
     }
 
-    public override void Attack() 
-    {
-        
-    }
-
-    protected override void Move()
-    {
-        
-    }
-
+    /*
     protected virtual void HandleTurn(float x)
     {
         if (x < 0 && !facingLeft || x > 0 && facingLeft)
             Turn();
-    }
+    }*/
 
     protected virtual void Turn()
     {
         facingDir *= -1;
         transform.Rotate(0, 180, 0);
         facingLeft = !facingLeft;
+    }
+
+    protected virtual void Knockback()
+    {
+
+    }
+
+    protected virtual void HandleAnimator()
+    {
+        // anim.SetFloat("velocityX", rb.linearVelocityX);
     }
 
     protected virtual void HandleCollision()

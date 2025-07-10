@@ -3,15 +3,15 @@ using UnityEngine;
 public abstract class AbstractEntity : MonoBehaviour
 {
     [Header("Entity's life info")]
-    [SerializeField] protected float maxHP;
-    [SerializeField] protected float currentHP;
+    [SerializeField] protected int maxHP;
+    [SerializeField] protected int currentHP;
     [SerializeField] protected float attackRate;
 
     [Header("Movement System")]
     [SerializeField] protected float walkSpeed;
     [SerializeField] protected float runSpeed;
-    [SerializeField] protected bool facingLeft;
-    [SerializeField] protected int facingDir; // Left:-1, Right:1
+    protected bool facingLeft = true;
+    protected int facingDir = -1; // Left:-1, Right:1
 
     [Header("Ground Check")]
     [SerializeField] protected float groundCheckDistance = 0.1f;
@@ -21,8 +21,8 @@ public abstract class AbstractEntity : MonoBehaviour
 
     [Header("Wall Check")]
     [SerializeField] protected float wallCheckDistance;
-    [SerializeField] protected Transform wallCheckerTransform;
-    [SerializeField] protected LayerMask wallLayer;
+    // [SerializeField] protected Transform wallCheckerTransform;
+    // [SerializeField] protected LayerMask wallLayer;
     protected bool isWall;
 
     [Header("knockback")]
@@ -34,7 +34,7 @@ public abstract class AbstractEntity : MonoBehaviour
     public abstract void Attack();
     protected abstract void Move();
 
-    // public abstract void TakeDamage(float damage);
+    // public abstract void TakeDamage(int damage);
     // protected abstract void Die();
     // protected abstract void DoKnockback();
 

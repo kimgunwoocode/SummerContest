@@ -7,12 +7,9 @@ public class Enemy_Yoko : Enemy
     {
         base.Update();
 
-        // anim.SetFloat("velocityX", rb.linearVelocityX);
-
         if(isDead) return;
 
         Move();
-        HandleCollision();
         if(isGrounded) Turn();
     }
 
