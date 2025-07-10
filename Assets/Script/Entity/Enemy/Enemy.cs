@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 public class Enemy : AbstractEntity
 {
@@ -9,7 +11,7 @@ public class Enemy : AbstractEntity
     [SerializeField] protected float idleDuration;
     [SerializeField] protected GameObject damageTrigger;
 
-    [Space]
+    [Header("Player Details")]
     [SerializeField] protected Transform player;
     [SerializeField] protected LayerMask playerLayer;
     protected bool isPlayerDetected;
@@ -26,6 +28,7 @@ public class Enemy : AbstractEntity
     protected float idleTimer;
     protected bool isFrontGrounded;
     SpriteRenderer sr => GetComponent<SpriteRenderer>();
+    Color defaultColor;
 
     [ContextMenu("Change Facing Direction")]
     public void FlipDefaultFacingDir()
@@ -42,8 +45,9 @@ public class Enemy : AbstractEntity
     protected virtual void Start()
     {
         currentHP = maxHP;
+        defaultColor = sr.color;
 
-        if(sr.flipX && facingLeft)
+        if (sr.flipX && facingLeft)
         {
             sr.flipX = false;
             Turn();
@@ -54,14 +58,21 @@ public class Enemy : AbstractEntity
 
     protected virtual void Update()
     {
-        if(isKnockBack) return;
-
+        if (isDead)
+        {
+            HandleDeathRotation();
+            return;
+        }
+            
+        if (Keyboard.current.kKey.wasPressedThisFrame)
+        {
+            TakeDamage(1, -facingDir);
+        }
+        
         HandleCollision();
         HandleAnimator();
 
         idleTimer -= Time.deltaTime;
-
-        if(isDead) HandleDeathRotation();
     }
 
     void UpdatePlayerRef()
@@ -88,6 +99,8 @@ public class Enemy : AbstractEntity
 
     public override void TakeDamage(int damage, int hitDir)
     {
+        if (isKnockBack) return;
+
         currentHP -= damage;
 
         if(currentHP == 0)
@@ -101,28 +114,26 @@ public class Enemy : AbstractEntity
         }
     }
 
-    protected void Knockback(int hitDir)
+    void Knockback(int hitDir)
     {
-        if(isKnockBack) return;
-
+        sr.color = Color.red;
         StartCoroutine(KnockbackRoutine());
-        rb.linearVelocity = new Vector2(knockbackForce.x * hitDir, knockbackForce.y);
 
+        rb.linearVelocity = new Vector2(knockbackForce.x * hitDir, knockbackForce.y);
     }
 
     protected override void Die()
     {
         isDead = true;
-
         col.enabled = false;
-        if(damageTrigger != null) damageTrigger.SetActive(false);
+        if (damageTrigger != null) damageTrigger.SetActive(false);
         // anim.SetTrigger("die");
 
-        // 죽기 모션
-        rb.linearVelocity = new Vector2(rb.linearVelocityX, deathImpact);
+        rb.linearVelocity = new Vector2(0, deathImpact);
         if (Random.Range(0, 100) < 50) deathRotationDir *= -1;
 
-        gameObject.SetActive(false); 
+        // 애니메이션에서 실행
+        // gameObject.SetActive(false);
 
         // 돈 드랍
     }
@@ -171,5 +182,6 @@ public class Enemy : AbstractEntity
 
         yield return new WaitForSeconds(knockbackDuration);
         isKnockBack = false;
+        GetComponent<SpriteRenderer>().color = defaultColor;
     }
 }

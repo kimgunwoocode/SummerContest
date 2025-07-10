@@ -11,10 +11,11 @@ public class Enemy_FenFire : Enemy
  
     float lastTimeAttacked;
 
-
     protected override void Update()
     {
         base.Update();
+
+        if (isDead || isKnockBack) return;
 
         bool canAttack = Time.time > lastTimeAttacked + attackRate;
 
@@ -37,6 +38,4 @@ public class Enemy_FenFire : Enemy
 
         Destroy(newBullet.gameObject, bulletLifetime);
     }
-
-    
 }

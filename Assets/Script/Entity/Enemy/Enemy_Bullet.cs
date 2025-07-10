@@ -18,8 +18,7 @@ public class Enemy_Bullet : MonoBehaviour
         if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             // player 공격
-            // other.GetComponent<PlayerManager>().TakeDamage(1, knockbackDir);
-            Debug.Log("플레이어가 도깨비불에 맞음");
+            // other.GetComponent<PlayerManager>().TakeDamage(1, hitDir);
             Destroy(gameObject);
         }
 

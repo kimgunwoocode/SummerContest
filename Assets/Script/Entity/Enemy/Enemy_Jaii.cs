@@ -7,69 +7,60 @@ public class Enemy_Jaii : Enemy
     [SerializeField] float detectionRange;
 
     float defaultSpeed;
-    Color defaultColor;
+    bool canMove;
 
     protected override void Start()
     {
         base.Start();
 
         defaultSpeed = walkSpeed;
-        defaultColor = GetComponent<SpriteRenderer>().color;
     }
 
     protected override void Update()
     {
         base.Update();
 
+        if (isDead || isKnockBack) return;
+
         HandleCharge();
     }
 
     void HandleCharge()
     {
-        if(!isKnockBack) return;
+        if(!canMove || idleTimer > 0) return;
 
         walkSpeed += speedUpRate * Time.deltaTime;
         if(walkSpeed >= runSpeed) walkSpeed = runSpeed;
 
         rb.linearVelocity = new Vector2(walkSpeed * facingDir, rb.linearVelocityY);
 
-        if(isWall) WallHit();
+        if(isWall) HandleWallHit();
 
-        if(!isFrontGrounded)
-        {
-            TurnAround();
-        }
+        if(!isFrontGrounded) TurnAround();
+    }
+
+    void HandleWallHit()
+    {
+        canMove = false;
+        idleTimer = idleDuration;
+        // anim.SetBool("hitWall", true);
+        ResetSpeed();
+        TakeDamage(0, -facingDir);
+        Turn();
     }
 
     void TurnAround()
     {
-        walkSpeed = defaultSpeed;
-        isKnockBack = false;
+        ResetSpeed();
+
+        idleTimer = idleDuration;
         rb.linearVelocity = Vector2.zero;
-        Stun();
+        Turn();
     }
-
-    void WallHit()
+    
+    void ResetSpeed()
     {
-        isKnockBack = false;
         walkSpeed = defaultSpeed;
-        // anim.SetBool("hitWall", true);
-        rb.linearVelocity = new Vector2(knockbackForce.x * -facingDir, knockbackForce.y);
-        Stun();
-    }
-
-    // 기절 확인용 임시 코드
-    void Stun()
-    {
-        // anim.SetBool("hitWall", false);
-        GetComponent<SpriteRenderer>().color = Color.red;
-        Invoke(nameof(Turn), knockbackDuration);
-        Invoke(nameof(ResetColor), knockbackDuration);
-    }
-
-    void ResetColor()
-    {
-        GetComponent<SpriteRenderer>().color = defaultColor;
     }
 
     protected override void HandleCollision()
@@ -78,13 +69,13 @@ public class Enemy_Jaii : Enemy
 
         isPlayerDetected = Physics2D.Raycast(transform.position, Vector2.right * facingDir, detectionRange, playerLayer);
 
-        if(isPlayerDetected && isGrounded) isKnockBack = true;
+        if (isPlayerDetected && isGrounded) canMove = true;
     }
 
     protected override void OnDrawGizmos() 
     {
         base.OnDrawGizmos();
-
+        Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, new Vector2(transform.position.x + (detectionRange * facingDir), transform.position.y));
     }
 }

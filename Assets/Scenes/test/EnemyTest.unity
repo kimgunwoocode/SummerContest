@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b88e8cf6de28f784c91e630a35a677d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 0
+  maxHP: 3
   currentHP: 0
   attackRate: 0
   walkSpeed: 2.5
@@ -359,17 +359,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   wallCheckDistance: 0.6
-  knockbackForce: {x: 0, y: 0}
-  knockbackDuration: 0
-  isknockBack: 0
+  attackCheck: {fileID: 0}
+  attackCheckRadius: 0
+  knockbackForce: {x: 2, y: 2}
+  knockbackDuration: 0.5
   idleDuration: 0.5
   damageTrigger: {fileID: 1433951036}
   player: {fileID: 0}
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   deathImpact: 5
   deathRotationSpeed: 150
+  detectionRange: 7
+  crouchDuration: 1
+  jumpForce: {x: 10, y: 10}
 --- !u!61 &326229885
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1285,7 +1289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49909570239b7c4da7b8256adb03041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 0
+  maxHP: 3
   currentHP: 0
   attackRate: 0
   walkSpeed: 7
@@ -1296,10 +1300,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   wallCheckDistance: 0.55
-  knockbackForce: {x: 2, y: 6}
-  knockbackDuration: 1.5
-  isknockBack: 0
-  idleDuration: 1.5
+  attackCheck: {fileID: 0}
+  attackCheckRadius: 0
+  knockbackForce: {x: 3, y: 4}
+  knockbackDuration: 0.5
+  idleDuration: 1
   damageTrigger: {fileID: 452810271}
   player: {fileID: 0}
   playerLayer:
@@ -1854,7 +1859,7 @@ Transform:
   m_GameObject: {fileID: 1772716238}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.13, y: -0.303, z: 0}
+  m_LocalPosition: {x: 4.07, y: -0.303, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1875,7 +1880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940cc91669ca9604788ebfe59acc592d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 0
+  maxHP: 3
   currentHP: 0
   attackRate: 1
   walkSpeed: 0
@@ -1886,17 +1891,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   wallCheckDistance: 0.6
-  knockbackForce: {x: 0, y: 0}
-  knockbackDuration: 0
-  isknockBack: 0
+  attackCheck: {fileID: 0}
+  attackCheckRadius: 0
+  knockbackForce: {x: 2, y: 2}
+  knockbackDuration: 0.5
   idleDuration: 0
   damageTrigger: {fileID: 1734981403}
   player: {fileID: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
-  deathImpact: 0
-  deathRotationSpeed: 0
+  deathImpact: 5
+  deathRotationSpeed: 150
   bulletPrefab: {fileID: 2687278638108176264, guid: cf69c8294fcf3784d903fb2f5174c47f, type: 3}
   bulletPoint: {fileID: 813262630}
   bulletSpeed: 5
