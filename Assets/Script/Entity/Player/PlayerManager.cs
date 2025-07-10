@@ -77,6 +77,13 @@ public class PlayerManager : AbstractEntity {
     }
 
 
+    public override void TakeDamage(int damage, int hitDir){
+    }
+
+    protected override void Die(){
+    }
+
+
     private void CheckGround() {
         isGrounded = Physics2D.OverlapCircle(groundCheckerTransform.position, groundCheckDistance, groundLayer);
         rb.gravityScale = isGrounded ? 2 : 4;
