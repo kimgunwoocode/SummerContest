@@ -1,5 +1,100 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &527911902168952524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5667706174442721755}
+  m_Layer: 0
+  m_Name: PlayerWallChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5667706174442721755
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527911902168952524}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2337371593751010146}
+  - {fileID: 5197217326988671265}
+  m_Father: {fileID: 5777702738308349266}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3207891705118451493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2337371593751010146}
+  m_Layer: 0
+  m_Name: Point1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2337371593751010146
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3207891705118451493}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5667706174442721755}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6489927487539498949
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5197217326988671265}
+  m_Layer: 0
+  m_Name: Point2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5197217326988671265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6489927487539498949}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5667706174442721755}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6691192033956733874
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,10 +137,11 @@ GameObject:
   - component: {fileID: 5777702738308349266}
   - component: {fileID: 2900726938375067608}
   - component: {fileID: 358655649606815625}
-  - component: {fileID: 2052714003710742146}
   - component: {fileID: 7895376963560531384}
   - component: {fileID: 2986611700748802614}
-  m_Layer: 0
+  - component: {fileID: 2704439519942878002}
+  - component: {fileID: 170947980172340280}
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -66,6 +162,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3366859602332449523}
+  - {fileID: 5667706174442721755}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2900726938375067608
@@ -153,40 +250,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &2052714003710742146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7481937111643220208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 461947d47eb422a4ca2fb3e613981d76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHP: 0
-  currentHP: 0
-  attackRate: 0
-  walkSpeed: 250
-  runSpeed: 0
-  facingLeft: 0
-  groundCheckDistance: 0.1
-  groundCheckerTransform: {fileID: 3366859602332449523}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  wallCheckDistance: 0
-  wallCheckerTransform: {fileID: 0}
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  knockbackForce: {x: 0, y: 0}
-  knockbackDuration: 0
-  isknockBack: 0
-  initialJumpForce: 10
-  jumpMultipler: 2.3
-  maxJumpTime: 3
 --- !u!50 &7895376963560531384
 Rigidbody2D:
   serializedVersion: 5
@@ -260,3 +323,49 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2704439519942878002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7481937111643220208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 461947d47eb422a4ca2fb3e613981d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 0
+  currentHP: 0
+  attackRate: 0
+  wallCheckDistance: 0
+  knockbackForce: {x: 0, y: 0}
+  knockbackDuration: 0
+  isknockBack: 0
+--- !u!114 &170947980172340280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7481937111643220208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87f432403cb8eb4eab34e3e0ca4e9fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 250
+  wallCheckDistance: 0.55
+  wallRaycastPoints:
+  - {fileID: 2337371593751010146}
+  - {fileID: 5197217326988671265}
+  initialJumpForce: 10
+  jumpMultipler: 2
+  maxJumpTime: 3
+  groundCheckDistance: 0.1
+  groundCheckerTransform: {fileID: 3366859602332449523}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  jumpBufferTime: 0.3
+  coyoteTime: 0.25

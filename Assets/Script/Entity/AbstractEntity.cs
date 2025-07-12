@@ -7,17 +7,8 @@ public abstract class AbstractEntity : MonoBehaviour
     [SerializeField] protected int currentHP;
     [SerializeField] protected float attackRate;
 
-    [Header("Movement System")]
-    [SerializeField] protected float walkSpeed;
-    [SerializeField] protected float runSpeed;
     protected bool facingLeft = true;
     protected int facingDir = -1; // Left:-1, Right:1
-
-    [Header("Ground Check")]
-    [SerializeField] protected float groundCheckDistance = 0.1f;
-    [SerializeField] protected Transform groundCheckerTransform;
-    [SerializeField] protected LayerMask groundLayer;
-    protected bool isGrounded;
 
     [Header("Wall Check")]
     [SerializeField] protected float wallCheckDistance;
