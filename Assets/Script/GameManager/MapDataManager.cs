@@ -14,7 +14,7 @@ public class MapDataManager : MonoBehaviour
 {
     public MapData GameManager_MapData { get; private set; }
 
-    public void StartGame_LoadData_from_SaveFile(MapData MapData)
+    public void StartGame_LoadData(MapData MapData)
     {
 
     }
