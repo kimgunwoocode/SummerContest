@@ -63,17 +63,15 @@ public class Pause : MonoBehaviour
         if (isPause == true)
         {
             Time.timeScale = 1f;                      // 타임스케일
+
             PausePanel.SetActive(false);              // 퍼즈 UI 화면 비활성화
-            Cursor.visible = false;                   // 커서 숨기기
-            Cursor.lockState = CursorLockMode.Locked; // 커서 화면 중앙 고정
         }
         else
         {
             Time.timeScale = 0f;                      // 타임스케일
+
             PausePanel.SetActive(true);               // 퍼즈 UI 화면 활성화
             ClickButton(CharacterPanel, CharacterButton); // 캐릭터 정보창 보이게 초기화
-            Cursor.visible = true;                    // 커서 보이기
-            Cursor.lockState = CursorLockMode.None;   // 커서 자유롭게 이동
         }
         isPause = !isPause;
     }
