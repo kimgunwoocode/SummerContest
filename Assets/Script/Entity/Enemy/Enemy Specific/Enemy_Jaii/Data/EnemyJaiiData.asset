@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 082730b636578d446b2451e1e72bdfba, type: 3}
+  m_Name: EnemyJaiiData
+  m_EditorClassIdentifier: 
+  maxHP: 3
+  wallCheckDistance: 0.3
+  ledgeCheckDistance: 0.6
+  groundCkeckRadius: 0.3
+  minPlayerCheckDistance: 6
+  maxPlayerCheckDistance: 7
+  closeRangeActionDistance: 0.64
+  hitParticle: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256

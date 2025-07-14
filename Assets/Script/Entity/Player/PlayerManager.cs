@@ -54,6 +54,7 @@ public class PlayerManager : AbstractEntity {
         //rb.linearVelocity = movement.ApplyMove();
     }
 
+    /*
     public override void TakeDamage(int damage, int hitDir){
 
     }
@@ -65,7 +66,7 @@ public class PlayerManager : AbstractEntity {
     private void Knockback(int dir) {
 
     }
-
+    */
 
     private void Update() {
     }

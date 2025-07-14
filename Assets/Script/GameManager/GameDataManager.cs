@@ -6,8 +6,9 @@ public class PlayerData
 {
     public int MaxHP; // 플레이어 최대 체력
     public int CurrentHP; // 플레이어 현재 체력
-    public float BressGauge = 0; // 브레스 게이지
-    public int Money = 0; // 보유중인 돈
+    public float MaxBreathGauge; // 최대 브레스 게이지
+    public float CurrentBreathGauge; // 브레스 게이지
+    public int Money; // 보유중인 돈
     public Dictionary<string, bool> PlayerSkill = new();// 해금된 플레이어 스킬 <스킬ID, 해금 여부>
     public List<int> GettedItems = new(); // 보유중인 아이템
 }
@@ -19,7 +20,8 @@ public class GameDataManager : MonoBehaviour
     //실제 게임 플레이 중에 접근할 변수들 :
     public int MaxHP;
     public int CurrentHP;
-    public float BressGauge;
+    public float MaxBreathGauge;
+    public float CurrentBreathGauge;
     public int Money = 0;
     public Dictionary<string, bool> PlayerSkill = new();
     public List<int> GettedItems = new();
@@ -35,7 +37,8 @@ public class GameDataManager : MonoBehaviour
     {
         MaxHP = GameManager_PlayerData.MaxHP;
         CurrentHP = GameManager_PlayerData.CurrentHP;
-        BressGauge = GameManager_PlayerData.BressGauge;
+        MaxBreathGauge = GameManager_PlayerData.MaxBreathGauge;
+        CurrentBreathGauge = GameManager_PlayerData.CurrentBreathGauge;
         Money = GameManager_PlayerData.Money;
         PlayerSkill = GameManager_PlayerData.PlayerSkill;
         GettedItems = GameManager_PlayerData.GettedItems;
@@ -44,7 +47,8 @@ public class GameDataManager : MonoBehaviour
     {
         GameManager_PlayerData.MaxHP = MaxHP;
         GameManager_PlayerData.CurrentHP = CurrentHP;
-        GameManager_PlayerData.BressGauge = BressGauge;
+        GameManager_PlayerData.MaxBreathGauge = MaxBreathGauge;
+        GameManager_PlayerData.CurrentBreathGauge = CurrentBreathGauge;
         GameManager_PlayerData.Money = Money;
         GameManager_PlayerData.PlayerSkill = PlayerSkill;
         GameManager_PlayerData.GettedItems = GettedItems;
