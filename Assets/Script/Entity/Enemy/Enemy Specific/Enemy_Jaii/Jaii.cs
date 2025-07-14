@@ -25,8 +25,6 @@ public class Jaii : EnemyEntity
     [Space]
     [SerializeField] Transform meleeAttackPosition;
 
-    bool isStunned;
-
     public override void Start()
     {
         base.Start();

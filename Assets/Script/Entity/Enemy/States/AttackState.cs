@@ -6,7 +6,6 @@ public class AttackState : State
 
     protected bool isAnimationFinished;
     protected bool isPlayerMinRange;
-    // protected bool isPlayerMaxRange;
 
     public AttackState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition) : base(enemy, stateMachine, animBoolName)
     {
@@ -18,7 +17,6 @@ public class AttackState : State
         base.DoCheck();
 
         isPlayerMinRange = enemy.CheckPlayerMinRange();
-        // isPlayerMinRange = enemy.CheckPlayerMaxRange();
     }
 
     public override void Enter()
