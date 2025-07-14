@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Singleton : MonoBehaviour
 {
@@ -22,6 +24,15 @@ public class Singleton : MonoBehaviour
         }
     }
 
+    public T Get<T>() where T : Component
+    {
+        if (scriptMap.TryGetValue(typeof(T), out var comp))
+            return comp as T;
+
+        Debug.LogWarning($"{typeof(T).Name}이 등록되지 않았습니다.");
+        return null;
+    }
+
 
     private void BuildDictionary()
     {
@@ -38,12 +49,27 @@ public class Singleton : MonoBehaviour
         }
     }
 
-    public T Get<T>() where T : Component
+#if UNITY_EDITOR
+    [ContextMenu("ScriptEntries 채우기")]
+    private void FillScriptEntriesEditor()
     {
-        if (scriptMap.TryGetValue(typeof(T), out var comp))
-            return comp as T;
-
-        Debug.LogWarning($"{typeof(T).Name}이 등록되지 않았습니다.");
-        return null;
+        FillScriptEntries();
     }
+#endif
+    public void FillScriptEntries()
+    {
+        Component[] allComponents = GetComponents<Component>();
+        scriptEntries.Clear();
+
+        foreach (var comp in allComponents)
+        {
+            if (comp is Transform || comp is Singleton) continue;
+
+            if (!scriptEntries.Contains(comp))
+            {
+                scriptEntries.Add(comp);
+            }
+        }
+    }
+
 }
