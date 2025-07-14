@@ -5,8 +5,6 @@ public class JumpState : State
 {
     protected D_JumpState stateData;
 
-    // protected Transform player;
-
     protected bool isGrounded;
     protected bool isJumpDone;
 

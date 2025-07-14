@@ -30,7 +30,6 @@ public class StunState : State
 
         isStunTimeOver = false;
         isMovementStopped = false;
-        // enemy.SetVelocity(stateData.stunKnockbackSpeed, stateData.stunKnockbackAngle, enemy.lastDamegeDirection);
     }
 
     public override void Exit()
@@ -46,12 +45,6 @@ public class StunState : State
         {
             isStunTimeOver = true;
         }
-
-        // if(isGround && Time.time >= startTime + stateData.stunKnockbackTime && !isMovementStopped)
-        // {
-        //     isMovementStopped = true;
-        //     enemy.SetVelocity(0f);
-        // }
     }
 
     public override void PhysicsUpdate()

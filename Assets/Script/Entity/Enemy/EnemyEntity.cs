@@ -88,12 +88,6 @@ public class EnemyEntity : MonoBehaviour
         rb.linearVelocity = velocityWorkspace;
     }
 
-    public virtual void DamageHop(float velocity)
-    {
-        velocityWorkspace.Set(rb.linearVelocityX, velocity);
-        rb.linearVelocity = velocityWorkspace;
-    }
-
     public virtual void TakeDamage(int damageAmount, Vector2 attackerPosition)
     {
         lastDamegeTime = Time.time;

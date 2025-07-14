@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8932541025503759862, guid: 107762dc330ed3248807ade2923ac5f8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.68256
+      value: -2.17
       objectReference: {fileID: 0}
     - target: {fileID: 8932541025503759862, guid: 107762dc330ed3248807ade2923ac5f8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -892,6 +892,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_FenFire
       objectReference: {fileID: 0}
+    - target: {fileID: 8671126591901983492, guid: 3af2776313a2c0e419f5295c5f1c0423, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1025,8 +1029,8 @@ Transform:
   m_GameObject: {fileID: 1244046661}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.99, y: 2.24, z: 0}
-  m_LocalScale: {x: 7.861802, y: 0.82476777, z: 1}
+  m_LocalPosition: {x: -2.06, y: 2.24, z: 0}
+  m_LocalScale: {x: 10.377579, y: 0.82476777, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1073,6 +1077,10 @@ PrefabInstance:
     - target: {fileID: 2747266690530510597, guid: 2f3f1180db3cde2448110c5c57c7ef21, type: 3}
       propertyPath: m_Name
       value: Enemy_Jaii
+      objectReference: {fileID: 0}
+    - target: {fileID: 2747266690530510597, guid: 2f3f1180db3cde2448110c5c57c7ef21, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4623705016764422937, guid: 2f3f1180db3cde2448110c5c57c7ef21, type: 3}
       propertyPath: m_LocalPosition.x

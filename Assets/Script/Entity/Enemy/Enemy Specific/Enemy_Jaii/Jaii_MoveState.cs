@@ -9,21 +9,6 @@ public class Jaii_MoveState : MoveState
         this.jaii = jaii;
     }
 
-    public override void DoCheck()
-    {
-        base.DoCheck();
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
     public override void LogicUpdate()
     {
         base.LogicUpdate();
@@ -40,10 +25,5 @@ public class Jaii_MoveState : MoveState
         {
             stateMachine.ChangeState(jaii.lookForPlayerState);
         }
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 }
