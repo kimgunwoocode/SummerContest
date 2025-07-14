@@ -26,14 +26,6 @@ public abstract class AbstractEntity : MonoBehaviour
     protected bool isKnockBack;
 
     public abstract void Attack();
-
-    /// <summary>
-    /// 공격을 맞았을 때 호출되는 함수
-    /// </summary>
-    /// <param name="damage">입는 데미지 양</param>
-    /// <param name="hitDir">공격 방향 (1: 오른쪽, -1: 왼쪽)</param>
-    public abstract void TakeDamage(int damage, int hitDir);
     protected abstract void Move();
-    protected abstract void Die();
 
 }
