@@ -351,6 +351,11 @@ MonoBehaviour:
   maxHP: 3
   currentHP: 0
   attackRate: 0
+  wallCheckDistance: 0.6
+  attackCheck: {fileID: 0}
+  attackCheckRadius: 0
+  knockbackForce: {x: 2, y: 2}
+  knockbackDuration: 0.5
   walkSpeed: 2.5
   runSpeed: 0
   groundCheckDistance: 0.7
@@ -358,11 +363,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  wallCheckDistance: 0.6
-  attackCheck: {fileID: 0}
-  attackCheckRadius: 0
-  knockbackForce: {x: 2, y: 2}
-  knockbackDuration: 0.5
   idleDuration: 0.5
   damageTrigger: {fileID: 1433951036}
   player: {fileID: 0}
@@ -1179,6 +1179,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1772716243}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1409008229 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4239448309422553924, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
+  m_PrefabInstance: {fileID: 6890096988812018242}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1433951036
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,6 +1297,11 @@ MonoBehaviour:
   maxHP: 3
   currentHP: 0
   attackRate: 0
+  wallCheckDistance: 0.55
+  attackCheck: {fileID: 0}
+  attackCheckRadius: 0
+  knockbackForce: {x: 3, y: 4}
+  knockbackDuration: 0.5
   walkSpeed: 7
   runSpeed: 10
   groundCheckDistance: 0.7
@@ -1299,11 +1309,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  wallCheckDistance: 0.55
-  attackCheck: {fileID: 0}
-  attackCheckRadius: 0
-  knockbackForce: {x: 3, y: 4}
-  knockbackDuration: 0.5
   idleDuration: 1
   damageTrigger: {fileID: 452810271}
   player: {fileID: 0}
@@ -1883,6 +1888,11 @@ MonoBehaviour:
   maxHP: 3
   currentHP: 0
   attackRate: 1
+  wallCheckDistance: 0.6
+  attackCheck: {fileID: 0}
+  attackCheckRadius: 0
+  knockbackForce: {x: 2, y: 2}
+  knockbackDuration: 0.5
   walkSpeed: 0
   runSpeed: 0
   groundCheckDistance: 0.7
@@ -1890,11 +1900,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  wallCheckDistance: 0.6
-  attackCheck: {fileID: 0}
-  attackCheckRadius: 0
-  knockbackForce: {x: 2, y: 2}
-  knockbackDuration: 0.5
   idleDuration: 0
   damageTrigger: {fileID: 1734981403}
   player: {fileID: 0}
@@ -1915,6 +1920,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3431744776875554849, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
+      propertyPath: walkSpeed
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 3431744776875554849, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
+      propertyPath: coyoteTime
+      value: 0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3431744776875554849, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
+      propertyPath: wallCheckDistance
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3431744776875554849, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
+      propertyPath: wallRaycastPoints.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3431744776875554849, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
+      propertyPath: 'wallRaycastPoints.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1409008229}
     - target: {fileID: 5777702738308349266, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.57

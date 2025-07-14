@@ -3,26 +3,35 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
 public class PlayerManager : AbstractEntity {
-
     private PlayerInput_Action inputActions;
     private Rigidbody2D rb;
-    private Vector2 initialGravity;
 
     private PlayerMovement movement;
+    private GameDataManager data;
 
+    private int maxHealth;
+    private int currentHealth;
+    
 
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         movement = GetComponent<PlayerMovement>();
 
-        initialGravity = Physics2D.gravity;
         inputActions = new PlayerInput_Action();
 
         inputActions.Player.Jump.performed += movement.OnJumpPerformed;
         inputActions.Player.Jump.canceled += movement.OnJumpCanceled;
         inputActions.Player.Move.performed += movement.OnMovePerformed;
         inputActions.Player.Move.canceled += movement.OnMoveCanceled;
+    }
+
+    private void Start() {
+        data = Singleton.GameManager_Instance.Get<GameDataManager>();
+        if (data == null) Debug.LogError("Can't found GameDataManager at GameManager");
+
+        maxHealth = data.MaxHP;
+        currentHealth = maxHealth;
     }
 
     private void OnEnable() {
@@ -42,12 +51,19 @@ public class PlayerManager : AbstractEntity {
     }
 
     protected override void Move() {
-        rb.linearVelocity = movement.GetMoveValue();
+        //rb.linearVelocity = movement.ApplyMove();
     }
 
     public override void TakeDamage(int damage, int hitDir){
+
     }
+
     protected override void Die(){
+
+    }
+
+    private void Knockback(int dir) {
+
     }
 
 
@@ -57,6 +73,5 @@ public class PlayerManager : AbstractEntity {
 
     private void FixedUpdate() {
         Move();
-        //Jump();
     }
 }
