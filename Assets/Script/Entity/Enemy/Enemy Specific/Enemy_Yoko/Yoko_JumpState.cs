@@ -15,8 +15,9 @@ public class Yoko_JumpState : JumpState
     {
         base.Enter();
 
-        float distanceFromPlayer =  Math.Abs(yoKo.player.position.x - enemy.aliveGO.transform.position.x) - stateData.jumpOffset;
+        float distanceFromPlayer = Math.Abs(yoKo.player.position.x - enemy.aliveGO.transform.position.x) - stateData.jumpOffset;
         enemy.rb.AddForce(new Vector2(distanceFromPlayer * enemy.facingDir, stateData.jumpHeight), ForceMode2D.Impulse);
+        // 포물선 연산 시뮬레이션 활용
     }
     
     protected override void OnJumpLanding()

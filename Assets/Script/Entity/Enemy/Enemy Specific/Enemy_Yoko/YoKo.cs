@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class YoKo : EnemyEntity
 {
-   public Yoko_IdleState idleState {get; private set;}
+    public Yoko_IdleState idleState {get; private set;}
     public Yoko_MoveState moveState {get; private set;}
     public Yoko_PlayerDetected playerDetectedState {get; private set;}
     public Yoko_JumpState jumpState {get; private set;}
@@ -31,6 +31,7 @@ public class YoKo : EnemyEntity
     {
         base.Start();
 
+        // 컴포넌트로 옮기기
         idleState = new Yoko_IdleState(this, stateMachine, "idle", idleStateData, this);
         moveState = new Yoko_MoveState(this, stateMachine, "move", moveStateData, this);
         playerDetectedState = new Yoko_PlayerDetected(this, stateMachine, "playerDetected", playerDetectedData, this);

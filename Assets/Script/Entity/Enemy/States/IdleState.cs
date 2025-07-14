@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class IdleState : State
 {
+    //SerializeField 사용, D_Idle 제거
+    //[SerializeField] float minIdleTime = 1f;
+    //[SerializeField] float maxIdleTime = 1f;
+
     protected D_IdleState stateData;
 
     protected bool flipAfterIdle;
