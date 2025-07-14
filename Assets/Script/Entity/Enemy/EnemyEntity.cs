@@ -94,11 +94,11 @@ public class EnemyEntity : MonoBehaviour
         rb.linearVelocity = velocityWorkspace;
     }
 
-    public virtual void TakeDamage(int demageAmount, Vector2 attackerPosition)
+    public virtual void TakeDamage(int damageAmount, Vector2 attackerPosition)
     {
         lastDamegeTime = Time.time;
 
-        currentHP -= demageAmount;
+        currentHP -= damageAmount;
 
         if(enemyData.hitParticle != null)
         {
