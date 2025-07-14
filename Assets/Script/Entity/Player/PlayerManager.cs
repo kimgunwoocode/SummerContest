@@ -45,11 +45,12 @@ public class PlayerManager : AbstractEntity {
         rb.linearVelocity = movement.GetMoveValue();
     }
 
+    /*
     public override void TakeDamage(int damage, int hitDir){
     }
     protected override void Die(){
     }
-
+    */
 
     private void Update() {
     }
