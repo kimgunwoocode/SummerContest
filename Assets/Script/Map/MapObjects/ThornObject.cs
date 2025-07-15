@@ -6,7 +6,7 @@ public class ThornObject : MonoBehaviour
 {
     GameManager GameManager;
 
-    public List<GameObject> ThornSpawnPoints;// 함정에 걸린 이후에 다시 스폰할 위치
+    public List<GameObject> ThornSpawnPoints;// 스폰할 위치 목록
     public Vector2 SpawnPoint;// 플레이어가 함정에 걸린 후 되돌아갈 위치
 
     private void Awake()
@@ -18,7 +18,7 @@ public class ThornObject : MonoBehaviour
     {
         Attack(collision);
         //애니메이션
-
+        SpawnPlayer_to_SpawnPoint();
     }
 
 
@@ -32,25 +32,27 @@ public class ThornObject : MonoBehaviour
 
     void SpawnPlayer_to_SpawnPoint()
     {
-        GameManager.Player.transform.position = SpawnPoint;
+        if (SpawnPoint != null)
+        {
+            GameManager.Player.transform.position = SpawnPoint;
+        }
+        else if (SpawnPoint == null)
+        {
+            SpawnPlayer_to_NearSpawnPoint();
+        }
     }
 
 
-    /*
+
     // 그 다음 가장 가까운 ThornSpawnPoint 위치로 이동시키기
     void SpawnPlayer_to_NearSpawnPoint()
     {
-        if (ThornSpawnPoint_Position == null)
-        {
-            //예외처리 (Die로 처리할까...?)
-        }
+        GameObject nearest = ThornSpawnPoints[0];
+        float minDistance = Vector2.Distance(GameManager.Player.transform.position, nearest.transform.position);
 
-        Transform nearest = ThornSpawnPoint_Position[0];
-        float minDistance = Vector2.Distance(GameManager.Player.transform.position, nearest.position);
-
-        foreach (Transform spawnPoint in ThornSpawnPoint_Position)
+        foreach (GameObject spawnPoint in ThornSpawnPoints)
         {
-            float dist = Vector2.Distance(GameManager.Player.transform.position, spawnPoint.position);
+            float dist = Vector2.Distance(GameManager.Player.transform.position, spawnPoint.transform.position);
             if (dist < minDistance)
             {
                 minDistance = dist;
@@ -58,7 +60,7 @@ public class ThornObject : MonoBehaviour
             }
         }
 
-        GameManager.Player.transform.position = nearest.position;
+        GameManager.Player.transform.position = nearest.transform.position;
     }
-    */
+
 }

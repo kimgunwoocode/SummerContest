@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5505560654318433701}
   - component: {fileID: 7406036366864112762}
   - component: {fileID: 5325527500429782734}
-  - component: {fileID: 714070378453818534}
-  m_Layer: 3
-  m_Name: BreakablePlatform
+  - component: {fileID: 2204387957108744359}
+  m_Layer: 0
+  m_Name: BreakableWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.5137255, g: 0.23529413, b: 0.043137256, a: 1}
+  m_Color: {r: 0.9294118, g: 0.4901961, b: 0.19215688, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -135,7 +135,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &714070378453818534
+--- !u!114 &2204387957108744359
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,6 +144,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 524236343976882212}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 854c4aedc6e797541aae4ce3fa19c600, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d72b8de0ca76564cae4663bc4d3a45e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
