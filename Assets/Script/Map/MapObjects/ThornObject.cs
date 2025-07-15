@@ -6,8 +6,8 @@ public class ThornObject : MonoBehaviour
 {
     GameManager GameManager;
 
-    public List<Transform> ThornSpawnPoint_Position;// 함정에 걸린 이후에 다시 스폰할 위치
-    public Vector2 AttackPosition;// 플레이어가 함정에 걸린 위치 저장하기 위한 변수
+    public List<GameObject> ThornSpawnPoints;// 함정에 걸린 이후에 다시 스폰할 위치
+    public Vector2 SpawnPoint;// 플레이어가 함정에 걸린 후 되돌아갈 위치
 
     private void Awake()
     {
@@ -18,7 +18,7 @@ public class ThornObject : MonoBehaviour
     {
         Attack(collision);
         //애니메이션
-        SpawnPlayer_to_NearSpawnPoint();
+
     }
 
 
@@ -29,6 +29,14 @@ public class ThornObject : MonoBehaviour
         //AttackPosition = ;
     }
 
+
+    void SpawnPlayer_to_SpawnPoint()
+    {
+        GameManager.Player.transform.position = SpawnPoint;
+    }
+
+
+    /*
     // 그 다음 가장 가까운 ThornSpawnPoint 위치로 이동시키기
     void SpawnPlayer_to_NearSpawnPoint()
     {
@@ -52,4 +60,5 @@ public class ThornObject : MonoBehaviour
 
         GameManager.Player.transform.position = nearest.position;
     }
+    */
 }

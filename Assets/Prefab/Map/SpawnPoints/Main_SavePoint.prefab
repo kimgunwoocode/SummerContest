@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7406036366864112762}
   - component: {fileID: -1750447531863836778}
   m_Layer: 0
-  m_Name: Main_SpawnPoint
+  m_Name: Main_SavePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.6901961, b: 0.3137255, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnpoint_type: 0
+  SpawnPoint_ID: 0
 --- !u!1001 &7105341247894966941
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,8 +9,8 @@ public class PlayerData
     public float MaxBreathGauge; // 최대 브레스 게이지
     public float CurrentBreathGauge; // 브레스 게이지
     public int Money; // 보유중인 돈
-    public Dictionary<string, bool> PlayerSkill = new();// 해금된 플레이어 스킬 <스킬ID, 해금 여부>
-    public List<int> GettedItems = new(); // 보유중인 아이템
+    public Dictionary<int, bool> PlayerSkill = new();// 해금된 플레이어 스킬 <스킬ID, 해금 여부>
+    public Dictionary<int, bool> GettedItems = new(); // 보유중인 아이템
 }
 
 public class GameDataManager : MonoBehaviour
@@ -23,17 +23,17 @@ public class GameDataManager : MonoBehaviour
     public float MaxBreathGauge;
     public float CurrentBreathGauge;
     public int Money = 0;
-    public Dictionary<string, bool> PlayerSkill = new();
-    public List<int> GettedItems = new();
+    public Dictionary<int, bool> PlayerSkill = new();
+    public Dictionary<int, bool> GettedItems = new();
 
 
     public void StartGame_LoadData_from_SaveFile(PlayerData playerData)
     {
 
-        LoadData_from_SpawnPoint();
+        LoadData_from_SavePoint();
     }
 
-    public void LoadData_from_SpawnPoint()
+    public void LoadData_from_SavePoint()
     {
         MaxHP = GameManager_PlayerData.MaxHP;
         CurrentHP = GameManager_PlayerData.CurrentHP;
@@ -43,7 +43,7 @@ public class GameDataManager : MonoBehaviour
         PlayerSkill = GameManager_PlayerData.PlayerSkill;
         GettedItems = GameManager_PlayerData.GettedItems;
     }
-    public void SaveData_to_SpawnPoint()
+    public void SaveData_to_SavePoint()
     {
         GameManager_PlayerData.MaxHP = MaxHP;
         GameManager_PlayerData.CurrentHP = CurrentHP;
