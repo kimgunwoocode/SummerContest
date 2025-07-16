@@ -23,11 +23,7 @@ public class Singleton : MonoBehaviour
         }
     }
 
-    public static T Get<T>() where T : Component
-    {
-        return GameManager_Instance.Get_<T>();
-    }
-    public T Get_<T>() where T : Component
+    public T Get<T>() where T : Component
     {
         if (scriptMap.TryGetValue(typeof(T), out var comp))
             return comp as T;

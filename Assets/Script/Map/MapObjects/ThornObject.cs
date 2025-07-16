@@ -9,9 +9,11 @@ public class ThornObject : MonoBehaviour
     public List<GameObject> ThornSpawnPoints;// 스폰할 위치 목록
     public Vector2 SpawnPoint;// 플레이어가 함정에 걸린 후 되돌아갈 위치
 
-    private void Awake()
+    private void Start()
     {
-        GameManager = Singleton.Get<GameManager>();
+        GameManager = Singleton.GameManager_Instance.Get<GameManager>();
+        if (GameManager == null )
+            Debug.Log("error gameobject null : " + GameManager);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -47,6 +49,11 @@ public class ThornObject : MonoBehaviour
     // 그 다음 가장 가까운 ThornSpawnPoint 위치로 이동시키기
     void SpawnPlayer_to_NearSpawnPoint()
     {
+        if (ThornSpawnPoints == null)
+        {
+            //error : 스폰할 장소 지정 안함
+        }
+
         GameObject nearest = ThornSpawnPoints[0];
         float minDistance = Vector2.Distance(GameManager.Player.transform.position, nearest.transform.position);
 

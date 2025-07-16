@@ -23,7 +23,7 @@ public class MainGameUI : MonoBehaviour
 
     void Start()
     {
-        data = Singleton.Get<GameDataManager>();
+        data = Singleton.GameManager_Instance.Get<GameDataManager>();
         UICurrentHP = data.CurrentHP;
         UIMaxHP = data.MaxHP;
 

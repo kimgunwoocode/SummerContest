@@ -6,9 +6,9 @@ public class MoveSceneArea : MonoBehaviour
     public string SceneName;
     GameManager gamemanager;
 
-    private void Awake()
+    private void Start()
     {
-        gamemanager = Singleton.Get<GameManager>();
+        gamemanager = Singleton.GameManager_Instance.Get<GameManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

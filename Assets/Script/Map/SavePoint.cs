@@ -7,10 +7,13 @@ public class SavePoint : MonoBehaviour
     public SP_type SavePoint_type;
     [Header("ID")]
     public int SavePoint_ID;
+    [Space]
+    [Header("is activate")]
+    public bool SavePointEnabled;
     
     public void InteractSavePoint()
     {
         print("SavePoint_"+SavePoint_type+" ID:"+SavePoint_ID);
-        Singleton.Get<GameDataManager>().SaveData_to_SavePoint();
+        Singleton.GameManager_Instance.Get<GameDataManager>().SaveData_to_SavePoint();
     }
 }
