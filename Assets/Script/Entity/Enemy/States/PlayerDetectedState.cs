@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class PlayerDetectedState : State
 {
-    protected D_PlayerDetectedState stateData;
+    [SerializeField] protected float longRangeActionTime = 1.5f;
 
     protected bool isPlayerMinRange;
     protected bool isPlayerMaxRange;
@@ -10,10 +11,11 @@ public class PlayerDetectedState : State
     protected bool performCloseRangeAction; // 근접 공격 실행 여부
     protected bool isLedge;
 
-
-    public PlayerDetectedState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_PlayerDetectedState stateData) : base(enemy, stateMachine, animBoolName)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.stateData = stateData;
+        base.Initialize(enemy, stateMachine);
+
+        animBoolName = "playerDetected";
     }
 
     public override void DoCheck()
@@ -43,7 +45,7 @@ public class PlayerDetectedState : State
     {
         base.LogicUpdate();
 
-        if(Time.time >= startTime + stateData.longRangeActionTime)
+        if(Time.time >= startTime + longRangeActionTime)
         {
             performLongRangeAction = true;
         }

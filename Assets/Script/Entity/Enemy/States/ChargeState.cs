@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class ChargeState : State
 {
-    protected D_ChargeState stateData;
+    [SerializeField] protected float chargeSpeed = 6f;
+    [SerializeField] protected float chargeTime = 2f;
 
     protected bool isPlayerMinRange;
     protected bool isLedge;
@@ -10,10 +11,11 @@ public class ChargeState : State
     protected bool isChargeTimeOver;
     protected bool performCloseRangeAction;
 
-    
-    public ChargeState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_ChargeState stateData) : base(enemy, stateMachine, animBoolName)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.stateData = stateData;
+        base.Initialize(enemy, stateMachine);
+
+        animBoolName = "charge";
     }
 
     public override void DoCheck()
@@ -22,7 +24,7 @@ public class ChargeState : State
 
         isPlayerMinRange = enemy.CheckPlayerMinRange();
         isLedge = enemy.ChackLedge();
-        isWall = enemy.ChackWall();
+        isWall = enemy.CheckWall();
 
         performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
     }
@@ -32,7 +34,7 @@ public class ChargeState : State
         base.Enter();
 
         isChargeTimeOver = false;
-        enemy.SetVelocity(stateData.chargeSpeed);
+        enemy.SetVelocity(chargeSpeed);
     }
 
     public override void Exit()
@@ -44,7 +46,7 @@ public class ChargeState : State
     {
         base.LogicUpdate();
 
-        if(Time.time >= startTime + stateData.chargeTime)
+        if(Time.time >= startTime + chargeTime)
         {
             isChargeTimeOver = true;
         }

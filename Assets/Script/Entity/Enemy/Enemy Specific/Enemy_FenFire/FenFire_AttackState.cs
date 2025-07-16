@@ -2,11 +2,18 @@ using UnityEngine;
 
 public class FenFire_AttackState : AttackState
 {
-   FenFire fenFire;
+    FenFire fenFire;
 
-    public FenFire_AttackState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition, FenFire fenFire) : base(enemy, stateMachine, animBoolName, attackPosition)
+    [Header("Attack Details")]
+    [SerializeField] Enemy_Bullet bulletPrefab;
+    [SerializeField] float bulletSpeed = 5f;
+    [SerializeField] float bulletLifetime = 1f;
+
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.fenFire = fenFire;
+        base.Initialize(enemy, stateMachine);
+
+        fenFire = enemy as FenFire;
     }
 
     public override void LogicUpdate()
@@ -15,7 +22,7 @@ public class FenFire_AttackState : AttackState
 
         if(isAnimationFinished)
         {
-            stateMachine.ChangeState(fenFire.idleState);
+            stateMachine.ChangeState(fenFire.IdleState);
         }
     }
 
@@ -23,6 +30,16 @@ public class FenFire_AttackState : AttackState
     {
         base.TriggerAttack();
         
-        fenFire.CreatBullet();
+        CreatBullet();
+    }
+
+    void CreatBullet()
+    {
+        Enemy_Bullet newBullet = Instantiate(bulletPrefab, attackPosition.position, Quaternion.identity);
+
+        Vector2 bulletVelocity = new Vector2(bulletSpeed, 0);
+        newBullet.SetVelocity(bulletVelocity * enemy.facingDir);
+
+        Destroy(newBullet.gameObject, bulletLifetime);
     }
 }

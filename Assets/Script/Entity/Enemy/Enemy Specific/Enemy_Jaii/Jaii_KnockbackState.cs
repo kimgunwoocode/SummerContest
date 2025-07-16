@@ -4,9 +4,11 @@ public class Jaii_KnockbackState : KnockbackState
 {
     Jaii jaii;
 
-    public Jaii_KnockbackState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_KnockbackState stateData, Jaii jaii) : base(enemy, stateMachine, animBoolName, stateData)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.jaii = jaii;
+        base.Initialize(enemy, stateMachine);
+
+        jaii = enemy as Jaii;
     }
 
     public override void LogicUpdate()
@@ -17,15 +19,15 @@ public class Jaii_KnockbackState : KnockbackState
         {
             if(performCloseRangeAction)
             {
-                stateMachine.ChangeState(jaii.meleeAttackState);
+                stateMachine.ChangeState(jaii.MeleeAttackState);
             }
             else if(isPlayerMinRange)
             {
-                stateMachine.ChangeState(jaii.chargeState);
+                stateMachine.ChangeState(jaii.ChargeState);
             }
             else
             {
-                stateMachine.ChangeState(jaii.lookForPlayerState);
+                stateMachine.ChangeState(jaii.LookForPlayerState);
             }
         }
     }

@@ -1,20 +1,16 @@
 using UnityEngine;
 
-//MonoBehaviour로
-public class State
+public abstract class State : MonoBehaviour
 {
      protected FiniteStateMachine stateMachine;
      protected EnemyEntity enemy;
-
      protected float startTime;
-
      protected string animBoolName;
 
-     public State(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName)
+     public virtual void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
      {
           this.enemy = enemy;
           this.stateMachine = stateMachine;
-          this.animBoolName = animBoolName;
      }
 
      public virtual void Enter()

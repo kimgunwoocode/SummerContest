@@ -35,7 +35,7 @@ public class EnemyEntity : MonoBehaviour
         spriteRenderer.flipX = !spriteRenderer.flipX;
     }
 
-    public virtual void Start()
+    protected virtual void Awake()
     {
         currentHP = enemyData.maxHP;
 
@@ -51,10 +51,9 @@ public class EnemyEntity : MonoBehaviour
             spriteRenderer.flipX = false;
             Flip();
         }
-
     }
 
-    public virtual void Update()
+    protected virtual void Update()
     {
         stateMachine.currentState.LogicUpdate();
 
@@ -64,7 +63,7 @@ public class EnemyEntity : MonoBehaviour
         }
     }
 
-    public virtual void FixedUpdate() 
+    protected virtual void FixedUpdate() 
     {
         stateMachine.currentState.PhysicsUpdate();
     }
@@ -113,14 +112,13 @@ public class EnemyEntity : MonoBehaviour
             isDead = true;
         }
     }
-
     public virtual void Flip()
     {
         facingDir *= -1;
         aliveGO.transform.Rotate(0, 180, 0);
     }
 
-    public virtual bool ChackWall()
+    public virtual bool CheckWall()
     {
         return Physics2D.Raycast(wallCheck.position, -aliveGO.transform.right, enemyData.wallCheckDistance, enemyData.groundLayer);
     }
@@ -165,5 +163,8 @@ public class EnemyEntity : MonoBehaviour
         Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * facingDir * enemyData.maxPlayerCheckDistance), .2f);
 
         Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(-Vector2.right * facingDir * enemyData.minPlayerCheckDistance), .2f);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(groundCheck.position, enemyData.groundCkeckRadius);
     }
 }

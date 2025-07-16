@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class KnockbackState : State
 {
-    D_KnockbackState stateData;
+    [SerializeField] protected float knockbackTime = 0.2f;
+    [SerializeField] protected float knockbackSpeed = 3f;
+    [SerializeField] protected Vector2 knockbackAngle = new Vector2(2f, 4f);
 
     protected bool isKnockbackOver;
     protected bool isGround;
@@ -10,10 +12,11 @@ public class KnockbackState : State
     protected bool performCloseRangeAction;
     protected bool isPlayerMinRange;
 
-
-    public KnockbackState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_KnockbackState stateData) : base(enemy, stateMachine, animBoolName)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.stateData = stateData;
+        base.Initialize(enemy, stateMachine);
+
+        animBoolName = "knockback";
     }
 
     public override void DoCheck()
@@ -31,7 +34,7 @@ public class KnockbackState : State
 
         isKnockbackOver = false;
         isMovementStopped = false;
-        enemy.SetVelocity(stateData.knockbackSpeed, stateData.knockbackAngle, enemy.lastDamegeDirection);
+        enemy.SetVelocity(knockbackSpeed, knockbackAngle, enemy.lastDamegeDirection);
     }
 
     public override void Exit()
@@ -43,7 +46,7 @@ public class KnockbackState : State
     {
         base.LogicUpdate();
 
-        if(isGround && !isMovementStopped && Time.time >= startTime + stateData.knockbackTime)
+        if(isGround && !isMovementStopped && Time.time >= startTime + knockbackTime)
         {
             isMovementStopped = true;
             isKnockbackOver = true;

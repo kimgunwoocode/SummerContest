@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class Yoko_IdleState : IdleState
 {
-   YoKo yoKo;
+    YoKo yoKo;
 
-    public Yoko_IdleState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_IdleState stateData, YoKo yoKo) : base(enemy, stateMachine, animBoolName, stateData)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.yoKo = yoKo;
+        base.Initialize(enemy, stateMachine);
+
+        yoKo = enemy as YoKo;
     }
 
     public override void LogicUpdate()
@@ -15,15 +17,15 @@ public class Yoko_IdleState : IdleState
 
         if(isPlayerMinRange)
         {
-            stateMachine.ChangeState(yoKo.playerDetectedState);
+            stateMachine.ChangeState(yoKo.PlayerDetectedState);
         }
         else if (isPlayerBehind)
         {
-            stateMachine.ChangeState(yoKo.lookForPlayerState);
+            stateMachine.ChangeState(yoKo.LookForPlayerState);
         }
         else if(isIdleTimeOver)
         {
-            stateMachine.ChangeState(yoKo.moveState);
+            stateMachine.ChangeState(yoKo.MoveState);
         }
     }
 }

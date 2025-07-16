@@ -3,9 +3,12 @@ using UnityEngine;
 public class Yoko_MeleeAttackState : MeleeAttackState
 {
     YoKo yoKo;
-    public Yoko_MeleeAttackState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition, D_MeleeAttackState stateData, YoKo yoKo) : base(enemy, stateMachine, animBoolName, attackPosition, stateData)
+
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.yoKo = yoKo;
+        base.Initialize(enemy, stateMachine);
+
+        yoKo = enemy as YoKo;
     }
 
     public override void LogicUpdate()
@@ -16,11 +19,11 @@ public class Yoko_MeleeAttackState : MeleeAttackState
         {
             if(isPlayerMinRange)
             {
-                stateMachine.ChangeState(yoKo.playerDetectedState);
+                stateMachine.ChangeState(yoKo.PlayerDetectedState);
             }
             else
             {
-                stateMachine.ChangeState(yoKo.lookForPlayerState);
+                stateMachine.ChangeState(yoKo.LookForPlayerState);
             }
         }
     }

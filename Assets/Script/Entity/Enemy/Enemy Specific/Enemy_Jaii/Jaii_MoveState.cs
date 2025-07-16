@@ -4,9 +4,11 @@ public class Jaii_MoveState : MoveState
 {
     Jaii jaii;
 
-    public Jaii_MoveState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_MoveState stateData, Jaii jaii) : base(enemy, stateMachine, animBoolName, stateData)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.jaii = jaii;
+        base.Initialize(enemy, stateMachine);
+
+        jaii = enemy as Jaii;
     }
 
     public override void LogicUpdate()
@@ -15,7 +17,7 @@ public class Jaii_MoveState : MoveState
 
         if(isPlayerMinRange)
         {
-            stateMachine.ChangeState(jaii.playerDetectedState);
+            stateMachine.ChangeState(jaii.PlayerDetectedState);
         }
         else if ((!isLedge && isGround) || isWall)
         {
@@ -23,7 +25,7 @@ public class Jaii_MoveState : MoveState
         }
         else if (isPlayerBehind)
         {
-            stateMachine.ChangeState(jaii.lookForPlayerState);
+            stateMachine.ChangeState(jaii.LookForPlayerState);
         }
     }
 }

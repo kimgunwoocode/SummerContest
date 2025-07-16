@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class FenFire_KnockbackState : KnockbackState
 {
-   FenFire fenFire;
+    FenFire fenFire;
 
-    public FenFire_KnockbackState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_KnockbackState stateData, FenFire fenFire) : base(enemy, stateMachine, animBoolName, stateData)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.fenFire = fenFire;
+        base.Initialize(enemy, stateMachine);
+
+        fenFire = enemy as FenFire;
     }
 
     public override void LogicUpdate()
@@ -15,7 +17,7 @@ public class FenFire_KnockbackState : KnockbackState
         
          if(isKnockbackOver)
         {
-            stateMachine.ChangeState(fenFire.idleState);
+            stateMachine.ChangeState(fenFire.IdleState);
         }
     }
 }

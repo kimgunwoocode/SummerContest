@@ -4,8 +4,10 @@ public class Yoko_DeadState : DeadState
 {
     YoKo yoKo;
 
-    public Yoko_DeadState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_DeadState stateData, YoKo yoKo) : base(enemy, stateMachine, animBoolName, stateData)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.yoKo = yoKo;
+        base.Initialize(enemy, stateMachine);
+
+        yoKo = enemy as YoKo;
     }
 }

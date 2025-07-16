@@ -203,6 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d59a9352af9b8534ca7fcb9e399121c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackState: {fileID: 0}
 --- !u!1 &1745520161068684580
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,6 +369,14 @@ GameObject:
   m_Component:
   - component: {fileID: 8932541025503759862}
   - component: {fileID: 3907398508705691105}
+  - component: {fileID: 5946957712677641190}
+  - component: {fileID: 1198378843530212522}
+  - component: {fileID: 1633011069037806450}
+  - component: {fileID: 6270142184471410742}
+  - component: {fileID: 5087021944905460787}
+  - component: {fileID: 4751037266305998523}
+  - component: {fileID: 4577977262586759334}
+  - component: {fileID: 1694260027989886665}
   m_Layer: 7
   m_Name: Enemy_Yoko
   m_TagString: Untagged
@@ -409,14 +418,126 @@ MonoBehaviour:
   ledgeCheck: {fileID: 5812376372726418146}
   groundCheck: {fileID: 8848935231692898900}
   playerCheck: {fileID: 721770926365569507}
-  idleStateData: {fileID: 11400000, guid: 9c1f5272150566e418e0fa16956d0d63, type: 2}
-  moveStateData: {fileID: 11400000, guid: 09bc7cf361b4abc4cb2401fdbd06078c, type: 2}
-  playerDetectedData: {fileID: 11400000, guid: 353598aaa797eb94b966fdd6bc38df99, type: 2}
-  jumpStateData: {fileID: 11400000, guid: 552ebb14d3f35514e948246da140dcfc, type: 2}
-  chargeStateData: {fileID: 11400000, guid: 290b634af6d8d8d469ce683ef8ae67bc, type: 2}
-  lookForPlayerStateData: {fileID: 11400000, guid: 60f786978ff265944b188ca417ef1434, type: 2}
-  meleeAttackStateData: {fileID: 11400000, guid: b06bd1ef4ef81aa42b9fbbe6992e6d7c, type: 2}
-  knockbackStateData: {fileID: 11400000, guid: 0e82526bef8c86841b0ac99b94099ef5, type: 2}
-  deadStateData: {fileID: 11400000, guid: 688969cdb7231f64ea53c51abdd61323, type: 2}
-  meleeAttackPosition: {fileID: 3968061590409292694}
   player: {fileID: 0}
+  idleState: {fileID: 5946957712677641190}
+  moveState: {fileID: 1198378843530212522}
+  playerDetectedState: {fileID: 1633011069037806450}
+  jumpState: {fileID: 6270142184471410742}
+  lookForPlayerState: {fileID: 5087021944905460787}
+  meleeAttackState: {fileID: 4751037266305998523}
+  knockbackState: {fileID: 4577977262586759334}
+  deadState: {fileID: 1694260027989886665}
+--- !u!114 &5946957712677641190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544971909624281833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b22ca334995d8948b69d735c17640dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minIdleTime: 1
+  maxIdleTime: 1
+--- !u!114 &1198378843530212522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544971909624281833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db57357ad26f1954cbe198252fee4afc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+--- !u!114 &1633011069037806450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544971909624281833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8031ad4d2e0d9324f930eed56661fa53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  longRangeActionTime: 1
+--- !u!114 &6270142184471410742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544971909624281833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a15995e1279673449bcc49f4e99b0513, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpHeight: 6
+  jumpOffset: 1.8
+--- !u!114 &5087021944905460787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544971909624281833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab01320279598eb4ca068c29290cc12a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayTime: 0.2
+--- !u!114 &4751037266305998523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544971909624281833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65b51783bb81d1d4e9befde9b4ee81ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPosition: {fileID: 3968061590409292694}
+  attackRadius: 0.5
+  attackDamage: 1
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &4577977262586759334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544971909624281833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897cf0e7ab4c3e748a9a08d282a67e59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackTime: 0.2
+  knockbackSpeed: 3
+  knockbackAngle: {x: 2, y: 4}
+--- !u!114 &1694260027989886665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544971909624281833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fd58af538aa65b4fb9e7c8ea272436a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathChunkParticle: {fileID: 0}
+  deathBloodParticle: {fileID: 0}

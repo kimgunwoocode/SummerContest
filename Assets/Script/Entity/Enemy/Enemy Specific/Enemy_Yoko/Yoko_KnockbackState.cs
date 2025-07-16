@@ -4,9 +4,11 @@ public class Yoko_KnockbackState : KnockbackState
 {
     YoKo yoKo;
 
-    public Yoko_KnockbackState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_KnockbackState stateData, YoKo yoKo) : base(enemy, stateMachine, animBoolName, stateData)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.yoKo = yoKo;
+        base.Initialize(enemy, stateMachine);
+
+        yoKo = enemy as YoKo;
     }
 
     public override void LogicUpdate()
@@ -17,15 +19,15 @@ public class Yoko_KnockbackState : KnockbackState
         {
             if(performCloseRangeAction)
             {
-                stateMachine.ChangeState(yoKo.meleeAttackState);
+                stateMachine.ChangeState(yoKo.MeleeAttackState);
             }
             else if(isPlayerMinRange)
             {
-                stateMachine.ChangeState(yoKo.jumpState);
+                stateMachine.ChangeState(yoKo.JumpState);
             }
             else
             {
-                stateMachine.ChangeState(yoKo.lookForPlayerState);
+                stateMachine.ChangeState(yoKo.LookForPlayerState);
             }
         }
     }

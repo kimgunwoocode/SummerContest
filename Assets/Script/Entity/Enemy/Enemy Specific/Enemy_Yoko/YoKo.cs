@@ -2,45 +2,40 @@ using UnityEngine;
 
 public class YoKo : EnemyEntity
 {
-    public Yoko_IdleState idleState {get; private set;}
-    public Yoko_MoveState moveState {get; private set;}
-    public Yoko_PlayerDetected playerDetectedState {get; private set;}
-    public Yoko_JumpState jumpState {get; private set;}
-    public Yoko_ChargeState chargeState {get; private set;}
-    public Yoko_LookForPlayerState lookForPlayerState {get; private set;}
-    public Yoko_MeleeAttackState meleeAttackState {get; private set;}
-    public Yoko_KnockbackState knockbackState {get; private set;}
-    public Yoko_DeadState deadState {get; private set;}
+    [Header("Yoko Details")]
+    public Transform player; // TODO: 나중에 게임매니저 이용
 
-    [Header("State Data")]
-    [SerializeField] D_IdleState idleStateData;
-    [SerializeField] D_MoveState moveStateData;
-    [SerializeField] D_PlayerDetectedState playerDetectedData;
-    [SerializeField] D_JumpState jumpStateData;
-    [SerializeField] D_ChargeState chargeStateData;
-    [SerializeField] D_LookForPlayerState lookForPlayerStateData;
-    [SerializeField] D_MeleeAttackState meleeAttackStateData;
-    [SerializeField] D_KnockbackState knockbackStateData;
-    [SerializeField] D_DeadState deadStateData;
+    [Header("States")]
+    [SerializeField] Yoko_IdleState idleState;
+    [SerializeField] Yoko_MoveState moveState;
+    [SerializeField] Yoko_PlayerDetected playerDetectedState;
+    [SerializeField] Yoko_JumpState jumpState;
+    [SerializeField] Yoko_LookForPlayerState lookForPlayerState;
+    [SerializeField] Yoko_MeleeAttackState meleeAttackState;
+    [SerializeField] Yoko_KnockbackState knockbackState;
+    [SerializeField] Yoko_DeadState deadState;
 
-    [Space]
-    [SerializeField] Transform meleeAttackPosition;
-    public Transform player; // 나중에 게임매니저 이용
+    public Yoko_IdleState IdleState => idleState;
+    public Yoko_MoveState MoveState => moveState;
+    public Yoko_PlayerDetected PlayerDetectedState => playerDetectedState;
+    public Yoko_JumpState JumpState => jumpState;
+    public Yoko_LookForPlayerState LookForPlayerState => lookForPlayerState;
+    public Yoko_MeleeAttackState MeleeAttackState => meleeAttackState;
+    public Yoko_KnockbackState KnockbackState => knockbackState;
+    public Yoko_DeadState DeadState => deadState;
 
-    public override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
 
-        // 컴포넌트로 옮기기
-        idleState = new Yoko_IdleState(this, stateMachine, "idle", idleStateData, this);
-        moveState = new Yoko_MoveState(this, stateMachine, "move", moveStateData, this);
-        playerDetectedState = new Yoko_PlayerDetected(this, stateMachine, "playerDetected", playerDetectedData, this);
-        jumpState = new Yoko_JumpState(this, stateMachine, "jump", jumpStateData, this);
-        chargeState = new Yoko_ChargeState(this, stateMachine, "charge", chargeStateData, this);
-        lookForPlayerState = new Yoko_LookForPlayerState(this, stateMachine, "lookForPlayer", lookForPlayerStateData, this);
-        meleeAttackState = new Yoko_MeleeAttackState(this, stateMachine, "meleeAttack", meleeAttackPosition, meleeAttackStateData, this);
-        knockbackState = new Yoko_KnockbackState(this, stateMachine, "knockback", knockbackStateData, this);
-        deadState = new Yoko_DeadState(this, stateMachine, "dead", deadStateData, this);
+        idleState.Initialize(this, stateMachine);
+        moveState.Initialize(this, stateMachine);
+        playerDetectedState.Initialize(this, stateMachine);
+        jumpState.Initialize(this, stateMachine);
+        lookForPlayerState.Initialize(this, stateMachine);
+        meleeAttackState.Initialize(this, stateMachine);
+        knockbackState.Initialize(this, stateMachine);
+        deadState.Initialize(this, stateMachine);
 
         stateMachine.Initialize(moveState);
     }
@@ -60,14 +55,5 @@ public class YoKo : EnemyEntity
                 stateMachine.ChangeState(knockbackState);
             }
         }
-    }
-
-    public override void OnDrawGizmos()
-    {
-        base.OnDrawGizmos();
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(meleeAttackPosition.position, meleeAttackStateData.attackRadius);
-        Gizmos.DrawWireSphere(groundCheck.position, enemyData.groundCkeckRadius);
     }
 }

@@ -296,6 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d59a9352af9b8534ca7fcb9e399121c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackState: {fileID: 0}
 --- !u!1 &4880243698129868700
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,6 +369,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1550492878548826991}
   - component: {fileID: 3174760405408554882}
+  - component: {fileID: 3358342928094989822}
+  - component: {fileID: 156041524630673045}
+  - component: {fileID: 7703114439212037786}
+  - component: {fileID: 6154016169718118366}
   m_Layer: 0
   m_Name: Enemy_FenFire
   m_TagString: Untagged
@@ -409,10 +414,66 @@ MonoBehaviour:
   ledgeCheck: {fileID: 5025355632611118646}
   groundCheck: {fileID: 2657500729992152705}
   playerCheck: {fileID: 2013814236228693649}
-  idleStateData: {fileID: 11400000, guid: 51f2170f05ac3e24d851dba1841c646a, type: 2}
-  deadStateData: {fileID: 11400000, guid: aca32ab0a3cd5f14b8300144754acf1e, type: 2}
-  knockbackStateData: {fileID: 11400000, guid: 0a100b0dec4adb04e937f7c82fe90a98, type: 2}
+  idleState: {fileID: 3358342928094989822}
+  attackState: {fileID: 156041524630673045}
+  knockbackState: {fileID: 7703114439212037786}
+  deadState: {fileID: 6154016169718118366}
+--- !u!114 &3358342928094989822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8671126591901983492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 293db8a7eda39234f9fd4911c4cf7592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minIdleTime: 1
+  maxIdleTime: 1
+--- !u!114 &156041524630673045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8671126591901983492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da45e5d1141ccff48867f26167c5dc44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   attackPosition: {fileID: 192005055250757878}
   bulletPrefab: {fileID: 2687278638108176264, guid: cf69c8294fcf3784d903fb2f5174c47f, type: 3}
   bulletSpeed: 5
   bulletLifetime: 1
+--- !u!114 &7703114439212037786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8671126591901983492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 598ea738a2262774a80b584510f67ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackTime: 0.2
+  knockbackSpeed: 3
+  knockbackAngle: {x: 2, y: 4}
+--- !u!114 &6154016169718118366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8671126591901983492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c942566e0cb60b04a8feb812aa9900ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathChunkParticle: {fileID: 0}
+  deathBloodParticle: {fileID: 0}

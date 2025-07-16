@@ -3,47 +3,40 @@ using UnityEngine.InputSystem;
 
 public class Jaii : EnemyEntity
 {
-    public Jaii_MoveState moveState {get; private set;}
-    public Jaii_PlayerDetectedState playerDetectedState {get; private set;}
-    public Jaii_LookForPlayerState lookForPlayerState {get; private set;}
-    public Jaii_ChargeState chargeState {get; private set;}
-    public Jaii_MeleeAttackState meleeAttackState {get; private set;}
-    public Jaii_KnockbackState knockbackState {get; private set;}
-    public Jaii_StunState stunState {get; private set;}
-    public Jaii_DeadState deadState {get; private set;}
+    [Header("States")]
+    [SerializeField] Jaii_MoveState moveState;
+    [SerializeField] Jaii_PlayerDetectedState playerDetectedState;
+    [SerializeField] Jaii_LookForPlayerState lookForPlayerState;
+    [SerializeField] Jaii_ChargeState chargeState;
+    [SerializeField] Jaii_MeleeAttackState meleeAttackState;
+    [SerializeField] Jaii_KnockbackState knockbackState;
+    [SerializeField] Jaii_StunState stunState;
+    [SerializeField] Jaii_DeadState deadState;
 
-    [Header("State Data")]
-    [SerializeField] D_MoveState moveStateData;
-    [SerializeField] D_PlayerDetectedState playerDetectedData;
-    [SerializeField] D_LookForPlayerState lookForPlayerStateData;
-    [SerializeField] D_ChargeState chargeStateData;
-    [SerializeField] D_MeleeAttackState meleeAttackStateData;
-    [SerializeField] D_KnockbackState knockbackStateData;
-    [SerializeField] D_StunState stunStateData;
-    [SerializeField] D_DeadState deadStateData;
+    public Jaii_MoveState MoveState => moveState;
+    public Jaii_PlayerDetectedState PlayerDetectedState => playerDetectedState;
+    public Jaii_LookForPlayerState LookForPlayerState => lookForPlayerState;
+    public Jaii_ChargeState ChargeState => chargeState;
+    public Jaii_MeleeAttackState MeleeAttackState => meleeAttackState;
+    public Jaii_KnockbackState KnockbackState => knockbackState;
+    public Jaii_StunState StunState => stunState;
+    public Jaii_DeadState DeadState => deadState;
 
-    [Space]
-    [SerializeField] Transform meleeAttackPosition;
 
-    public override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
 
-        moveState = new Jaii_MoveState(this, stateMachine, "move", moveStateData, this);
-        playerDetectedState = new Jaii_PlayerDetectedState(this, stateMachine, "playerDetected", playerDetectedData, this);
-        lookForPlayerState = new Jaii_LookForPlayerState(this, stateMachine, "lookForPlayer", lookForPlayerStateData, this);
-        chargeState = new Jaii_ChargeState(this, stateMachine, "charge", chargeStateData, this);
-        meleeAttackState = new Jaii_MeleeAttackState(this, stateMachine, "meleeAttack", meleeAttackPosition, meleeAttackStateData, this);
-        knockbackState = new Jaii_KnockbackState(this, stateMachine, "knockback", knockbackStateData, this);
-        stunState = new Jaii_StunState(this, stateMachine, "stun", stunStateData, this);
-        deadState = new Jaii_DeadState(this, stateMachine, "dead", deadStateData, this);
+        moveState.Initialize(this, stateMachine);
+        playerDetectedState.Initialize(this, stateMachine);
+        lookForPlayerState.Initialize(this, stateMachine);
+        chargeState.Initialize(this, stateMachine);
+        meleeAttackState.Initialize(this, stateMachine);
+        knockbackState.Initialize(this, stateMachine);
+        stunState.Initialize(this, stateMachine);
+        deadState.Initialize(this, stateMachine);
 
         stateMachine.Initialize(moveState);
-    }
-
-    public override void Update()
-    {
-        base.Update();
     }
 
     public override void TakeDamage(int damageAmount, Vector2 attackerPosition)
@@ -62,14 +55,4 @@ public class Jaii : EnemyEntity
             }
         }
     }
-
-    public override void OnDrawGizmos()
-    {
-        base.OnDrawGizmos();
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(meleeAttackPosition.position, meleeAttackStateData.attackRadius);
-        Gizmos.DrawWireSphere(groundCheck.position, enemyData.groundCkeckRadius);
-    }
-
 }

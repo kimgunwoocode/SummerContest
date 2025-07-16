@@ -4,9 +4,11 @@ public class Yoko_LookForPlayerState : LookForPlayerState
 {
     YoKo yoKo;
 
-    public Yoko_LookForPlayerState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_LookForPlayerState stateData, YoKo yoKo) : base(enemy, stateMachine, animBoolName, stateData)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.yoKo = yoKo;
+        base.Initialize(enemy, stateMachine);
+
+        yoKo = enemy as YoKo;
     }
 
     public override void LogicUpdate()
@@ -16,9 +18,9 @@ public class Yoko_LookForPlayerState : LookForPlayerState
         if(isLookingForPlayerDone)
         {
             if(isPlayerMinRange) 
-                stateMachine.ChangeState(yoKo.playerDetectedState);
+                stateMachine.ChangeState(yoKo.PlayerDetectedState);
             else 
-                stateMachine.ChangeState(yoKo.moveState);
+                stateMachine.ChangeState(yoKo.MoveState);
         }
     }
 }

@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class StunState : State
 {
-    protected D_StunState stateData;
+    [SerializeField] protected float stunTime = 3f;
+    [SerializeField] protected float stunKnockbackTime = 0.2f;
+    [SerializeField] protected float stunKnockbackSpeed = 20f;
+    [SerializeField] protected Vector2 stunKnockbackAngle;
 
     protected bool isStunTimeOver;
     protected bool isGround;
@@ -10,9 +13,11 @@ public class StunState : State
     protected bool performCloseRangeAction;
     protected bool isPlayerMinRange;
 
-    public StunState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_StunState stateData) : base(enemy, stateMachine, animBoolName)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.stateData = stateData;
+        base.Initialize(enemy, stateMachine);
+
+        animBoolName = "stun";
     }
 
     public override void DoCheck()
@@ -41,7 +46,7 @@ public class StunState : State
     {
         base.LogicUpdate();
 
-        if(Time.time >= startTime + stateData.stunTime)
+        if(Time.time >= startTime + stunTime)
         {
             isStunTimeOver = true;
         }

@@ -2,17 +2,18 @@ using UnityEngine;
 
 public class LookForPlayerState : State
 {
-    protected D_LookForPlayerState stateData;
+    [SerializeField] protected float delayTime = 0.2f;
 
     protected bool isPlayerMinRange;
     protected bool isPlayerBehind;
 
     protected bool isLookingForPlayerDone;
 
-
-    public LookForPlayerState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_LookForPlayerState stateData) : base(enemy, stateMachine, animBoolName)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.stateData = stateData;
+        base.Initialize(enemy, stateMachine);
+
+        animBoolName = "lookForPlayer";
     }
 
     public override void DoCheck()
@@ -39,13 +40,12 @@ public class LookForPlayerState : State
     {
         base.LogicUpdate();
 
-        if(isPlayerBehind)
+        if(Time.time >= startTime + delayTime)
         {
-            enemy.Flip();
-        }
-
-        if(Time.time >= startTime + stateData.delayTime)
-        {
+            if(isPlayerBehind)
+            {
+                enemy.Flip();
+            }
             isLookingForPlayerDone = true;
         }
     }

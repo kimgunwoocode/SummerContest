@@ -5,9 +5,11 @@ public class Jaii_PlayerDetectedState : PlayerDetectedState
 {
     Jaii jaii;
 
-    public Jaii_PlayerDetectedState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_PlayerDetectedState stateData, Jaii jaii) : base(enemy, stateMachine, animBoolName, stateData)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.jaii = jaii;
+        base.Initialize(enemy, stateMachine);
+
+        jaii = enemy as Jaii;
     }
     
     public override void LogicUpdate()
@@ -16,25 +18,20 @@ public class Jaii_PlayerDetectedState : PlayerDetectedState
 
         if(performCloseRangeAction)
         {
-            stateMachine.ChangeState(jaii.meleeAttackState);
+            stateMachine.ChangeState(jaii.MeleeAttackState);
         }
         else if(performLongRangeAction)
         {
-            stateMachine.ChangeState(jaii.chargeState);
+            stateMachine.ChangeState(jaii.ChargeState);
         }
         else if(!isPlayerMaxRange)
         {
-            stateMachine.ChangeState(jaii.lookForPlayerState);
+            stateMachine.ChangeState(jaii.LookForPlayerState);
         }
         else if(!isLedge)
         {
             enemy.Flip();
-            stateMachine.ChangeState(jaii.moveState);
+            stateMachine.ChangeState(jaii.MoveState);
         }
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 }

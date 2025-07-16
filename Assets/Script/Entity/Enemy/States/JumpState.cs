@@ -1,9 +1,11 @@
 using UnityEditor.Callbacks;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class JumpState : State
 {
-    protected D_JumpState stateData;
+    [SerializeField] protected float jumpHeight = 3f;
+    [SerializeField] protected float jumpOffset = .5f;
 
     protected bool isGrounded;
     protected bool isJumpDone;
@@ -13,9 +15,11 @@ public class JumpState : State
     protected bool isWall;
     protected bool performCloseRangeAction;
 
-    public JumpState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_JumpState stateData) : base(enemy, stateMachine, animBoolName)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.stateData = stateData;
+        base.Initialize(enemy, stateMachine);
+
+        animBoolName = "jump";
     }
 
     public override void DoCheck()
@@ -26,7 +30,7 @@ public class JumpState : State
 
         isPlayerMinRange = enemy.CheckPlayerMinRange();
         isLedge = enemy.ChackLedge();
-        isWall = enemy.ChackWall();
+        isWall = enemy.CheckWall();
 
         performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
     }

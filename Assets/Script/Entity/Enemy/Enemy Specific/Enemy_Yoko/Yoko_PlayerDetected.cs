@@ -4,9 +4,11 @@ public class Yoko_PlayerDetected : PlayerDetectedState
 {
     YoKo yoKo;
 
-    public Yoko_PlayerDetected(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_PlayerDetectedState stateData, YoKo yoKo) : base(enemy, stateMachine, animBoolName, stateData)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.yoKo = yoKo;
+        base.Initialize(enemy, stateMachine);
+
+        yoKo = enemy as YoKo;
     }
 
     public override void LogicUpdate()
@@ -15,20 +17,20 @@ public class Yoko_PlayerDetected : PlayerDetectedState
 
         if(performCloseRangeAction)
         {
-            stateMachine.ChangeState(yoKo.meleeAttackState);
+            stateMachine.ChangeState(yoKo.MeleeAttackState);
         }
         else if(performLongRangeAction)
         {
-            stateMachine.ChangeState(yoKo.jumpState);
+            stateMachine.ChangeState(yoKo.JumpState);
         }
         else if(!isPlayerMaxRange)
         {
-            stateMachine.ChangeState(yoKo.lookForPlayerState);
+            stateMachine.ChangeState(yoKo.LookForPlayerState);
         }
         else if(!isLedge)
         {
             enemy.Flip();
-            stateMachine.ChangeState(yoKo.moveState);
+            stateMachine.ChangeState(yoKo.MoveState);
         }
     }
 }

@@ -6,9 +6,11 @@ public class Jaii_StunState : StunState
 
     bool DoStunKnockback;
 
-    public Jaii_StunState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_StunState stateData, Jaii jaii) : base(enemy, stateMachine, animBoolName, stateData)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.jaii = jaii;
+        base.Initialize(enemy, stateMachine);
+
+        jaii = enemy as Jaii;
     }
 
     public override void Enter()
@@ -17,7 +19,6 @@ public class Jaii_StunState : StunState
 
         if (DoStunKnockback)
         {
-            enemy.SetVelocity(stateData.stunKnockbackSpeed, stateData.stunKnockbackAngle, -enemy.facingDir);
             DoStunKnockback = false;
         }
         else
@@ -34,15 +35,15 @@ public class Jaii_StunState : StunState
         {
             if(performCloseRangeAction)
             {
-                stateMachine.ChangeState(jaii.meleeAttackState);
+                stateMachine.ChangeState(jaii.MeleeAttackState);
             }
             else if(isPlayerMinRange)
             {
-                stateMachine.ChangeState(jaii.chargeState);
+                stateMachine.ChangeState(jaii.ChargeState);
             }
             else
             {
-                stateMachine.ChangeState(jaii.lookForPlayerState);
+                stateMachine.ChangeState(jaii.LookForPlayerState);
             }
         }
     }

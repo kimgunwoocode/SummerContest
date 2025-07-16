@@ -4,9 +4,11 @@ public class Jaii_ChargeState : ChargeState
 {
     Jaii jaii;
 
-    public Jaii_ChargeState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_ChargeState stateData, Jaii jaii) : base(enemy, stateMachine, animBoolName, stateData)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.jaii = jaii;
+        base.Initialize(enemy, stateMachine);
+
+        jaii = enemy as Jaii;
     }
 
     public override void LogicUpdate()
@@ -15,22 +17,22 @@ public class Jaii_ChargeState : ChargeState
 
         if(performCloseRangeAction)
         {
-            stateMachine.ChangeState(jaii.meleeAttackState);
+            stateMachine.ChangeState(jaii.MeleeAttackState);
         }
         else if(!isLedge)
         {
-            jaii.stunState.SetDoStunKnockback(false);
-            stateMachine.ChangeState(jaii.stunState);
+            jaii.StunState.SetDoStunKnockback(false);
+            stateMachine.ChangeState(jaii.StunState);
         }
         else if(isWall)
         {
-            jaii.stunState.SetDoStunKnockback(true);
-            stateMachine.ChangeState(jaii.stunState);
+            jaii.StunState.SetDoStunKnockback(true);
+            stateMachine.ChangeState(jaii.StunState);
         }
         else if(isChargeTimeOver)
         {
-            jaii.stunState.SetDoStunKnockback(false);
-            stateMachine.ChangeState(jaii.stunState);
+            jaii.StunState.SetDoStunKnockback(false);
+            stateMachine.ChangeState(jaii.StunState);
         }
     }
 }

@@ -4,9 +4,11 @@ public class Yoko_MoveState : MoveState
 {
     YoKo yoKo;
 
-    public Yoko_MoveState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_MoveState stateData, YoKo yoKo) : base(enemy, stateMachine, animBoolName, stateData)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.yoKo = yoKo;
+        base.Initialize(enemy, stateMachine);
+
+        yoKo = enemy as YoKo;
     }
 
     public override void LogicUpdate()
@@ -15,16 +17,16 @@ public class Yoko_MoveState : MoveState
 
         if(isPlayerMinRange)
         {
-            stateMachine.ChangeState(yoKo.playerDetectedState);
+            stateMachine.ChangeState(yoKo.PlayerDetectedState);
         }
         else if (!isLedge || isWall)
         {
-            yoKo.idleState.SetFlipAfterIdle(true);
-            stateMachine.ChangeState(yoKo.idleState);
+            yoKo.IdleState.SetFlipAfterIdle(true);
+            stateMachine.ChangeState(yoKo.IdleState);
         }
         else if (isPlayerBehind)
         {
-            stateMachine.ChangeState(yoKo.lookForPlayerState);
+            stateMachine.ChangeState(yoKo.LookForPlayerState);
         }
     }
 }

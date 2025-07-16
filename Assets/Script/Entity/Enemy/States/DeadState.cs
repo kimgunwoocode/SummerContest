@@ -2,11 +2,14 @@ using UnityEngine;
 
 public class DeadState : State
 {
-   protected D_DeadState stateData;
+   [SerializeField] protected GameObject deathChunkParticle;
+   [SerializeField] protected GameObject deathBloodParticle;
 
-    public DeadState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_DeadState stateData) : base(enemy, stateMachine, animBoolName)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.stateData = stateData;
+        base.Initialize(enemy, stateMachine);
+
+        animBoolName = "dead";
     }
 
     public override void DoCheck()
@@ -18,11 +21,11 @@ public class DeadState : State
     {
         base.Enter();
 
-        if(stateData.deathBloodParticle != null)
-            GameObject.Instantiate(stateData.deathBloodParticle, enemy.aliveGO.transform.position, stateData.deathBloodParticle.transform.rotation);
+        if(deathBloodParticle != null)
+            GameObject.Instantiate(deathBloodParticle, enemy.aliveGO.transform.position, deathBloodParticle.transform.rotation);
         
-        if(stateData.deathChunkParticle != null)
-            GameObject.Instantiate(stateData.deathChunkParticle, enemy.aliveGO.transform.position, stateData.deathChunkParticle.transform.rotation);
+        if(deathChunkParticle != null)
+            GameObject.Instantiate(deathChunkParticle, enemy.aliveGO.transform.position, deathChunkParticle.transform.rotation);
 
         enemy.gameObject.SetActive(false);
         // TODO: 추후 리스폰, 돈 드랍 등을 반영하여 수정 필요

@@ -1,12 +1,18 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MeleeAttackState : AttackState
 {
-    D_MeleeAttackState stateData;
+    [SerializeField] float attackRadius = .5f;
+    
+    [SerializeField] protected int attackDamage = 1;
+    [SerializeField] protected LayerMask playerLayer;
 
-    public MeleeAttackState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition, D_MeleeAttackState stateData) : base(enemy, stateMachine, animBoolName, attackPosition)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.stateData = stateData;
+        base.Initialize(enemy, stateMachine);
+
+        animBoolName = "meleeAttack";
     }
 
     public override void DoCheck()
@@ -38,7 +44,7 @@ public class MeleeAttackState : AttackState
     {
         base.TriggerAttack();
 
-        Collider2D[] detectedObjs = Physics2D.OverlapCircleAll(attackPosition.position, stateData.attackRadius, stateData.playerLayer);
+        Collider2D[] detectedObjs = Physics2D.OverlapCircleAll(attackPosition.position, attackRadius, playerLayer);
 
         foreach(Collider2D col in detectedObjs)
         {
@@ -51,5 +57,11 @@ public class MeleeAttackState : AttackState
     public override void FinishAttack()
     {
         base.FinishAttack();
+    }
+
+    public virtual void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPosition.position, attackRadius);
     }
 }

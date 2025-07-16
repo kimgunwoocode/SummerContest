@@ -4,9 +4,11 @@ public class Jaii_MeleeAttackState : MeleeAttackState
 {
     Jaii jaii;
 
-    public Jaii_MeleeAttackState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition, D_MeleeAttackState stateData, Jaii jaii) : base(enemy, stateMachine, animBoolName, attackPosition, stateData)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.jaii = jaii;
+        base.Initialize(enemy, stateMachine);
+
+        jaii = enemy as Jaii;
     }
 
     public override void LogicUpdate()
@@ -17,11 +19,11 @@ public class Jaii_MeleeAttackState : MeleeAttackState
         {
             if(isPlayerMinRange)
             {
-                stateMachine.ChangeState(jaii.playerDetectedState);
+                stateMachine.ChangeState(jaii.PlayerDetectedState);
             }
             else
             {
-                stateMachine.ChangeState(jaii.lookForPlayerState);
+                stateMachine.ChangeState(jaii.LookForPlayerState);
             }
         }
     }

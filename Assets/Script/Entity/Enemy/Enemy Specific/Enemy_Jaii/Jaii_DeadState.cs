@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class Jaii_DeadState : DeadState
 {
-   Jaii jaii;
+    Jaii jaii;
 
-    public Jaii_DeadState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_DeadState stateData, Jaii jaii) : base(enemy, stateMachine, animBoolName, stateData)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.jaii = jaii;
+        base.Initialize(enemy, stateMachine);
+
+        jaii = enemy as Jaii;
     }
 }

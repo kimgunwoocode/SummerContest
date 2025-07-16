@@ -6,18 +6,20 @@ public class Yoko_JumpState : JumpState
 {
     YoKo yoKo;
 
-    public Yoko_JumpState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_JumpState stateData, YoKo yoKo) : base(enemy, stateMachine, animBoolName, stateData)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.yoKo = yoKo;
+        base.Initialize(enemy, stateMachine);
+
+        yoKo = enemy as YoKo;
     }
 
     public override void Enter()
     {
         base.Enter();
 
-        float distanceFromPlayer = Math.Abs(yoKo.player.position.x - enemy.aliveGO.transform.position.x) - stateData.jumpOffset;
-        enemy.rb.AddForce(new Vector2(distanceFromPlayer * enemy.facingDir, stateData.jumpHeight), ForceMode2D.Impulse);
-        // 포물선 연산 시뮬레이션 활용
+        // TODO: 포물선 연산 시뮬레이션 활용하도록 수정
+        float distanceFromPlayer = Math.Abs(yoKo.player.position.x - enemy.aliveGO.transform.position.x) - jumpOffset;
+        enemy.rb.AddForce(new Vector2(distanceFromPlayer * enemy.facingDir, jumpHeight), ForceMode2D.Impulse);
     }
     
     protected override void OnJumpLanding()
@@ -26,21 +28,21 @@ public class Yoko_JumpState : JumpState
 
         if(performCloseRangeAction)
         {
-            stateMachine.ChangeState(yoKo.meleeAttackState);
+            stateMachine.ChangeState(yoKo.MeleeAttackState);
         }
         else if(!isLedge || isWall)
         {
-            stateMachine.ChangeState(yoKo.lookForPlayerState);
+            stateMachine.ChangeState(yoKo.LookForPlayerState);
         }
         else if(isJumpDone)
         {
             if(isPlayerMinRange)
             {
-                stateMachine.ChangeState(yoKo.playerDetectedState);
+                stateMachine.ChangeState(yoKo.PlayerDetectedState);
             }
             else
             {
-                stateMachine.ChangeState(yoKo.lookForPlayerState);
+                stateMachine.ChangeState(yoKo.LookForPlayerState);
             }
         }
     }

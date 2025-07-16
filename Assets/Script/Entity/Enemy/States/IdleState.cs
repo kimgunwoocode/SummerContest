@@ -2,11 +2,8 @@ using UnityEngine;
 
 public class IdleState : State
 {
-    //SerializeField 사용, D_Idle 제거
-    //[SerializeField] float minIdleTime = 1f;
-    //[SerializeField] float maxIdleTime = 1f;
-
-    protected D_IdleState stateData;
+    [SerializeField] float minIdleTime = 1f;
+    [SerializeField] float maxIdleTime = 1f;
 
     protected bool flipAfterIdle;
     protected bool isIdleTimeOver;
@@ -15,9 +12,11 @@ public class IdleState : State
 
     protected float idleTime;
 
-    public IdleState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_IdleState stateData) : base(enemy, stateMachine, animBoolName)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.stateData = stateData;
+        base.Initialize(enemy, stateMachine);
+
+        animBoolName = "idle";
     }
 
     public override void DoCheck()
@@ -69,6 +68,6 @@ public class IdleState : State
 
     void SetRandomIdleTime()
     {
-        idleTime = Random.Range(stateData.minIdleTime, stateData.maxIdleTime);
+        idleTime = Random.Range(minIdleTime, maxIdleTime);
     }
 }

@@ -41,6 +41,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4623705016764422937}
   - component: {fileID: 4208828339465553652}
+  - component: {fileID: 6756093106145340582}
+  - component: {fileID: 8970679130309654787}
+  - component: {fileID: 2496954641299654890}
+  - component: {fileID: 4653607430100538301}
+  - component: {fileID: 6217520579533286077}
+  - component: {fileID: 1281922461247519504}
+  - component: {fileID: 6523280152791488403}
+  - component: {fileID: 8510276790118465102}
   m_Layer: 7
   m_Name: Enemy_Jaii
   m_TagString: Untagged
@@ -82,15 +90,130 @@ MonoBehaviour:
   ledgeCheck: {fileID: 4810120479161883845}
   groundCheck: {fileID: 2814906568388353551}
   playerCheck: {fileID: 3730235493980292858}
-  moveStateData: {fileID: 11400000, guid: 6218cdb45cb2b454ea221398cc9f0dd3, type: 2}
-  playerDetectedData: {fileID: 11400000, guid: 467a3cad7763a7543811419006dafbc0, type: 2}
-  lookForPlayerStateData: {fileID: 11400000, guid: 2bd91079bc1099b44b378424a20abf2f, type: 2}
-  chargeStateData: {fileID: 11400000, guid: f9a88296454bc7c48a035953da77cf55, type: 2}
-  meleeAttackStateData: {fileID: 11400000, guid: 333f5655f7d7768469326538bbcdfd19, type: 2}
-  knockbackStateData: {fileID: 11400000, guid: 8ef9277a19f74d04dbb3e6610b1e71db, type: 2}
-  stunStateData: {fileID: 11400000, guid: 4daefb0df4be75c47920c9bc688c7542, type: 2}
-  deadStateData: {fileID: 11400000, guid: 3904fbd537f77e341a1776e50b6a0ed1, type: 2}
-  meleeAttackPosition: {fileID: 8769995759594002807}
+  moveState: {fileID: 6756093106145340582}
+  playerDetectedState: {fileID: 8970679130309654787}
+  lookForPlayerState: {fileID: 2496954641299654890}
+  chargeState: {fileID: 4653607430100538301}
+  meleeAttackState: {fileID: 6217520579533286077}
+  knockbackState: {fileID: 1281922461247519504}
+  stunState: {fileID: 6523280152791488403}
+  deadState: {fileID: 8510276790118465102}
+--- !u!114 &6756093106145340582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747266690530510597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1df57df839a4f140abf2c8a293affdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0
+--- !u!114 &8970679130309654787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747266690530510597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d207ef26facac174295b32ca10cce354, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  longRangeActionTime: 1.5
+--- !u!114 &2496954641299654890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747266690530510597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13011fd5bbc40374ebc6936965a15fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayTime: 0.2
+--- !u!114 &4653607430100538301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747266690530510597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e17e9f7013e73414eac4bd2a066d2667, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargeSpeed: 10
+  chargeTime: 1.5
+--- !u!114 &6217520579533286077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747266690530510597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dcc294a3f3141442bc00c1893aa1a3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPosition: {fileID: 8769995759594002807}
+  attackRadius: 0.5
+  attackDamage: 1
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &1281922461247519504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747266690530510597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c9f392751380f3438f3b26cdafc706c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackTime: 0.2
+  knockbackSpeed: 3
+  knockbackAngle: {x: 2, y: 4}
+--- !u!114 &6523280152791488403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747266690530510597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d15f996ae6ae124e9119b1d03a4c8d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stunTime: 2
+  stunKnockbackTime: 0.2
+  stunKnockbackSpeed: 4
+  stunKnockbackAngle: {x: 2, y: 4}
+--- !u!114 &8510276790118465102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747266690530510597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f2b394ba7d0a744ae6bd6129c25b7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathChunkParticle: {fileID: 0}
+  deathBloodParticle: {fileID: 0}
 --- !u!1 &4528402205541318985
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,6 +479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d59a9352af9b8534ca7fcb9e399121c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackState: {fileID: 0}
 --- !u!1 &7110710729179273154
 GameObject:
   m_ObjectHideFlags: 0

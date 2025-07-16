@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class Jaii_LookForPlayerState : LookForPlayerState
 {
-  Jaii jaii;
+    Jaii jaii;
 
-    public Jaii_LookForPlayerState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_LookForPlayerState stateData, Jaii jaii) : base(enemy, stateMachine, animBoolName, stateData)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.jaii = jaii;
+        base.Initialize(enemy, stateMachine);
+
+        jaii = enemy as Jaii;
     }
 
     public override void LogicUpdate()
@@ -16,9 +18,9 @@ public class Jaii_LookForPlayerState : LookForPlayerState
         if(isLookingForPlayerDone)
         {
             if(isPlayerMinRange) 
-                stateMachine.ChangeState(jaii.playerDetectedState);
+                stateMachine.ChangeState(jaii.PlayerDetectedState);
             else 
-                stateMachine.ChangeState(jaii.moveState);
+                stateMachine.ChangeState(jaii.MoveState);
         }
     }
 }

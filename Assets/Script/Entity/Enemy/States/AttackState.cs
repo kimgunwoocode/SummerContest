@@ -2,14 +2,16 @@ using UnityEngine;
 
 public class AttackState : State
 {
-    protected Transform attackPosition;
-
+    public Transform attackPosition;
+    
     protected bool isAnimationFinished;
     protected bool isPlayerMinRange;
 
-    public AttackState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition) : base(enemy, stateMachine, animBoolName)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.attackPosition = attackPosition;
+        base.Initialize(enemy, stateMachine);
+
+        animBoolName = "attack";
     }
 
     public override void DoCheck()

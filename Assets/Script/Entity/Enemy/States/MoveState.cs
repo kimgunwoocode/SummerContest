@@ -2,18 +2,19 @@ using UnityEngine;
 
 public class MoveState : State
 {
-    protected D_MoveState stateData;
+    [SerializeField] protected float moveSpeed = 3;
 
     protected bool isLedge;
     protected bool isGround;
     protected bool isWall;
     protected bool isPlayerMinRange;
     protected bool isPlayerBehind;
-    
 
-    public MoveState(EnemyEntity enemy, FiniteStateMachine stateMachine, string animBoolName, D_MoveState stateData) : base(enemy, stateMachine, animBoolName)
+    public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
-        this.stateData = stateData;
+        base.Initialize(enemy, stateMachine);
+
+        animBoolName = "move";
     }
 
     public override void DoCheck()
@@ -22,7 +23,7 @@ public class MoveState : State
 
         isLedge = enemy.ChackLedge();
         isGround = enemy.CheckGround();
-        isWall = enemy.ChackWall();
+        isWall = enemy.CheckWall();
         isPlayerMinRange = enemy.CheckPlayerMinRange();
         isPlayerBehind = enemy.CheckPlayerBehind();
     }
@@ -31,7 +32,7 @@ public class MoveState : State
     {
         base.Enter();
 
-        enemy.SetVelocity(stateData.moveSpeed);
+        enemy.SetVelocity(moveSpeed);
     }
 
     public override void Exit()
