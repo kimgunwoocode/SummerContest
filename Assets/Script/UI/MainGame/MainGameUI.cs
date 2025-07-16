@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
 
 public class MainGameUI : MonoBehaviour
 {
@@ -34,14 +35,20 @@ public class MainGameUI : MonoBehaviour
     {
         MoneyText.text = string.Format("{0}", data.Money); // 돈 텍스트 초기화
 
-        // 체력 변화 감지시 호출
+        float fillAmount = data.CurrentBreathGauge / data.MaxBreathGauge;
+        breatGauge.fillAmount = Mathf.Clamp01(fillAmount); // 게이지 UI 초기화
+
+
+        // 임시 확인용 체력 변화 감지
         if (UICurrentHP != data.CurrentHP)
         {
+            UICurrentHP = data.CurrentHP;
             UpdateHP(data.CurrentHP, data.MaxHP);
         }
         // 최대체력 갱신 감지시 호출
         if (UIMaxHP != data.MaxHP)
         {
+            UIMaxHP = data.MaxHP;
             InitializeHP(data.MaxHP);
         }
     }
@@ -63,6 +70,8 @@ public class MainGameUI : MonoBehaviour
             GameObject heart = Instantiate(heartPrefab, heartContainer);
             heartImages.Add(heart.GetComponent<Image>());
         }
+        // 스프라이트 초기화
+        UpdateHP(data.CurrentHP, data.MaxHP);
     }
 
     // 체력 변동시 호출
