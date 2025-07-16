@@ -35,7 +35,7 @@ public class PlayerManager : AbstractEntity {
         if (data == null) Debug.LogError("Can't found GameDataManager at GameManager");
 
         maxHealth = data.MaxHP;
-        currentHealth = maxHealth;
+        currentHealth = data.CurrentHP;
     }
 
     private void OnEnable() {

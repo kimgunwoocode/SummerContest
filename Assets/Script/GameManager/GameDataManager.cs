@@ -1,18 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class PlayerData
-{
-    public int MaxHP; // 플레이어 최대 체력
-    public int CurrentHP; // 플레이어 현재 체력
-    public float MaxBreathGauge; // 최대 브레스 게이지
-    public float CurrentBreathGauge; // 브레스 게이지
-    public int Money; // 보유중인 돈
-    public Dictionary<int, bool> PlayerSkill = new();// 해금된 플레이어 스킬 <스킬ID, 해금 여부>
-    public Dictionary<int, bool> GettedItems = new(); // 보유중인 아이템
-}
-
 public class GameDataManager : MonoBehaviour
 {
     public PlayerData GameManager_PlayerData { get; private set; }// 이전에 세이브된 데이터 임시 보관. 게임오버 또는 종료시에 다시 불러올 용도 (외부 접근 불가)
@@ -20,9 +8,12 @@ public class GameDataManager : MonoBehaviour
     //실제 게임 플레이 중에 접근할 변수들 :
     public int MaxHP;
     public int CurrentHP;
+    public int ATK;
     public float MaxBreathGauge;
     public float CurrentBreathGauge;
     public int Money = 0;
+    public List<int> EquipSkill = new();
+
     public Dictionary<int, bool> PlayerSkill = new();
     public Dictionary<int, bool> GettedItems = new();
 
@@ -37,9 +28,11 @@ public class GameDataManager : MonoBehaviour
     {
         MaxHP = GameManager_PlayerData.MaxHP;
         CurrentHP = GameManager_PlayerData.CurrentHP;
+        ATK = GameManager_PlayerData.ATK;
         MaxBreathGauge = GameManager_PlayerData.MaxBreathGauge;
         CurrentBreathGauge = GameManager_PlayerData.CurrentBreathGauge;
         Money = GameManager_PlayerData.Money;
+        EquipSkill = GameManager_PlayerData.EquipSkill;
         PlayerSkill = GameManager_PlayerData.PlayerSkill;
         GettedItems = GameManager_PlayerData.GettedItems;
     }
@@ -47,9 +40,11 @@ public class GameDataManager : MonoBehaviour
     {
         GameManager_PlayerData.MaxHP = MaxHP;
         GameManager_PlayerData.CurrentHP = CurrentHP;
+        GameManager_PlayerData.ATK = ATK;
         GameManager_PlayerData.MaxBreathGauge = MaxBreathGauge;
         GameManager_PlayerData.CurrentBreathGauge = CurrentBreathGauge;
         GameManager_PlayerData.Money = Money;
+        GameManager_PlayerData.EquipSkill = EquipSkill;
         GameManager_PlayerData.PlayerSkill = PlayerSkill;
         GameManager_PlayerData.GettedItems = GettedItems;
 

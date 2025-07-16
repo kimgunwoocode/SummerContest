@@ -49,10 +49,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHP: 0
   CurrentHP: 0
+  ATK: 0
   MaxBreathGauge: 0
   CurrentBreathGauge: 0
   Money: 0
-  GettedItems: 
+  EquipSkill: 
 --- !u!114 &4069021966047175260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,7 +78,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04dde937564843f48a5ebce249751b32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameDataManager: {fileID: 1672343321082536275}
   Player: {fileID: 0}
+  CurrentSceneName: 
 --- !u!114 &7258978633776394569
 MonoBehaviour:
   m_ObjectHideFlags: 0
