@@ -16,6 +16,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   WalkSpeed: 250
+  RunSpeed: 400
   MaxSpeed: 800
   JumpForce: 10
   GravityByNormalForce: 0
@@ -28,6 +29,8 @@ MonoBehaviour:
   CoyoteTime: 0.14
   JumpBufferTime: 0.1
   bonusJump: 1
+  dashPower: 0
+  dashCooldown: 0
   wallCheckDistance: 0.6
   groundCheckDistance: 0.1
   groundLayer:

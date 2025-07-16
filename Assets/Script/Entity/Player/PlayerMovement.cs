@@ -10,11 +10,12 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private Transform[] wallRaycastPoints;
 
     internal Vector2 _currentInput;
+    private bool _isSprint;
     private Rigidbody2D _rb;
 
     private bool _cachedQueryStartInColliders;
     private Vector2 _calculatedVelocity;
-    private float _time;
+
 
     private void Awake() {
         _rb = GetComponent<Rigidbody2D>();
@@ -23,10 +24,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void Update() {
-        if (_isGrounded) {
-        } else {
-        }
-        //Debug.Log(_groundedTime + ", " +  _jumpPressTime);
+
     }
 
     #region Movement
@@ -38,8 +36,16 @@ public class PlayerMovement : MonoBehaviour {
         _currentInput = Vector2.zero;
     }
 
+    internal void OnSprintPerformed(InputAction.CallbackContext context) {
+        _isSprint = true;
+    }
+
+    internal void OnSprintCanceled(InputAction.CallbackContext context) {
+        _isSprint = false;
+    }
+
     private void Move() {
-        _calculatedVelocity.x = _isTouchingWall ? 0f : (_currentInput.x * _data.WalkSpeed * Time.deltaTime);
+        _calculatedVelocity.x = _isTouchingWall ? 0f : _isSprint ? (_currentInput.x * _data.RunSpeed * Time.fixedDeltaTime) : (_currentInput.x * _data.WalkSpeed * Time.fixedDeltaTime);
     }
 
     internal Vector2 ApplyMove() {
@@ -70,7 +76,7 @@ public class PlayerMovement : MonoBehaviour {
         //Jump();
     }
 
-    private void ExcuteJump(int jumpType) { // 1 : bonus Jump
+    private void ExecuteJump(int jumpType) { // 1 : bonus Jump
         if(jumpType == 0) {
             _isJumped = true;
         }else if(jumpType == 1) {
@@ -90,16 +96,16 @@ public class PlayerMovement : MonoBehaviour {
     private void JumpRequestValidation() {
         _isJumpEndedEarly = CheckJumpEndedBeforeApex();
 
-        bool jumpBufferVaildation = ((_groundedTime - _jumpPressTime) < _data.JumpBufferTime) && _isGrounded;
+        bool jumpBufferValidation = ((_groundedTime - _jumpPressTime) < _data.JumpBufferTime) && _isGrounded;
 
-        bool coyoteJumpVaildation = (_jumpPressTime - _leftGroundTime) < _data.CoyoteTime;
+        bool coyoteJumpValidation = (_jumpPressTime - _leftGroundTime) < _data.CoyoteTime;
 
-        bool bonusJumpVaildation = !_isGrounded && _leftBonusJump > 0;
+        bool bonusJumpValidation = !_isGrounded && _leftBonusJump > 0;
 
-        if (!_isJumpRequestExist && !jumpBufferVaildation) return;
+        if (!_isJumpRequestExist && !jumpBufferValidation) return;
 
-        bool judge = (coyoteJumpVaildation || jumpBufferVaildation || bonusJumpVaildation);
-        if (judge) ExcuteJump((!_isGrounded && !jumpBufferVaildation && !coyoteJumpVaildation) ? 1 : 0);
+        bool canJump = (coyoteJumpValidation || jumpBufferValidation || bonusJumpValidation);
+        if (canJump) ExecuteJump((!_isGrounded && !jumpBufferValidation && !coyoteJumpValidation) ? 1 : 0);
         _isJumpRequestExist = false;
     }
 
@@ -148,8 +154,6 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private bool CheckWall() {
-        //if (_currentInput.x == 0) return false;
-
         Vector2 rayCastDir = (_currentInput.x > 0) ? Vector2.right : Vector2.left;
 
         foreach(Transform point in wallRaycastPoints) {
