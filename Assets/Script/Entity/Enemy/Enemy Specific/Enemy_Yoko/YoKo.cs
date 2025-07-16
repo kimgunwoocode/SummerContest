@@ -28,15 +28,6 @@ public class YoKo : EnemyEntity
     {
         base.Awake();
 
-        idleState.Initialize(this, stateMachine);
-        moveState.Initialize(this, stateMachine);
-        playerDetectedState.Initialize(this, stateMachine);
-        jumpState.Initialize(this, stateMachine);
-        lookForPlayerState.Initialize(this, stateMachine);
-        meleeAttackState.Initialize(this, stateMachine);
-        knockbackState.Initialize(this, stateMachine);
-        deadState.Initialize(this, stateMachine);
-
         stateMachine.Initialize(moveState);
     }
 
@@ -48,12 +39,9 @@ public class YoKo : EnemyEntity
         {
             stateMachine.ChangeState(deadState);
         }
-        else
+        else if(stateMachine.currentState != knockbackState)
         {
-            if(stateMachine.currentState != knockbackState)
-            {
-                stateMachine.ChangeState(knockbackState);
-            }
+            stateMachine.ChangeState(knockbackState);
         }
     }
 }

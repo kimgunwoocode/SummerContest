@@ -13,7 +13,7 @@ public class EnemyEntity : MonoBehaviour
     public GameObject aliveGO {get; private set;}
     public int facingDir {get; private set;} = -1;
     public AnimationToStatemachine atsm {get; private set;}
-    public int lastDamegeDirection {get; private set;}
+    public int lastDamageDirection {get; private set;}
 
     [SerializeField] SpriteRenderer spriteRenderer;
     
@@ -24,7 +24,7 @@ public class EnemyEntity : MonoBehaviour
     [SerializeField] protected Transform playerCheck;
 
     protected bool isDead;
-    protected float lastDamegeTime;    
+    protected float lastDamageTime;    
 
     Vector2 velocityWorkspace;
     int currentHP;
@@ -45,6 +45,11 @@ public class EnemyEntity : MonoBehaviour
         atsm = aliveGO.GetComponent<AnimationToStatemachine>();
 
         stateMachine = new FiniteStateMachine();
+
+        foreach (var state in GetComponents<State>())
+        {
+            state.Initialize(this, stateMachine);
+        }
 
         if (spriteRenderer.flipX && facingDir == -1)
         {
@@ -89,7 +94,7 @@ public class EnemyEntity : MonoBehaviour
 
     public virtual void TakeDamage(int damageAmount, Vector2 attackerPosition)
     {
-        lastDamegeTime = Time.time;
+        lastDamageTime = Time.time;
 
         currentHP -= damageAmount;
 
@@ -100,11 +105,11 @@ public class EnemyEntity : MonoBehaviour
 
         if(attackerPosition.x > aliveGO.transform.position.x)
         {
-            lastDamegeDirection = -1;
+            lastDamageDirection = -1;
         }
         else
         {
-            lastDamegeDirection = 1;
+            lastDamageDirection = 1;
         }
 
         if(currentHP <= 0)

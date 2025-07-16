@@ -17,11 +17,6 @@ public class FenFire : EnemyEntity
     {
         base.Awake();
 
-        idleState.Initialize(this, stateMachine);
-        attackState.Initialize(this, stateMachine);
-        knockbackState.Initialize(this, stateMachine);
-        deadState.Initialize(this, stateMachine);
-
         stateMachine.Initialize(idleState);
     }
 
@@ -33,12 +28,9 @@ public class FenFire : EnemyEntity
         {
             stateMachine.ChangeState(deadState);
         }
-        else
+        else if(stateMachine.currentState != knockbackState)
         {
-            if(stateMachine.currentState != knockbackState)
-            {
-                stateMachine.ChangeState(knockbackState);
-            }
+            stateMachine.ChangeState(knockbackState);
         }
     }
 }

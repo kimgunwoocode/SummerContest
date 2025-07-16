@@ -34,7 +34,7 @@ public class KnockbackState : State
 
         isKnockbackOver = false;
         isMovementStopped = false;
-        enemy.SetVelocity(knockbackSpeed, knockbackAngle, enemy.lastDamegeDirection);
+        enemy.SetVelocity(knockbackSpeed, knockbackAngle, enemy.lastDamageDirection);
     }
 
     public override void Exit()

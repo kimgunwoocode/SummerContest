@@ -27,15 +27,6 @@ public class Jaii : EnemyEntity
     {
         base.Awake();
 
-        moveState.Initialize(this, stateMachine);
-        playerDetectedState.Initialize(this, stateMachine);
-        lookForPlayerState.Initialize(this, stateMachine);
-        chargeState.Initialize(this, stateMachine);
-        meleeAttackState.Initialize(this, stateMachine);
-        knockbackState.Initialize(this, stateMachine);
-        stunState.Initialize(this, stateMachine);
-        deadState.Initialize(this, stateMachine);
-
         stateMachine.Initialize(moveState);
     }
 
@@ -47,12 +38,9 @@ public class Jaii : EnemyEntity
         {
             stateMachine.ChangeState(deadState);
         }
-        else
+        else if(stateMachine.currentState != knockbackState)
         {
-            if(stateMachine.currentState != knockbackState)
-            {
-                stateMachine.ChangeState(knockbackState);
-            }
+            stateMachine.ChangeState(knockbackState);
         }
     }
 }
