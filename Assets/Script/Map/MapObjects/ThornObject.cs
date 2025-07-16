@@ -11,7 +11,7 @@ public class ThornObject : MonoBehaviour
 
     private void Awake()
     {
-        GameManager = Singleton.GameManager_Instance.Get<GameManager>();
+        GameManager = Singleton.Get<GameManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -11,6 +11,6 @@ public class SavePoint : MonoBehaviour
     public void InteractSavePoint()
     {
         print("SavePoint_"+SavePoint_type+" ID:"+SavePoint_ID);
-        Singleton.GameManager_Instance.Get<GameDataManager>().SaveData_to_SavePoint();
+        Singleton.Get<GameDataManager>().SaveData_to_SavePoint();
     }
 }

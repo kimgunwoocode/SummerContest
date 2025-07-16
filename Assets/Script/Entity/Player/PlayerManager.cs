@@ -27,7 +27,7 @@ public class PlayerManager : AbstractEntity {
     }
 
     private void Start() {
-        data = Singleton.GameManager_Instance.Get<GameDataManager>();
+        data = Singleton.Get<GameDataManager>();
         if (data == null) Debug.LogError("Can't found GameDataManager at GameManager");
 
         maxHealth = data.MaxHP;
