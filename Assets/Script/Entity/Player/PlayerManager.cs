@@ -22,8 +22,12 @@ public class PlayerManager : AbstractEntity {
 
         inputActions.Player.Jump.performed += movement.OnJumpPerformed;
         inputActions.Player.Jump.canceled += movement.OnJumpCanceled;
+
         inputActions.Player.Move.performed += movement.OnMovePerformed;
         inputActions.Player.Move.canceled += movement.OnMoveCanceled;
+
+        inputActions.Player.Sprint.performed += movement.OnSprintPerformed;
+        inputActions.Player.Sprint.canceled += movement.OnSprintCanceled;
     }
 
     private void Start() {
@@ -41,9 +45,13 @@ public class PlayerManager : AbstractEntity {
     private void OnDisable() {
         inputActions.Player.Jump.performed -= movement.OnJumpPerformed;
         inputActions.Player.Jump.canceled -= movement.OnJumpCanceled;
+
         inputActions.Player.Move.performed -= movement.OnMovePerformed;
         inputActions.Player.Move.canceled -= movement.OnMoveCanceled;
         
+        inputActions.Player.Sprint.performed -= movement.OnSprintPerformed;
+        inputActions.Player.Sprint.canceled -= movement.OnSprintCanceled;
+
         inputActions.Player.Disable();
     }
 
