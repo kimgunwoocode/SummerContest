@@ -55,7 +55,7 @@ public class MainGameUI : MonoBehaviour
 
 
     // 최대체력 갱신시 호출
-    internal void InitializeHP(int maxHP)
+    public void InitializeHP(int maxHP)
     {
         // 이전 하트들 제거
         foreach (Transform child in heartContainer)
@@ -75,7 +75,7 @@ public class MainGameUI : MonoBehaviour
     }
 
     // 체력 변동시 호출
-    internal void UpdateHP(int currentHP, int maxHP)
+    public void UpdateHP(int currentHP, int maxHP)
     {
         // MaxHP가 변경된 경우 리스트 길이 맞추기
         if (maxHP != heartImages.Count)
