@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5505560654318433701}
   - component: {fileID: 7406036366864112762}
-  - component: {fileID: -1750447531863836778}
+  - component: {fileID: -6021318656430330740}
   m_Layer: 0
-  m_Name: Main_SavePoint
+  m_Name: SavePoint_Semi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3385739379391702840}
+  - {fileID: 7326023941685888263}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7406036366864112762
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0.6901961, b: 0.3137255, a: 1}
+  m_Color: {r: 0.57254905, g: 0.81568635, b: 0.3137255, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -89,7 +89,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-1750447531863836778
+--- !u!114 &-6021318656430330740
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,9 +101,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60529e627209ef14bb0ff414c4418ca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnpoint_type: 0
+  spawnpoint_type: 1
   SpawnPoint_ID: 0
---- !u!1001 &7105341247894966941
+--- !u!1001 &3012043707310780578
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -134,7 +134,7 @@ PrefabInstance:
     - target: {fileID: 4870227233617450167, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: -1750447531863836778}
+      objectReference: {fileID: -6021318656430330740}
     - target: {fileID: 4870227233617450167, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -196,8 +196,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
---- !u!4 &3385739379391702840 stripped
+--- !u!4 &7326023941685888263 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5505560654318433701, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
-  m_PrefabInstance: {fileID: 7105341247894966941}
+  m_PrefabInstance: {fileID: 3012043707310780578}
   m_PrefabAsset: {fileID: 0}

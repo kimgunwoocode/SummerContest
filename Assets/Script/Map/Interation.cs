@@ -4,6 +4,10 @@ using UnityEngine.Events;
 
 public class Interaction : MonoBehaviour
 {
+    [Header("상호작용 기능 설명")]
+    [TextArea]
+    public string description;
+
     [Header("상호작용시 실행할 이벤트 (메서드)")]
     public UnityEvent InteractEvent;
 
