@@ -22,10 +22,12 @@ MonoBehaviour:
   MidAirGravity: 20
   MaxFallingSpeed: -40
   GravityModifierWhenJumpEndedEarly: 4
-  GravityModifierWhenFalling: 2.5
+  GravityModifierWhenFalling: 1.5
+  ApexModifier: 0.7
+  ApexThreadHold: 0.3
   CoyoteTime: 0.14
-  JumpBufferTime: 1
-  maxJumpTime: 0
+  JumpBufferTime: 0.1
+  bonusJump: 1
   wallCheckDistance: 0.6
   groundCheckDistance: 0.1
   groundLayer:

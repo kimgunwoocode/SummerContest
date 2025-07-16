@@ -10,16 +10,19 @@ public class ScriptablePlayerStats : ScriptableObject {
     public float MaxSpeed = 800f;
 
     [Header("Jump")]
-    public float JumpForce = 10f;
-    public float GravityByNormalForce = -1f;
-    public float MidAirGravity = -9.81f;
-    public float MaxFallingSpeed = -40f;
-    public float GravityModifierWhenJumpEndedEarly = 3f;
-    public float GravityModifierWhenFalling = 2.5f;
-    public float CoyoteTime = 0.14f;
-    public float JumpBufferTime = 0.24f;
+    [Tooltip("the basic jump force")]public float JumpForce = 10f;
+    [Tooltip("the gravity that is apllied when player is on the ground")]public float GravityByNormalForce = -1f;
+    [Tooltip("the basic gravity")]public float MidAirGravity = -9.81f;
+    [Tooltip("the max y-axis speed")]public float MaxFallingSpeed = -40f;
+    [Tooltip("the gravity multipler that is apllied after when player release the button")]public float GravityModifierWhenJumpEndedEarly = 3f;
+    [Tooltip("the gravity multipler that is apllied after when player is falling down")]public float GravityModifierWhenFalling = 2.5f;
+    [Tooltip("the gravity multipler that is applied when player reached about on the apex")]public float ApexModifier = 0.7f;
+    [Tooltip("the apex range, if player's y-axis speed is included in the apex range, it judged as a apex")]public float ApexThreadHold = 0.1f;
+    [Tooltip("allowed jump time while the player is in the air when doesn't jump")]public float CoyoteTime = 0.14f;
+    [Tooltip("allowed jump time while the player is in the air when does jump")]public float JumpBufferTime = 0.24f;
+    [Tooltip("allowed ")] public int bonusJump = 2;
 
-    public float maxJumpTime;
+    
 
     [Header("Collision Check")]
     public float wallCheckDistance = 0.6f;
