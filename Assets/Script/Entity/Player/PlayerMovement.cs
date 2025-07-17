@@ -120,6 +120,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void ExecuteJump(int jumpType) { // 1 : bonus Jump
+        _moveDirection = _currentInput;
         if(jumpType == 0) {
             _isJumped = true;
         }else if(jumpType == 1) {
@@ -192,7 +193,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private bool CheckGround() {
-        return Physics2D.OverlapBox(groundCheckerTransform.position - new Vector3(0, _data.groundCheckDistance / 2), new Vector2(transform.localScale.x, _data.groundCheckDistance /2), 0f, _data.groundLayer);
+        return Physics2D.OverlapBox(groundCheckerTransform.position - new Vector3(0, _data.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _data.groundCheckDistance /2), 0f, _data.groundLayer);
         //_isGrounded = Physics2D.OverlapCircle(groundCheckerTransform.position, groundCheckDistance, groundLayer);
        
     }
