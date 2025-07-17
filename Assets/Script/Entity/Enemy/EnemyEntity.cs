@@ -58,6 +58,11 @@ public class EnemyEntity : MonoBehaviour
         }
     }
 
+    protected virtual void Start()
+    {
+
+    }
+
     protected virtual void Update()
     {
         stateMachine.currentState.LogicUpdate();

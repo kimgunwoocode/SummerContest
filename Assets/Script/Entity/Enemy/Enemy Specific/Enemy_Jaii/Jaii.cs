@@ -22,10 +22,9 @@ public class Jaii : EnemyEntity
     public Jaii_StunState StunState => stunState;
     public Jaii_DeadState DeadState => deadState;
 
-
-    protected override void Awake()
+    protected override void Start()
     {
-        base.Awake();
+        base.Start();
 
         stateMachine.Initialize(moveState);
     }
@@ -34,11 +33,11 @@ public class Jaii : EnemyEntity
     {
         base.TakeDamage(damageAmount, attackerPosition);
 
-        if(isDead && stateMachine.currentState != deadState)
+        if (isDead && stateMachine.currentState != deadState)
         {
             stateMachine.ChangeState(deadState);
         }
-        else if(stateMachine.currentState != knockbackState)
+        else if (stateMachine.currentState != knockbackState)
         {
             stateMachine.ChangeState(knockbackState);
         }

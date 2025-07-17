@@ -6,6 +6,8 @@ public class Yoko_JumpState : JumpState
 {
     YoKo yoKo;
 
+    Transform player;
+
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
         base.Initialize(enemy, stateMachine);
@@ -18,7 +20,8 @@ public class Yoko_JumpState : JumpState
         base.Enter();
 
         // TODO: 포물선 연산 시뮬레이션 활용하도록 수정
-        float distanceFromPlayer = Math.Abs(yoKo.player.position.x - enemy.aliveGO.transform.position.x) - jumpOffset;
+        player = Singleton.GameManager_Instance.Get<GameManager>().Player.transform;
+        float distanceFromPlayer = Math.Abs(player.position.x - enemy.aliveGO.transform.position.x) - jumpOffset;
         enemy.rb.AddForce(new Vector2(distanceFromPlayer * enemy.facingDir, jumpHeight), ForceMode2D.Impulse);
     }
     

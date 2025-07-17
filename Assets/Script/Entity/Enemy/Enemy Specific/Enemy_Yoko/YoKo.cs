@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class YoKo : EnemyEntity
 {
-    [Header("Yoko Details")]
-    public Transform player; // TODO: 나중에 게임매니저 이용
-
     [Header("States")]
     [SerializeField] Yoko_IdleState idleState;
     [SerializeField] Yoko_MoveState moveState;
@@ -24,9 +21,9 @@ public class YoKo : EnemyEntity
     public Yoko_KnockbackState KnockbackState => knockbackState;
     public Yoko_DeadState DeadState => deadState;
 
-    protected override void Awake()
+    protected override void Start()
     {
-        base.Awake();
+        base.Start();
 
         stateMachine.Initialize(moveState);
     }
@@ -34,12 +31,12 @@ public class YoKo : EnemyEntity
     public override void TakeDamage(int damageAmount, Vector2 attackerPosition)
     {
         base.TakeDamage(damageAmount, attackerPosition);
-        
-        if(isDead && stateMachine.currentState != deadState)
+
+        if (isDead && stateMachine.currentState != deadState)
         {
             stateMachine.ChangeState(deadState);
         }
-        else if(stateMachine.currentState != knockbackState)
+        else if (stateMachine.currentState != knockbackState)
         {
             stateMachine.ChangeState(knockbackState);
         }

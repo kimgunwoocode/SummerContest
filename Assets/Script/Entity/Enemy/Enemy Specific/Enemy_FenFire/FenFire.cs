@@ -13,9 +13,9 @@ public class FenFire : EnemyEntity
     public FenFire_KnockbackState KnockbackState => knockbackState;
     public FenFire_DeadState DeadState => deadState;
 
-    protected override void Awake()
+    protected override void Start()
     {
-        base.Awake();
+        base.Start();
 
         stateMachine.Initialize(idleState);
     }
