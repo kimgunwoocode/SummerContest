@@ -3,11 +3,8 @@ guid: e82d50b380f3acc45ab005dc027b1191
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6472438882219491559
-    second: 1000006682_0
-  - first:
-      213: 7345774552311766460
-    second: 1000006682_1
+      213: 368746673022191736
+    second: Idle_0_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -75,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -103,45 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 1000006682_0
+      name: Idle_0_0
       rect:
         serializedVersion: 2
-        x: 387
-        y: 503
-        width: 679
-        height: 351
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 76
+        y: 101
+        width: 137
+        height: 98
+      alignment: 9
+      pivot: {x: 0.3421143, y: 0.5369666}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 91f71ea01274d26a0800000000000000
-      internalID: -6472438882219491559
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 1000006682_1
-      rect:
-        serializedVersion: 2
-        x: 795
-        y: 426
-        width: 8
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cbd95a6290f61f560800000000000000
-      internalID: 7345774552311766460
+      spriteID: 8784899352d0e1500800000000000000
+      internalID: 368746673022191736
       vertices: []
       indices: 
       edges: []
@@ -158,10 +133,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      1000006682_0: -6472438882219491559
-      1000006682_1: 7345774552311766460
+      Idle_0_0: 368746673022191736
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

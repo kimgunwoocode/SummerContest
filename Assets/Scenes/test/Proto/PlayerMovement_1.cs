@@ -270,24 +270,18 @@ public class PlayerMovement_1 : MonoBehaviour
         JumpRequestValidation();
         _rb.linearVelocity = _calculatedVelocity;
 
-        UpdateAnimationState();
+        UpdateAnimatorParameters();
     }
 
-    private void UpdateAnimationState()
+    private void UpdateAnimatorParameters()
     {
-        float speed = Mathf.Abs(_rb.linearVelocity.x);
-        bool isFalling = _rb.linearVelocity.y < -0.1f;
-        bool isJumping = _rb.linearVelocity.y > 0.1f;
+        if (_animator == null) return;
 
-        if (_animator == null)
-        {
-            Debug.LogError("Animator is NULL!");
-            return;
-        }
+        bool isPressingWD = _currentInput.x != 0; // W나 D 키를 누르고 있을 때만 true
 
-        _animator.SetFloat("Speed", speed);
-        _animator.SetBool("IsJumping", isJumping);
-        _animator.SetBool("IsFalling", isFalling);
-        _animator.SetBool("IsGrounded", _isGrounded);
+        _animator.SetBool("isRunning", _isSprint && isPressingWD);
+        _animator.SetBool("isWalking", !_isSprint && isPressingWD);
+        _animator.SetBool("Jumped", !_isGrounded);  // 점프 중이면 true, 착지하면 false
     }
+
 }
