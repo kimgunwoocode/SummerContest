@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour {
         _cachedQueryStartInColliders = Physics2D.queriesStartInColliders;
         _leftBonusJump = _data.bonusJump;
 
-        _moveDirection = 0;
+        _moveDirection = Vector2.zero;
         _isDashing = false;
         _isAbleToDash = true;
         _isJumped = false;
@@ -34,14 +34,12 @@ public class PlayerMovement : MonoBehaviour {
 
     #region Movement
     private bool _isCrouch;
-    private int _moveDirection;
+    private Vector2 _moveDirection;
     private bool _isDashing;
     private bool _isAbleToDash;
 
     internal void OnMovePerformed(InputAction.CallbackContext context) {
         _currentInput = context.ReadValue<Vector2>();
-        if (_isDashing) return;
-        _moveDirection = context.ReadValue<Vector2>().x > 0 ? 1 : -1;
     }
 
     internal void OnMoveCanceled(InputAction.CallbackContext context) {
@@ -68,6 +66,7 @@ public class PlayerMovement : MonoBehaviour {
         if (!_isAbleToDash || _isDashing) return;
         _isAbleToDash = false;
         _isDashing = true;
+        _calculatedVelocity.y = 0;
         StartCoroutine(StopDash());
         StartCoroutine(DashCooldown()); 
     }
@@ -82,10 +81,16 @@ public class PlayerMovement : MonoBehaviour {
         _isAbleToDash = true;
     }
 
+    private void UpdateMoveDir() {
+        if (_isDashing || !_isGrounded) return;
+        _moveDirection = _currentInput;
+    }
     
 
     private void Move() {
-        _calculatedVelocity.x = _isTouchingWall ? 0f : _isDashing ? (_data.DashSpeed * _moveDirection * Time.fixedDeltaTime ) : _isCrouch ? (_currentInput.x * _data.CrounchSpeed * Time.fixedDeltaTime) : (_currentInput.x * _data.WalkSpeed * Time.fixedDeltaTime);
+        UpdateMoveDir();
+
+        _calculatedVelocity.x = _isTouchingWall ? 0f : _isDashing ? (_data.DashSpeed * _moveDirection.x * Time.fixedDeltaTime ) : _isCrouch ? (_data.CrounchSpeed * Time.fixedDeltaTime * (_isGrounded ? _currentInput.x : _moveDirection.x)) : (_data.WalkSpeed * Time.fixedDeltaTime * (_isGrounded ? _currentInput.x : _moveDirection.x));
     }
 
     internal Vector2 ApplyMove() {
@@ -112,8 +117,6 @@ public class PlayerMovement : MonoBehaviour {
         _heldJump = true;
         _jumpPressTime = Time.time;
         _isJumpRequestExist = true;
-        //_jumpBufferTimer = _data.JumpBufferTime;
-        //Jump();
     }
 
     private void ExecuteJump(int jumpType) { // 1 : bonus Jump
@@ -134,6 +137,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void JumpRequestValidation() {
+        if (_isDashing) return;
         _isJumpEndedEarly = CheckJumpEndedBeforeApex();
 
         bool jumpBufferValidation = ((_groundedTime - _jumpPressTime) < _data.JumpBufferTime) && _isGrounded;
@@ -234,15 +238,15 @@ public class PlayerMovement : MonoBehaviour {
             Gizmos.DrawWireCube(groundCheckerTransform.position - new Vector3(0, _data.groundCheckDistance / 2), new Vector2(transform.localScale.x, _data.groundCheckDistance /2));
         }
 
-        if (wallRaycastPoints != null && _moveDirection != 0) {
-            Vector3 gizmoDirection = (_moveDirection > 0) ? Vector3.right : Vector3.left;
+        if (wallRaycastPoints != null && _moveDirection.x != 0) {
+            Vector3 gizmoDirection = (_moveDirection.x > 0) ? Vector3.right : Vector3.left;
             Gizmos.color = _isTouchingWall ? Color.blue : Color.gray;
             foreach (Transform point in wallRaycastPoints) {
                 if (point != null) {
                     Gizmos.DrawLine(point.position, point.position + gizmoDirection * _data.wallCheckDistance);
                 }
             }
-        } else if (wallRaycastPoints != null && _moveDirection == 0) {
+        } else if (wallRaycastPoints != null && _moveDirection.x == 0) {
             Gizmos.color = Color.gray;
             foreach (Transform point in wallRaycastPoints) {
                 if (point != null) {
