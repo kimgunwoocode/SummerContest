@@ -58,7 +58,7 @@ public class PlayerMovement_1 : MonoBehaviour
 
     private void Move()
     {
-        _calculatedVelocity.x = _isTouchingWall ? 0f : _isSprint ? (_currentInput.x * _data.RunSpeed * Time.fixedDeltaTime) : (_currentInput.x * _data.WalkSpeed * Time.fixedDeltaTime);
+        _calculatedVelocity.x = _isTouchingWall ? 0f : _isSprint ? (_currentInput.x * _data.WalkSpeed * Time.fixedDeltaTime) : (_currentInput.x * _data.CrounchSpeed * Time.fixedDeltaTime);
     }
 
     internal Vector2 ApplyMove()

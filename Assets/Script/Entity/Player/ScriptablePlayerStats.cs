@@ -6,9 +6,10 @@ public class ScriptablePlayerStats : ScriptableObject {
     public LayerMask PlayerLayer;
 
     [Header("Movement")]
-    public float WalkSpeed = 250f;
-    public float RunSpeed = 300f;
+    public float CrounchSpeed = 250f;
+    public float WalkSpeed = 300f;
     public float MaxSpeed = 800f;
+    public bool isCrounchActionByToggle = true;
 
     [Header("Jump")]
     [Tooltip("the basic jump force")]public float JumpForce = 10f;
@@ -23,11 +24,12 @@ public class ScriptablePlayerStats : ScriptableObject {
     [Tooltip("allowed jump time while the player is in the air when does jump")]public float JumpBufferTime = 0.24f;
     [Tooltip("allowed ")] public int bonusJump = 2;
     [Header("Dash")]
-    public float dashPower;
-    public float dashCooldown;
-    
+    public float DashCooldown;
+    public float DashTime;
+    public float DashSpeed;
 
-    
+
+
 
     [Header("Collision Check")]
     public float wallCheckDistance = 0.6f;

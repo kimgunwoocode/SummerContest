@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 using UnityEngine.InputSystem.Interactions;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
@@ -10,7 +11,6 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private Transform[] wallRaycastPoints;
 
     internal Vector2 _currentInput;
-    private bool _isSprint;
     private Rigidbody2D _rb;
 
     private bool _cachedQueryStartInColliders;
@@ -21,6 +21,11 @@ public class PlayerMovement : MonoBehaviour {
         _rb = GetComponent<Rigidbody2D>();
         _cachedQueryStartInColliders = Physics2D.queriesStartInColliders;
         _leftBonusJump = _data.bonusJump;
+
+        _moveDirection = 0;
+        _isDashing = false;
+        _isAbleToDash = true;
+        _isJumped = false;
     }
 
     private void Update() {
@@ -28,24 +33,51 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     #region Movement
+    private bool _isCrouch;
+    private int _moveDirection;
+    private bool _isDashing;
+    private bool _isAbleToDash;
+
     internal void OnMovePerformed(InputAction.CallbackContext context) {
         _currentInput = context.ReadValue<Vector2>();
+        if (_isDashing) return;
+        _moveDirection = context.ReadValue<Vector2>().x > 0 ? 1 : -1;
     }
 
     internal void OnMoveCanceled(InputAction.CallbackContext context) {
         _currentInput = Vector2.zero;
     }
 
-    internal void OnSprintPerformed(InputAction.CallbackContext context) {
-        _isSprint = true;
+    internal void OnCrouchPerformed(InputAction.CallbackContext context) {
+        _isCrouch = _data.isCrounchActionByToggle ? !_isCrouch : true;
     }
 
-    internal void OnSprintCanceled(InputAction.CallbackContext context) {
-        _isSprint = false;
+    internal void OnCrouchCanceled(InputAction.CallbackContext context) {
+        _isCrouch = _data.isCrounchActionByToggle ? _isCrouch : false;
     }
+
+    internal void OnDashPerformed(InputAction.CallbackContext context) {
+        if (!_isAbleToDash || _isDashing) return;
+        _isAbleToDash = false;
+        _isDashing = true;
+        StartCoroutine(StopDash());
+        StartCoroutine(DashCooldown()); 
+    }
+
+    private IEnumerator StopDash() {
+        yield return new WaitForSeconds(_data.DashTime);
+        _isDashing = false;
+    }
+
+    private IEnumerator DashCooldown() {
+        yield return new WaitForSeconds(_data.DashCooldown);
+        _isAbleToDash = true;
+    }
+
+    
 
     private void Move() {
-        _calculatedVelocity.x = _isTouchingWall ? 0f : _isSprint ? (_currentInput.x * _data.RunSpeed * Time.fixedDeltaTime) : (_currentInput.x * _data.WalkSpeed * Time.fixedDeltaTime);
+        _calculatedVelocity.x = _isTouchingWall ? 0f : _isDashing ? (_data.DashSpeed * _moveDirection * Time.fixedDeltaTime ) : _isCrouch ? (_currentInput.x * _data.CrounchSpeed * Time.fixedDeltaTime) : (_currentInput.x * _data.WalkSpeed * Time.fixedDeltaTime);
     }
 
     internal Vector2 ApplyMove() {
@@ -193,15 +225,15 @@ public class PlayerMovement : MonoBehaviour {
             Gizmos.DrawWireCube(groundCheckerTransform.position - new Vector3(0, _data.groundCheckDistance / 2), new Vector2(transform.localScale.x, _data.groundCheckDistance /2));
         }
 
-        if (wallRaycastPoints != null && _currentInput.x != 0) {
-            Vector3 gizmoDirection = (_currentInput.x > 0) ? Vector3.right : Vector3.left;
+        if (wallRaycastPoints != null && _moveDirection != 0) {
+            Vector3 gizmoDirection = (_moveDirection > 0) ? Vector3.right : Vector3.left;
             Gizmos.color = _isTouchingWall ? Color.blue : Color.gray;
             foreach (Transform point in wallRaycastPoints) {
                 if (point != null) {
                     Gizmos.DrawLine(point.position, point.position + gizmoDirection * _data.wallCheckDistance);
                 }
             }
-        } else if (wallRaycastPoints != null && _currentInput.x == 0) {
+        } else if (wallRaycastPoints != null && _moveDirection == 0) {
             Gizmos.color = Color.gray;
             foreach (Transform point in wallRaycastPoints) {
                 if (point != null) {

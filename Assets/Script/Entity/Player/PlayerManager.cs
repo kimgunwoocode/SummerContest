@@ -42,8 +42,11 @@ public class PlayerManager : AbstractEntity {
         inputActions.Player.Move.performed += movement.OnMovePerformed;
         inputActions.Player.Move.canceled += movement.OnMoveCanceled;
 
-        inputActions.Player.Sprint.performed += movement.OnSprintPerformed;
-        inputActions.Player.Sprint.canceled += movement.OnSprintCanceled;
+        inputActions.Player.Crouch.performed += movement.OnCrouchPerformed;
+        inputActions.Player.Crouch.canceled += movement.OnCrouchCanceled;
+
+        inputActions.Player.Dash.performed += movement.OnDashPerformed;
+        //inputActions.Player.Dash.canceled += movement.OnDashCanceled;
 
         inputActions.Player.Enable();
     }
@@ -54,9 +57,12 @@ public class PlayerManager : AbstractEntity {
 
         inputActions.Player.Move.performed -= movement.OnMovePerformed;
         inputActions.Player.Move.canceled -= movement.OnMoveCanceled;
-        
-        inputActions.Player.Sprint.performed -= movement.OnSprintPerformed;
-        inputActions.Player.Sprint.canceled -= movement.OnSprintCanceled;
+
+        inputActions.Player.Crouch.performed -= movement.OnCrouchPerformed;
+        inputActions.Player.Crouch.canceled -= movement.OnCrouchCanceled;
+
+        inputActions.Player.Dash.performed -= movement.OnDashPerformed;
+        //inputActions.Player.Dash.canceled -= movement.OnDashCanceled;
 
         inputActions.Player.Disable();
     }

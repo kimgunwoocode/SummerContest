@@ -42,8 +42,8 @@ public class PlayerManager_1 : AbstractEntity {
         inputActions.Player.Move.performed += movement.OnMovePerformed;
         inputActions.Player.Move.canceled += movement.OnMoveCanceled;
 
-        inputActions.Player.Sprint.performed += movement.OnSprintPerformed;
-        inputActions.Player.Sprint.canceled += movement.OnSprintCanceled;
+        inputActions.Player.Dash.performed += movement.OnSprintPerformed;
+        inputActions.Player.Dash.canceled += movement.OnSprintCanceled;
 
         inputActions.Player.Enable();
     }
