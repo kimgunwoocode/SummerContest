@@ -50,8 +50,8 @@ public class PlayerManager : AbstractEntity {
 
 
         //_inputActions.Player.Glide
-        _inputActions.Player.Dash.performed += _movement.OnDashPerformed;
-        //_inputActions.Player.Dash.canceled += _movement.OnDashCanceled;
+        //_inputActions.Player.Dash.performed += _movement.OnDashPerformed;
+        //inputActions.Player.Dash.canceled += movement.OnDashCanceled;
 
         _inputActions.Player.Enable();
     }

@@ -30,6 +30,12 @@ public class PlayerMovement : MonoBehaviour
         _isDashing = false;
         _isAbleToDash = true;
         _isJumped = false;
+
+        _animator = GetComponent<Animator>();
+        if (_animator == null)
+            Debug.LogWarning("Animator component is missing!");
+        else
+            _animator.applyRootMotion = false;
     }
 
     private void Update()
@@ -43,28 +49,33 @@ public class PlayerMovement : MonoBehaviour
     private bool _isDashing;
     private bool _isAbleToDash;
     private bool _isGlide;
-
-    internal void OnMovePerformed(InputAction.CallbackContext context) {
+    internal void OnMovePerformed(InputAction.CallbackContext context)
+    {
         _currentInput = context.ReadValue<Vector2>();
     }
 
-    internal void OnMoveCanceled(InputAction.CallbackContext context) {
+    internal void OnMoveCanceled(InputAction.CallbackContext context)
+    {
         _currentInput = Vector2.zero;
     }
 
-    internal void OnCrouchPerformed(InputAction.CallbackContext context) {
+    internal void OnCrouchPerformed(InputAction.CallbackContext context)
+    {
         _isCrouch = _data.isCrounchActionByToggle ? !_isCrouch : true;
     }
 
-    internal void OnCrouchCanceled(InputAction.CallbackContext context) {
+    internal void OnCrouchCanceled(InputAction.CallbackContext context)
+    {
         _isCrouch = _data.isCrounchActionByToggle ? _isCrouch : false;
     }
 
-    internal void OnGlideCanceled(InputAction.CallbackContext context) {
+    internal void OnGlideCanceled(InputAction.CallbackContext context)
+    {
 
     }
 
-    internal void OnDashPerformed(InputAction.CallbackContext context) {
+    internal void OnDashPerformed(InputAction.CallbackContext context)
+    {
         if (!_isAbleToDash || _isDashing) return;
         _isAbleToDash = false;
         _isDashing = true;
@@ -73,26 +84,37 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(DashCooldown());
     }
 
-    private IEnumerator StopDash() {
+    private IEnumerator StopDash()
+    {
         yield return new WaitForSeconds(_data.DashTime);
         _isDashing = false;
     }
 
-    private IEnumerator DashCooldown() {
+    private IEnumerator DashCooldown()
+    {
         yield return new WaitForSeconds(_data.DashCooldown);
         _isAbleToDash = true;
     }
 
-    private void UpdateMoveDir() {
+    private void UpdateFacingDirection()
+    {
+        if (_moveDirection.x > 0.01f)
+            transform.localScale = new Vector3(1, 1, 1);
+        else if (_moveDirection.x < -0.01f)
+            transform.localScale = new Vector3(-1, 1, 1);
+    }
+    private void UpdateMoveDir()
+    {
         if (_isDashing || !_isGrounded) return;
         _moveDirection = _currentInput;
     }
-    private void Move() {
+    private void Move()
+    {
         UpdateMoveDir();
 
         _calculatedVelocity.x = _isTouchingWall ? 0f : _isDashing ? (_data.DashSpeed * _moveDirection.x * Time.fixedDeltaTime) : _isCrouch ? (_data.CrounchSpeed * Time.fixedDeltaTime * (_isGrounded ? _currentInput.x : _moveDirection.x)) : (_data.WalkSpeed * Time.fixedDeltaTime * (_isGrounded ? _currentInput.x : _moveDirection.x));
     }
-    internal void OnGlidePerformed(InputAction.CallbackContext context) {
+        internal void OnGlidePerformed(InputAction.CallbackContext context) {
         _isGlide = _data.isGlideActionByToggle ? !_isGlide : true;
     }
 
@@ -117,13 +139,19 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    internal void OnJumpPerformed(InputAction.CallbackContext context) {
+    internal void OnJumpPerformed(InputAction.CallbackContext context)
+    {
+        if (_animator == null)
+        {
+            Debug.LogWarning("Animator is NULL in OnJumpPerformed!");
+        }
         _heldJump = true;
         _jumpPressTime = Time.time;
         _isJumpRequestExist = true;
     }
 
-    private void ExecuteJump(int jumpType) { // 1 : bonus Jump
+    private void ExecuteJump(int jumpType)
+    { // 1 : bonus Jump
         _moveDirection = _currentInput;
         if (jumpType == 0)
         {
@@ -136,15 +164,18 @@ public class PlayerMovement : MonoBehaviour
         _calculatedVelocity.y = _data.JumpForce;
     }
 
-    internal void OnJumpCanceled(InputAction.CallbackContext context) {
+    internal void OnJumpCanceled(InputAction.CallbackContext context)
+    {
         _heldJump = false;
     }
 
-    private bool CheckJumpEndedBeforeApex() {
+    private bool CheckJumpEndedBeforeApex()
+    {
         return (_calculatedVelocity.y > 0 && !_isJumpEndedEarly && !_isGrounded && !_heldJump);
     }
 
-    private void JumpRequestValidation() {
+    private void JumpRequestValidation()
+    {
         if (_isDashing) return;
         _isJumpEndedEarly = CheckJumpEndedBeforeApex();
 
@@ -167,7 +198,8 @@ public class PlayerMovement : MonoBehaviour
     #region CollisionCheck
     private bool _isTouchingWall;
     internal bool _isGrounded = false;
-    private void CheckCollisions() {
+    private void CheckCollisions()
+    {
         Physics2D.queriesStartInColliders = false;
 
         //check Ground hit
@@ -285,12 +317,33 @@ public class PlayerMovement : MonoBehaviour
     }
     #endregion
 
+    private void LateUpdate()
+    {
+        UpdateAnimatorParameters();
+        UpdateFacingDirection();
+    }
 
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
         CheckCollisions();
         Gravity();
         Move();
+        //Jump();
         JumpRequestValidation();
         _rb.linearVelocity = _calculatedVelocity;
+
+        UpdateAnimatorParameters();
+    }
+
+    private void UpdateAnimatorParameters()
+    {
+        if (_animator == null) return;
+
+        bool isPressingWD = _currentInput.x != 0; // W�� D Ű�� ������ ���� ���� true
+
+        _animator.SetBool("isRunning", !_isCrouch && isPressingWD);
+        _animator.SetBool("isWalking", _isCrouch && isPressingWD);
+        _animator.SetBool("isGrounded", _isGrounded);
+
     }
 }
