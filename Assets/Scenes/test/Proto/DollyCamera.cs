@@ -20,6 +20,7 @@ public class DollyCamera : MonoBehaviour
 
     private Camera _cam;
     private Vector3 _offset;
+    Vector3 directionalOffset = Vector3.zero;
 
     private void Awake()
     {
@@ -48,10 +49,12 @@ public class DollyCamera : MonoBehaviour
         mouseWorldPosition.z = 0f;
 
         Vector3 toMouse = mouseWorldPosition - playerPosition;
+        float absX = Mathf.Abs(toMouse.x);
+        float absY = Mathf.Abs(toMouse.y);
         float distance = toMouse.magnitude;
 
         Vector3 directionalOffset = Vector3.zero;
-        if (distance > 0.01f)
+        if (absX > _deadZoneSize.x || absY > _deadZoneSize.y)
         {
             float t = Mathf.Clamp01((distance - 0.5f) / _mouseInfluenceRange);
             directionalOffset = toMouse.normalized * _maxOffsetDistance * t;
