@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using static UnityEngine.Rendering.DebugUI;
+using System.Xml.Linq;
 
 
 public class MapTool : EditorWindow
@@ -106,9 +107,9 @@ public class MapTool : EditorWindow
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
         GUILayout.Space(15);
-        if (GUILayout.Button("SavePoint ID 일괄 설정"))
+        if (GUILayout.Button("맵 오브젝트 ID 일괄 설정"))
         {
-            AssignIDsToSavePoints();
+            AssignIDs();
         }
 
         EditorGUILayout.Space();
@@ -160,11 +161,10 @@ public class MapTool : EditorWindow
 
 
 
-    #region 맵의 세이브포인트 ID 자동 부여 및 설정, 저장까지!
-    private const string SavePointListPath = "Assets/MapData/SavePoint_list.asset";
-    void AssignIDsToSavePoints()
+    #region 맵의 다양한 오브젝트 ID 자동 부여 및 설정, 저장까지!
+    void AssignIDs()
     {
-        // ScriptableObject 직접 경로로 로드
+        /*
         SavePoint_list spList = AssetDatabase.LoadAssetAtPath<SavePoint_list>(SavePointListPath);
         if (spList == null)
         {
@@ -174,6 +174,8 @@ public class MapTool : EditorWindow
 
         // Dictionary 초기화
         spList.SavePoint_IDlist.Clear();
+        */
+
 
         int mainID = 2001;
         int semiID = 1001;
@@ -210,8 +212,9 @@ public class MapTool : EditorWindow
                 if (assignedID != -1)
                 {
                     sp.SavePoint_ID = assignedID;
-                    spList.SavePoint_IDlist[assignedID] = sp;
+                    //spList.SavePoint_IDlist[assignedID] = sp;
                     EditorUtility.SetDirty(sp);
+
                 }
             }
 
@@ -219,32 +222,83 @@ public class MapTool : EditorWindow
             EditorSceneManager.SaveScene(scene);
         }
 
-        EditorUtility.SetDirty(spList);
+        //EditorUtility.SetDirty(spList);
         AssetDatabase.SaveAssets();
 
-        Debug.Log($"✅ SavePoint ID 부여 완료! Main: {totalMain}, Semi: {totalSemi}");
+        Debug.Log($"SavePoint ID 부여 완료! Main: {totalMain}, Semi: {totalSemi}");
 
-        DumpSavePointIDsToJson(spList);
+        //DumpSavePointIDsToJson();
     }
-
-    void DumpSavePointIDsToJson(SavePoint_list spList)
+    /*
+    void DumpSavePointIDsToJson()
     {
-        List<int> keys = new(spList.SavePoint_IDlist.Keys);
+        SavePoint_list spList = AssetDatabase.LoadAssetAtPath<SavePoint_list>(SavePointListPath);
 
-        string json = JsonUtility.ToJson(new KeyListWrapper { keys = keys }, true);
-        string jsonPath = Path.Combine("Assets/MapData", "SavePoint_keys.json");
+        if (spList == null)
+        {
+            Debug.LogError("SavePoint_list ScriptableObject를 불러오지 못했습니다.");
+            return;
+        }
+
+        if (spList.SavePoint_IDlist == null || spList.SavePoint_IDlist.Count == 0)
+        {
+            Debug.LogWarning("SavePoint_IDlist가 비어 있습니다.");
+            return;
+        }
+
+        var entries = new List<SavePointEntry>();
+        Debug.Log(spList.SavePoint_IDlist[1001].name);
+        foreach (var kv in spList.SavePoint_IDlist)
+        {
+            int id = kv.Key;
+            SavePoint sp = kv.Value;
+
+            //Debug.Log(sp.SavePoint_type.ToString() + ' ' + sp.transform.position + ' ' + sp.name + ' ' + sp.GetInstanceID());
+
+            if (sp == null)
+            {
+                Debug.LogWarning($"ID {id}에 대응되는 SavePoint가 null입니다.");
+                continue;
+            }
+
+            var entry = new SavePointEntry
+            {
+                ID = id,
+                Type = sp.SavePoint_type.ToString(),
+                Position = sp.transform.position,
+                Name = sp.name,
+                InstanceID = sp.GetInstanceID()
+            };
+
+            entries.Add(entry);
+        }
+
+        string json = JsonUtility.ToJson(new SavePointEntryWrapper { entries = entries }, true);
+        string jsonPath = Path.Combine("Assets/MapData", "SavePoint_detailed.json");
 
         File.WriteAllText(jsonPath, json);
         AssetDatabase.Refresh();
 
-        Debug.Log("✅ SavePoint ID(Key) 목록이 JSON으로 저장되었습니다!");
+        Debug.Log("상세 SavePoint 정보가 JSON으로 저장되었습니다!");
     }
 
     [System.Serializable]
-    private class KeyListWrapper
+    private class SavePointEntry
     {
-        public List<int> keys;
+        public int ID;
+        public string Type;
+        public Vector3 Position;
+        public string Name;
+        public int InstanceID;
     }
+
+    [System.Serializable]
+    private class SavePointEntryWrapper
+    {
+        public List<SavePointEntry> entries;
+    }
+    */
+
     #endregion
 
 
