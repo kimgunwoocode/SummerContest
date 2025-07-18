@@ -13,7 +13,7 @@ public class BreakableWall : MonoBehaviour
             if (dollyCamera != null)
             {
                 dollyCamera.SetStageIndex(targetStageIndex);
-                Debug.Log($"Stage index changed to {targetStageIndex}");
+                // Debug.Log($"Stage index changed to {targetStageIndex}");
             }
         }
     }
