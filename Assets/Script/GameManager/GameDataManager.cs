@@ -16,38 +16,4 @@ public class GameDataManager : MonoBehaviour
 
     public Dictionary<int, bool> PlayerSkill = new();
     public Dictionary<int, bool> GettedItems = new();
-
-
-    public void StartGame_LoadData_from_SaveFile(PlayerData playerData)
-    {
-
-        LoadData_from_SavePoint();
-    }
-
-    public void LoadData_from_SavePoint()
-    {
-        MaxHP = GameManager_PlayerData.MaxHP;
-        CurrentHP = GameManager_PlayerData.CurrentHP;
-        ATK = GameManager_PlayerData.ATK;
-        MaxBreathGauge = GameManager_PlayerData.MaxBreathGauge;
-        CurrentBreathGauge = GameManager_PlayerData.CurrentBreathGauge;
-        Money = GameManager_PlayerData.Money;
-        EquipSkill = GameManager_PlayerData.EquipSkill;
-        PlayerSkill = GameManager_PlayerData.PlayerSkill;
-        GettedItems = GameManager_PlayerData.GettedItems;
-    }
-    public void SaveData_to_SavePoint()
-    {
-        GameManager_PlayerData.MaxHP = MaxHP;
-        GameManager_PlayerData.CurrentHP = CurrentHP;
-        GameManager_PlayerData.ATK = ATK;
-        GameManager_PlayerData.MaxBreathGauge = MaxBreathGauge;
-        GameManager_PlayerData.CurrentBreathGauge = CurrentBreathGauge;
-        GameManager_PlayerData.Money = Money;
-        GameManager_PlayerData.EquipSkill = EquipSkill;
-        GameManager_PlayerData.PlayerSkill = PlayerSkill;
-        GameManager_PlayerData.GettedItems = GettedItems;
-
-        //세이브파일에 저장하는 프로세스도 여기에 만들어두기
-    }
 }

@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+
 
 public class MapTool : EditorWindow
 {
@@ -97,6 +102,13 @@ public class MapTool : EditorWindow
         }
 
         EditorGUILayout.EndScrollView();
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+
+        GUILayout.Space(15);
+        if (GUILayout.Button("SavePoint ID 일괄 설정"))
+        {
+            AssignIDsToSavePoints();
+        }
 
         EditorGUILayout.Space();
         GUI.enabled = selectedPrefab != null;
@@ -143,6 +155,149 @@ public class MapTool : EditorWindow
             SceneView.RepaintAll();
         }
     }
+
+
+
+
+#region 맵의 세이브포인트 ID 자동 부여 및 설정, 저장까지!
+    void AssignIDsToSavePoints()
+    {
+        string folderPath = "Assets/Scenes/test";
+        string[] sceneGuids = AssetDatabase.FindAssets("t:Scene", new[] { folderPath });
+
+        if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+        {
+            Debug.LogWarning("변경된 씬 저장 안 해서 중단됨");
+            return;
+        }
+
+        // SavePoint_list ScriptableObject 불러오기
+        string[] guids = AssetDatabase.FindAssets("t:SavePoint_list", new[] { "Assets/MapData" });
+        if (guids.Length == 0)
+        {
+            Debug.LogError("SavePoint_list ScriptableObject를 찾을 수 없습니다.");
+            return;
+        }
+        string spListPath = AssetDatabase.GUIDToAssetPath(guids[0]);
+        SavePoint_list spList = AssetDatabase.LoadAssetAtPath<SavePoint_list>(spListPath);
+        if (spList == null)
+        {
+            Debug.LogError("SavePoint_list 불러오기 실패");
+            return;
+        }
+
+        // Dictionary 필드 접근 (리플렉션)
+        var dictField = typeof(SavePoint_list).GetField("SavePoint_IDlist", BindingFlags.NonPublic | BindingFlags.Instance);
+        var dict = dictField?.GetValue(spList) as Dictionary<int, SavePoint>;
+        if (dict == null)
+        {
+            Debug.LogError("SavePoint_IDlist 접근 실패");
+            return;
+        }
+
+        // 초기화
+        dict.Clear();
+
+
+        int mainID = 2001;
+        int semiID = 1001;
+
+        int totalMain = 0;
+        int totalSemi = 0;
+
+        foreach (string guid in sceneGuids)
+        {
+            string scenePath = AssetDatabase.GUIDToAssetPath(guid);
+            Scene scene = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
+
+            SavePoint[] savePoints = GameObject.FindObjectsByType<SavePoint>(FindObjectsSortMode.None);
+
+            Undo.RecordObjects(savePoints, "Bulk Assign SavePoint IDs");
+
+            foreach (var sp in savePoints)
+            {
+                if (sp == null) continue;
+
+                int assignedID = -1;
+
+                switch (sp.SavePoint_type)
+                {
+                    case SavePoint.SP_type.Main:
+                        sp.SavePoint_ID = mainID++;
+                        assignedID = mainID;
+                        totalMain++;
+                        break;
+                    case SavePoint.SP_type.Semi:
+                        sp.SavePoint_ID = semiID++;
+                        assignedID = semiID;
+                        totalSemi++;
+                        break;
+                }
+
+                if (assignedID != -1)
+                {
+                    dict[assignedID] = sp;
+                }
+
+                EditorUtility.SetDirty(sp);
+            }
+
+            EditorSceneManager.MarkSceneDirty(scene);
+            EditorSceneManager.SaveScene(scene);
+
+            Debug.Log($"{scene.name} 씬 처리 완료 ({savePoints.Length}개)");
+        }
+
+        Debug.Log($"모든 씬 저장 완료! Main: {totalMain}, Semi: {totalSemi}");
+        DumpDictionaryToJson();
+    }
+    void DumpDictionaryToJson()
+    {
+        string assetPath = "Assets/MapData";
+        string[] guids = AssetDatabase.FindAssets("t:SavePoint_list", new[] { assetPath });
+
+        if (guids.Length == 0)
+        {
+            Debug.LogWarning("SavePoint_list ScriptableObject가 없습니다.");
+            return;
+        }
+
+        string path = AssetDatabase.GUIDToAssetPath(guids[0]);
+        SavePoint_list spList = AssetDatabase.LoadAssetAtPath<SavePoint_list>(path);
+        if (spList == null) return;
+
+
+        var dictField = typeof(SavePoint_list).GetField("SavePoint_IDlist", BindingFlags.NonPublic | BindingFlags.Instance);
+        var dict = dictField?.GetValue(spList) as Dictionary<int, SavePoint>;
+        Debug.Log($"딕셔너리 항목 수: {dict.Count}");
+
+
+        if (dict == null)
+        {
+            Debug.LogWarning("Dictionary 접근 실패");
+            return;
+        }
+
+        // 키 리스트만 추출
+        List<int> keys = new(dict.Keys);
+
+        // 래퍼로 감싸서 JSON 직렬화
+        string json = JsonUtility.ToJson(new KeyListWrapper { keys = keys }, true);
+
+        string fullPath = Path.Combine(assetPath, "SavePoint_keys.json");
+        File.WriteAllText(fullPath, json);
+        AssetDatabase.Refresh();
+
+        Debug.Log("SavePoint ID(Key) 목록이 JSON으로 저장되었습니다!");
+    }
+
+    [System.Serializable]
+    private class KeyListWrapper
+    {
+        public List<int> keys;
+    }
+    #endregion
+
 
     Vector3 SnapToGrid(Vector3 pos, float size)
     {

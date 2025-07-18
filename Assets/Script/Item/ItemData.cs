@@ -8,10 +8,16 @@ public enum ItemType { Nomal, Skill, Breath }//Nomal : 설명만 있는 수집�
 [CreateAssetMenu(menuName = "Item/ItemData")]
 public abstract class ItemData : ScriptableObject
 {
-    public int itemID; //Nomal : 1000 ~ 1999, Skill : 2000 ~ 2999, Breath : 3000 ~ 3999
-    public string itemName;
-    public Sprite icon;
-    public string description;
     public ItemType itemType;
+    public int itemID; //Nomal: 1000 ~ 1999, Skill: 2000 ~ 2999, Breath: 3000 ~ 3999
+    public Sprite icon;
+    public string itemName;
+    public string description;
+
+    public int price;           //아이템 구매 또는 판매할 때 금액. 브레스일 경우는 브레스 게이지 사용량
+    public bool isStackable;     // 아이템이 여러 개 쌓일 수 있는가?
+    public int maxStackCount;    // 최대 중첩 개수
+
     public abstract void OnGetItem();
+    public abstract void OnUseItem();
 }
