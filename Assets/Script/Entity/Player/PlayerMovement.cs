@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _moveDirection;
     private bool _isDashing;
     private bool _isAbleToDash;
+    private bool _isGlide;
     internal void OnMovePerformed(InputAction.CallbackContext context)
     {
         _currentInput = context.ReadValue<Vector2>();
@@ -66,11 +67,6 @@ public class PlayerMovement : MonoBehaviour
     internal void OnCrouchCanceled(InputAction.CallbackContext context)
     {
         _isCrouch = _data.isCrounchActionByToggle ? _isCrouch : false;
-    }
-
-    internal void OnGlidePerformed(InputAction.CallbackContext context)
-    {
-
     }
 
     internal void OnGlideCanceled(InputAction.CallbackContext context)
@@ -99,11 +95,6 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(_data.DashCooldown);
         _isAbleToDash = true;
     }
-    private void UpdateMoveDir()
-    {
-        if (_isDashing || !_isGrounded) return;
-        _moveDirection = _currentInput;
-    }
 
     private void UpdateFacingDirection()
     {
@@ -112,16 +103,23 @@ public class PlayerMovement : MonoBehaviour
         else if (_moveDirection.x < -0.01f)
             transform.localScale = new Vector3(-1, 1, 1);
     }
-
+    private void UpdateMoveDir()
+    {
+        if (_isDashing || !_isGrounded) return;
+        _moveDirection = _currentInput;
+    }
     private void Move()
     {
         UpdateMoveDir();
 
         _calculatedVelocity.x = _isTouchingWall ? 0f : _isDashing ? (_data.DashSpeed * _moveDirection.x * Time.fixedDeltaTime) : _isCrouch ? (_data.CrounchSpeed * Time.fixedDeltaTime * (_isGrounded ? _currentInput.x : _moveDirection.x)) : (_data.WalkSpeed * Time.fixedDeltaTime * (_isGrounded ? _currentInput.x : _moveDirection.x));
     }
+        internal void OnGlidePerformed(InputAction.CallbackContext context) {
+        _isGlide = _data.isGlideActionByToggle ? !_isGlide : true;
+    }
 
-    internal Vector2 ApplyMove()
-    {
+
+    internal Vector2 ApplyMove() {
         return _calculatedVelocity;
     }
     #endregion
@@ -272,7 +270,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             float midAirGravity = _data.MidAirGravity;
-            if (!_isGrounded && _currentInput.y > 0 && _calculatedVelocity.y < 0) midAirGravity = _data.MidAirGravity * _data.GlideGravity;
+            if (!_isGrounded && _isGlide && _calculatedVelocity.y < 0) midAirGravity = _data.MidAirGravity * _data.GlideGravity;
             else if ((_isJumped) && Mathf.Abs(_calculatedVelocity.y) < _data.ApexThreadHold) midAirGravity = _data.MidAirGravity * _data.ApexModifier;
             else if (_calculatedVelocity.y < 0f) midAirGravity = _data.MidAirGravity * _data.GravityModifierWhenFalling;
             else if (_isJumpEndedEarly) midAirGravity = _data.MidAirGravity * _data.GravityModifierWhenJumpEndedEarly;
@@ -341,7 +339,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_animator == null) return;
 
-        bool isPressingWD = _currentInput.x != 0; // W³ª D Å°¸¦ ´©¸£°í ÀÖÀ» ¶§¸¸ true
+        bool isPressingWD = _currentInput.x != 0; // Wï¿½ï¿½ D Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ true
 
         _animator.SetBool("isRunning", !_isCrouch && isPressingWD);
         _animator.SetBool("isWalking", _isCrouch && isPressingWD);
