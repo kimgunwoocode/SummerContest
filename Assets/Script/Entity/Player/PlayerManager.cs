@@ -2,7 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
-public class PlayerManager : AbstractEntity {
+public class PlayerManager : AbstractEntity
+{
     private PlayerInput_Action inputActions;
     private Rigidbody2D rb;
 
@@ -11,14 +12,16 @@ public class PlayerManager : AbstractEntity {
 
     private int maxHealth;
     private int currentHealth;
-    
 
 
-    private void Awake() {
+
+    private void Awake()
+    {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Start() {
+    private void Start()
+    {
         data = Singleton.GameManager_Instance.Get<GameDataManager>();
         if (data == null) Debug.LogError("Can't found GameDataManager at GameManager");
 
@@ -26,7 +29,8 @@ public class PlayerManager : AbstractEntity {
         currentHealth = data.CurrentHP;
     }
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         movement = GetComponent<PlayerMovement>();
         if (movement == null)
         {
@@ -48,23 +52,26 @@ public class PlayerManager : AbstractEntity {
         inputActions.Player.Enable();
     }
 
-    private void OnDisable() {
+    private void OnDisable()
+    {
         inputActions.Player.Jump.performed -= movement.OnJumpPerformed;
         inputActions.Player.Jump.canceled -= movement.OnJumpCanceled;
 
         inputActions.Player.Move.performed -= movement.OnMovePerformed;
         inputActions.Player.Move.canceled -= movement.OnMoveCanceled;
-        
+
         inputActions.Player.Sprint.performed -= movement.OnSprintPerformed;
         inputActions.Player.Sprint.canceled -= movement.OnSprintCanceled;
 
         inputActions.Player.Disable();
     }
 
-    public override void Attack() {
+    public override void Attack()
+    {
     }
 
-    protected override void Move() {
+    protected override void Move()
+    {
         //rb.linearVelocity = movement.ApplyMove();
     }
 
@@ -82,11 +89,13 @@ public class PlayerManager : AbstractEntity {
     }
     */
 
-    private void Update() {
+    private void Update()
+    {
     }
 
 
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
         Move();
     }
 }
