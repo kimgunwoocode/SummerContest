@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class Interaction : MonoBehaviour
 {
@@ -9,7 +10,14 @@ public class Interaction : MonoBehaviour
     public string description;
 
     [Header("상호작용시 실행할 이벤트 (메서드)")]
-    public UnityEvent InteractEvent;
+    public List<UnityEvent> InteractEvent;
+
+    [Header("Interaction 고유 정보")]
+    public int ID;
+    public int isInteracted = 1; // 상호작용 여부,
+    // 그냥 bool로 하지 않은 이유는 한 번 상호작용한 뒤에 다른 종류의 상호작용이 가능하도록, 또는 다른 이벤트 발생 이후 상호작용 내용이 바뀔 수 있도록 하기 위함
+    // -1 이면 상호작용 자체가 안됨. 0부터 양의 정수는 interactEvent의 인덱스 순서를 기준으로 상호작용시 실행할 이벤트 선택
+
 
     [Space(30)]
     public GameObject InteractionGuide;
@@ -40,7 +48,7 @@ public class Interaction : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && isInteracted != -1)
         {
             isPlayerNearby = true;
             InteractionGuide.SetActive(true);
@@ -60,7 +68,7 @@ public class Interaction : MonoBehaviour
     {
         if (isPlayerNearby)
         {
-            InteractEvent.Invoke();
+            InteractEvent[isInteracted].Invoke();
         }
     }
 }
