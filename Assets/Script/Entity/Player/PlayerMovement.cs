@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         if (_animator == null)
-            Debug.LogError("Animator component is missing!");
+            Debug.LogWarning("Animator component is missing!");
         else
             _animator.applyRootMotion = false;
         _rb = GetComponent<Rigidbody2D>();
@@ -86,8 +86,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_animator == null)
         {
-            Debug.LogError("Animator is NULL in OnJumpPerformed!");
-            return;
+            Debug.LogWarning("Animator is NULL in OnJumpPerformed!");
         }
         _heldJump = true;
         _jumpPressTime = Time.time;
