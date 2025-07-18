@@ -8,6 +8,7 @@ public class PlayerManager : AbstractEntity {
 
     private PlayerMovement _movement;
     private PlayerAttack _attack;
+    private PlayerAnimation _anima;
     private GameDataManager _data;
 
     private int _maxHealth;
@@ -17,6 +18,8 @@ public class PlayerManager : AbstractEntity {
 
     private void Awake() {
         _rb = GetComponent<Rigidbody2D>();
+        _anima = GetComponent<PlayerAnimation>();
+        _attack = GetComponent<PlayerAttack>();
     }
 
     private void Start() {
@@ -44,6 +47,8 @@ public class PlayerManager : AbstractEntity {
 
         _inputActions.Player.Crouch.performed += _movement.OnCrouchPerformed;
         _inputActions.Player.Crouch.canceled += _movement.OnCrouchCanceled;
+
+        //_inputActions.Player.Glide
 
         _inputActions.Player.Dash.performed += _movement.OnDashPerformed;
         //inputActions.Player.Dash.canceled += movement.OnDashCanceled;

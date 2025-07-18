@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour {
     private Vector2 _moveDirection;
     private bool _isDashing;
     private bool _isAbleToDash;
+    private bool _isGlide;
 
     internal void OnMovePerformed(InputAction.CallbackContext context) {
         _currentInput = context.ReadValue<Vector2>();
@@ -55,11 +56,11 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     internal void OnGlidePerformed(InputAction.CallbackContext context) {
-
+        _isGlide = _data.isGlideActionByToggle ? !_isGlide : true;
     }
 
     internal void OnGlideCanceled(InputAction.CallbackContext context) {
-        
+        _isGlide = _data.isGlideActionByToggle ? _isGlide : false;
     }
 
     internal void OnDashPerformed(InputAction.CallbackContext context) {
@@ -220,7 +221,7 @@ public class PlayerMovement : MonoBehaviour {
         //in mid-air
         else {
             float midAirGravity = _data.MidAirGravity;
-            if (!_isGrounded && _currentInput.y > 0 && _calculatedVelocity.y < 0) midAirGravity = _data.MidAirGravity * _data.GlideGravity;
+            if (!_isGrounded && _isGlide && _calculatedVelocity.y < 0) midAirGravity = _data.MidAirGravity * _data.GlideGravity;
             else if ((_isJumped) && Mathf.Abs(_calculatedVelocity.y) < _data.ApexThreadHold) midAirGravity = _data.MidAirGravity * _data.ApexModifier;
             else if (_calculatedVelocity.y < 0f) midAirGravity = _data.MidAirGravity * _data.GravityModifierWhenFalling;
             else if (_isJumpEndedEarly) midAirGravity = _data.MidAirGravity * _data.GravityModifierWhenJumpEndedEarly;
