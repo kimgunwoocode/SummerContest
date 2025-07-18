@@ -18,9 +18,12 @@ public class ThornObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Attack(collision);
-        //애니메이션
-        SpawnPlayer_to_SpawnPoint();
+        if (collision.CompareTag("Player"))
+        {
+            Attack(collision);
+            //애니메이션 및 효과
+            SpawnPlayer_to_SpawnPoint();
+        }
     }
 
 

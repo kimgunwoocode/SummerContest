@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using static UnityEngine.Rendering.DebugUI;
+using System.Xml.Linq;
+
 
 public class MapTool : EditorWindow
 {
@@ -97,6 +104,14 @@ public class MapTool : EditorWindow
         }
 
         EditorGUILayout.EndScrollView();
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+
+        GUILayout.Space(15);
+        if (GUILayout.Button("맵 오브젝트 ID 일괄 설정"))
+        {
+            AssignIDsAndSaveToInitData();
+            //AssignIDs();
+        }
 
         EditorGUILayout.Space();
         GUI.enabled = selectedPrefab != null;
@@ -143,6 +158,153 @@ public class MapTool : EditorWindow
             SceneView.RepaintAll();
         }
     }
+
+
+
+
+    #region 맵의 다양한 오브젝트 ID 자동 부여 및 설정, 저장까지!
+    void AssignIDs()
+    {
+        int mainID = 2001;
+        int semiID = 1001;
+        int totalMain = 0;
+        int totalSemi = 0;
+
+        string[] sceneGuids = AssetDatabase.FindAssets("t:Scene", new[] { "Assets/Scenes/Map" });
+
+        foreach (string guid in sceneGuids)
+        {
+            string scenePath = AssetDatabase.GUIDToAssetPath(guid);
+            Scene scene = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
+
+            SavePoint[] savePoints = GameObject.FindObjectsByType<SavePoint>(FindObjectsSortMode.None);
+
+            foreach (var sp in savePoints)
+            {
+                if (sp == null) continue;
+
+                int assignedID = -1;
+
+                switch (sp.SavePoint_type)
+                {
+                    case SavePoint.SP_type.Main:
+                        assignedID = mainID++;
+                        totalMain++;
+                        break;
+                    case SavePoint.SP_type.Semi:
+                        assignedID = semiID++;
+                        totalSemi++;
+                        break;
+                }
+
+                if (assignedID != -1)
+                {
+                    sp.ID = assignedID;
+                    EditorUtility.SetDirty(sp);
+
+                }
+            }
+
+            EditorSceneManager.MarkSceneDirty(scene);
+            EditorSceneManager.SaveScene(scene);
+        }
+
+        AssetDatabase.SaveAssets();
+
+        Debug.Log($"SavePoint ID 부여 완료! Main: {totalMain}, Semi: {totalSemi}");
+
+    }
+    private const string InitSaveDataPath = "Assets/InitData/Init Save Data.asset";
+    private const string MapScenePath = "Assets/Scenes/Map";
+
+    [MenuItem("Tools/Assign IDs and Save to InitSaveData")]
+    public static void AssignIDsAndSaveToInitData()
+    {
+        InitSaveData initData = AssetDatabase.LoadAssetAtPath<InitSaveData>(InitSaveDataPath);
+
+        if (initData == null)
+        {
+            Debug.LogError("InitSaveData.asset 을 찾을 수 없습니다. 경로를 확인해주세요.");
+            return;
+        }
+
+        // 초기화
+        initData.MapData = new MapData();
+
+        int mainID = 2001;
+        int semiID = 1001;
+        int shopID = 3001;
+        int interactionID = 4001;
+
+        string[] sceneGuids = AssetDatabase.FindAssets("t:Scene", new[] { MapScenePath });
+
+        foreach (string guid in sceneGuids)
+        {
+            string scenePath = AssetDatabase.GUIDToAssetPath(guid);
+            SceneAsset sceneAsset = AssetDatabase.LoadAssetAtPath<SceneAsset>(scenePath);
+            var scene = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
+
+            // SavePoint
+            var savePoints = Object.FindObjectsByType<SavePoint>(FindObjectsSortMode.None);
+            foreach (var sp in savePoints)
+            {
+                int id = -1;
+                switch (sp.SavePoint_type)
+                {
+                    case SavePoint.SP_type.Main:
+                        id = mainID++;
+                        break;
+                    case SavePoint.SP_type.Semi:
+                        id = semiID++;
+                        break;
+                }
+
+                if (id != -1)
+                {
+                    sp.ID = id;
+                    initData.MapData.SpawnPoints[id] = sp.SavePointEnabled;
+                    EditorUtility.SetDirty(sp);
+                }
+            }
+
+            // ShopObject
+            var shops = Object.FindObjectsByType<ShopObject>(FindObjectsSortMode.None);
+            foreach (var shop in shops)
+            {
+                int id = shopID++;
+                shop.ID = id;
+
+                var shopData = new ShopData
+                {
+                    ID = id,
+                    isOpened = shop.isOpened,
+                    Items = new Dictionary<int, bool>() // 비워둠. 초기 상태로는 필요 없을 수도 있음
+                };
+
+                initData.MapData.Shops.Add(shopData);
+                EditorUtility.SetDirty(shop);
+            }
+
+            // Interaction
+            var interactions = Object.FindObjectsByType<Interaction>(FindObjectsSortMode.None);
+            foreach (var interaction in interactions)
+            {
+                int id = interactionID++;
+                interaction.ID = id;
+                initData.MapData.InteractionObjects[id] = interaction.isInteracted;
+                EditorUtility.SetDirty(interaction);
+            }
+
+            EditorSceneManager.MarkSceneDirty(scene);
+            EditorSceneManager.SaveScene(scene);
+        }
+
+        EditorUtility.SetDirty(initData);
+        AssetDatabase.SaveAssets();
+        Debug.Log("ID 자동 부여 및 InitSaveData 저장 완료!");
+    }
+    #endregion
+
 
     Vector3 SnapToGrid(Vector3 pos, float size)
     {
