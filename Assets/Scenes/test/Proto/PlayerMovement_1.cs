@@ -11,7 +11,7 @@ public class PlayerMovement_1 : MonoBehaviour
     [SerializeField] private Transform[] wallRaycastPoints;
 
     internal Vector2 _currentInput;
-    private bool _isSprint;
+    private bool _isSprint = true;
     private Rigidbody2D _rb;
 
     private bool _cachedQueryStartInColliders;
@@ -48,12 +48,12 @@ public class PlayerMovement_1 : MonoBehaviour
 
     internal void OnSprintPerformed(InputAction.CallbackContext context)
     {
-        _isSprint = true;
+        _isSprint = false;
     }
 
     internal void OnSprintCanceled(InputAction.CallbackContext context)
     {
-        _isSprint = false;
+        _isSprint = true;
     }
 
     private void Move()
@@ -133,7 +133,20 @@ public class PlayerMovement_1 : MonoBehaviour
 
         bool canJump = (coyoteJumpValidation || jumpBufferValidation || bonusJumpValidation);
         if (canJump) ExecuteJump((!_isGrounded && !jumpBufferValidation && !coyoteJumpValidation) ? 1 : 0);
+        if (_animator != null)
+            _animator.SetTrigger("Jumped 0");
         _isJumpRequestExist = false;
+    }
+    private void HandleRotation()
+    {
+        if (_currentInput.x > 0) // D키
+        {
+            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        }
+        else if (_currentInput.x < 0) // W키
+        {
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        }
     }
 
     #endregion
@@ -261,6 +274,11 @@ public class PlayerMovement_1 : MonoBehaviour
     }
     #endregion
 
+    private void LateUpdate()
+    {
+        UpdateAnimatorParameters();
+    }
+
     private void FixedUpdate()
     {
         CheckCollisions();
@@ -270,6 +288,7 @@ public class PlayerMovement_1 : MonoBehaviour
         JumpRequestValidation();
         _rb.linearVelocity = _calculatedVelocity;
 
+        HandleRotation();
         UpdateAnimatorParameters();
     }
 
@@ -281,7 +300,6 @@ public class PlayerMovement_1 : MonoBehaviour
 
         _animator.SetBool("isRunning", _isSprint && isPressingWD);
         _animator.SetBool("isWalking", !_isSprint && isPressingWD);
-        _animator.SetBool("Jumped", !_isGrounded);  // 점프 중이면 true, 착지하면 false
-    }
 
+    }
 }
