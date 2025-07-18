@@ -300,6 +300,7 @@ public class PlayerMovement_1 : MonoBehaviour
 
         _animator.SetBool("isRunning", _isSprint && isPressingWD);
         _animator.SetBool("isWalking", !_isSprint && isPressingWD);
+        _animator.SetBool("isGrounded", _isGrounded);
 
     }
 }
