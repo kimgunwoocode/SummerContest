@@ -10,6 +10,7 @@ public class ScriptablePlayerStats : ScriptableObject {
     public float WalkSpeed = 300f;
     public float MaxSpeed = 800f;
     public bool isCrounchActionByToggle = true;
+    public bool isGlideActionByToggle = false;
 
     [Header("Jump")]
     [Tooltip("the basic jump force")]public float JumpForce = 10f;
