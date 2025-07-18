@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
 using UnityEngine.InputSystem.Interactions;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
@@ -11,6 +10,7 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private Transform[] wallRaycastPoints;
 
     internal Vector2 _currentInput;
+    private bool _isSprint;
     private Rigidbody2D _rb;
 
     private bool _cachedQueryStartInColliders;
@@ -21,11 +21,6 @@ public class PlayerMovement : MonoBehaviour {
         _rb = GetComponent<Rigidbody2D>();
         _cachedQueryStartInColliders = Physics2D.queriesStartInColliders;
         _leftBonusJump = _data.bonusJump;
-
-        _moveDirection = Vector2.zero;
-        _isDashing = false;
-        _isAbleToDash = true;
-        _isJumped = false;
     }
 
     private void Update() {
@@ -33,11 +28,6 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     #region Movement
-    private bool _isCrouch;
-    private Vector2 _moveDirection;
-    private bool _isDashing;
-    private bool _isAbleToDash;
-
     internal void OnMovePerformed(InputAction.CallbackContext context) {
         _currentInput = context.ReadValue<Vector2>();
     }
@@ -46,51 +36,16 @@ public class PlayerMovement : MonoBehaviour {
         _currentInput = Vector2.zero;
     }
 
-    internal void OnCrouchPerformed(InputAction.CallbackContext context) {
-        _isCrouch = _data.isCrounchActionByToggle ? !_isCrouch : true;
+    internal void OnSprintPerformed(InputAction.CallbackContext context) {
+        _isSprint = true;
     }
 
-    internal void OnCrouchCanceled(InputAction.CallbackContext context) {
-        _isCrouch = _data.isCrounchActionByToggle ? _isCrouch : false;
+    internal void OnSprintCanceled(InputAction.CallbackContext context) {
+        _isSprint = false;
     }
-
-    internal void OnGlidePerformed(InputAction.CallbackContext context) {
-
-    }
-
-    internal void OnGlideCanceled(InputAction.CallbackContext context) {
-        
-    }
-
-    internal void OnDashPerformed(InputAction.CallbackContext context) {
-        if (!_isAbleToDash || _isDashing) return;
-        _isAbleToDash = false;
-        _isDashing = true;
-        _calculatedVelocity.y = 0;
-        StartCoroutine(StopDash());
-        StartCoroutine(DashCooldown()); 
-    }
-
-    private IEnumerator StopDash() {
-        yield return new WaitForSeconds(_data.DashTime);
-        _isDashing = false;
-    }
-
-    private IEnumerator DashCooldown() {
-        yield return new WaitForSeconds(_data.DashCooldown);
-        _isAbleToDash = true;
-    }
-
-    private void UpdateMoveDir() {
-        if (_isDashing || !_isGrounded) return;
-        _moveDirection = _currentInput;
-    }
-    
 
     private void Move() {
-        UpdateMoveDir();
-
-        _calculatedVelocity.x = _isTouchingWall ? 0f : _isDashing ? (_data.DashSpeed * _moveDirection.x * Time.fixedDeltaTime ) : _isCrouch ? (_data.CrounchSpeed * Time.fixedDeltaTime * (_isGrounded ? _currentInput.x : _moveDirection.x)) : (_data.WalkSpeed * Time.fixedDeltaTime * (_isGrounded ? _currentInput.x : _moveDirection.x));
+        _calculatedVelocity.x = _isTouchingWall ? 0f : _isSprint ? (_currentInput.x * _data.RunSpeed * Time.fixedDeltaTime) : (_currentInput.x * _data.WalkSpeed * Time.fixedDeltaTime);
     }
 
     internal Vector2 ApplyMove() {
@@ -117,10 +72,11 @@ public class PlayerMovement : MonoBehaviour {
         _heldJump = true;
         _jumpPressTime = Time.time;
         _isJumpRequestExist = true;
+        //_jumpBufferTimer = _data.JumpBufferTime;
+        //Jump();
     }
 
     private void ExecuteJump(int jumpType) { // 1 : bonus Jump
-        _moveDirection = _currentInput;
         if(jumpType == 0) {
             _isJumped = true;
         }else if(jumpType == 1) {
@@ -138,7 +94,6 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void JumpRequestValidation() {
-        if (_isDashing) return;
         _isJumpEndedEarly = CheckJumpEndedBeforeApex();
 
         bool jumpBufferValidation = ((_groundedTime - _jumpPressTime) < _data.JumpBufferTime) && _isGrounded;
@@ -193,7 +148,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private bool CheckGround() {
-        return Physics2D.OverlapBox(groundCheckerTransform.position - new Vector3(0, _data.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _data.groundCheckDistance /2), 0f, _data.groundLayer);
+        return Physics2D.OverlapBox(groundCheckerTransform.position - new Vector3(0, _data.groundCheckDistance / 2), new Vector2(transform.localScale.x, _data.groundCheckDistance /2), 0f, _data.groundLayer);
         //_isGrounded = Physics2D.OverlapCircle(groundCheckerTransform.position, groundCheckDistance, groundLayer);
        
     }
@@ -220,8 +175,7 @@ public class PlayerMovement : MonoBehaviour {
         //in mid-air
         else {
             float midAirGravity = _data.MidAirGravity;
-            if (!_isGrounded && _currentInput.y > 0 && _calculatedVelocity.y < 0) midAirGravity = _data.MidAirGravity * _data.GlideGravity;
-            else if ((_isJumped) && Mathf.Abs(_calculatedVelocity.y) < _data.ApexThreadHold) midAirGravity = _data.MidAirGravity * _data.ApexModifier;
+            if ((_isJumped) && Mathf.Abs(_calculatedVelocity.y) < _data.ApexThreadHold) midAirGravity = _data.MidAirGravity * _data.ApexModifier;
             else if (_calculatedVelocity.y < 0f) midAirGravity = _data.MidAirGravity * _data.GravityModifierWhenFalling;
             else if (_isJumpEndedEarly) midAirGravity = _data.MidAirGravity * _data.GravityModifierWhenJumpEndedEarly;
             _calculatedVelocity.y = Mathf.MoveTowards(_calculatedVelocity.y, _data.MaxFallingSpeed, Time.fixedDeltaTime * midAirGravity);
@@ -239,15 +193,15 @@ public class PlayerMovement : MonoBehaviour {
             Gizmos.DrawWireCube(groundCheckerTransform.position - new Vector3(0, _data.groundCheckDistance / 2), new Vector2(transform.localScale.x, _data.groundCheckDistance /2));
         }
 
-        if (wallRaycastPoints != null && _moveDirection.x != 0) {
-            Vector3 gizmoDirection = (_moveDirection.x > 0) ? Vector3.right : Vector3.left;
+        if (wallRaycastPoints != null && _currentInput.x != 0) {
+            Vector3 gizmoDirection = (_currentInput.x > 0) ? Vector3.right : Vector3.left;
             Gizmos.color = _isTouchingWall ? Color.blue : Color.gray;
             foreach (Transform point in wallRaycastPoints) {
                 if (point != null) {
                     Gizmos.DrawLine(point.position, point.position + gizmoDirection * _data.wallCheckDistance);
                 }
             }
-        } else if (wallRaycastPoints != null && _moveDirection.x == 0) {
+        } else if (wallRaycastPoints != null && _currentInput.x == 0) {
             Gizmos.color = Color.gray;
             foreach (Transform point in wallRaycastPoints) {
                 if (point != null) {

@@ -2,11 +2,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
-public class PlayerManager : AbstractEntity {
+public class PlayerManager_1 : AbstractEntity {
     private PlayerInput_Action inputActions;
     private Rigidbody2D rb;
 
-    private PlayerMovement movement;
+    private PlayerMovement_1 movement;
     private GameDataManager data;
 
     private int maxHealth;
@@ -27,7 +27,7 @@ public class PlayerManager : AbstractEntity {
     }
 
     private void OnEnable() {
-        movement = GetComponent<PlayerMovement>();
+        movement = GetComponent<PlayerMovement_1>();
         if (movement == null)
         {
             Debug.LogError("PlayerMovement 컴포넌트를 찾을 수 없습니다!");
