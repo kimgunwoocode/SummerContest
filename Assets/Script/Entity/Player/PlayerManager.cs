@@ -2,51 +2,54 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
-public class PlayerManager : AbstractEntity {
-    private PlayerInput_Action _inputActions;
-    private Rigidbody2D _rb;
+public class PlayerManager : AbstractEntity
+{
+    private PlayerInput_Action inputActions;
+    private Rigidbody2D rb;
 
     private PlayerMovement _movement;
     private PlayerAttack _attack;
     private PlayerAnimation _anima;
     private GameDataManager _data;
 
-    private int _maxHealth;
-    private int _currentHealth;
-    
+    private int maxHealth;
+    private int currentHealth;
 
 
-    private void Awake() {
-        _rb = GetComponent<Rigidbody2D>();
-        _anima = GetComponent<PlayerAnimation>();
-        _attack = GetComponent<PlayerAttack>();
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Start() {
-        _data = Singleton.GameManager_Instance.Get<GameDataManager>();
-        if (_data == null) Debug.LogError("Can't found GameDataManager at GameManager");
+    private void Start()
+    {
+        data = Singleton.GameManager_Instance.Get<GameDataManager>();
+        if (data == null) Debug.LogError("Can't found GameDataManager at GameManager");
 
-        _maxHealth = _data.MaxHP;
-        _currentHealth = _data.CurrentHP;
+        maxHealth = data.MaxHP;
+        currentHealth = data.CurrentHP;
     }
 
-    private void OnEnable() {
-        _movement = GetComponent<PlayerMovement>();
-        if (_movement == null) {
-            Debug.LogError("PlayerMovement ÄÄÆ÷³ÍÆ®¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù!");
+    private void OnEnable()
+    {
+        movement = GetComponent<PlayerMovement>();
+        if (movement == null)
+        {
+            Debug.LogError("PlayerMovement ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½!");
             return;
         }
 
-        _inputActions = new PlayerInput_Action();
+        inputActions = new PlayerInput_Action();
 
-        _inputActions.Player.Jump.performed += _movement.OnJumpPerformed;
-        _inputActions.Player.Jump.canceled += _movement.OnJumpCanceled;
+        inputActions.Player.Jump.performed += movement.OnJumpPerformed;
+        inputActions.Player.Jump.canceled += movement.OnJumpCanceled;
 
-        _inputActions.Player.Move.performed += _movement.OnMovePerformed;
-        _inputActions.Player.Move.canceled += _movement.OnMoveCanceled;
+        inputActions.Player.Move.performed += movement.OnMovePerformed;
+        inputActions.Player.Move.canceled += movement.OnMoveCanceled;
 
-        _inputActions.Player.Crouch.performed += _movement.OnCrouchPerformed;
-        _inputActions.Player.Crouch.canceled += _movement.OnCrouchCanceled;
+        inputActions.Player.Sprint.performed += movement.OnSprintPerformed;
+        inputActions.Player.Sprint.canceled += movement.OnSprintCanceled;
 
         //_inputActions.Player.Glide
 
@@ -56,47 +59,50 @@ public class PlayerManager : AbstractEntity {
         _inputActions.Player.Enable();
     }
 
-    private void OnDisable() {
-        _inputActions.Player.Jump.performed -= _movement.OnJumpPerformed;
-        _inputActions.Player.Jump.canceled -= _movement.OnJumpCanceled;
+    private void OnDisable()
+    {
+        inputActions.Player.Jump.performed -= movement.OnJumpPerformed;
+        inputActions.Player.Jump.canceled -= movement.OnJumpCanceled;
 
-        _inputActions.Player.Move.performed -= _movement.OnMovePerformed;
-        _inputActions.Player.Move.canceled -= _movement.OnMoveCanceled;
+        inputActions.Player.Move.performed -= movement.OnMovePerformed;
+        inputActions.Player.Move.canceled -= movement.OnMoveCanceled;
 
-        _inputActions.Player.Crouch.performed -= _movement.OnCrouchPerformed;
-        _inputActions.Player.Crouch.canceled -= _movement.OnCrouchCanceled;
+        inputActions.Player.Sprint.performed -= movement.OnSprintPerformed;
+        inputActions.Player.Sprint.canceled -= movement.OnSprintCanceled;
 
-        _inputActions.Player.Dash.performed -= _movement.OnDashPerformed;
-        //inputActions.Player.Dash.canceled -= movement.OnDashCanceled;
-
-        _inputActions.Player.Disable();
+        inputActions.Player.Disable();
     }
 
-    public override void Attack() {
+    public override void Attack()
+    {
     }
 
-    protected override void Move() {
+    protected override void Move()
+    {
         //rb.linearVelocity = movement.ApplyMove();
     }
 
-    
-    public void TakeDamage(int damage, int hitDir){
+    /*
+    public override void TakeDamage(int damage, int hitDir){
 
     }
 
-    private void Die(){
+    protected override void Die(){
 
     }
 
     private void Knockback(int dir) {
 
     }
+    */
 
-    private void Update() {
+    private void Update()
+    {
     }
 
 
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
         Move();
     }
 }

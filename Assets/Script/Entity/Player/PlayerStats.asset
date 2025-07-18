@@ -15,8 +15,8 @@ MonoBehaviour:
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 256
-  CrounchSpeed: 150
-  WalkSpeed: 450
+  WalkSpeed: 150
+  RunSpeed: 250
   MaxSpeed: 800
   isCrounchActionByToggle: 1
   isGlideActionByToggle: 0
@@ -28,13 +28,8 @@ MonoBehaviour:
   CoyoteTime: 0.14
   JumpBufferTime: 0.1
   bonusJump: 1
-  GravityModifierWhenJumpEndedEarly: 4
-  GravityModifierWhenFalling: 1.5
-  ApexModifier: 0.7
-  GlideGravity: 0.3
-  DashCooldown: 0.5
-  DashTime: 0.2
-  DashSpeed: 1000
+  dashPower: 0
+  dashCooldown: 0
   wallCheckDistance: 0.6
   groundCheckDistance: 0.1
   groundLayer:
