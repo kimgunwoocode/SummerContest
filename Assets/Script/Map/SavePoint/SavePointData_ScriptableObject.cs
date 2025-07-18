@@ -1,11 +1,11 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 [CreateAssetMenu(menuName = "Map/SavePoint_list")]
 public class SavePoint_list : ScriptableObject
 {
-    //ID 0¹øÀº ½ÃÀÛ Æ÷ÀÎÆ®
-    //¼¼¹Ì Æ÷ÀÎÆ®´Â 1001ºÎÅÍ~ ¸ŞÀÎ Æ÷ÀÎÆ®´Â 2001ºÎÅÍ~
-    Dictionary<int, SavePoint> SavePoint_IDlist = new();
+    //ID 0ë²ˆì€ ì‹œì‘ í¬ì¸íŠ¸
+    //ì„¸ë¯¸ í¬ì¸íŠ¸ëŠ” 1001ë¶€í„°~ ë©”ì¸ í¬ì¸íŠ¸ëŠ” 2001ë¶€í„°~
+    public Dictionary<int, SavePoint> SavePoint_IDlist = new();
 }
