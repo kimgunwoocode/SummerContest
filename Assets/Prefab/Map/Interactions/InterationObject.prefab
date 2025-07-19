@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5505560654318433701}
   - component: {fileID: 7406036366864112762}
   - component: {fileID: 5325527500429782734}
-  - component: {fileID: 4870227233617450167}
+  - component: {fileID: 6198973925560551992}
   m_Layer: 0
   m_Name: InterationObject
   m_TagString: Untagged
@@ -136,7 +136,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4870227233617450167
+--- !u!114 &6198973925560551992
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef30d09af36b24846ad595ae5b7ac2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  description: 
   InteractEvent:
     m_PersistentCalls:
       m_Calls: []

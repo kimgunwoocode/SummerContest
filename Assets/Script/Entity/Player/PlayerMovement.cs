@@ -308,7 +308,6 @@ public class PlayerMovement : MonoBehaviour
         CheckCollisions();
         Gravity();
         Move();
-        //Jump();
         JumpRequestValidation();
         _rb.linearVelocity = _calculatedVelocity;
     }

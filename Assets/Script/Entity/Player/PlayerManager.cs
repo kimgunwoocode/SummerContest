@@ -29,10 +29,7 @@ public class PlayerManager : AbstractEntity {
         _currentHealth = _data.CurrentHP;
     }
 
-    private void OnEnable()
-    {
-        
-
+    private void OnEnable() {
         _inputActions = new PlayerInput_Action();
 
         _inputActions.Player.Jump.performed += _movement.OnJumpPerformed;
