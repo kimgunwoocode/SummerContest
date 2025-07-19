@@ -18,6 +18,7 @@ public class PlayerManager : AbstractEntity {
 
     private void Awake() {
         _rb = GetComponent<Rigidbody2D>();
+        _movement = GetComponent<PlayerMovement>();
     }
 
     private void Start() {
@@ -30,12 +31,7 @@ public class PlayerManager : AbstractEntity {
 
     private void OnEnable()
     {
-        _movement = GetComponent<PlayerMovement>();
-        if (_movement == null)
-        {
-            Debug.LogError("Can't Find PlayerMovement!");
-            return;
-        }
+        
 
         _inputActions = new PlayerInput_Action();
 
@@ -50,7 +46,7 @@ public class PlayerManager : AbstractEntity {
 
 
         //_inputActions.Player.Glide
-        //_inputActions.Player.Dash.performed += _movement.OnDashPerformed;
+        _inputActions.Player.Dash.performed += _movement.OnDashPerformed;
         //inputActions.Player.Dash.canceled += movement.OnDashCanceled;
 
         _inputActions.Player.Enable();
@@ -66,7 +62,7 @@ public class PlayerManager : AbstractEntity {
         _inputActions.Player.Crouch.performed -= _movement.OnCrouchPerformed;
         _inputActions.Player.Crouch.canceled -= _movement.OnCrouchCanceled;
 
-        //_inputActions.Player.Dash.performed -= _movement.OnDashPerformed;
+        _inputActions.Player.Dash.performed -= _movement.OnDashPerformed;
         //inputActions.Player.Dash.canceled -= movement.OnDashCanceled;
 
         _inputActions.Player.Disable();

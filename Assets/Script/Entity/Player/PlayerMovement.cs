@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _cachedQueryStartInColliders = Physics2D.queriesStartInColliders;
-        _leftBonusJump = _statsData.bonusJump;
+        _leftBonusJump = 1;//_statsData.bonusJump;
 
         _moveDirection = Vector2.zero;
         _isDashing = false;
@@ -68,8 +68,7 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    internal void OnDashPerformed(InputAction.CallbackContext context)
-    {
+    internal void OnDashPerformed(InputAction.CallbackContext context) {
         if (!_isAbleToDash || _isDashing) return;
         _isAbleToDash = false;
         _isDashing = true;
@@ -78,8 +77,7 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(DashCooldown());
     }
 
-    private IEnumerator StopDash()
-    {
+    private IEnumerator StopDash() {
         yield return new WaitForSeconds(_statsData.DashTime);
         _isDashing = false;
     }
@@ -128,10 +126,6 @@ public class PlayerMovement : MonoBehaviour
 
     internal void OnJumpPerformed(InputAction.CallbackContext context)
     {
-        if (_animator == null)
-        {
-            Debug.LogWarning("Animator is NULL in OnJumpPerformed!");
-        }
         _heldJump = true;
         _jumpPressTime = Time.time;
         _isJumpRequestExist = true;
@@ -149,6 +143,7 @@ public class PlayerMovement : MonoBehaviour
             _leftBonusJump -= 1;
         }
         _calculatedVelocity.y = _statsData.JumpForce;
+        _isJumpRequestExist = false;
     }
 
     internal void OnJumpCanceled(InputAction.CallbackContext context)
@@ -176,9 +171,6 @@ public class PlayerMovement : MonoBehaviour
 
         bool canJump = (coyoteJumpValidation || jumpBufferValidation || bonusJumpValidation);
         if (canJump) ExecuteJump((!_isGrounded && !jumpBufferValidation && !coyoteJumpValidation) ? 1 : 0);
-        if (_animator != null)
-            _animator.SetTrigger("Jumped 0");
-        _isJumpRequestExist = false;
     }
     #endregion
 
@@ -238,7 +230,7 @@ public class PlayerMovement : MonoBehaviour
         foreach (Transform point in wallRaycastPoints)
         {
             RaycastHit2D hit = Physics2D.Raycast(point.position, rayCastDir, _statsData.wallCheckDistance, _statsData.groundLayer);
-            //                                                                                        ^^^^^^^^^^^^^^^^^^^^  it's because the wall functions as the ground
+            //                                                                                              ^^^^^^^^^^^^^^^^^^^^  it's because the wall functions as the ground
             if (hit.collider != null)
             {
                 return true;
