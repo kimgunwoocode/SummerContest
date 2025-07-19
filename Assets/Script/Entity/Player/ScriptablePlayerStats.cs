@@ -20,7 +20,7 @@ public class ScriptablePlayerStats : ScriptableObject {
     [Tooltip("the apex range, if player's y-axis speed is included in the apex range, it judged as a apex")]public float ApexThreadHold = 0.1f;
     [Tooltip("allowed jump time while the player is in the air when doesn't jump")]public float CoyoteTime = 0.14f;
     [Tooltip("allowed jump time while the player is in the air when does jump")]public float JumpBufferTime = 0.24f;
-    [Tooltip("allowed ")] public int bonusJump = 2;
+    [Tooltip("allowed ")] public int bonusJump = 1;
 
     [Header("Gravity")]
     [Tooltip("the gravity multipler that is apllied after when player release the button")] public float GravityModifierWhenJumpEndedEarly = 3f;
@@ -33,6 +33,10 @@ public class ScriptablePlayerStats : ScriptableObject {
     public float DashTime;
     public float DashSpeed;
 
+    [Header("Available Abilities")]
+    public bool IsDashUnlocked = false;
+    public bool IsDoubleJumpUnloceked = false;
+    public bool IsGlideUnlocked = false;
 
 
 

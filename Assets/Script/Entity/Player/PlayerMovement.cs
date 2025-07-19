@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private ScriptablePlayerStats _data;
     [Header("Transforms")]
     [SerializeField] private Transform groundCheckerTransform;
+    [SerializeField] private Transform ceilingCheckerTransform;
     [SerializeField] private Transform[] wallRaycastPoints;
 
     internal Vector2 _currentInput;
@@ -18,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
 
     private bool _cachedQueryStartInColliders;
     private Vector2 _calculatedVelocity;
-    private Animator _animator;
 
     private void Awake()
     {
@@ -30,12 +30,7 @@ public class PlayerMovement : MonoBehaviour
         _isDashing = false;
         _isAbleToDash = true;
         _isJumped = false;
-
-        _animator = GetComponent<Animator>();
-        if (_animator == null)
-            Debug.LogWarning("Animator component is missing!");
-        else
-            _animator.applyRootMotion = false;
+        _moveDirection.x = -1;
     }
 
     private void Update()
@@ -49,29 +44,29 @@ public class PlayerMovement : MonoBehaviour
     private bool _isDashing;
     private bool _isAbleToDash;
     private bool _isGlide;
-    internal void OnMovePerformed(InputAction.CallbackContext context)
-    {
+
+    internal void OnMovePerformed(InputAction.CallbackContext context) {
         _currentInput = context.ReadValue<Vector2>();
     }
 
-    internal void OnMoveCanceled(InputAction.CallbackContext context)
-    {
+    internal void OnMoveCanceled(InputAction.CallbackContext context) {
         _currentInput = Vector2.zero;
     }
 
-    internal void OnCrouchPerformed(InputAction.CallbackContext context)
-    {
+    internal void OnCrouchPerformed(InputAction.CallbackContext context) {
         _isCrouch = _data.isCrounchActionByToggle ? !_isCrouch : true;
     }
 
-    internal void OnCrouchCanceled(InputAction.CallbackContext context)
-    {
+    internal void OnCrouchCanceled(InputAction.CallbackContext context) {
         _isCrouch = _data.isCrounchActionByToggle ? _isCrouch : false;
     }
 
-    internal void OnGlideCanceled(InputAction.CallbackContext context)
-    {
+    internal void OnGlidePerformed(InputAction.CallbackContext context) {
+        _isGlide = _data.isGlideActionByToggle ? !_isGlide : true;
+    }
 
+    internal void OnGlideCanceled(InputAction.CallbackContext context) {
+        _isGlide = _data.isGlideActionByToggle ? !_isGlide : false;
     }
 
     internal void OnDashPerformed(InputAction.CallbackContext context) {
@@ -97,17 +92,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateMoveDir()
     {
-        if (_isDashing || !_isGrounded) return;
-        _moveDirection = _currentInput;
+        if (_isDashing) return;
+        _moveDirection.x = _currentInput.x == 0 ? _moveDirection.x : _currentInput.x;
     }
     private void Move()
     {
         UpdateMoveDir();
 
-        _calculatedVelocity.x = _isTouchingWall ? 0f : _isDashing ? (_data.DashSpeed * _moveDirection.x * Time.fixedDeltaTime) : _isCrouch ? (_data.CrounchSpeed * Time.fixedDeltaTime * (_isGrounded ? _currentInput.x : _moveDirection.x)) : (_data.WalkSpeed * Time.fixedDeltaTime * (_isGrounded ? _currentInput.x : _moveDirection.x));
-    }
-        internal void OnGlidePerformed(InputAction.CallbackContext context) {
-        _isGlide = _data.isGlideActionByToggle ? !_isGlide : true;
+        _calculatedVelocity.x = _isTouchingWall ? 0f : _isDashing ? (_data.DashSpeed * _moveDirection.x * Time.fixedDeltaTime) : _isCrouch ? ((_isGrounded ? _data.CrounchSpeed : _data.WalkSpeed) * Time.fixedDeltaTime * _currentInput.x) : (_data.WalkSpeed * Time.fixedDeltaTime * _currentInput.x);
     }
 
 
@@ -141,25 +133,21 @@ public class PlayerMovement : MonoBehaviour
     private void ExecuteJump(int jumpType)
     { // 1 : bonus Jump
         _moveDirection = _currentInput;
-        if (jumpType == 0)
-        {
+        if (jumpType == 0) {
             _isJumped = true;
         }
-        else if (jumpType == 1)
-        {
+        else if (jumpType == 1) {
             _leftBonusJump -= 1;
         }
         _calculatedVelocity.y = _data.JumpForce;
         _isJumpRequestExist = false;
     }
 
-    internal void OnJumpCanceled(InputAction.CallbackContext context)
-    {
+    internal void OnJumpCanceled(InputAction.CallbackContext context) {
         _heldJump = false;
     }
 
-    private bool CheckJumpEndedBeforeApex()
-    {
+    private bool CheckJumpEndedBeforeApex() {
         return (_calculatedVelocity.y > 0 && !_isJumpEndedEarly && !_isGrounded && !_heldJump);
     }
 
@@ -245,6 +233,11 @@ public class PlayerMovement : MonoBehaviour
         }
         return false;
     }
+
+    private bool CheckCeiling() {
+        return Physics2D.OverlapBox(groundCheckerTransform.position + new Vector3(0, _data.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _data.groundCheckDistance / 2), 0f, _data.groundLayer);
+    }
+
     #endregion
     #region Gravity
     private void Gravity()

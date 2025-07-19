@@ -9,16 +9,17 @@ public class PlayerManager : AbstractEntity {
     private PlayerMovement _movement;
     private PlayerAttack _attack;
     private PlayerAnimation _anima;
+    private PlayerInteraction _interaction;
     private GameDataManager _data;
 
     private int _maxHealth;
     private int _currentHealth;
-    
 
 
     private void Awake() {
         _rb = GetComponent<Rigidbody2D>();
         _movement = GetComponent<PlayerMovement>();
+        _interaction = GetComponent<PlayerInteraction>();
     }
 
     private void Start() {
@@ -41,10 +42,12 @@ public class PlayerManager : AbstractEntity {
         _inputActions.Player.Crouch.performed += _movement.OnCrouchPerformed;
         _inputActions.Player.Crouch.canceled += _movement.OnCrouchCanceled;
 
+        _inputActions.Player.Glide.performed += _movement.OnGlidePerformed;
+        _inputActions.Player.Glide.canceled += _movement.OnGlideCanceled;
 
-        //_inputActions.Player.Glide
         _inputActions.Player.Dash.performed += _movement.OnDashPerformed;
-        //inputActions.Player.Dash.canceled += movement.OnDashCanceled;
+
+        _inputActions.Player.Interact.performed += _interaction.OnInteraction;
 
         _inputActions.Player.Enable();
     }
@@ -59,8 +62,12 @@ public class PlayerManager : AbstractEntity {
         _inputActions.Player.Crouch.performed -= _movement.OnCrouchPerformed;
         _inputActions.Player.Crouch.canceled -= _movement.OnCrouchCanceled;
 
+        _inputActions.Player.Glide.performed += _movement.OnGlidePerformed;
+        _inputActions.Player.Glide.canceled += _movement.OnGlideCanceled;
+
         _inputActions.Player.Dash.performed -= _movement.OnDashPerformed;
-        //inputActions.Player.Dash.canceled -= movement.OnDashCanceled;
+
+        _inputActions.Player.Interact.performed -= _interaction.OnInteraction;
 
         _inputActions.Player.Disable();
     }
@@ -83,6 +90,18 @@ public class PlayerManager : AbstractEntity {
 
     private void Knockback(int dir) {
 
+    }
+
+    internal void UnlockAbility(int id) {
+        /// <summary>
+        /// ID. 해금되는 기능
+        /// 0. 돌진
+        /// 1. 브레스
+        /// 2. 이단 점프
+        /// 3. 낙하공격
+        /// 4. 활공
+        /// 5. 벽타기
+        /// </summary>
     }
 
     private void Update() {

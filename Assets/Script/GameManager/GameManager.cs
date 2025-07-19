@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     {
         GameDataManager.PlayerAbility[PlayerAbilityID] = true;
         // 플레이어에서 기능 해금 이벤트 호출하기
+        Player.GetComponent<PlayerManager>().UnlockAbility(PlayerAbilityID);
     }
 
 

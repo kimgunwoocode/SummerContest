@@ -4,18 +4,9 @@ using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
 public class PlayerInteraction : MonoBehaviour {
-    [HideInInspector]
-    public Queue<UnityEvent> _interactionQueue;
+    public UnityEvent interactionEvent;
 
     internal void OnInteraction(InputAction.CallbackContext context) {
-
-    }
-
-    public void DeleteInteraction() {
-
-    }
-
-    public void InsertInteraction() {
-
+        interactionEvent.Invoke();
     }
 }
