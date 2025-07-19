@@ -74,8 +74,7 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    internal void OnDashPerformed(InputAction.CallbackContext context)
-    {
+    internal void OnDashPerformed(InputAction.CallbackContext context) {
         if (!_isAbleToDash || _isDashing) return;
         _isAbleToDash = false;
         _isDashing = true;
@@ -96,13 +95,6 @@ public class PlayerMovement : MonoBehaviour
         _isAbleToDash = true;
     }
 
-    private void UpdateFacingDirection()
-    {
-        if (_moveDirection.x > 0.01f)
-            transform.localScale = new Vector3(1, 1, 1);
-        else if (_moveDirection.x < -0.01f)
-            transform.localScale = new Vector3(-1, 1, 1);
-    }
     private void UpdateMoveDir()
     {
         if (_isDashing || !_isGrounded) return;
@@ -141,10 +133,6 @@ public class PlayerMovement : MonoBehaviour
 
     internal void OnJumpPerformed(InputAction.CallbackContext context)
     {
-        if (_animator == null)
-        {
-            Debug.LogWarning("Animator is NULL in OnJumpPerformed!");
-        }
         _heldJump = true;
         _jumpPressTime = Time.time;
         _isJumpRequestExist = true;
@@ -162,6 +150,7 @@ public class PlayerMovement : MonoBehaviour
             _leftBonusJump -= 1;
         }
         _calculatedVelocity.y = _data.JumpForce;
+        _isJumpRequestExist = false;
     }
 
     internal void OnJumpCanceled(InputAction.CallbackContext context)
@@ -189,9 +178,6 @@ public class PlayerMovement : MonoBehaviour
 
         bool canJump = (coyoteJumpValidation || jumpBufferValidation || bonusJumpValidation);
         if (canJump) ExecuteJump((!_isGrounded && !jumpBufferValidation && !coyoteJumpValidation) ? 1 : 0);
-        if (_animator != null)
-            _animator.SetTrigger("Jumped 0");
-        _isJumpRequestExist = false;
     }
     #endregion
 
@@ -317,12 +303,6 @@ public class PlayerMovement : MonoBehaviour
     }
     #endregion
 
-    private void LateUpdate()
-    {
-        UpdateAnimatorParameters();
-        UpdateFacingDirection();
-    }
-
     private void FixedUpdate()
     {
         CheckCollisions();
@@ -331,19 +311,5 @@ public class PlayerMovement : MonoBehaviour
         //Jump();
         JumpRequestValidation();
         _rb.linearVelocity = _calculatedVelocity;
-
-        UpdateAnimatorParameters();
-    }
-
-    private void UpdateAnimatorParameters()
-    {
-        if (_animator == null) return;
-
-        bool isPressingWD = _currentInput.x != 0; // W�� D Ű�� ������ ���� ���� true
-
-        _animator.SetBool("isRunning", !_isCrouch && isPressingWD);
-        _animator.SetBool("isWalking", _isCrouch && isPressingWD);
-        _animator.SetBool("isGrounded", _isGrounded);
-
     }
 }
