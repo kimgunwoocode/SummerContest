@@ -48,15 +48,17 @@ public class Pause : MonoBehaviour
 
     void Update()
     {
-        // esc 클릭
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Debug.Log("클릭됨");
-            Pausing();
-        }
-
+        /*
+            // esc 클릭
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Debug.Log("클릭됨");
+                Pausing();
+            }
+        */
     }
 
+    // 퍼즈시 불러옴
     internal void Pausing()
     {
 
