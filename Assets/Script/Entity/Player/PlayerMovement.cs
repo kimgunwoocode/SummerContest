@@ -62,15 +62,17 @@ public class PlayerMovement : MonoBehaviour
     }
 
     internal void OnGlidePerformed(InputAction.CallbackContext context) {
+        if (!_data.IsGlideUnlocked) return;
         _isGlide = _data.isGlideActionByToggle ? !_isGlide : true;
     }
 
     internal void OnGlideCanceled(InputAction.CallbackContext context) {
+        if (!_data.IsGlideUnlocked) return;
         _isGlide = _data.isGlideActionByToggle ? !_isGlide : false;
     }
 
     internal void OnDashPerformed(InputAction.CallbackContext context) {
-        if (!_isAbleToDash || _isDashing) return;
+        if (!_data.IsDashUnlocked || !_isAbleToDash || _isDashing) return;
         _isAbleToDash = false;
         _isDashing = true;
         _calculatedVelocity.y = 0;
@@ -123,8 +125,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    internal void OnJumpPerformed(InputAction.CallbackContext context)
-    {
+    internal void OnJumpPerformed(InputAction.CallbackContext context) {
         _heldJump = true;
         _jumpPressTime = Time.time;
         _isJumpRequestExist = true;
@@ -137,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
             _isJumped = true;
         }
         else if (jumpType == 1) {
+            if (!_data.IsDoubleJumpUnloceked) return;
             _leftBonusJump -= 1;
         }
         _calculatedVelocity.y = _data.JumpForce;
@@ -172,6 +174,8 @@ public class PlayerMovement : MonoBehaviour
     #region CollisionCheck
     private bool _isTouchingWall;
     internal bool _isGrounded = false;
+    internal bool _isCeiling = false;
+
     private void CheckCollisions()
     {
         Physics2D.queriesStartInColliders = false;
@@ -182,21 +186,29 @@ public class PlayerMovement : MonoBehaviour
         //check wall hit
         bool wallCheck = CheckWall();
 
+        //check ceiling hit
+        bool ceilingCheck = CheckCeiling();
+
         //landed on ground
-        if (groundCheck && !_isGrounded)
-        {
+        if (groundCheck && !_isGrounded) {
             _isGrounded = true;
             _isJumpEndedEarly = false;
             _isJumped = false;
             _leftBonusJump = _data.bonusJump;
             _groundedTime = Time.time;
 
-            //leave from ground
-        }
-        else if (!groundCheck && _isGrounded)
-        {
+        //leave from ground
+        } else if (!groundCheck && _isGrounded) {
             _isGrounded = false;
             _leftGroundTime = Time.time;
+        }
+
+        if (ceilingCheck && !_isCeiling) {
+            _isCeiling = true;
+            _calculatedVelocity.y = _calculatedVelocity.y > 0 ? _calculatedVelocity.y * -0.1f : _calculatedVelocity.y;
+
+        } else if (!ceilingCheck && _isCeiling) {
+            _isCeiling = false;
         }
 
         if (wallCheck && !_isTouchingWall)
@@ -214,7 +226,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool CheckGround()
     {
-        return Physics2D.OverlapBox(groundCheckerTransform.position - new Vector3(0, _data.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _data.groundCheckDistance / 2), 0f, _data.groundLayer);
+        return Physics2D.OverlapBox(groundCheckerTransform.position - new Vector3(0, _data.ceilingCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _data.ceilingCheckDistance / 2), 0f, _data.groundLayer);
         //_isGrounded = Physics2D.OverlapCircle(groundCheckerTransform.position, groundCheckDistance, groundLayer);
 
     }
@@ -235,7 +247,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private bool CheckCeiling() {
-        return Physics2D.OverlapBox(groundCheckerTransform.position + new Vector3(0, _data.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _data.groundCheckDistance / 2), 0f, _data.groundLayer);
+        return Physics2D.OverlapBox(ceilingCheckerTransform.position + new Vector3(0, _data.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _data.groundCheckDistance / 2), 0f, _data.groundLayer);
     }
 
     #endregion
@@ -267,7 +279,12 @@ public class PlayerMovement : MonoBehaviour
         if (groundCheckerTransform != null)
         {
             Gizmos.color = _isGrounded ? Color.green : Color.red;
-            Gizmos.DrawWireCube(groundCheckerTransform.position - new Vector3(0, _data.groundCheckDistance / 2), new Vector2(transform.localScale.x, _data.groundCheckDistance / 2));
+            Gizmos.DrawWireCube(groundCheckerTransform.position - new Vector3(0, _data.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _data.groundCheckDistance / 2));
+        }
+
+        if (ceilingCheckerTransform != null) {
+            Gizmos.color = _isCeiling ? Color.green : Color.red;
+            Gizmos.DrawWireCube(ceilingCheckerTransform.position + new Vector3(0, _data.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _data.groundCheckDistance / 2));
         }
 
         if (wallRaycastPoints != null && _moveDirection.x != 0)

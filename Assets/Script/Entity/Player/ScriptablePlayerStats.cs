@@ -38,15 +38,10 @@ public class ScriptablePlayerStats : ScriptableObject {
     public bool IsDoubleJumpUnloceked = false;
     public bool IsGlideUnlocked = false;
 
-
-
     [Header("Collision Check")]
     public float wallCheckDistance = 0.6f;
-    //public GameObject[] wallRaycastPoints;
-
     public float groundCheckDistance = 0.1f;
-    //public GameObject groundCheckerTransform;
+    public float ceilingCheckDistance = 0.1f;
+    
     public LayerMask groundLayer;
-
-
 }

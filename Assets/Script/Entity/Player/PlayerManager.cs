@@ -5,7 +5,8 @@ using UnityEngine.InputSystem.Interactions;
 public class PlayerManager : AbstractEntity {
     private PlayerInput_Action _inputActions;
     private Rigidbody2D _rb;
-
+    [SerializeField] 
+    private ScriptablePlayerStats _playerStats;
     private PlayerMovement _movement;
     private PlayerAttack _attack;
     private PlayerAnimation _anima;
@@ -102,6 +103,19 @@ public class PlayerManager : AbstractEntity {
         /// 4. 활공
         /// 5. 벽타기
         /// </summary>
+        if (id == 0) {
+            _playerStats.IsDashUnlocked = true;
+        }else if(id == 1) {
+
+        }else if(id == 2) {
+            _playerStats.IsDoubleJumpUnloceked = true;
+        }else if(id == 3) {
+
+        }else if(id == 4) {
+
+        }else if(id == 5) {
+            _playerStats.IsGlideUnlocked = true;
+        }
     }
 
     private void Update() {

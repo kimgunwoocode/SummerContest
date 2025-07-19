@@ -283,6 +283,7 @@ Transform:
   - {fileID: 7704388759322262020}
   - {fileID: 3366859602332449523}
   - {fileID: 5667706174442721755}
+  - {fileID: 2224008877318123470}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2900726938375067608
@@ -457,6 +458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: 9064567d859eb8a4392e410b3ac555cb, type: 2}
   groundCheckerTransform: {fileID: 3366859602332449523}
+  ceilingCheckerTransform: {fileID: 2224008877318123470}
   wallRaycastPoints:
   - {fileID: 2337371593751010146}
   - {fileID: 5197217326988671265}
@@ -481,3 +483,34 @@ MonoBehaviour:
   attackCheckRadius: 0
   knockbackForce: {x: 0, y: 0}
   knockbackDuration: 0
+--- !u!1 &7857274148819995478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2224008877318123470}
+  m_Layer: 0
+  m_Name: PlayerHead
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2224008877318123470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7857274148819995478}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5777702738308349266}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
