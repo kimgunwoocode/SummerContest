@@ -211,7 +211,7 @@ public class MapTool : EditorWindow
 
                 if (assignedID != -1)
                 {
-                    sp.SavePoint_ID = assignedID;
+                    sp.ID = assignedID;
                     //spList.SavePoint_IDlist[assignedID] = sp;
                     EditorUtility.SetDirty(sp);
 
