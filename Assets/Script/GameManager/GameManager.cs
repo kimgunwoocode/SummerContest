@@ -35,6 +35,12 @@ public class GameManager : MonoBehaviour
         //이전 세이브 포인트로 위치 이동시키기
     }
 
+    public void Unlock_PlayerAbility(int PlayerAbilityID)
+    {
+        GameDataManager.PlayerAbility[PlayerAbilityID] = true;
+        // 플레이어에서 기능 해금 이벤트 호출하기
+    }
+
 
 
 
