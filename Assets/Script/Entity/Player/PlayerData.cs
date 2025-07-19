@@ -1,17 +1,25 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 
 [System.Serializable]
 public class PlayerData
 {
-    public int MaxHP; // ÇÃ·¹ÀÌ¾î ÃÖ´ë Ã¼·Â
-    public int CurrentHP; // ÇÃ·¹ÀÌ¾î ÇöÀç Ã¼·Â
+    public int MaxHP; // í”Œë ˆì´ì–´ ìµœëŒ€ ì²´ë ¥
+    public int CurrentHP; // í”Œë ˆì´ì–´ í˜„ì¬ ì²´ë ¥
     public int ATK;
-    public float MaxBreathGauge; // ÃÖ´ë ºê·¹½º °ÔÀÌÁö
-    public float CurrentBreathGauge; // ºê·¹½º °ÔÀÌÁö
-    public int Money; // º¸À¯ÁßÀÎ µ·
-    public List<int> EquipSkill; // ÀåÂøÁßÀÎ ½ºÅ³
-
-    public List<bool> PlayerAbility = new();// ÇÃ·¹ÀÌ¾î ±â´É ÇØ±İ ¿©ºÎ
-    public Dictionary<int, bool> PlayerSkill = new(); // ÇØ±İµÈ ÇÃ·¹ÀÌ¾î ½ºÅ³ <½ºÅ³ID, ÇØ±İ ¿©ºÎ>
-    public Dictionary<int, bool> GettedItems = new(); // º¸À¯ÁßÀÎ ¾ÆÀÌÅÛ
+    public float MaxBreathGauge; // ìµœëŒ€ ë¸Œë ˆìŠ¤ ê²Œì´ì§€
+    public float CurrentBreathGauge; // ë¸Œë ˆìŠ¤ ê²Œì´ì§€
+    public int Money; // ë³´ìœ ì¤‘ì¸ ëˆ
+    public List<int> EquipSkill; // ì¥ì°©ì¤‘ì¸ ìŠ¤í‚¬
+    /// <summary>
+    /// ID. í•´ê¸ˆë˜ëŠ” ê¸°ëŠ¥
+    /// 0. ëŒì§„
+    /// 1. ë¸Œë ˆìŠ¤
+    /// 2. ì´ë‹¨ ì í”„
+    /// 3. ë‚™í•˜ê³µê²©
+    /// 4. í™œê³µ
+    /// 5. ë²½íƒ€ê¸°
+    /// </summary>
+    public List<bool> PlayerAbility = new();// í”Œë ˆì´ì–´ ê¸°ëŠ¥ í•´ê¸ˆ ì—¬ë¶€
+    public Dictionary<int, bool> PlayerSkill = new(); // í•´ê¸ˆëœ í”Œë ˆì´ì–´ ìŠ¤í‚¬ <ìŠ¤í‚¬ID, í•´ê¸ˆ ì—¬ë¶€>
+    public Dictionary<int, bool> GettedItems = new(); // ë³´ìœ ì¤‘ì¸ ì•„ì´í…œ
 }

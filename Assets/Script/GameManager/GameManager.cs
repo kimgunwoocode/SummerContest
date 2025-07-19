@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
         GameDataManager.CurrentBreathGauge = GameDataManager.GameManager_PlayerData.CurrentBreathGauge;
         GameDataManager.Money = GameDataManager.GameManager_PlayerData.Money;
         GameDataManager.EquipSkill = GameDataManager.GameManager_PlayerData.EquipSkill;
+        GameDataManager.PlayerAbility = GameDataManager.GameManager_PlayerData.PlayerAbility;
         GameDataManager.PlayerSkill = GameDataManager.GameManager_PlayerData.PlayerSkill;
         GameDataManager.GettedItems = GameDataManager.GameManager_PlayerData.GettedItems;
 
@@ -75,6 +76,7 @@ public class GameManager : MonoBehaviour
         GameDataManager.GameManager_PlayerData.CurrentBreathGauge = GameDataManager.CurrentBreathGauge;
         GameDataManager.GameManager_PlayerData.Money = GameDataManager.Money;
         GameDataManager.GameManager_PlayerData.EquipSkill = GameDataManager.EquipSkill;
+        GameDataManager.GameManager_PlayerData.PlayerAbility = GameDataManager.PlayerAbility;
         GameDataManager.GameManager_PlayerData.PlayerSkill = GameDataManager.PlayerSkill;
         GameDataManager.GameManager_PlayerData.GettedItems = GameDataManager.GettedItems;
 
