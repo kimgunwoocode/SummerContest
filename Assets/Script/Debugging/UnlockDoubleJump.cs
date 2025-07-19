@@ -2,15 +2,13 @@ using UnityEngine;
 
 public class UnlockDoubleJump : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+    private GameManager _manager;
+
+    private void Start() {
+        _manager = Singleton.GameManager_Instance.Get<GameManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void Unlock() {
+        _manager.Unlock_PlayerAbility(2);
     }
 }

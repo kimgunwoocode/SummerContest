@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class UnlockDash : MonoBehaviour
-{
+public class UnlockGlide : MonoBehaviour {
     private GameManager _manager;
 
     private void Start() {
@@ -9,6 +8,6 @@ public class UnlockDash : MonoBehaviour
     }
 
     public void Unlock() {
-        _manager.Unlock_PlayerAbility(0);
+        _manager.Unlock_PlayerAbility(4);
     }
 }

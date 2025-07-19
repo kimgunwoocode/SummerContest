@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     public GameDataManager GameDataManager;
@@ -35,7 +35,15 @@ public class GameManager : MonoBehaviour
 
     public void Unlock_PlayerAbility(int PlayerAbilityID)
     {
-        GameDataManager.PlayerAbility[PlayerAbilityID] = true;
+        //TODO : PlayerAbility 작성하기
+        if (GameDataManager.PlayerAbility.Count != 0)
+            GameDataManager.PlayerAbility[PlayerAbilityID] = true;
+
+        else {
+            GameDataManager.PlayerAbility = new List<bool>() {false, false, false, false, false, false};
+            GameDataManager.PlayerAbility[PlayerAbilityID] = true;
+        }
+
         // 플레이어에서 기능 해금 이벤트 호출하기
         Player.GetComponent<PlayerManager>().UnlockAbility(PlayerAbilityID);
     }

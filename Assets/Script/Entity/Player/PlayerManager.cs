@@ -112,9 +112,9 @@ public class PlayerManager : AbstractEntity {
         }else if(id == 3) {
 
         }else if(id == 4) {
-
-        }else if(id == 5) {
             _playerStats.IsGlideUnlocked = true;
+        } else if(id == 5) {
+
         }
     }
 
