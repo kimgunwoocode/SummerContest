@@ -55,8 +55,18 @@ public class SerializablePlayerData
 
 public static class SaveFileManager
 {
-    private static string GetPath(int slotIndex) =>
-        Path.Combine(Application.persistentDataPath, $"save_slot_{slotIndex}.json");
+    private static string GetPath(int slotIndex)
+    {
+#if UNITY_EDITOR
+        // 에디터에서만 사용되는 경로 (예: 프로젝트 내 폴더)
+        string editorPath = Path.Combine(Application.dataPath, "Assets/InitData/EditorSaveData");
+        if (!Directory.Exists(editorPath))
+            Directory.CreateDirectory(editorPath);
+        return Path.Combine(editorPath, $"save_slot_{slotIndex}.json");
+#else
+        return Path.Combine(Application.persistentDataPath, $"save_slot_{slotIndex}.json");
+#endif
+    }
 
     #region Save
     public static void Save(SaveData data, int slotIndex)
@@ -115,17 +125,15 @@ public static class SaveFileManager
     #endregion
 
     #region Load
-    public static SaveData Load(int slotIndex)
+    public static SaveData LoadFromSaveFile(int slotIndex)
     {
-        string path = Path.Combine(Application.persistentDataPath, $"save_slot_{slotIndex}.json");
-
-        if (!File.Exists(path))
+        if (!File.Exists(GetPath(slotIndex)))
         {
-            Debug.LogWarning($"❌ 저장 슬롯 {slotIndex}에 해당하는 파일이 없습니다.");
+            Debug.LogWarning($"저장 슬롯 {slotIndex}에 해당하는 파일이 없습니다.");
             return null;
         }
 
-        string json = File.ReadAllText(path);
+        string json = File.ReadAllText(GetPath(slotIndex));
         SerializableSaveData serializable = JsonUtility.FromJson<SerializableSaveData>(json);
 
         // 역직렬화: SerializableSaveData → SaveData
@@ -160,9 +168,9 @@ public static class SaveFileManager
         return result;
     }
 
-    public static void LoadAndApplyToGameManager(int slotIndex)
+    public static void Load(int slotIndex)
     {
-        SaveData loaded = Load(slotIndex);
+        SaveData loaded = LoadFromSaveFile(slotIndex);
         if (loaded != null)
         {
             Singleton.GameManager_Instance.Get<GameDataManager>().LoadGameData(loaded);

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6369609741194038847}
   - component: {fileID: 1672343321082536275}
-  - component: {fileID: 4069021966047175260}
   - component: {fileID: 7945981874679585505}
   - component: {fileID: 7258978633776394569}
   m_Layer: 0
@@ -54,18 +53,9 @@ MonoBehaviour:
   CurrentBreathGauge: 0
   Money: 0
   EquipSkill: 
---- !u!114 &4069021966047175260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5181389065074105569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0747acd11e3338a4cacaecb2192ff539, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  PlayerAbility: 
+  Shops: []
+  SpawnPoint: -1
 --- !u!114 &7945981874679585505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,5 +85,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptEntries:
   - {fileID: 1672343321082536275}
-  - {fileID: 4069021966047175260}
+  - {fileID: 0}
   - {fileID: 7945981874679585505}

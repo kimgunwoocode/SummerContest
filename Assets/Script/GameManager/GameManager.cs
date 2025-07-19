@@ -6,13 +6,15 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
     public string CurrentSceneName;
 
-
-    private void Start()
+    private void Awake()
     {
         if (Player == null)
         {
             Player = GameObject.FindGameObjectWithTag("Player");
         }
+    }
+    private void Start()
+    {
         if (GameDataManager == null)
         {
             GameDataManager = gameObject.GetComponent<GameDataManager>();
@@ -93,5 +95,6 @@ public class GameManager : MonoBehaviour
 
 
         //세이브파일에 저장하는 프로세스도 여기에 만들어두기
+        SaveFileManager.Save(GameDataManager.GameData, GameDataManager.GameData.Slot);
     }
 }
