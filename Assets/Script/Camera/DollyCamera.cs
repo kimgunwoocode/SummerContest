@@ -5,6 +5,7 @@ public class DollyCamera : MonoBehaviour
 {
     [SerializeField] private Transform _target;
     [SerializeField] private float _followSpeed = 5f;
+    private float initValue;
     [SerializeField] private float _maxOffsetDistance = 2f;
     [SerializeField] private float _mouseInfluenceRange = 3f;
     [SerializeField] private Vector2 _deadZoneSize = new Vector2(2f, 1f);
@@ -26,6 +27,7 @@ public class DollyCamera : MonoBehaviour
     {
         _cam = Camera.main;
         _offset = new Vector3(0f, 0f, -10f);
+        initValue = _followSpeed;
 
         if (_target == null)
         {
@@ -102,5 +104,13 @@ public class DollyCamera : MonoBehaviour
     {
         _stageIndex = index;
         UpdateBoundsFromStage();
+    }
+
+    public void CamAccel() {
+        _followSpeed = initValue * 3.9f;
+    }
+
+    public void InitSpeed() {
+        _followSpeed = initValue;
     }
 }

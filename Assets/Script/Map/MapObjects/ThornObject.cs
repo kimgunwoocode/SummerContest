@@ -8,6 +8,7 @@ public class ThornObject : MonoBehaviour
 
     public List<GameObject> ThornSpawnPoints;// 스폰할 위치 목록
     public Vector2 SpawnPoint;// 플레이어가 함정에 걸린 후 되돌아갈 위치
+    [SerializeField] private DollyCamera _cam;
 
     private void Start()
     {
@@ -45,6 +46,8 @@ public class ThornObject : MonoBehaviour
         {
             SpawnPlayer_to_NearSpawnPoint();
         }
+        _cam.InitSpeed();
+        Debug.Log("Init!");
     }
 
 
