@@ -14,7 +14,6 @@ public class GameDataManager : MonoBehaviour
     public int Money = 0;
     public List<int> EquipSkill = new();
 
-    public List<bool> PlayerAbility = new();
     public Dictionary<int, bool> PlayerSkill = new();
     public Dictionary<int, bool> GettedItems = new();
 }
