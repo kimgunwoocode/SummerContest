@@ -346,6 +346,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ground (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5325527500429782734, guid: 7eb68ae127351484da9259d8d266b355, type: 3}
+      propertyPath: m_Size.x
+      value: 0.9893869
+      objectReference: {fileID: 0}
+    - target: {fileID: 5325527500429782734, guid: 7eb68ae127351484da9259d8d266b355, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.005306527
+      objectReference: {fileID: 0}
     - target: {fileID: 5505560654318433701, guid: 7eb68ae127351484da9259d8d266b355, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.942793
@@ -1322,7 +1330,7 @@ Transform:
   m_GameObject: {fileID: 943242965}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.8992, y: -5.091, z: 0}
+  m_LocalPosition: {x: -8.8992, y: -9.7, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2675,6 +2683,10 @@ PrefabInstance:
       value: Thorn
       objectReference: {fileID: 0}
     - target: {fileID: 1748277720648394535, guid: 61cdf5c86ae20c348a87c8d109a65aa4, type: 3}
+      propertyPath: _cam
+      value: 
+      objectReference: {fileID: 1607739582}
+    - target: {fileID: 1748277720648394535, guid: 61cdf5c86ae20c348a87c8d109a65aa4, type: 3}
       propertyPath: ThornSpawnPoints.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -2686,6 +2698,14 @@ PrefabInstance:
       propertyPath: 'ThornSpawnPoints.Array.data[1]'
       value: 
       objectReference: {fileID: 43668914}
+    - target: {fileID: 2408223186519483358, guid: 61cdf5c86ae20c348a87c8d109a65aa4, type: 3}
+      propertyPath: m_Size.y
+      value: 4.914876
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408223186519483358, guid: 61cdf5c86ae20c348a87c8d109a65aa4, type: 3}
+      propertyPath: m_Offset.y
+      value: 1.957438
+      objectReference: {fileID: 0}
     - target: {fileID: 5505560654318433701, guid: 61cdf5c86ae20c348a87c8d109a65aa4, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.4839828
@@ -2730,6 +2750,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317704318068339878, guid: 61cdf5c86ae20c348a87c8d109a65aa4, type: 3}
+      propertyPath: _cam
+      value: 
+      objectReference: {fileID: 1607739582}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
