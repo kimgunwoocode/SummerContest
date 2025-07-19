@@ -79,6 +79,10 @@ public class PlayerManager : AbstractEntity {
         //rb.linearVelocity = movement.ApplyMove();
     }
 
+    public void OnSkillUnlocked(int playerAbilityId) {
+
+    }
+
     
     public void TakeDamage(int damage, int hitDir){
 
