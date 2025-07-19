@@ -149,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _leftBonusJump -= 1;
         }
-        _calculatedVelocity.y = _statsData.JumpForce;
+        _calculatedVelocity.y = _data.JumpForce;
         _isJumpRequestExist = false;
     }
 
