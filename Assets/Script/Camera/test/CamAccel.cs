@@ -2,15 +2,11 @@ using UnityEngine;
 
 public class CamAccel : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private DollyCamera _cam;
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (other.CompareTag("Player")){
+            _cam.CamAccel();
+        }
     }
 }
