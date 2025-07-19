@@ -14,28 +14,12 @@ public class Interaction : MonoBehaviour
     [Space(30)]
     public GameObject InteractionGuide;
 
-    private PlayerInput_Action inputActions;
     private bool isPlayerNearby = false;
 
-    private void Awake()
-    {
-        inputActions = new PlayerInput_Action();
-    }
+
     private void Start()
     {
         InteractionGuide.SetActive(false);
-    }
-
-    private void OnEnable()
-    {
-        inputActions.Enable();
-        inputActions.Player.Interact.performed += OnInteractPerformed;
-    }
-
-    private void OnDisable()
-    {
-        inputActions.Player.Interact.performed -= OnInteractPerformed;
-        inputActions.Disable();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
