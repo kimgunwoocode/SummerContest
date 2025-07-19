@@ -1,14 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
-using UnityEngine.InputSystem.Interactions;
-using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private ScriptablePlayerStats _data;
     [Header("Transforms")]
     [SerializeField] private Transform groundCheckerTransform;
     [SerializeField] private Transform ceilingCheckerTransform;
@@ -20,17 +16,23 @@ public class PlayerMovement : MonoBehaviour
     private bool _cachedQueryStartInColliders;
     private Vector2 _calculatedVelocity;
 
+    private ScriptablePlayerStats _data;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _cachedQueryStartInColliders = Physics2D.queriesStartInColliders;
-        _leftBonusJump = _data.bonusJump;
+        _data = GetComponent<PlayerManager>()._playerStats;
+    }
 
+    private void Start() {
+        _leftBonusJump = _data.bonusJump;
         _moveDirection = Vector2.zero;
         _isDashing = false;
         _isAbleToDash = true;
         _isJumped = false;
         _moveDirection.x = -1;
+
     }
 
     private void Update()
@@ -95,7 +97,8 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateMoveDir()
     {
         if (_isDashing) return;
-        _moveDirection.x = _currentInput.x == 0 ? _moveDirection.x : _currentInput.x;
+        if (_currentInput.x == 0) return;
+        _moveDirection.x = _currentInput.x;
     }
     private void Move()
     {
@@ -133,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ExecuteJump(int jumpType)
     { // 1 : bonus Jump
-        _moveDirection = _currentInput;
+        _moveDirection = _currentInput.x == 0 ? _moveDirection : _currentInput;
         if (jumpType == 0) {
             _isJumped = true;
         }
@@ -261,10 +264,11 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             float midAirGravity = _data.MidAirGravity;
-            if (!_isGrounded && _isGlide && _calculatedVelocity.y < 0) midAirGravity = _data.MidAirGravity * _data.GlideGravity;
+            if (!_isGrounded && _isGlide && _calculatedVelocity.y < 0) { midAirGravity = _data.MidAirGravity * _data.GlideGravity; _calculatedVelocity.y = -_data.GlideFallSpeed; }
             else if ((_isJumped) && Mathf.Abs(_calculatedVelocity.y) < _data.ApexThreadHold) midAirGravity = _data.MidAirGravity * _data.ApexModifier;
             else if (_calculatedVelocity.y < 0f) midAirGravity = _data.MidAirGravity * _data.GravityModifierWhenFalling;
             else if (_isJumpEndedEarly) midAirGravity = _data.MidAirGravity * _data.GravityModifierWhenJumpEndedEarly;
+
             _calculatedVelocity.y = Mathf.MoveTowards(_calculatedVelocity.y, _data.MaxFallingSpeed, Time.fixedDeltaTime * midAirGravity);
         }
     }
@@ -274,17 +278,18 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Debugging
+    [SerializeField] ScriptablePlayerStats _DeStats;
     private void OnDrawGizmos()
     {
         if (groundCheckerTransform != null)
         {
             Gizmos.color = _isGrounded ? Color.green : Color.red;
-            Gizmos.DrawWireCube(groundCheckerTransform.position - new Vector3(0, _data.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _data.groundCheckDistance / 2));
+            Gizmos.DrawWireCube(groundCheckerTransform.position - new Vector3(0, _DeStats.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _DeStats.groundCheckDistance / 2));
         }
 
         if (ceilingCheckerTransform != null) {
             Gizmos.color = _isCeiling ? Color.green : Color.red;
-            Gizmos.DrawWireCube(ceilingCheckerTransform.position + new Vector3(0, _data.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _data.groundCheckDistance / 2));
+            Gizmos.DrawWireCube(ceilingCheckerTransform.position + new Vector3(0, _DeStats.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _DeStats.groundCheckDistance / 2));
         }
 
         if (wallRaycastPoints != null && _moveDirection.x != 0)
@@ -295,7 +300,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (point != null)
                 {
-                    Gizmos.DrawLine(point.position, point.position + gizmoDirection * _data.wallCheckDistance);
+                    Gizmos.DrawLine(point.position, point.position + gizmoDirection * _DeStats.wallCheckDistance);
                 }
             }
         }
@@ -306,7 +311,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (point != null)
                 {
-                    Gizmos.DrawLine(point.position, point.position + Vector3.right * _data.wallCheckDistance);
+                    Gizmos.DrawLine(point.position, point.position + Vector3.right * _DeStats.wallCheckDistance);
                 }
             }
         }

@@ -31,13 +31,14 @@ MonoBehaviour:
   GravityModifierWhenJumpEndedEarly: 4
   GravityModifierWhenFalling: 1.5
   ApexModifier: 0.7
-  GlideGravity: 0.1
+  GlideGravity: 0.001
+  GlideFallSpeed: 0.4
   DashCooldown: 0.5
   DashTime: 0.15
   DashSpeed: 1000
-  IsDashUnlocked: 0
-  IsDoubleJumpUnloceked: 0
-  IsGlideUnlocked: 0
+  IsDashUnlocked: 1
+  IsDoubleJumpUnloceked: 1
+  IsGlideUnlocked: 1
   wallCheckDistance: 0.6
   groundCheckDistance: 0.1
   ceilingCheckDistance: 0.1

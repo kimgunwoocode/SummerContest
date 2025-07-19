@@ -6,7 +6,7 @@ public class PlayerManager : AbstractEntity {
     private PlayerInput_Action _inputActions;
     private Rigidbody2D _rb;
     [SerializeField] 
-    private ScriptablePlayerStats _playerStats;
+    internal ScriptablePlayerStats _playerStats;
     private PlayerMovement _movement;
     private PlayerAttack _attack;
     private PlayerAnimation _anima;
