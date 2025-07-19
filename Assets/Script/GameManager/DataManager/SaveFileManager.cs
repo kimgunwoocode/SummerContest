@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 #region Serializable Structures
@@ -58,15 +60,24 @@ public static class SaveFileManager
     private static string GetPath(int slotIndex)
     {
 #if UNITY_EDITOR
-        // 에디터에서만 사용되는 경로 (예: 프로젝트 내 폴더)
-        string editorPath = Path.Combine(Application.dataPath, "Assets/InitData/EditorSaveData");
-        if (!Directory.Exists(editorPath))
-            Directory.CreateDirectory(editorPath);
-        return Path.Combine(editorPath, $"save_slot_{slotIndex}.json");
+        // Assets 내부 경로 (Unity가 인식 가능)
+        string relativePath = "Assets/InitData/EditorSaveData";
+
+        // 실제 OS상의 경로로 변환
+        string fullPath = Path.Combine(Application.dataPath.Replace("/Assets", ""), relativePath);
+
+        if (!Directory.Exists(fullPath))
+            Directory.CreateDirectory(fullPath);
+
+        // Unity가 파일을 인식할 수 있도록 강제 새로고침
+        AssetDatabase.Refresh();
+
+        return Path.Combine(fullPath, $"save_slot_{slotIndex}.json");
 #else
-        return Path.Combine(Application.persistentDataPath, $"save_slot_{slotIndex}.json");
+    return Path.Combine(Application.persistentDataPath, $"save_slot_{slotIndex}.json");
 #endif
     }
+
 
     #region Save
     public static void Save(SaveData data, int slotIndex)
@@ -112,7 +123,7 @@ public static class SaveFileManager
         string json = JsonUtility.ToJson(serializableData, true);
         File.WriteAllText(GetPath(slotIndex), json);
 
-        Debug.Log($"저장 완료: 슬롯 {slotIndex} → {data.Name} ({data.Day})");
+        Debug.Log($"저장 완료: 슬롯 {slotIndex} → {data.Name} ({data.Day}) " + json);
     }
 
     private static List<IntBoolPair> ConvertDict(Dictionary<int, bool> dict)
@@ -190,4 +201,22 @@ public static class SaveFileManager
         return dict;
     }
     #endregion
+
+
+
+    [MenuItem("Tools/SaveInitData")]
+    public static void SaveInitDataToSlot0()
+    {
+        const string saveDataPath = "Assets/InitData/InitData.asset";
+        SaveData initData = AssetDatabase.LoadAssetAtPath<InitSaveData>(saveDataPath).InitData;
+
+        if (initData == null)
+        {
+            EditorUtility.DisplayDialog("에러", "InitData.asset을 찾을 수 없습니다.", "확인");
+            return;
+        }
+
+        SaveFileManager.Save(initData, 0);
+        Debug.Log("InitData가 슬롯 0번에 저장되었습니다.");
+    }
 }
