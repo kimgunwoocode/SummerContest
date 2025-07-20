@@ -5,8 +5,11 @@ using UnityEngine.InputSystem.Interactions;
 public class PlayerManager : AbstractEntity {
     private PlayerInput_Action _inputActions;
     private Rigidbody2D _rb;
-    [SerializeField] 
-    internal ScriptablePlayerStats _playerStats;
+
+    [Header("Stats")]
+    [SerializeField] internal ScriptablePlayerMovementStats _playerMovementStats;
+    [SerializeField] internal ScriptablePlayerAttackStats _playerAttackStats;
+
     private PlayerMovement _movement;
     private PlayerAttack _attack;
     private PlayerAnimation _anima;
@@ -104,15 +107,15 @@ public class PlayerManager : AbstractEntity {
         /// 5. º®Å¸±â
         /// </summary>
         if (id == 0) {
-            _playerStats.IsDashUnlocked = true;
+            _playerMovementStats.IsDashUnlocked = true;
         }else if(id == 1) {
 
         }else if(id == 2) {
-            _playerStats.IsDoubleJumpUnloceked = true;
+            _playerMovementStats.IsDoubleJumpUnloceked = true;
         }else if(id == 3) {
 
         }else if(id == 4) {
-            _playerStats.IsGlideUnlocked = true;
+            _playerMovementStats.IsGlideUnlocked = true;
         } else if(id == 5) {
 
         }

@@ -16,17 +16,17 @@ public class PlayerMovement : MonoBehaviour
     private bool _cachedQueryStartInColliders;
     private Vector2 _calculatedVelocity;
 
-    private ScriptablePlayerStats _data;
+    private ScriptablePlayerMovementStats _movementStats;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _cachedQueryStartInColliders = Physics2D.queriesStartInColliders;
-        _data = GetComponent<PlayerManager>()._playerStats;
+        _movementStats = GetComponent<PlayerManager>()._playerMovementStats;
     }
 
     private void Start() {
-        _leftBonusJump = _data.bonusJump;
+        _leftBonusJump = _movementStats.bonusJump;
         _moveDirection = Vector2.zero;
         _isDashing = false;
         _isAbleToDash = true;
@@ -56,25 +56,25 @@ public class PlayerMovement : MonoBehaviour
     }
 
     internal void OnCrouchPerformed(InputAction.CallbackContext context) {
-        _isCrouch = _data.isCrounchActionByToggle ? !_isCrouch : true;
+        _isCrouch = _movementStats.isCrounchActionByToggle ? !_isCrouch : true;
     }
 
     internal void OnCrouchCanceled(InputAction.CallbackContext context) {
-        _isCrouch = _data.isCrounchActionByToggle ? _isCrouch : false;
+        _isCrouch = _movementStats.isCrounchActionByToggle ? _isCrouch : false;
     }
 
     internal void OnGlidePerformed(InputAction.CallbackContext context) {
-        if (!_data.IsGlideUnlocked) return;
-        _isGlide = _data.isGlideActionByToggle ? !_isGlide : true;
+        if (!_movementStats.IsGlideUnlocked) return;
+        _isGlide = _movementStats.isGlideActionByToggle ? !_isGlide : true;
     }
 
     internal void OnGlideCanceled(InputAction.CallbackContext context) {
-        if (!_data.IsGlideUnlocked) return;
-        _isGlide = _data.isGlideActionByToggle ? !_isGlide : false;
+        if (!_movementStats.IsGlideUnlocked) return;
+        _isGlide = _movementStats.isGlideActionByToggle ? !_isGlide : false;
     }
 
     internal void OnDashPerformed(InputAction.CallbackContext context) {
-        if (!_data.IsDashUnlocked || !_isAbleToDash || _isDashing) return;
+        if (!_movementStats.IsDashUnlocked || !_isAbleToDash || _isDashing) return;
         _isAbleToDash = false;
         _isDashing = true;
         _calculatedVelocity.y = 0;
@@ -84,13 +84,13 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator StopDash()
     {
-        yield return new WaitForSeconds(_data.DashTime);
+        yield return new WaitForSeconds(_movementStats.DashTime);
         _isDashing = false;
     }
 
     private IEnumerator DashCooldown()
     {
-        yield return new WaitForSeconds(_data.DashCooldown);
+        yield return new WaitForSeconds(_movementStats.DashCooldown);
         _isAbleToDash = true;
     }
 
@@ -104,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
     {
         UpdateMoveDir();
 
-        _calculatedVelocity.x = _isTouchingWall ? 0f : _isDashing ? (_data.DashSpeed * _moveDirection.x * Time.fixedDeltaTime) : _isCrouch ? ((_isGrounded ? _data.CrounchSpeed : _data.WalkSpeed) * Time.fixedDeltaTime * _currentInput.x) : (_data.WalkSpeed * Time.fixedDeltaTime * _currentInput.x);
+        _calculatedVelocity.x = _isTouchingWall ? 0f : _isDashing ? (_movementStats.DashSpeed * _moveDirection.x * Time.fixedDeltaTime) : _isCrouch ? ((_isGrounded ? _movementStats.CrounchSpeed : _movementStats.WalkSpeed) * Time.fixedDeltaTime * _currentInput.x) : (_movementStats.WalkSpeed * Time.fixedDeltaTime * _currentInput.x);
     }
 
 
@@ -141,10 +141,10 @@ public class PlayerMovement : MonoBehaviour
             _isJumped = true;
         }
         else if (jumpType == 1) {
-            if (!_data.IsDoubleJumpUnloceked) return;
+            if (!_movementStats.IsDoubleJumpUnloceked) return;
             _leftBonusJump -= 1;
         }
-        _calculatedVelocity.y = _data.JumpForce;
+        _calculatedVelocity.y = _movementStats.JumpForce;
         _isJumpRequestExist = false;
     }
 
@@ -161,9 +161,9 @@ public class PlayerMovement : MonoBehaviour
         if (_isDashing) return;
         _isJumpEndedEarly = CheckJumpEndedBeforeApex();
 
-        bool jumpBufferValidation = ((_groundedTime - _jumpPressTime) < _data.JumpBufferTime) && _isGrounded;
+        bool jumpBufferValidation = ((_groundedTime - _jumpPressTime) < _movementStats.JumpBufferTime) && _isGrounded;
 
-        bool coyoteJumpValidation = (_jumpPressTime - _leftGroundTime) < _data.CoyoteTime;
+        bool coyoteJumpValidation = (_jumpPressTime - _leftGroundTime) < _movementStats.CoyoteTime;
 
         bool bonusJumpValidation = !_isGrounded && _leftBonusJump > 0;
 
@@ -197,7 +197,7 @@ public class PlayerMovement : MonoBehaviour
             _isGrounded = true;
             _isJumpEndedEarly = false;
             _isJumped = false;
-            _leftBonusJump = _data.bonusJump;
+            _leftBonusJump = _movementStats.bonusJump;
             _groundedTime = Time.time;
 
         //leave from ground
@@ -229,7 +229,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool CheckGround()
     {
-        return Physics2D.OverlapBox(groundCheckerTransform.position - new Vector3(0, _data.ceilingCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _data.ceilingCheckDistance / 2), 0f, _data.groundLayer);
+        return Physics2D.OverlapBox(groundCheckerTransform.position - new Vector3(0, _movementStats.ceilingCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _movementStats.ceilingCheckDistance / 2), 0f, _movementStats.groundLayer);
         //_isGrounded = Physics2D.OverlapCircle(groundCheckerTransform.position, groundCheckDistance, groundLayer);
 
     }
@@ -239,7 +239,7 @@ public class PlayerMovement : MonoBehaviour
 
         foreach (Transform point in wallRaycastPoints)
         {
-            RaycastHit2D hit = Physics2D.Raycast(point.position, rayCastDir, _data.wallCheckDistance, _data.groundLayer);
+            RaycastHit2D hit = Physics2D.Raycast(point.position, rayCastDir, _movementStats.wallCheckDistance, _movementStats.groundLayer);
             //                                                                                        ^^^^^^^^^^^^^^^^^^^^  it's because the wall functions as the ground
             if (hit.collider != null)
             {
@@ -250,7 +250,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private bool CheckCeiling() {
-        return Physics2D.OverlapBox(ceilingCheckerTransform.position + new Vector3(0, _data.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _data.groundCheckDistance / 2), 0f, _data.groundLayer);
+        return Physics2D.OverlapBox(ceilingCheckerTransform.position + new Vector3(0, _movementStats.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _movementStats.groundCheckDistance / 2), 0f, _movementStats.groundLayer);
     }
 
     #endregion
@@ -258,18 +258,18 @@ public class PlayerMovement : MonoBehaviour
     private void Gravity()
     {
         //touching the ground
-        if (_isGrounded && _calculatedVelocity.y <= 0f) _calculatedVelocity.y = _data.GravityByNormalForce;
+        if (_isGrounded && _calculatedVelocity.y <= 0f) _calculatedVelocity.y = _movementStats.GravityByNormalForce;
 
         //in mid-air
         else
         {
-            float midAirGravity = _data.MidAirGravity;
-            if (!_isGrounded && _isGlide && _calculatedVelocity.y < 0) { midAirGravity = _data.MidAirGravity * _data.GlideGravity; _calculatedVelocity.y = -_data.GlideFallSpeed; }
-            else if ((_isJumped) && Mathf.Abs(_calculatedVelocity.y) < _data.ApexThreadHold) midAirGravity = _data.MidAirGravity * _data.ApexModifier;
-            else if (_calculatedVelocity.y < 0f) midAirGravity = _data.MidAirGravity * _data.GravityModifierWhenFalling;
-            else if (_isJumpEndedEarly) midAirGravity = _data.MidAirGravity * _data.GravityModifierWhenJumpEndedEarly;
+            float midAirGravity = _movementStats.MidAirGravity;
+            if (!_isGrounded && _isGlide && _calculatedVelocity.y < 0) { midAirGravity = _movementStats.MidAirGravity * _movementStats.GlideGravity; _calculatedVelocity.y = -_movementStats.GlideFallSpeed; }
+            else if ((_isJumped) && Mathf.Abs(_calculatedVelocity.y) < _movementStats.ApexThreadHold) midAirGravity = _movementStats.MidAirGravity * _movementStats.ApexModifier;
+            else if (_calculatedVelocity.y < 0f) midAirGravity = _movementStats.MidAirGravity * _movementStats.GravityModifierWhenFalling;
+            else if (_isJumpEndedEarly) midAirGravity = _movementStats.MidAirGravity * _movementStats.GravityModifierWhenJumpEndedEarly;
 
-            _calculatedVelocity.y = Mathf.MoveTowards(_calculatedVelocity.y, _data.MaxFallingSpeed, Time.fixedDeltaTime * midAirGravity);
+            _calculatedVelocity.y = Mathf.MoveTowards(_calculatedVelocity.y, _movementStats.MaxFallingSpeed, Time.fixedDeltaTime * midAirGravity);
         }
     }
 
@@ -278,7 +278,7 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Debugging
-    [SerializeField] ScriptablePlayerStats _DeStats;
+    [SerializeField] ScriptablePlayerMovementStats _DeStats;
     private void OnDrawGizmos()
     {
         if (groundCheckerTransform != null)

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu]
-public class ScriptablePlayerStats : ScriptableObject {
+public class ScriptablePlayerMovementStats : ScriptableObject {
     [Header("Layer")]
     public LayerMask PlayerLayer;
 

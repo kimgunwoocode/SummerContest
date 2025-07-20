@@ -1,6 +1,8 @@
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour {
+    private ScriptablePlayerAttackStats _attackStats;
+
     internal void NormalAttack() {
 
     }
