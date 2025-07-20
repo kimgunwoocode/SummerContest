@@ -51,7 +51,7 @@ public class PlayerManager : AbstractEntity {
 
         _inputActions.Player.Dash.performed += _movement.OnDashPerformed;
 
-        _inputActions.Player.Interact.performed += _interaction.OnInteraction;
+        //_inputActions.Player.Interact.performed += _interaction.OnInteraction;
 
         _inputActions.Player.Enable();
     }
@@ -71,7 +71,7 @@ public class PlayerManager : AbstractEntity {
 
         _inputActions.Player.Dash.performed -= _movement.OnDashPerformed;
 
-        _inputActions.Player.Interact.performed -= _interaction.OnInteraction;
+        //_inputActions.Player.Interact.performed -= _interaction.OnInteraction;
 
         _inputActions.Player.Disable();
     }
