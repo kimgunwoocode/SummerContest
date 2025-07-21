@@ -14,6 +14,7 @@ public class EnemyEntity : MonoBehaviour
     public int facingDir {get; private set;} = -1;
     public AnimationToStatemachine atsm {get; private set;}
     public int lastDamageDirection {get; private set;}
+    public int currentHP {get; private set;}
 
     [SerializeField] SpriteRenderer spriteRenderer;
     
@@ -27,7 +28,7 @@ public class EnemyEntity : MonoBehaviour
     protected float lastDamageTime;    
 
     Vector2 velocityWorkspace;
-    int currentHP;
+    
 
     [ContextMenu("Change Facing Direction")]
     public void FlipDefaultFacingDir()

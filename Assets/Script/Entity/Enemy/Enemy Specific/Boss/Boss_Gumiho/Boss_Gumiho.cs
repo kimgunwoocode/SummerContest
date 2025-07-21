@@ -8,6 +8,10 @@ public class Boss_Gumiho : EnemyEntity
     [SerializeField] Gumiho_TailAttackState tailAttackState;
     [SerializeField] Gumiho_KnockbackState knockbackState;
     [SerializeField] Gumiho_DeadState deadState;
+
+    [Header("Gumiho Details")]
+    public int phase2HP = 5;
+    public bool canBeKnockedBack = true;
  
     public Gumiho_MoveState MoveState => moveState;
     public Gumiho_ClawAttackState ClawAttackState => clawAttackState;
@@ -15,8 +19,7 @@ public class Boss_Gumiho : EnemyEntity
     public Gumiho_KnockbackState KnockbackState => knockbackState;
     public Gumiho_DeadState DeadState => deadState;
 
-    public bool canBeKnockedBack = true;
-    public Transform player;
+    public Transform player {get; private set;}
 
     protected override void Start()
     {

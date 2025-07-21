@@ -8,6 +8,7 @@ public class Gumiho_TailAttackState : MeleeAttackState
     {
         base.Initialize(enemy, stateMachine);
 
+        animBoolName = "tailAttack";
         gumiho = enemy as Boss_Gumiho;
     }
 
@@ -16,11 +17,18 @@ public class Gumiho_TailAttackState : MeleeAttackState
         base.Enter();
 
         gumiho.canBeKnockedBack = false;
+
+        enemy.SetVelocity(0f);
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        if(isAnimationFinished)
+        {
+            stateMachine.ChangeState(gumiho.MoveState);
+        }
     }
 
     public override void Exit()
