@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 082730b636578d446b2451e1e72bdfba, type: 3}
   m_Name: BossGumihoData
   m_EditorClassIdentifier: 
-  maxHP: 0
+  maxHP: 10
   wallCheckDistance: 0.2
   ledgeCheckDistance: 0.4
   groundCkeckRadius: 0.3
-  minPlayerCheckDistance: 3
-  maxPlayerCheckDistance: 4
-  closeRangeActionDistance: 1
+  minPlayerCheckDistance: 0
+  maxPlayerCheckDistance: 0
+  closeRangeActionDistance: 2
   hitParticle: {fileID: 0}
   groundLayer:
     serializedVersion: 2

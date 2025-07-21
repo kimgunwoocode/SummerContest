@@ -1,14 +1,10 @@
 using UnityEngine;
 
-public class MoveState : State
+public class Boss_MoveState : State
 {
     [SerializeField] protected float moveSpeed = 3;
 
-    protected bool isLedge;
-    protected bool isGround;
-    protected bool isWall;
-    protected bool isPlayerMinRange;
-    protected bool isPlayerBehind;
+    protected bool performCloseRangeAction;
 
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
@@ -21,18 +17,12 @@ public class MoveState : State
     {
         base.DoCheck();
 
-        isLedge = enemy.ChackLedge();
-        isGround = enemy.CheckGround();
-        isWall = enemy.CheckWall();
-        isPlayerMinRange = enemy.CheckPlayerMinRange();
-        isPlayerBehind = enemy.CheckPlayerBehind();
+        performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
     }
 
     public override void Enter()
     {
         base.Enter();
-
-        enemy.SetVelocity(moveSpeed);
     }
 
     public override void Exit()

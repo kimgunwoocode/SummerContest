@@ -18,8 +18,8 @@ public class EnemyEntity : MonoBehaviour
     [SerializeField] SpriteRenderer spriteRenderer;
     
     [Header("Check")]
-    [SerializeField] Transform wallCheck;
-    [SerializeField] Transform ledgeCheck;
+    [SerializeField] protected Transform wallCheck;
+    [SerializeField] protected Transform ledgeCheck;
     [SerializeField] protected Transform groundCheck;
     [SerializeField] protected Transform playerCheck;
 
