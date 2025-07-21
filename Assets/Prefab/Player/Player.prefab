@@ -258,8 +258,10 @@ GameObject:
   - component: {fileID: 358655649606815625}
   - component: {fileID: 7895376963560531384}
   - component: {fileID: 2986611700748802614}
-  - component: {fileID: 3431744776875554849}
   - component: {fileID: 8420885227792175148}
+  - component: {fileID: 3431744776875554849}
+  - component: {fileID: 3261450395246462098}
+  - component: {fileID: 3379190208412487003}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -444,25 +446,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3431744776875554849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7481937111643220208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e549c990f90762a4d8f6dafa3b9cb1e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _data: {fileID: 11400000, guid: 9064567d859eb8a4392e410b3ac555cb, type: 2}
-  groundCheckerTransform: {fileID: 3366859602332449523}
-  ceilingCheckerTransform: {fileID: 2224008877318123470}
-  wallRaycastPoints:
-  - {fileID: 2337371593751010146}
-  - {fileID: 5197217326988671265}
-  - {fileID: 4239448309422553924}
 --- !u!114 &8420885227792175148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,6 +466,54 @@ MonoBehaviour:
   attackCheckRadius: 0
   knockbackForce: {x: 0, y: 0}
   knockbackDuration: 0
+  playerMovementStats: {fileID: 11400000, guid: 9064567d859eb8a4392e410b3ac555cb, type: 2}
+  playerAttackStats: {fileID: 11400000, guid: 835af164d68b62a4eb6f3c4f6a56a238, type: 2}
+--- !u!114 &3431744776875554849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7481937111643220208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e549c990f90762a4d8f6dafa3b9cb1e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundCheckerTransform: {fileID: 3366859602332449523}
+  ceilingCheckerTransform: {fileID: 2224008877318123470}
+  wallRaycastPoints:
+  - {fileID: 2337371593751010146}
+  - {fileID: 5197217326988671265}
+  - {fileID: 4239448309422553924}
+  _GizmoStats: {fileID: 11400000, guid: 9064567d859eb8a4392e410b3ac555cb, type: 2}
+--- !u!114 &3261450395246462098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7481937111643220208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 751856a1669e08948bd09780612b943b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &3379190208412487003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7481937111643220208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 144cb565726afe14d9b3be9e9b52ba8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7857274148819995478
 GameObject:
   m_ObjectHideFlags: 0

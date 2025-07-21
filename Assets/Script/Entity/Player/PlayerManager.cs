@@ -2,13 +2,14 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
+[RequireComponent(typeof(PlayerMovement), typeof(PlayerInteraction), typeof(PlayerAttack))]
 public class PlayerManager : AbstractEntity {
     private PlayerInput_Action _inputActions;
     private Rigidbody2D _rb;
 
     [Header("Stats")]
-    [SerializeField] internal ScriptablePlayerMovementStats _playerMovementStats;
-    [SerializeField] internal ScriptablePlayerAttackStats _playerAttackStats;
+    [SerializeField] internal ScriptablePlayerMovementStats playerMovementStats;
+    [SerializeField] internal ScriptablePlayerAttackStats playerAttackStats;
 
     private PlayerMovement _movement;
     private PlayerAttack _attack;
@@ -107,15 +108,15 @@ public class PlayerManager : AbstractEntity {
         /// 5. º®Å¸±â
         /// </summary>
         if (id == 0) {
-            _playerMovementStats.IsDashUnlocked = true;
+            playerMovementStats.IsDashUnlocked = true;
         }else if(id == 1) {
 
         }else if(id == 2) {
-            _playerMovementStats.IsDoubleJumpUnloceked = true;
+            playerMovementStats.IsDoubleJumpUnloceked = true;
         }else if(id == 3) {
 
         }else if(id == 4) {
-            _playerMovementStats.IsGlideUnlocked = true;
+            playerMovementStats.IsGlideUnlocked = true;
         } else if(id == 5) {
 
         }
