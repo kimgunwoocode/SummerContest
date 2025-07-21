@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _cachedQueryStartInColliders = Physics2D.queriesStartInColliders;
-        _movementStats = GetComponent<PlayerManager>()._playerMovementStats;
+        _movementStats = GetComponent<PlayerManager>().playerMovementStats;
     }
 
     private void Start() {
@@ -278,18 +278,18 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Debugging
-    [SerializeField] ScriptablePlayerMovementStats _DeStats;
+    [SerializeField] ScriptablePlayerMovementStats _GizmoStats;
     private void OnDrawGizmos()
     {
         if (groundCheckerTransform != null)
         {
             Gizmos.color = _isGrounded ? Color.green : Color.red;
-            Gizmos.DrawWireCube(groundCheckerTransform.position - new Vector3(0, _DeStats.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _DeStats.groundCheckDistance / 2));
+            Gizmos.DrawWireCube(groundCheckerTransform.position - new Vector3(0, _GizmoStats.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _GizmoStats.groundCheckDistance / 2));
         }
 
         if (ceilingCheckerTransform != null) {
             Gizmos.color = _isCeiling ? Color.green : Color.red;
-            Gizmos.DrawWireCube(ceilingCheckerTransform.position + new Vector3(0, _DeStats.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _DeStats.groundCheckDistance / 2));
+            Gizmos.DrawWireCube(ceilingCheckerTransform.position + new Vector3(0, _GizmoStats.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _GizmoStats.groundCheckDistance / 2));
         }
 
         if (wallRaycastPoints != null && _moveDirection.x != 0)
@@ -300,7 +300,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (point != null)
                 {
-                    Gizmos.DrawLine(point.position, point.position + gizmoDirection * _DeStats.wallCheckDistance);
+                    Gizmos.DrawLine(point.position, point.position + gizmoDirection * _GizmoStats.wallCheckDistance);
                 }
             }
         }
@@ -311,7 +311,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (point != null)
                 {
-                    Gizmos.DrawLine(point.position, point.position + Vector3.right * _DeStats.wallCheckDistance);
+                    Gizmos.DrawLine(point.position, point.position + Vector3.right * _GizmoStats.wallCheckDistance);
                 }
             }
         }
