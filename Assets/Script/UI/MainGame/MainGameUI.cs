@@ -28,12 +28,12 @@ public class MainGameUI : MonoBehaviour
         UICurrentHP = data.CurrentHP;
         UIMaxHP = data.MaxHP;
 
-        MoneyText.text = string.Format("{0}", data.Money); // 돈 텍스트 초기화
+        MoneyText.text = data.Money.ToString(); // 돈 텍스트 초기화
     }
 
     void Update()
     {
-        MoneyText.text = string.Format("{0}", data.Money); // 돈 텍스트 초기화
+        MoneyText.text = data.Money.ToString(); // 돈 텍스트 초기화
 
         float fillAmount = data.CurrentBreathGauge / data.MaxBreathGauge;
         breatGauge.fillAmount = Mathf.Clamp01(fillAmount); // 게이지 UI 초기화

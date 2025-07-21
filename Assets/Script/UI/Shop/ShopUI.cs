@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class ShopUI : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject ShopPanel;
+    public ShopItem shopItem;
     void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    // 상점에 상호작용시 상점판넬 활성화, 각 버튼의 활성화 상태 초기화
+    public void EnterShop()
     {
-        
+        ShopPanel.SetActive(true);
     }
 }
