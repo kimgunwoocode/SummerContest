@@ -18,6 +18,7 @@ public class Interaction : MonoBehaviour
 
     [Space(30)]
     public GameObject InteractionGuide;
+
     private bool isPlayerNearby = false;
 
     private UnityEvent _playerInteraction;

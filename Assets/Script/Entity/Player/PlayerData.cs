@@ -22,5 +22,5 @@ public class PlayerData
     /// </summary>
     public List<bool> PlayerAbility = new();// 플레이어 기능 해금 여부
     public Dictionary<int, bool> PlayerSkill = new(); // 해금된 플레이어 스킬 <스킬ID, 해금 여부>
-    public Dictionary<int, bool> GettedItems = new(); // 보유중인 아이템
+    public Dictionary<int, int> GettedItems = new(); // 보유중인 아이템 <ID, 개수>
 }

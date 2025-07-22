@@ -13,5 +13,5 @@ public class ShopData
 {
     public int ID;
     public bool isOpened;
-    public Dictionary<int, bool> Items = new();
+    public Dictionary<int, bool> Items = new();// 아이템 ID, 판매 여부
 }

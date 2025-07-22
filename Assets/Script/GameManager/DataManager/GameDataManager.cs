@@ -17,13 +17,16 @@ public class GameDataManager : MonoBehaviour
 
     public List<bool> PlayerAbility = new();
     public Dictionary<int, bool> PlayerSkill = new();
-    public Dictionary<int, bool> GettedItems = new();
+    public Dictionary<int, int> GettedItems = new();
 
     // Map Data
     public Dictionary<int, bool> InteractionObjects = new();
     public List<ShopData> Shops = new();
     public Dictionary<int, bool> SpawnPoints = new();
     public int SpawnPoint = -1;
+
+    //Item Data
+    public List<ItemData> allitems = new();
 
 
     public void LoadGameData(SaveData Data)

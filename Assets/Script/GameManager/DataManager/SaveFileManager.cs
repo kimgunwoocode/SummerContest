@@ -19,6 +19,18 @@ public class IntBoolPair
         Value = value;
     }
 }
+[System.Serializable]
+public class IntIntPair
+{
+    public int Key;
+    public int Value;
+
+    public IntIntPair(int key, int value)
+    {
+        Key = key;
+        Value = value;
+    }
+}
 
 [System.Serializable]
 public class SerializableSaveData
@@ -50,7 +62,7 @@ public class SerializablePlayerData
     public List<int> EquipSkill;
     public List<bool> PlayerAbility;
     public List<IntBoolPair> PlayerSkill;
-    public List<IntBoolPair> GettedItems;
+    public List<IntIntPair> GettedItems;
 }
 
 #endregion
@@ -99,9 +111,9 @@ public static class SaveFileManager
             Day = data.Day,
             MapData = new SerializableMapData
             {
-                InteractionObjects = ConvertDict(data.MapData.InteractionObjects),
+                InteractionObjects = ConvertDict_bool(data.MapData.InteractionObjects),
                 Shops = data.MapData.Shops,
-                SpawnPoints = ConvertDict(data.MapData.SpawnPoints),
+                SpawnPoints = ConvertDict_bool(data.MapData.SpawnPoints),
                 SpawnPoint = data.MapData.SpawnPoint
             },
             PlayerData = new SerializablePlayerData
@@ -114,8 +126,8 @@ public static class SaveFileManager
                 Money = data.PlayerData.Money,
                 EquipSkill = data.PlayerData.EquipSkill,
                 PlayerAbility = data.PlayerData.PlayerAbility,
-                PlayerSkill = ConvertDict(data.PlayerData.PlayerSkill),
-                GettedItems = ConvertDict(data.PlayerData.GettedItems)
+                PlayerSkill = ConvertDict_bool(data.PlayerData.PlayerSkill),
+                GettedItems = ConvertDict_int(data.PlayerData.GettedItems)
             }
         };
 
@@ -126,11 +138,18 @@ public static class SaveFileManager
         Debug.Log($"저장 완료: 슬롯 {slotIndex} → {data.Name} ({data.Day}) " + json);
     }
 
-    private static List<IntBoolPair> ConvertDict(Dictionary<int, bool> dict)
+    private static List<IntBoolPair> ConvertDict_bool(Dictionary<int, bool> dict)
     {
         var list = new List<IntBoolPair>();
         foreach (var kv in dict)
             list.Add(new IntBoolPair(kv.Key, kv.Value));
+        return list;
+    }
+    private static List<IntIntPair> ConvertDict_int(Dictionary<int, int> dict)
+    {
+        var list = new List<IntIntPair>();
+        foreach (var kv in dict)
+            list.Add(new IntIntPair(kv.Key, kv.Value));
         return list;
     }
     #endregion
@@ -155,9 +174,9 @@ public static class SaveFileManager
             Day = serializable.Day,
             MapData = new MapData
             {
-                InteractionObjects = ToDictionary(serializable.MapData.InteractionObjects),
+                InteractionObjects = ToDictionary_bool(serializable.MapData.InteractionObjects),
                 Shops = serializable.MapData.Shops,
-                SpawnPoints = ToDictionary(serializable.MapData.SpawnPoints),
+                SpawnPoints = ToDictionary_bool(serializable.MapData.SpawnPoints),
                 SpawnPoint = serializable.MapData.SpawnPoint
             },
             PlayerData = new PlayerData
@@ -170,8 +189,8 @@ public static class SaveFileManager
                 Money = serializable.PlayerData.Money,
                 EquipSkill = serializable.PlayerData.EquipSkill,
                 PlayerAbility = serializable.PlayerData.PlayerAbility,
-                PlayerSkill = ToDictionary(serializable.PlayerData.PlayerSkill),
-                GettedItems = ToDictionary(serializable.PlayerData.GettedItems)
+                PlayerSkill = ToDictionary_bool(serializable.PlayerData.PlayerSkill),
+                GettedItems = ToDictionary_int(serializable.PlayerData.GettedItems)
             }
         };
 
@@ -193,9 +212,16 @@ public static class SaveFileManager
         }
     }
 
-    private static Dictionary<int, bool> ToDictionary(List<IntBoolPair> list)
+    private static Dictionary<int, bool> ToDictionary_bool(List<IntBoolPair> list)
     {
         var dict = new Dictionary<int, bool>();
+        foreach (var pair in list)
+            dict[pair.Key] = pair.Value;
+        return dict;
+    }
+    private static Dictionary<int, int> ToDictionary_int(List<IntIntPair> list)
+    {
+        var dict = new Dictionary<int, int>();
         foreach (var pair in list)
             dict[pair.Key] = pair.Value;
         return dict;

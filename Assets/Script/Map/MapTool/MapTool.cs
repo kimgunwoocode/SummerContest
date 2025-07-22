@@ -209,7 +209,19 @@ public class MapTool : EditorWindow
             List<string> changedObjects = new();
             bool sceneModified = false;
 
-            foreach (var sp in FindObjectsByType<SavePoint>(FindObjectsSortMode.None))
+            GameObject mapRoot = GameObject.FindWithTag("Map");
+            if (mapRoot == null)
+            {
+                Debug.LogWarning($"씬 \"{scene.name}\"에 Map 오브젝트가 없습니다. 해당 씬은 건너뜁니다.");
+                continue;
+            }
+
+            SavePoint[] savePoints = mapRoot.GetComponentsInChildren<SavePoint>(true);
+            ShopObject[] shopObjects = mapRoot.GetComponentsInChildren<ShopObject>(true);
+            Interaction[] interactions = mapRoot.GetComponentsInChildren<Interaction>(true);
+
+
+            foreach (var sp in savePoints)
             {
                 int assignedID = sp.SavePoint_type == SavePoint.SP_type.Main ? mainID++ : semiID++;
                 if (sp.ID != assignedID)
@@ -235,7 +247,7 @@ public class MapTool : EditorWindow
                 else totalSemi++;
             }
 
-            foreach (var shop in FindObjectsByType<ShopObject>(FindObjectsSortMode.None))
+            foreach (var shop in shopObjects)
             {
                 int assignedID = shopID++;
                 if (shop.ID != assignedID)
@@ -267,7 +279,7 @@ public class MapTool : EditorWindow
                 totalShop++;
             }
 
-            foreach (var inter in FindObjectsByType<Interaction>(FindObjectsSortMode.None))
+            foreach (var inter in interactions)
             {
                 int assignedID = interactionID++;
                 if (inter.ID != assignedID)

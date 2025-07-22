@@ -34,6 +34,32 @@ public class GameManager : MonoBehaviour
         //이전 세이브 포인트로 위치 이동시키기
     }
 
+    public void Get_Item(int ItemID)
+    {
+        GameDataManager.GettedItems[ItemID]++;
+
+        ItemData item = GameDataManager.allitems.Find(item => item.itemID == ItemID);
+        if (item == null)
+        {
+            Debug.LogWarning("존재하지 않는 아이템 ID");
+            return;
+        }
+
+        // 능력해금 아이템일 경우 획득시 능력 해금하기
+        if (item.itemType == ItemType.Ability && item is AbilityItemData abilityItem) 
+        {
+            int slot = abilityItem.AbilitySlot;
+            abilityItem.UnlockAbility();
+            Unlock_PlayerAbility(slot);
+        }
+    }
+
+    public void Lose_Item(int ItemID)
+    {
+        if (GameDataManager.GettedItems[ItemID] > 0)
+            GameDataManager.GettedItems[ItemID]--;
+    }
+
     public void Unlock_PlayerAbility(int PlayerAbilityID)
     {
         //TODO : PlayerAbility 작성하기
