@@ -27,9 +27,9 @@
             "Type": "Interaction",
             "Name": "InterationObject",
             "Position": {
-                "x": 20.0,
-                "y": -3.0,
-                "z": 0.0
+                "x": 26.626773834228517,
+                "y": 2.321218490600586,
+                "z": 5.0
             },
             "Scene": "1-1_ForgottenNest"
         },
@@ -38,25 +38,14 @@
             "Type": "Interaction",
             "Name": "InterationObject",
             "Position": {
-                "x": 26.626773834228517,
-                "y": 2.321218490600586,
+                "x": 8.730000495910645,
+                "y": 2.240000009536743,
                 "z": 5.0
             },
             "Scene": "1-1_ForgottenNest"
         },
         {
             "ID": 4003,
-            "Type": "Interaction",
-            "Name": "InterationObject",
-            "Position": {
-                "x": 33.0,
-                "y": -3.0,
-                "z": 0.0
-            },
-            "Scene": "1-1_ForgottenNest"
-        },
-        {
-            "ID": 4004,
             "Type": "Interaction",
             "Name": "InterationObject",
             "Position": {
@@ -67,21 +56,44 @@
             "Scene": "1-1_ForgottenNest"
         },
         {
+            "ID": 4004,
+            "Type": "Interaction",
+            "Name": "InterationObject",
+            "Position": {
+                "x": 20.0,
+                "y": -3.0,
+                "z": 0.0
+            },
+            "Scene": "1-1_ForgottenNest"
+        },
+        {
             "ID": 4005,
             "Type": "Interaction",
             "Name": "InterationObject",
             "Position": {
-                "x": 8.730000495910645,
-                "y": 2.240000009536743,
-                "z": 5.0
+                "x": 33.0,
+                "y": -3.0,
+                "z": 0.0
             },
             "Scene": "1-1_ForgottenNest"
+        },
+        {
+            "ID": 5001,
+            "Type": "PushObject",
+            "Name": "PushObject",
+            "Position": {
+                "x": 13.0,
+                "y": -9.0,
+                "z": 0.0
+            },
+            "Scene": "1-2_FoxForest"
         }
     ],
     "Summary": {
         "TotalMainSavePoints": 1,
         "TotalSemiSavePoints": 1,
         "TotalShops": 0,
-        "TotalInteractions": 5
+        "TotalInteractions": 5,
+        "TotalPushObjects": 1
     }
 }

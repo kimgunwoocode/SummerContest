@@ -2,6 +2,9 @@
 
 public class PushObject : MonoBehaviour
 {
+    public int ID;
+    public Vector2 position;
+
     private Rigidbody2D rb;
     private bool isPlayerTouching = false;
 

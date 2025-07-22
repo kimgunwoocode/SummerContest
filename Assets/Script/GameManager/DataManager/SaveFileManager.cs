@@ -31,6 +31,18 @@ public class IntIntPair
         Value = value;
     }
 }
+[System.Serializable]
+public class PushObjectPair
+{
+    public int Key;
+    public Vector2 Value;
+
+    public PushObjectPair(int key, Vector2 value)
+    {
+        Key = key;
+        Value = value;
+    }
+}
 
 [System.Serializable]
 public class SerializableSaveData
@@ -47,6 +59,7 @@ public class SerializableMapData
     public List<IntBoolPair> InteractionObjects;
     public List<ShopData> Shops;
     public List<IntBoolPair> SpawnPoints;
+    public List<PushObjectPair> PushObjects;
     public int SpawnPoint;
 }
 
@@ -114,6 +127,7 @@ public static class SaveFileManager
                 InteractionObjects = ConvertDict_bool(data.MapData.InteractionObjects),
                 Shops = data.MapData.Shops,
                 SpawnPoints = ConvertDict_bool(data.MapData.SpawnPoints),
+                PushObjects = ConvertDict_vec2(data.MapData.PushObjects),
                 SpawnPoint = data.MapData.SpawnPoint
             },
             PlayerData = new SerializablePlayerData
@@ -152,6 +166,14 @@ public static class SaveFileManager
             list.Add(new IntIntPair(kv.Key, kv.Value));
         return list;
     }
+    private static List<PushObjectPair> ConvertDict_vec2(Dictionary<int, Vector2> dict)
+    {
+        var list = new List<PushObjectPair>();
+        foreach (var kv in dict)
+            list.Add(new PushObjectPair(kv.Key, kv.Value));
+        return list;
+    }
+
     #endregion
 
     #region Load
@@ -177,6 +199,7 @@ public static class SaveFileManager
                 InteractionObjects = ToDictionary_bool(serializable.MapData.InteractionObjects),
                 Shops = serializable.MapData.Shops,
                 SpawnPoints = ToDictionary_bool(serializable.MapData.SpawnPoints),
+                PushObjects = ToDictionary_vec2(serializable.MapData.PushObjects),
                 SpawnPoint = serializable.MapData.SpawnPoint
             },
             PlayerData = new PlayerData
@@ -226,6 +249,14 @@ public static class SaveFileManager
             dict[pair.Key] = pair.Value;
         return dict;
     }
+    private static Dictionary<int, Vector2> ToDictionary_vec2(List<PushObjectPair> list)
+    {
+        var dict = new Dictionary<int, Vector2>();
+        foreach (var pair in list)
+            dict[pair.Key] = pair.Value;
+        return dict;
+    }
+
     #endregion
 
 

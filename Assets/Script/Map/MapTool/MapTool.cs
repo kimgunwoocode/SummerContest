@@ -167,38 +167,17 @@ public class MapTool : EditorWindow
 
     public static void AssignIDsAndSaveToInitData()
     {
-        for (int i = 0; i < EditorSceneManager.sceneCount; i++)
-        {
-            Scene openScene = EditorSceneManager.GetSceneAt(i);
-            if (openScene.isDirty)
-            {
-                EditorUtility.DisplayDialog(
-                    "저장되지 않은 씬이 존재합니다",
-                    $"현재 열려있는 씬 \"{openScene.name}\"이 저장되지 않았습니다. 먼저 저장하고 다시 시도해주세요.",
-                    "확인"
-                );
-                return;
-            }
-        }
-
-        InitSaveData initData = AssetDatabase.LoadAssetAtPath<InitSaveData>(InitSaveDataPath);
-        if (initData == null)
-        {
-            Debug.LogError(InitSaveDataPath+" 을 찾을 수 없습니다.");
-            return;
-        }
-
-        initData.InitData.MapData = new MapData();
+        var finalMapData = new MapData();
 
         int semiID = 1001;
         int mainID = 2001;
         int shopID = 3001;
         int interactionID = 4001;
+        int pushObjectID = 5001;
 
-        int totalMain = 0, totalSemi = 0, totalShop = 0, totalInteraction = 0;
+        int totalMain = 0, totalSemi = 0, totalShop = 0, totalInteraction = 0, totalPushObject = 0;
 
         var dumpEntries = new List<DumpEntry>();
-
         string[] sceneGuids = AssetDatabase.FindAssets("t:Scene", new[] { ScenePath });
 
         foreach (string guid in sceneGuids)
@@ -206,10 +185,19 @@ public class MapTool : EditorWindow
             string scenePath = AssetDatabase.GUIDToAssetPath(guid);
             Scene scene = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
 
+            // 여기서 다시 로드해야 함!!
+            InitSaveData initData = AssetDatabase.LoadAssetAtPath<InitSaveData>(InitSaveDataPath);
+            if (initData == null)
+            {
+                Debug.LogError($"InitSaveData를 {scene.name} 씬에서 다시 로드하는 데 실패했습니다.");
+                continue;
+            }
+
             List<string> changedObjects = new();
             bool sceneModified = false;
 
             GameObject mapRoot = GameObject.FindWithTag("Map");
+
             if (mapRoot == null)
             {
                 Debug.LogWarning($"씬 \"{scene.name}\"에 Map 오브젝트가 없습니다. 해당 씬은 건너뜁니다.");
@@ -219,7 +207,7 @@ public class MapTool : EditorWindow
             SavePoint[] savePoints = mapRoot.GetComponentsInChildren<SavePoint>(true);
             ShopObject[] shopObjects = mapRoot.GetComponentsInChildren<ShopObject>(true);
             Interaction[] interactions = mapRoot.GetComponentsInChildren<Interaction>(true);
-
+            PushObject[] pushObjects = mapRoot.GetComponentsInChildren<PushObject>(true);
 
             foreach (var sp in savePoints)
             {
@@ -232,7 +220,7 @@ public class MapTool : EditorWindow
                     changedObjects.Add($"SavePoint ({sp.SavePoint_type}) → ID {assignedID} [{sp.name}]");
                 }
 
-                initData.InitData.MapData.SpawnPoints[sp.ID] = sp.SavePointEnabled;
+                finalMapData.SpawnPoints[sp.ID] = sp.SavePointEnabled;
 
                 dumpEntries.Add(new DumpEntry
                 {
@@ -265,7 +253,7 @@ public class MapTool : EditorWindow
                     Items = new Dictionary<int, bool>()
                 };
 
-                initData.InitData.MapData.Shops.Add(shopData);
+                finalMapData.Shops.Add(shopData);
 
                 dumpEntries.Add(new DumpEntry
                 {
@@ -290,7 +278,7 @@ public class MapTool : EditorWindow
                     changedObjects.Add($"Interaction → ID {assignedID} [{inter.name}]");
                 }
 
-                initData.InitData.MapData.InteractionObjects[inter.ID] = inter.isInteracted;
+                finalMapData.InteractionObjects[inter.ID] = inter.isInteracted;
 
                 dumpEntries.Add(new DumpEntry
                 {
@@ -302,6 +290,31 @@ public class MapTool : EditorWindow
                 });
 
                 totalInteraction++;
+            }
+
+            foreach (var push in pushObjects)
+            {
+                int assignedID = pushObjectID++;
+                if (push.ID != assignedID)
+                {
+                    push.ID = assignedID;
+                    sceneModified = true;
+                    EditorUtility.SetDirty(push);
+                    changedObjects.Add($"PushObject → ID {assignedID} [{push.name}]");
+                }
+
+                finalMapData.PushObjects[push.ID] = (Vector2)push.transform.position;
+
+                dumpEntries.Add(new DumpEntry
+                {
+                    ID = push.ID,
+                    Type = "PushObject",
+                    Name = push.name,
+                    Position = push.transform.position,
+                    Scene = scene.name
+                });
+
+                totalPushObject++;
             }
 
             if (sceneModified)
@@ -318,8 +331,18 @@ public class MapTool : EditorWindow
             }
         }
 
-        SaveInitSaveDataAsset(initData);
-        DumpToJson(dumpEntries, totalMain, totalSemi, totalShop, totalInteraction);
+        // 마지막에 한 번만 원본 InitSaveData에 MapData 넣고 저장
+        InitSaveData finalInitData = AssetDatabase.LoadAssetAtPath<InitSaveData>(InitSaveDataPath);
+        if (finalInitData != null)
+        {
+            finalInitData.InitData.MapData = finalMapData;
+            SaveInitSaveDataAsset(finalInitData);
+            DumpToJson(dumpEntries, totalMain, totalSemi, totalShop, totalInteraction, totalPushObject);
+        }
+        else
+        {
+            Debug.LogError("최종 InitSaveData 저장 실패: InitSaveData를 다시 불러올 수 없습니다.");
+        }
     }
 
     public static void SaveInitSaveDataAsset(InitSaveData data)
@@ -329,7 +352,7 @@ public class MapTool : EditorWindow
         Debug.Log("InitSaveData.asset 저장 완료");
     }
 
-    private static void DumpToJson(List<DumpEntry> entries, int totalMain, int totalSemi, int totalShop, int totalInteraction)
+    private static void DumpToJson(List<DumpEntry> entries, int totalMain, int totalSemi, int totalShop, int totalInteraction, int totlaPushObject)
     {
         var wrapper = new DumpWrapper
         {
@@ -339,7 +362,8 @@ public class MapTool : EditorWindow
                 TotalMainSavePoints = totalMain,
                 TotalSemiSavePoints = totalSemi,
                 TotalShops = totalShop,
-                TotalInteractions = totalInteraction
+                TotalInteractions = totalInteraction,
+                TotalPushObjects = totlaPushObject
             }
         };
 
@@ -367,6 +391,7 @@ public class MapTool : EditorWindow
         public int TotalSemiSavePoints;
         public int TotalShops;
         public int TotalInteractions;
+        public int TotalPushObjects;
     }
 
     [System.Serializable]
@@ -404,6 +429,7 @@ public class MapTool : EditorWindow
         if (mapRoot == null)
         {
             mapRoot = new GameObject("Map");
+            mapRoot.tag = "Map";
             Undo.RegisterCreatedObjectUndo(mapRoot, "Create Map Root");
         }
 
