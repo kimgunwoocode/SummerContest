@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6369609741194038847}
   - component: {fileID: 1672343321082536275}
   - component: {fileID: 7945981874679585505}
+  - component: {fileID: -5831135886237357416}
   - component: {fileID: 7258978633776394569}
   m_Layer: 0
   m_Name: GameManager
@@ -56,6 +57,7 @@ MonoBehaviour:
   PlayerAbility: 
   Shops: []
   SpawnPoint: -1
+  allitems: []
 --- !u!114 &7945981874679585505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,6 +73,20 @@ MonoBehaviour:
   GameDataManager: {fileID: 1672343321082536275}
   Player: {fileID: 0}
   CurrentSceneName: 
+--- !u!114 &-5831135886237357416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5181389065074105569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01c24552bf4827c47af8c04bb9503f65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  defaultKeyBindings: {fileID: 11400000, guid: 2e5f571b29f0d024c885f607b5a1e32e, type: 2}
 --- !u!114 &7258978633776394569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,3 +102,4 @@ MonoBehaviour:
   scriptEntries:
   - {fileID: 1672343321082536275}
   - {fileID: 7945981874679585505}
+  - {fileID: -5831135886237357416}
