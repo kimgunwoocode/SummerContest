@@ -11,7 +11,7 @@ public class MainGameUI : MonoBehaviour
     public Text MoneyText;          // 가진 돈 텍스트
 
     [Header("Hp 관련")]
-    public GameObject heartPrefab;  // 하트 프리팹 (Image 포함된 프리팹)
+    public GameObject heartPrefab;  // 하트 프리팹
     public Transform heartContainer;// 하트들이 자식으로 정렬될 부모 오브젝트
 
     public Sprite fullHeart;        // 채워진 하트 스프라이트
