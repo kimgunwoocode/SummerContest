@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 
@@ -9,7 +9,7 @@ using UnityEditor;
 [CreateAssetMenu(menuName = "Input/DefaultKeyBindings")]
 public class DefaultKeyBindings : ScriptableObject
 {
-    public string inputActionAssetPath; // InputActionAsset °æ·Î
+    public string inputActionAssetPath; // InputActionAsset ê²½ë¡œ
     public List<BindingEntry> bindings = new();
 
     [System.Serializable]
@@ -17,7 +17,7 @@ public class DefaultKeyBindings : ScriptableObject
     {
         public string actionName;
         public string bindingPath;
-        public int bindingIndex; // ¹ÙÀÎµù ÀÎµ¦½º Æ÷ÇÔ
+        public int bindingIndex; // ë°”ì¸ë”© ì¸ë±ìŠ¤ í¬í•¨
     }
     public Dictionary<string, string> ToDictionary()
     {
@@ -49,14 +49,14 @@ public class DefaultKeyBindings : ScriptableObject
     {
         if (string.IsNullOrEmpty(inputActionAssetPath))
         {
-            Debug.LogError("InputActionAsset °æ·Î°¡ ºñ¾î ÀÖ½À´Ï´Ù.");
+            Debug.LogError("InputActionAsset ê²½ë¡œê°€ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
             return;
         }
 
         InputActionAsset inputActions = AssetDatabase.LoadAssetAtPath<InputActionAsset>(inputActionAssetPath);
         if (inputActions == null)
         {
-            Debug.LogError($"InputActionAssetÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù:\n{inputActionAssetPath}");
+            Debug.LogError($"InputActionAssetì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤:\n{inputActionAssetPath}");
             return;
         }
 
@@ -70,7 +70,7 @@ public class DefaultKeyBindings : ScriptableObject
                 {
                     var binding = action.bindings[i];
                     if (binding.isComposite || binding.isPartOfComposite)
-                        continue; // º¹ÇÕ ÀÔ·Â Á¦¿Ü (ÇÊ¿äÇÏ¸é Æ÷ÇÔ °¡´É)
+                        continue; // ë³µí•© ì…ë ¥ ì œì™¸ (í•„ìš”í•˜ë©´ í¬í•¨ ê°€ëŠ¥)
 
                     bindings.Add(new BindingEntry
                     {
@@ -82,7 +82,7 @@ public class DefaultKeyBindings : ScriptableObject
             }
         }
 
-        Debug.Log($"[{name}] InputActionAsset¿¡¼­ ¹ÙÀÎµù {bindings.Count}°³ ºÒ·¯¿È.");
+        Debug.Log($"[{name}] InputActionAssetì—ì„œ ë°”ì¸ë”© {bindings.Count}ê°œ ë¶ˆëŸ¬ì˜´.");
         EditorUtility.SetDirty(this);
         AssetDatabase.SaveAssets();
     }

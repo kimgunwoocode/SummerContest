@@ -12,13 +12,13 @@ public class KeyManager : MonoBehaviour
     public Dictionary<string, string> userBindings = new();
 
 
-
+    #region Init Bindings
     private void Awake()
     {
         InitializeUserBindingsFromInput();
     }
     private Dictionary<string, string> DefaultBindings => defaultKeyBindings.ToDictionary();
-    private void InitializeUserBindingsFromInput()
+    public void InitializeUserBindingsFromInput()
     {
         userBindings.Clear();
 
@@ -33,6 +33,7 @@ public class KeyManager : MonoBehaviour
             }
         }
     }
+    #endregion
 
 
     // action에 할당된 키를 문자열로 반환해줌 (현재 키 설정값 출력할 때 사용하기!)
@@ -45,7 +46,7 @@ public class KeyManager : MonoBehaviour
         return "Not Set";
     }
 
-
+    #region Key Change
     public void StartListeningForKey(string actionName)
     {
         InputAction action = inputActions.FindAction(actionName);
@@ -56,14 +57,24 @@ public class KeyManager : MonoBehaviour
         }
 
         action.Disable();
+
+        int bindingIndex = GetKeyboardBindingIndex(action);
+        if (bindingIndex == -1)
+        {
+            Debug.LogError($"[KeyManager] No keyboard binding found for '{actionName}'");
+            return;
+        }
+
         RebindingOperation operation = new();
-        operation = action.PerformInteractiveRebinding()
+        operation = action.PerformInteractiveRebinding(bindingIndex)
+            .WithControlsExcluding("Mouse")
+            .WithCancelingThrough("<Keyboard>/escape")
             .OnComplete(ctx =>
             {
-                string newPath = action.bindings[0].effectivePath;
+                string newPath = action.bindings[bindingIndex].effectivePath;
                 userBindings[actionName] = newPath;
 
-                ApplyRebinding(actionName, newPath);
+                ApplyRebinding(actionName, newPath, bindingIndex);
 
                 Debug.Log($"[KeyManager] '{actionName}' is now bound to {newPath}");
 
@@ -72,18 +83,30 @@ public class KeyManager : MonoBehaviour
             })
             .Start();
     }
+    private int GetKeyboardBindingIndex(InputAction action) // 현재 디바이스에 맞는 바인딩 인덱스에 접근
+    {
+        for (int i = 0; i < action.bindings.Count; i++)
+        {
+            var binding = action.bindings[i];
+            if (!binding.isComposite && !binding.isPartOfComposite && binding.path.Contains("<Keyboard>"))
+            {
+                return i;
+            }
+        }
 
+        return -1;
+    }
 
 
 
     // 유저가 키를 바꿨을 때 갱신
-    public void ApplyRebinding(string actionName, string newPath)
+    public void ApplyRebinding(string actionName, string newPath, int bindingIndex)
     {
         InputAction action = inputActions.FindAction(actionName);
-
-        action.ApplyBindingOverride(0, newPath);
+        action.ApplyBindingOverride(bindingIndex, newPath);
         userBindings[actionName] = newPath;
     }
+    #endregion
 
     // 모든 키 설정을 기본값으로 되돌리기
     public void ResetToDefault()
