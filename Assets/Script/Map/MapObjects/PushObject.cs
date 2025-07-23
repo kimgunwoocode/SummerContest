@@ -13,12 +13,18 @@ public class PushObject : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    private void Start()
+    {
+        gameObject.transform.position = Singleton.GameManager_Instance.Get<GameDataManager>().PushObjects[ID];
+    }
+
     void FixedUpdate()
     {
         if (!isPlayerTouching)
         {
             rb.linearVelocity = Vector2.zero;
         }
+        position = gameObject.transform.position;
     }
 
     void OnCollisionStay2D(Collision2D collision)

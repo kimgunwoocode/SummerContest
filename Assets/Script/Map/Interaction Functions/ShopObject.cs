@@ -19,6 +19,8 @@ public class ShopObject : MonoBehaviour
     {
         GameManager = Singleton.GameManager_Instance.Get<GameManager>();
         GameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();
+        isOpened = GameDataManager.Shops[ID].isOpened;
+        isSold = GameDataManager.Shops[ID].Items;
     }
     public void Openshop()
     {

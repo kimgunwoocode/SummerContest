@@ -34,6 +34,8 @@ public class Interaction : MonoBehaviour
 
         InteractionGuide.SetActive(false);
         SetPlayerInteraction();
+
+        isInteracted = Singleton.GameManager_Instance.Get<GameDataManager>().InteractionObjects[ID];
     }
 
     private void SetPlayerInteraction() {
@@ -42,7 +44,7 @@ public class Interaction : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && isInteracted)
         {
             isPlayerNearby = true;
             InteractionGuide.SetActive(true);
@@ -52,7 +54,7 @@ public class Interaction : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && isInteracted)
         {
             isPlayerNearby = false;
             InteractionGuide.SetActive(false);

@@ -21,9 +21,11 @@ public class GameDataManager : MonoBehaviour
 
     // Map Data
     public Dictionary<int, bool> InteractionObjects = new();
+    public Dictionary<int, Vector2> PushObjects = new();
     public List<ShopData> Shops = new();
     public Dictionary<int, bool> SpawnPoints = new();
     public int SpawnPoint = -1;
+
 
     //Item Data
     public List<ItemData> allitems = new();

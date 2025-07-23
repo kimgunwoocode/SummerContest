@@ -9,11 +9,20 @@ public class SavePoint : MonoBehaviour
     public int ID;
     [Space]
     [Header("is activate")]
-    public bool SavePointEnabled;
+    public bool SavePointEnabled = false;
+
+    GameDataManager GameDataManager;
+
+    private void Start()
+    {
+        GameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();
+        SavePointEnabled = GameDataManager.SpawnPoints[ID];
+    }
 
     public void InteractSavePoint()
     {
         print("SavePoint_" + SavePoint_type + " ID:" + ID);
+        GameDataManager.SpawnPoint = ID;
         Singleton.GameManager_Instance.Get<GameManager>().SaveData__SavePoint();
     }
 }

@@ -177,6 +177,21 @@ public static class SaveFileManager
     #endregion
 
     #region Load
+    public static void Load(int slotIndex)
+    {
+        SaveData loaded = LoadFromSaveFile(slotIndex);
+        if (loaded != null)
+        {
+            Singleton.GameManager_Instance.Get<GameDataManager>().LoadGameData(loaded);
+            Singleton.GameManager_Instance.Get<GameManager>().LoadData__SavePoint();
+            Debug.Log($"GameDataManager에 SaveData 적용 완료 (슬롯 {slotIndex})");
+        }
+        else
+        {
+            Debug.LogWarning($"슬롯 {slotIndex} 로드 실패");
+        }
+    }
+
     public static SaveData LoadFromSaveFile(int slotIndex)
     {
         if (!File.Exists(GetPath(slotIndex)))
@@ -221,19 +236,6 @@ public static class SaveFileManager
         return result;
     }
 
-    public static void Load(int slotIndex)
-    {
-        SaveData loaded = LoadFromSaveFile(slotIndex);
-        if (loaded != null)
-        {
-            Singleton.GameManager_Instance.Get<GameDataManager>().LoadGameData(loaded);
-            Debug.Log($"GameDataManager에 SaveData 적용 완료 (슬롯 {slotIndex})");
-        }
-        else
-        {
-            Debug.LogWarning($"슬롯 {slotIndex} 로드 실패");
-        }
-    }
 
     private static Dictionary<int, bool> ToDictionary_bool(List<IntBoolPair> list)
     {

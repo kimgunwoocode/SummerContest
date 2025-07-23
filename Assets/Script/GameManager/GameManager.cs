@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
         LoadData__SavePoint();
     }
 
-    private void LoadData__SavePoint()
+    public void LoadData__SavePoint()
     {
         //플레이어 데이터
         GameDataManager.MaxHP = GameDataManager.GameData.PlayerData.MaxHP;
@@ -102,6 +102,7 @@ public class GameManager : MonoBehaviour
 
         //맵 데이터
         GameDataManager.InteractionObjects = GameDataManager.GameData.MapData.InteractionObjects;
+        GameDataManager.PushObjects = GameDataManager.GameData.MapData.PushObjects;
         GameDataManager.Shops = GameDataManager.GameData.MapData.Shops;
         GameDataManager.SpawnPoints = GameDataManager.GameData.MapData.SpawnPoints;
         GameDataManager.SpawnPoint = GameDataManager.GameData.MapData.SpawnPoint;
@@ -124,6 +125,7 @@ public class GameManager : MonoBehaviour
 
         //맵 데이터
         GameDataManager.GameData.MapData.InteractionObjects = GameDataManager.InteractionObjects;
+        GameDataManager.GameData.MapData.PushObjects = GameDataManager.PushObjects;
         GameDataManager.GameData.MapData.Shops = GameDataManager.Shops;
         GameDataManager.GameData.MapData.SpawnPoints = GameDataManager.SpawnPoints;
         GameDataManager.GameData.MapData.SpawnPoint = GameDataManager.SpawnPoint;
