@@ -2,22 +2,29 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
+[RequireComponent(typeof(PlayerMovement), typeof(PlayerInteraction), typeof(PlayerAttack))]
 public class PlayerManager : AbstractEntity {
     private PlayerInput_Action _inputActions;
     private Rigidbody2D _rb;
 
+    [Header("Stats")]
+    [SerializeField] internal ScriptablePlayerMovementStats playerMovementStats;
+    [SerializeField] internal ScriptablePlayerAttackStats playerAttackStats;
+
     private PlayerMovement _movement;
     private PlayerAttack _attack;
     private PlayerAnimation _anima;
+    private PlayerInteraction _interaction;
     private GameDataManager _data;
 
     private int _maxHealth;
     private int _currentHealth;
-    
 
 
     private void Awake() {
         _rb = GetComponent<Rigidbody2D>();
+        _movement = GetComponent<PlayerMovement>();
+        _interaction = GetComponent<PlayerInteraction>();
     }
 
     private void Start() {
@@ -28,15 +35,7 @@ public class PlayerManager : AbstractEntity {
         _currentHealth = _data.CurrentHP;
     }
 
-    private void OnEnable()
-    {
-        _movement = GetComponent<PlayerMovement>();
-        if (_movement == null)
-        {
-            Debug.LogError("Can't Find PlayerMovement!");
-            return;
-        }
-
+    private void OnEnable() {
         _inputActions = new PlayerInput_Action();
 
         _inputActions.Player.Jump.performed += _movement.OnJumpPerformed;
@@ -48,10 +47,12 @@ public class PlayerManager : AbstractEntity {
         _inputActions.Player.Crouch.performed += _movement.OnCrouchPerformed;
         _inputActions.Player.Crouch.canceled += _movement.OnCrouchCanceled;
 
+        _inputActions.Player.Glide.performed += _movement.OnGlidePerformed;
+        _inputActions.Player.Glide.canceled += _movement.OnGlideCanceled;
 
-        //_inputActions.Player.Glide
-        //_inputActions.Player.Dash.performed += _movement.OnDashPerformed;
-        //inputActions.Player.Dash.canceled += movement.OnDashCanceled;
+        _inputActions.Player.Dash.performed += _movement.OnDashPerformed;
+
+        _inputActions.Player.Interact.performed += _interaction.OnInteraction;
 
         _inputActions.Player.Enable();
     }
@@ -66,8 +67,12 @@ public class PlayerManager : AbstractEntity {
         _inputActions.Player.Crouch.performed -= _movement.OnCrouchPerformed;
         _inputActions.Player.Crouch.canceled -= _movement.OnCrouchCanceled;
 
-        //_inputActions.Player.Dash.performed -= _movement.OnDashPerformed;
-        //inputActions.Player.Dash.canceled -= movement.OnDashCanceled;
+        _inputActions.Player.Glide.performed += _movement.OnGlidePerformed;
+        _inputActions.Player.Glide.canceled += _movement.OnGlideCanceled;
+
+        _inputActions.Player.Dash.performed -= _movement.OnDashPerformed;
+
+        _inputActions.Player.Interact.performed -= _interaction.OnInteraction;
 
         _inputActions.Player.Disable();
     }
@@ -90,6 +95,31 @@ public class PlayerManager : AbstractEntity {
 
     private void Knockback(int dir) {
 
+    }
+
+    internal void UnlockAbility(int id) {
+        /// <summary>
+        /// ID. 해금되는 기능
+        /// 0. 돌진
+        /// 1. 브레스
+        /// 2. 이단 점프
+        /// 3. 낙하공격
+        /// 4. 활공
+        /// 5. 벽타기
+        /// </summary>
+        if (id == 0) {
+            playerMovementStats.IsDashUnlocked = true;
+        }else if(id == 1) {
+
+        }else if(id == 2) {
+            playerMovementStats.IsDoubleJumpUnloceked = true;
+        }else if(id == 3) {
+
+        }else if(id == 4) {
+            playerMovementStats.IsGlideUnlocked = true;
+        } else if(id == 5) {
+
+        }
     }
 
     private void Update() {

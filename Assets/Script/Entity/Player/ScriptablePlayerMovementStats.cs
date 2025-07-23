@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu]
-public class ScriptablePlayerStats : ScriptableObject {
+public class ScriptablePlayerMovementStats : ScriptableObject {
     [Header("Layer")]
     public LayerMask PlayerLayer;
 
@@ -20,29 +20,29 @@ public class ScriptablePlayerStats : ScriptableObject {
     [Tooltip("the apex range, if player's y-axis speed is included in the apex range, it judged as a apex")]public float ApexThreadHold = 0.1f;
     [Tooltip("allowed jump time while the player is in the air when doesn't jump")]public float CoyoteTime = 0.14f;
     [Tooltip("allowed jump time while the player is in the air when does jump")]public float JumpBufferTime = 0.24f;
-    [Tooltip("allowed ")] public int bonusJump = 2;
+    [Tooltip("allowed ")] public int bonusJump = 1;
 
     [Header("Gravity")]
     [Tooltip("the gravity multipler that is apllied after when player release the button")] public float GravityModifierWhenJumpEndedEarly = 3f;
     [Tooltip("the gravity multipler that is apllied after when player is falling down")] public float GravityModifierWhenFalling = 2.5f;
     [Tooltip("the gravity multipler that is applied when player reached about on the apex")] public float ApexModifier = 0.7f;
     public float GlideGravity = 0.5f;
+    public float GlideFallSpeed = 0.4f;
 
     [Header("Dash")]
     public float DashCooldown;
     public float DashTime;
     public float DashSpeed;
 
-
-
+    [Header("Available Abilities")]
+    public bool IsDashUnlocked = false;
+    public bool IsDoubleJumpUnloceked = false;
+    public bool IsGlideUnlocked = false;
 
     [Header("Collision Check")]
     public float wallCheckDistance = 0.6f;
-    //public GameObject[] wallRaycastPoints;
-
     public float groundCheckDistance = 0.1f;
-    //public GameObject groundCheckerTransform;
+    public float ceilingCheckDistance = 0.1f;
+    
     public LayerMask groundLayer;
-
-
 }

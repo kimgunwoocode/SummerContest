@@ -4,9 +4,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
-using static UnityEngine.Rendering.DebugUI;
-using System.Xml.Linq;
+using System;
 
 
 public class MapTool : EditorWindow
@@ -109,7 +107,7 @@ public class MapTool : EditorWindow
         GUILayout.Space(15);
         if (GUILayout.Button("맵 오브젝트 ID 일괄 설정"))
         {
-            AssignIDs();
+            AssignIDsAndSaveToInitData();
         }
 
         EditorGUILayout.Space();
@@ -162,143 +160,246 @@ public class MapTool : EditorWindow
 
 
     #region 맵의 다양한 오브젝트 ID 자동 부여 및 설정, 저장까지!
-    void AssignIDs()
+
+    private const string ScenePath = "Assets/Scenes/Map";
+    private const string InitSaveDataPath = "Assets/InitData/InitData.asset";
+    private const string DumpPath = "Assets/InitData/InitData_ID_Dump.json";
+
+    public static void AssignIDsAndSaveToInitData()
     {
-        /*
-        SavePoint_list spList = AssetDatabase.LoadAssetAtPath<SavePoint_list>(SavePointListPath);
-        if (spList == null)
-        {
-            Debug.LogError("SavePoint_list ScriptableObject를 찾을 수 없습니다.");
-            return;
-        }
+        var finalMapData = new MapData();
 
-        // Dictionary 초기화
-        spList.SavePoint_IDlist.Clear();
-        */
-
-
-        int mainID = 2001;
         int semiID = 1001;
-        int totalMain = 0;
-        int totalSemi = 0;
+        int mainID = 2001;
+        int shopID = 3001;
+        int interactionID = 4001;
+        int pushObjectID = 5001;
 
-        string[] sceneGuids = AssetDatabase.FindAssets("t:Scene", new[] { "Assets/Scenes/Map" });
+        int totalMain = 0, totalSemi = 0, totalShop = 0, totalInteraction = 0, totalPushObject = 0;
+
+        var dumpEntries = new List<DumpEntry>();
+        string[] sceneGuids = AssetDatabase.FindAssets("t:Scene", new[] { ScenePath });
 
         foreach (string guid in sceneGuids)
         {
             string scenePath = AssetDatabase.GUIDToAssetPath(guid);
             Scene scene = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
 
-            SavePoint[] savePoints = GameObject.FindObjectsByType<SavePoint>(FindObjectsSortMode.None);
-
-            foreach (var sp in savePoints)
+            // 여기서 다시 로드해야 함!!
+            InitSaveData initData = AssetDatabase.LoadAssetAtPath<InitSaveData>(InitSaveDataPath);
+            if (initData == null)
             {
-                if (sp == null) continue;
-
-                int assignedID = -1;
-
-                switch (sp.SavePoint_type)
-                {
-                    case SavePoint.SP_type.Main:
-                        assignedID = mainID++;
-                        totalMain++;
-                        break;
-                    case SavePoint.SP_type.Semi:
-                        assignedID = semiID++;
-                        totalSemi++;
-                        break;
-                }
-
-                if (assignedID != -1)
-                {
-                    sp.SavePoint_ID = assignedID;
-                    //spList.SavePoint_IDlist[assignedID] = sp;
-                    EditorUtility.SetDirty(sp);
-
-                }
-            }
-
-            EditorSceneManager.MarkSceneDirty(scene);
-            EditorSceneManager.SaveScene(scene);
-        }
-
-        //EditorUtility.SetDirty(spList);
-        AssetDatabase.SaveAssets();
-
-        Debug.Log($"SavePoint ID 부여 완료! Main: {totalMain}, Semi: {totalSemi}");
-
-        //DumpSavePointIDsToJson();
-    }
-    /*
-    void DumpSavePointIDsToJson()
-    {
-        SavePoint_list spList = AssetDatabase.LoadAssetAtPath<SavePoint_list>(SavePointListPath);
-
-        if (spList == null)
-        {
-            Debug.LogError("SavePoint_list ScriptableObject를 불러오지 못했습니다.");
-            return;
-        }
-
-        if (spList.SavePoint_IDlist == null || spList.SavePoint_IDlist.Count == 0)
-        {
-            Debug.LogWarning("SavePoint_IDlist가 비어 있습니다.");
-            return;
-        }
-
-        var entries = new List<SavePointEntry>();
-        Debug.Log(spList.SavePoint_IDlist[1001].name);
-        foreach (var kv in spList.SavePoint_IDlist)
-        {
-            int id = kv.Key;
-            SavePoint sp = kv.Value;
-
-            //Debug.Log(sp.SavePoint_type.ToString() + ' ' + sp.transform.position + ' ' + sp.name + ' ' + sp.GetInstanceID());
-
-            if (sp == null)
-            {
-                Debug.LogWarning($"ID {id}에 대응되는 SavePoint가 null입니다.");
+                Debug.LogError($"InitSaveData를 {scene.name} 씬에서 다시 로드하는 데 실패했습니다.");
                 continue;
             }
 
-            var entry = new SavePointEntry
-            {
-                ID = id,
-                Type = sp.SavePoint_type.ToString(),
-                Position = sp.transform.position,
-                Name = sp.name,
-                InstanceID = sp.GetInstanceID()
-            };
+            List<string> changedObjects = new();
+            bool sceneModified = false;
 
-            entries.Add(entry);
+            GameObject mapRoot = GameObject.FindWithTag("Map");
+
+            if (mapRoot == null)
+            {
+                Debug.LogWarning($"씬 \"{scene.name}\"에 Map 오브젝트가 없습니다. 해당 씬은 건너뜁니다.");
+                continue;
+            }
+
+            SavePoint[] savePoints = mapRoot.GetComponentsInChildren<SavePoint>(true);
+            ShopObject[] shopObjects = mapRoot.GetComponentsInChildren<ShopObject>(true);
+            Interaction[] interactions = mapRoot.GetComponentsInChildren<Interaction>(true);
+            PushObject[] pushObjects = mapRoot.GetComponentsInChildren<PushObject>(true);
+
+            foreach (var sp in savePoints)
+            {
+                int assignedID = sp.SavePoint_type == SavePoint.SP_type.Main ? mainID++ : semiID++;
+                if (sp.ID != assignedID)
+                {
+                    sp.ID = assignedID;
+                    sceneModified = true;
+                    EditorUtility.SetDirty(sp);
+                    changedObjects.Add($"SavePoint ({sp.SavePoint_type}) → ID {assignedID} [{sp.name}]");
+                }
+
+                finalMapData.SpawnPoints[sp.ID] = sp.SavePointEnabled;
+
+                dumpEntries.Add(new DumpEntry
+                {
+                    ID = sp.ID,
+                    Type = $"SavePoint-{sp.SavePoint_type}",
+                    Name = sp.name,
+                    Position = sp.transform.position,
+                    Scene = scene.name
+                });
+
+                if (sp.SavePoint_type == SavePoint.SP_type.Main) totalMain++;
+                else totalSemi++;
+            }
+
+            foreach (var shop in shopObjects)
+            {
+                int assignedID = shopID++;
+                if (shop.ID != assignedID)
+                {
+                    shop.ID = assignedID;
+                    sceneModified = true;
+                    EditorUtility.SetDirty(shop);
+                    changedObjects.Add($"ShopObject → ID {assignedID} [{shop.name}]");
+                }
+
+                var shopData = new ShopData
+                {
+                    ID = shop.ID,
+                    isOpened = shop.isOpened,
+                    Items = new Dictionary<int, bool>()
+                };
+
+                finalMapData.Shops.Add(shopData);
+
+                dumpEntries.Add(new DumpEntry
+                {
+                    ID = shop.ID,
+                    Type = "ShopObject",
+                    Name = shop.name,
+                    Position = shop.transform.position,
+                    Scene = scene.name
+                });
+
+                totalShop++;
+            }
+
+            foreach (var inter in interactions)
+            {
+                int assignedID = interactionID++;
+                if (inter.ID != assignedID)
+                {
+                    inter.ID = assignedID;
+                    sceneModified = true;
+                    EditorUtility.SetDirty(inter);
+                    changedObjects.Add($"Interaction → ID {assignedID} [{inter.name}]");
+                }
+
+                finalMapData.InteractionObjects[inter.ID] = inter.isInteracted;
+
+                dumpEntries.Add(new DumpEntry
+                {
+                    ID = inter.ID,
+                    Type = "Interaction",
+                    Name = inter.name,
+                    Position = inter.transform.position,
+                    Scene = scene.name
+                });
+
+                totalInteraction++;
+            }
+
+            foreach (var push in pushObjects)
+            {
+                int assignedID = pushObjectID++;
+                if (push.ID != assignedID)
+                {
+                    push.ID = assignedID;
+                    sceneModified = true;
+                    EditorUtility.SetDirty(push);
+                    changedObjects.Add($"PushObject → ID {assignedID} [{push.name}]");
+                }
+
+                finalMapData.PushObjects[push.ID] = (Vector2)push.transform.position;
+
+                dumpEntries.Add(new DumpEntry
+                {
+                    ID = push.ID,
+                    Type = "PushObject",
+                    Name = push.name,
+                    Position = push.transform.position,
+                    Scene = scene.name
+                });
+
+                totalPushObject++;
+            }
+
+            if (sceneModified)
+            {
+                EditorSceneManager.MarkSceneDirty(scene);
+                EditorSceneManager.SaveScene(scene);
+                Debug.Log($"씬 저장됨: {scene.name}");
+                foreach (var line in changedObjects)
+                    Debug.Log($"  - {line}");
+            }
+            else
+            {
+                Debug.Log($"씬 변경 없음: {scene.name}");
+            }
         }
 
-        string json = JsonUtility.ToJson(new SavePointEntryWrapper { entries = entries }, true);
-        string jsonPath = Path.Combine("Assets/MapData", "SavePoint_detailed.json");
+        // 마지막에 한 번만 원본 InitSaveData에 MapData 넣고 저장
+        InitSaveData finalInitData = AssetDatabase.LoadAssetAtPath<InitSaveData>(InitSaveDataPath);
+        if (finalInitData != null)
+        {
+            finalInitData.InitData.MapData = finalMapData;
+            SaveInitSaveDataAsset(finalInitData);
+            DumpToJson(dumpEntries, totalMain, totalSemi, totalShop, totalInteraction, totalPushObject);
+        }
+        else
+        {
+            Debug.LogError("최종 InitSaveData 저장 실패: InitSaveData를 다시 불러올 수 없습니다.");
+        }
+    }
 
-        File.WriteAllText(jsonPath, json);
+    public static void SaveInitSaveDataAsset(InitSaveData data)
+    {
+        EditorUtility.SetDirty(data);
+        AssetDatabase.SaveAssets();
+        Debug.Log("InitSaveData.asset 저장 완료");
+    }
+
+    private static void DumpToJson(List<DumpEntry> entries, int totalMain, int totalSemi, int totalShop, int totalInteraction, int totlaPushObject)
+    {
+        var wrapper = new DumpWrapper
+        {
+            Entries = entries,
+            Summary = new DumpSummary
+            {
+                TotalMainSavePoints = totalMain,
+                TotalSemiSavePoints = totalSemi,
+                TotalShops = totalShop,
+                TotalInteractions = totalInteraction,
+                TotalPushObjects = totlaPushObject
+            }
+        };
+
+        string json = JsonUtility.ToJson(wrapper, true);
+        File.WriteAllText(DumpPath, json);
         AssetDatabase.Refresh();
 
-        Debug.Log("상세 SavePoint 정보가 JSON으로 저장되었습니다!");
+        Debug.Log($"상세 정보 JSON으로 저장됨: {DumpPath}");
     }
 
     [System.Serializable]
-    private class SavePointEntry
+    private class DumpEntry
     {
         public int ID;
         public string Type;
-        public Vector3 Position;
         public string Name;
-        public int InstanceID;
+        public Vector3 Position;
+        public string Scene;
     }
 
     [System.Serializable]
-    private class SavePointEntryWrapper
+    private class DumpSummary
     {
-        public List<SavePointEntry> entries;
+        public int TotalMainSavePoints;
+        public int TotalSemiSavePoints;
+        public int TotalShops;
+        public int TotalInteractions;
+        public int TotalPushObjects;
     }
-    */
 
+    [System.Serializable]
+    private class DumpWrapper
+    {
+        public List<DumpEntry> Entries;
+        public DumpSummary Summary;
+    }
     #endregion
 
 
@@ -328,6 +429,7 @@ public class MapTool : EditorWindow
         if (mapRoot == null)
         {
             mapRoot = new GameObject("Map");
+            mapRoot.tag = "Map";
             Undo.RegisterCreatedObjectUndo(mapRoot, "Create Map Root");
         }
 
