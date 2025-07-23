@@ -20,6 +20,13 @@ public class BreathIcon : MonoBehaviour,
     public Text BreathInfor;              // 호버한 브레스 정보 출력 텍스트박스
     public Image BreathImage;             // 호버한 브레스 이미지 출력 이미지창
 
+    [Header("메인 게임 화면 브레스 아이콘 출력 관리")]
+    public Image Ingame_BreathIcon;
+    public Image Ingame_UnderBreathIcon_1;
+    public Image Ingame_UnderBreathIcon_2;
+
+    private Image[] Ingame_SetImages = new Image[3];
+
     [Header("장착 정보")]
     public Image SetImage_1;              // 슬롯 및 슬롯 리스트
     public Image SetImage_2;
@@ -43,18 +50,22 @@ public class BreathIcon : MonoBehaviour,
         SetImages[0] = SetImage_1;
         SetImages[1] = SetImage_2;
         SetImages[2] = SetImage_3;
+
+        Ingame_SetImages[0] = Ingame_BreathIcon;
+        Ingame_SetImages[1] = Ingame_UnderBreathIcon_1;
+        Ingame_SetImages[2] = Ingame_UnderBreathIcon_2;
     }
     public void ClickButton()
     {
-        if (data.PlayerSkill.TryGetValue(MyId, out bool isUnlocked) && isUnlocked)
+        //if (data.PlayerSkill.TryGetValue(MyId, out bool isUnlocked) && isUnlocked)
+        //{
+        if (data.EquipSkill.Contains(MyId))              // 이미 장착 중이면 해제
         {
-            if (data.EquipSkill.Contains(MyId))              // 이미 장착 중이면 해제
-            {
-                Unequip();
-            }
-            else if (data.EquipSkill.Count >= 3) return;    // 슬롯 꽉 찼으면 리턴
-            else Equip();
+            Unequip();
         }
+        else if (data.EquipSkill.Count >= 3) return;    // 슬롯 꽉 찼으면 리턴
+        else Equip();
+        //}
     }
 
     public void Equip()
@@ -65,6 +76,8 @@ public class BreathIcon : MonoBehaviour,
             if (SetImages[i].sprite == null)
             {
                 SetImages[i].sprite = MySprite;
+                Ingame_SetImages[i].sprite = MySprite;
+
                 data.EquipSkill.Add(MyId);  // 장착 정보 게임매니저한테 전달
                 break;
             }
@@ -80,6 +93,8 @@ public class BreathIcon : MonoBehaviour,
             if (SetImages[i].sprite == MySprite)
             {
                 SetImages[i].sprite = null; // 빈 슬롯 이미지 스프라이트로 대체 필요
+                Ingame_SetImages[i].sprite = null;
+
                 break;
             }
         }
@@ -102,11 +117,16 @@ public class BreathIcon : MonoBehaviour,
                     {
                         SetImages[i].sprite = SetImages[j].sprite;
                         SetImages[j].sprite = null;
+
+                        Ingame_SetImages[i].sprite = Ingame_SetImages[j].sprite;
+                        Ingame_SetImages[j].sprite = null;
+
                         break;
                     }
                 }
             }
         }
+
     }
     // 호버 관리
     public void OnPointerEnter(PointerEventData eventData)
