@@ -25,7 +25,7 @@ public class Interaction : MonoBehaviour
     private UnityEvent _playerInteraction;
     private GameObject _player;
     private GameManager _manager;
-
+    private GameDataManager _gameDataManager;
 
 
     private void Start()
@@ -35,8 +35,10 @@ public class Interaction : MonoBehaviour
 
         InteractionGuide.SetActive(false);
         SetPlayerInteraction();
-
-        isInteracted = Singleton.GameManager_Instance.Get<GameDataManager>().InteractionObjects[ID];
+        /*
+        if (_gameDataManager.InteractionObjects != null || _gameDataManager.InteractionObjects.Count > 0)
+            isInteracted = _gameDataManager.InteractionObjects[ID];
+        */
         if (!isInteracted)
             InitEvent.Invoke();
     }

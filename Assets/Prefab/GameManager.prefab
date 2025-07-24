@@ -57,7 +57,14 @@ MonoBehaviour:
   PlayerAbility: 
   Shops: []
   SpawnPoint: -1
-  allitems: []
+  allitems:
+  - {fileID: 11400000, guid: 9d1c06658ed149142b94b7fbe22fab27, type: 2}
+  - {fileID: 11400000, guid: 9a2817b73f76c9f46ad396c0752acfa5, type: 2}
+  - {fileID: 11400000, guid: f7dc47835518fb5498087a3024cf8a89, type: 2}
+  - {fileID: 11400000, guid: 9715dac4830c4f64dab91bb67197c01a, type: 2}
+  - {fileID: 11400000, guid: 8c893877ab8fe994389d6498fdd7b53a, type: 2}
+  - {fileID: 11400000, guid: 196805c410dc25e4592eb4d81b0e10ca, type: 2}
+  - {fileID: 11400000, guid: b53c22d6597cb734a8f77d6b71c92181, type: 2}
 --- !u!114 &7945981874679585505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,6 +80,7 @@ MonoBehaviour:
   GameDataManager: {fileID: 1672343321082536275}
   Player: {fileID: 0}
   CurrentSceneName: 
+  CurrentScenePointID: -1
 --- !u!114 &-5831135886237357416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,6 +95,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   defaultKeyBindings: {fileID: 11400000, guid: 2e5f571b29f0d024c885f607b5a1e32e, type: 2}
+  defaultMouse: 0
+  userMouse: 0
 --- !u!114 &7258978633776394569
 MonoBehaviour:
   m_ObjectHideFlags: 0

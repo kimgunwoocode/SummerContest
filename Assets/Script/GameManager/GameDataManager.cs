@@ -15,6 +15,9 @@ public class GameDataManager : MonoBehaviour
     public int Money = 0;
     public List<int> EquipSkill = new();
 
+    // 스킬 활용을 위한 변수 접근
+    public List<BreathItemData> EquipBreathItemData = new();
+
     public List<bool> PlayerAbility = new();
     public Dictionary<int, bool> PlayerSkill = new();
     public Dictionary<int, int> GettedItems = new();
@@ -29,8 +32,15 @@ public class GameDataManager : MonoBehaviour
 
     //Item Data
     public List<ItemData> allitems = new();
+    public Dictionary<int, ItemData> allitems_dic = new();
 
-
+    private void Start()
+    {
+        foreach(int ID in EquipSkill)
+        {
+            //EquipBreathItemData.Add(allitems_dic[ID]);
+        }
+    }
     public void LoadGameData(SaveData Data)
     {
         GameData = Data;

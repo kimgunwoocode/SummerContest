@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
@@ -6,12 +7,17 @@ public class GameManager : MonoBehaviour
     public GameDataManager GameDataManager;
     public GameObject Player;
     public string CurrentSceneName;
+    public int CurrentScenePointID = -1;
 
     private void Awake()
     {
         if (Player == null)
         {
             Player = GameObject.FindGameObjectWithTag("Player");
+        }
+        if (CurrentSceneName == null)
+        {
+            CurrentSceneName = SceneManager.GetActiveScene().name;
         }
     }
     private void Start()
