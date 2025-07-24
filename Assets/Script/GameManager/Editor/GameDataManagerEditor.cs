@@ -20,6 +20,12 @@ public class GameDataManagerEditor : Editor
     private void RegisterAllItems()
     {
         GameDataManager manager = (GameDataManager)target;
+        if (manager == null)
+        {
+            Debug.LogError("GameDataManager target is null");
+            return;
+        }
+
 
         // 1. 불러오기
         string[] guids = AssetDatabase.FindAssets("t:ItemData", new[] { "Assets/ItemData" });
