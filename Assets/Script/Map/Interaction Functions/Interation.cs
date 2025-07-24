@@ -31,14 +31,16 @@ public class Interaction : MonoBehaviour
     private void Start()
     {
         _manager = Singleton.GameManager_Instance.Get<GameManager>();
+        _gameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();
         _player = _manager.Player;
 
-        InteractionGuide.SetActive(false);
+        if (InteractionGuide != null)
+            InteractionGuide.SetActive(false);
         SetPlayerInteraction();
-        /*
-        if (_gameDataManager.InteractionObjects != null || _gameDataManager.InteractionObjects.Count > 0)
+
+        if (_gameDataManager.InteractionObjects != null && _gameDataManager.InteractionObjects.Count > 0)
             isInteracted = _gameDataManager.InteractionObjects[ID];
-        */
+        
         if (!isInteracted)
             InitEvent.Invoke();
     }
@@ -52,8 +54,9 @@ public class Interaction : MonoBehaviour
         if (other.CompareTag("Player") && isInteracted)
         {
             isPlayerNearby = true;
-            InteractionGuide.SetActive(true);
             _playerInteraction.AddListener(OnInteractPerformed);
+            if (InteractionGuide != null)
+                InteractionGuide.SetActive(true);
         }
     }
 
@@ -62,8 +65,9 @@ public class Interaction : MonoBehaviour
         if (other.CompareTag("Player") && isInteracted)
         {
             isPlayerNearby = false;
-            InteractionGuide.SetActive(false);
             _playerInteraction.RemoveListener(OnInteractPerformed);
+            if (InteractionGuide != null)
+                InteractionGuide.SetActive(false);
         }
     }
 
