@@ -99,6 +99,7 @@ public class EnemyEntity : MonoBehaviour
 
     public virtual void TakeDamage(int damageAmount, Vector2 attackerPosition)
     {
+        Debug.Log("attacked");
         lastDamageTime = Time.time;
 
         currentHP -= damageAmount;
