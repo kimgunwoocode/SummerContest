@@ -6,10 +6,15 @@ using static UnityEngine.InputSystem.InputActionRebindingExtensions;
 public class KeyManager : MonoBehaviour
 {
     [SerializeField] private InputActionAsset inputActions;
+
     [SerializeField] private DefaultKeyBindings defaultKeyBindings;
+    [SerializeField] private Dictionary<string, bool> defaultToggle;
+    [SerializeField] private float defaultMouse;
 
-
-    public Dictionary<string, string> userBindings = new();
+    // 설정 변수
+    public Dictionary<string, string> userBindings = new(); //키 설정
+    public Dictionary<string, bool> userToggles = new(); //토글 설정
+    public float userMouse;//마우스 감도 설정
 
 
     #region Init Bindings
