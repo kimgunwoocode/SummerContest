@@ -16,7 +16,7 @@ public class GameDataManager : MonoBehaviour
     public List<int> EquipSkill = new();
 
     // 스킬 활용을 위한 변수 접근
-    public List<BreathItemData> EquipBreathItemData = new();
+    //public List<BreathItemData> EquipBreathItemData = new();
 
     public List<bool> PlayerAbility = new();
     public Dictionary<int, bool> PlayerSkill = new();
@@ -36,10 +36,13 @@ public class GameDataManager : MonoBehaviour
 
     private void Start()
     {
+        /*
+        // 세이브파일에서 장착중인 브레스 스킬 정보를 실제 데이터에 적용하기
         foreach(int ID in EquipSkill)
         {
-            //EquipBreathItemData.Add(allitems_dic[ID]);
+            EquipBreathItemData.Add(allitems_dic[ID] as BreathItemData);
         }
+        */
     }
     public void LoadGameData(SaveData Data)
     {

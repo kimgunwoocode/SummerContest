@@ -36,6 +36,7 @@ public class Interaction : MonoBehaviour
 
         if (InteractionGuide != null)
             InteractionGuide.SetActive(false);
+
         SetPlayerInteraction();
 
         if (_gameDataManager.InteractionObjects != null && _gameDataManager.InteractionObjects.Count > 0)

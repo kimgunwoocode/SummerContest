@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3300130768209081801}
   - component: {fileID: 2539561975914596779}
   - component: {fileID: 1822949753770393078}
-  - component: {fileID: 2176643816808993749}
+  - component: {fileID: 8386090345121624519}
   m_Layer: 0
-  m_Name: Nomal Breath
+  m_Name: Shot Breath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,7 +98,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2176643816808993749
+--- !u!114 &8386090345121624519
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,14 +107,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1031574556157267817}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1962c80493d11f04c8c1109c13d87b6c, type: 3}
+  m_Script: {fileID: 11500000, guid: b408ab9fa6eea9d4cb18acdf3425d654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  hitLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  rb: {fileID: 1822949753770393078}
+  bulletPrefab: {fileID: 1031574556157267817, guid: 22fb5e32e4bd65d42a985cd844b0d49a, type: 3}
+  spreadAngle: 30
+  bulletCount: 4
+  shotSpeed: 5
 --- !u!1 &8599979335218973077
 GameObject:
   m_ObjectHideFlags: 0

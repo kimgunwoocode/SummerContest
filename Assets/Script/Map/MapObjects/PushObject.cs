@@ -5,6 +5,7 @@ public class PushObject : MonoBehaviour
     public int ID;
     public Vector2 position;
 
+    GameDataManager gameDataManager;
     private Rigidbody2D rb;
     private bool isPlayerTouching = false;
 
@@ -15,7 +16,9 @@ public class PushObject : MonoBehaviour
 
     private void Start()
     {
-        gameObject.transform.position = Singleton.GameManager_Instance.Get<GameDataManager>().PushObjects[ID];
+        gameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();
+        if (gameDataManager.PushObjects != null && gameDataManager.PushObjects.Count > 0)
+            gameObject.transform.position = gameDataManager.PushObjects[ID];
     }
 
     void FixedUpdate()

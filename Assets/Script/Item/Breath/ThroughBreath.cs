@@ -1,13 +1,16 @@
-ï»¿using UnityEngine;
+using UnityEngine;
+using System.Collections.Generic;
 
-public class NomalBreath : BreathObject
+public class ThroughBreath : BreathObject
 {
     public float speed;
-    [Header("ë¶€ë”ªí˜€ ì‚¬ë¼ì§€ê²Œ í•  ë ˆì´ì–´")]
+    [Header("ºÎµúÇô »ç¶óÁö°Ô ÇÒ ·¹ÀÌ¾î")]
     [SerializeField] private LayerMask hitLayers;
 
     [Space]
     public Rigidbody2D rb;
+
+    List<EnemyEntity> enemys = new();
 
     private void Awake()
     {
@@ -26,8 +29,12 @@ public class NomalBreath : BreathObject
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<EnemyEntity>()?.TakeDamage(Singleton.GameManager_Instance.Get<GameDataManager>().ATK, transform.position);
-            Destroy(gameObject);
+            EnemyEntity enemy = collision.GetComponent<EnemyEntity>();
+            if (!enemys.Contains(enemy))
+            {
+                enemy?.TakeDamage(Singleton.GameManager_Instance.Get<GameDataManager>().ATK, transform.position);
+                enemys.Add(enemy);
+            }
         }
         else if (((1 << collision.gameObject.layer) & hitLayers) != 0)
         {

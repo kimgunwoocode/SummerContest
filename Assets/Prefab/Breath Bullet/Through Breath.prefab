@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3300130768209081801}
   - component: {fileID: 2539561975914596779}
   - component: {fileID: 1822949753770393078}
-  - component: {fileID: 2176643816808993749}
+  - component: {fileID: 4189784208311476925}
   m_Layer: 0
-  m_Name: Nomal Breath
+  m_Name: Through Breath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,7 +98,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2176643816808993749
+--- !u!114 &4189784208311476925
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,14 +107,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1031574556157267817}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1962c80493d11f04c8c1109c13d87b6c, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d5a73dff9b1f5a46a4340da8f023392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
   hitLayers:
     serializedVersion: 2
     m_Bits: 0
-  rb: {fileID: 1822949753770393078}
+  rb: {fileID: 0}
 --- !u!1 &8599979335218973077
 GameObject:
   m_ObjectHideFlags: 0
