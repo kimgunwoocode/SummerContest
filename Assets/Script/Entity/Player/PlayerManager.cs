@@ -2,13 +2,18 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
-public class PlayerManager : AbstractEntity {
+public class PlayerManager : MonoBehaviour {
     private PlayerInput_Action _inputActions;
     private Rigidbody2D _rb;
 
     [Header("Stats")]
     [SerializeField] internal ScriptablePlayerMovementStats playerMovementStats;
     [SerializeField] internal ScriptablePlayerAttackStats playerAttackStats;
+    
+    [Space(30)]
+    [Header("camera")]
+    [SerializeField] private Camera cam;
+    private Vector3 _mousePosition;
 
     private PlayerMovement _movement;
     private PlayerAttack _attack;
@@ -22,8 +27,11 @@ public class PlayerManager : AbstractEntity {
 
     private void Awake() {
         _rb = GetComponent<Rigidbody2D>();
+
         _movement = GetComponent<PlayerMovement>();
         _interaction = GetComponent<PlayerInteraction>();
+        _attack = GetComponent<PlayerAttack>();
+        _anima = GetComponent<PlayerAnimation>();
     }
 
     private void Start() {
@@ -32,6 +40,9 @@ public class PlayerManager : AbstractEntity {
         if (_attack == null) Debug.LogError("PlayerAttack component must exist on this object");
         if (_movement == null) Debug.LogError("PlayerMovement component must exist on this object");
         if (_interaction == null) Debug.LogError("PlayerInteraction component must exist on this object");
+        if (_anima == null) Debug.LogError("Missing required component: PlayerAnimation");
+        if (playerMovementStats == null) Debug.LogError("Missing required component: PlayerMovementStats");
+        if (playerAttackStats == null) Debug.LogError("Missing required component: PlayerAttackStats");
 
 
         _maxHealth = _data.MaxHP;
@@ -57,6 +68,8 @@ public class PlayerManager : AbstractEntity {
 
         _inputActions.Player.Interact.performed += _interaction.OnInteraction;
 
+        _inputActions.Player.Attack.performed += Attack;
+
         _inputActions.Player.Enable();
     }
 
@@ -77,19 +90,33 @@ public class PlayerManager : AbstractEntity {
 
         _inputActions.Player.Interact.performed -= _interaction.OnInteraction;
 
+        _inputActions.Player.Attack.performed += Attack;
+
         _inputActions.Player.Disable();
     }
 
-    public override void Attack() {
+    public void Attack(InputAction.CallbackContext context) {
+        _attack.MeleeAttack((_mousePosition - transform.position).normalized);
     }
 
-    protected override void Move() {
+    protected void Move() {
         //rb.linearVelocity = movement.ApplyMove();
     }
 
     
     public void TakeDamage(int damage, int hitDir){
+        Debug.Log("Player has been damaged");
+    }
 
+    public void TakeDamage(int damage, Vector3 hitDir) {
+        _currentHealth -= damage;
+
+        if (_currentHealth <= 0) {
+            Die();
+            return;
+        }
+
+        Knockback(hitDir.x > 0 ? 1 : -1);
     }
 
     private void Die(){
@@ -126,7 +153,7 @@ public class PlayerManager : AbstractEntity {
     }
 
     private void Update() {
-
+        _mousePosition = cam.WorldToScreenPoint(Mouse.current.position.ReadValue());
     }
 
 
