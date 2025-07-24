@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
-[RequireComponent(typeof(PlayerMovement), typeof(PlayerInteraction), typeof(PlayerAttack))]
 public class PlayerManager : AbstractEntity {
     private PlayerInput_Action _inputActions;
     private Rigidbody2D _rb;
@@ -30,6 +29,10 @@ public class PlayerManager : AbstractEntity {
     private void Start() {
         _data = Singleton.GameManager_Instance.Get<GameDataManager>();
         if (_data == null) Debug.LogError("Can't found GameDataManager at GameManager");
+        if (_attack == null) Debug.LogError("PlayerAttack component must exist on this object");
+        if (_movement == null) Debug.LogError("PlayerMovement component must exist on this object");
+        if (_interaction == null) Debug.LogError("PlayerInteraction component must exist on this object");
+
 
         _maxHealth = _data.MaxHP;
         _currentHealth = _data.CurrentHP;
