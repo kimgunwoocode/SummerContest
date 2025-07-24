@@ -3,7 +3,8 @@ using UnityEngine.PlayerLoop;
 
 public class PlayerDetectedState : State
 {
-    [SerializeField] protected float longRangeActionTime = 1.5f;
+    [SerializeField, Tooltip("플레이어 발견 후 공격 준비 시간. 시간 내에 플레이어가 범위를 벗어나면 공격하지 않습니다.")]
+    protected float longRangeActionTime = 1.5f;
 
     protected bool isPlayerMinRange;
     protected bool isPlayerMaxRange;

@@ -2,15 +2,18 @@ using UnityEngine;
 
 public class KnockbackState : State
 {
-    [SerializeField] protected float knockbackTime = 0.2f;
-    [SerializeField] protected float knockbackSpeed = 3f;
-    [SerializeField] protected Vector2 knockbackAngle = new Vector2(2f, 4f);
+    [SerializeField] protected float knockbackPower = 3f;
+
+    [SerializeField, Tooltip("넉백 방향 각도. x는 수평, y는 수직 방향으로 넉백이 적용됩니다.")]
+    protected Vector2 knockbackAngle = new Vector2(2f, 4f);
 
     protected bool isKnockbackOver;
     protected bool isGround;
     protected bool isMovementStopped;
     protected bool performCloseRangeAction;
     protected bool isPlayerMinRange;
+
+    protected float knockbackTime = 0.2f;
 
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
@@ -34,7 +37,7 @@ public class KnockbackState : State
 
         isKnockbackOver = false;
         isMovementStopped = false;
-        enemy.SetVelocity(knockbackSpeed, knockbackAngle, enemy.lastDamageDirection);
+        enemy.SetVelocity(knockbackPower, knockbackAngle, enemy.lastDamageDirection);
     }
 
     public override void Exit()

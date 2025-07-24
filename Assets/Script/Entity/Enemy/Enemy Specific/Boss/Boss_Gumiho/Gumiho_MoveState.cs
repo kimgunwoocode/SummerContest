@@ -28,9 +28,10 @@ public class Gumiho_MoveState : Boss_MoveState
             }
             else // 2 Phase
             {
-
+                // 근접 공격 페이스 2 패턴
             }
         }
+        // else if 원거리 공격 범위
 
     }
 
@@ -52,15 +53,15 @@ public class Gumiho_MoveState : Boss_MoveState
     void ChoosePhase1Attack()
     {
         // 0부터 3까지의 정수 중 하나를 무작위로 선택
-        int randomNumber = Random.Range(0, 4); // 0, 1, 2, 3
+        int randomNumber = Random.Range(0, 4);
 
         if (randomNumber >= 0 && randomNumber <= 2) // 0, 1, 2 (3가지 경우)
         {
-            stateMachine.ChangeState(gumiho.ClawAttackState);
+            stateMachine.ChangeState(gumiho.ClawAttackState); // 발톱 할퀴기 실행
         }
         else // 3 (1가지 경우)
         {
-            stateMachine.ChangeState(gumiho.TailAttackState);
+            stateMachine.ChangeState(gumiho.TailAttackState); // 꼬리치기 실행
         }
     }
 

@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class DeadState : State
 {
-   [SerializeField] protected GameObject deathChunkParticle;
-   [SerializeField] protected GameObject deathBloodParticle;
+    [SerializeField, Tooltip("파편이 생성되는 파티클.")] 
+    protected GameObject deathChunkParticle;
+
+    [SerializeField, Tooltip("혈흔이 생성되는 파티클.")] 
+    protected GameObject deathBloodParticle;
 
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {

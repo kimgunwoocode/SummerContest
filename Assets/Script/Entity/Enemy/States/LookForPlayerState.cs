@@ -1,8 +1,12 @@
 using UnityEngine;
 
+/// <summary>
+/// 적이 뒤에 있는 플레이어를 감지하고, 플레이어를 향해 돌아서는 상태.
+/// </summary>
 public class LookForPlayerState : State
 {
-    [SerializeField] protected float delayTime = 0.2f;
+    [SerializeField, Tooltip("플레이어를 감지하고 발견 상태로 전환하기까지의 딜레이 시간.")]
+    protected float delayTime = 0.2f;
 
     protected bool isPlayerMinRange;
     protected bool isPlayerBehind;

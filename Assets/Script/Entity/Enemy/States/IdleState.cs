@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class IdleState : State
 {
-    [SerializeField] float minIdleTime = 1f;
-    [SerializeField] float maxIdleTime = 1f;
+    [SerializeField, Tooltip("최소 idle 상태 시간. 최소 값과 최대 값 사이에서 랜덤으로 idle 시간이 결정됩니다.")]
+    float minIdleTime = 1f;
+    
+    [SerializeField, Tooltip("최대 idle 상태 시간. 최소 값과 최대 값 사이에서 랜덤으로 idle 시간이 결정됩니다.")]
+    float maxIdleTime = 1f;
 
     protected bool flipAfterIdle;
     protected bool isIdleTimeOver;
