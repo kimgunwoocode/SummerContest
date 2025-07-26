@@ -42,6 +42,9 @@ MonoBehaviour:
   wallCheckDistance: 0.6
   groundCheckDistance: 0.1
   ceilingCheckDistance: 0.1
-  groundLayer:
-    serializedVersion: 2
+  groundLayers:
+  - serializedVersion: 2
     m_Bits: 8
+  passableLayers:
+  - serializedVersion: 2
+    m_Bits: 512

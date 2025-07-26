@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using System;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class PlayerMovement : MonoBehaviour
@@ -229,8 +230,16 @@ public class PlayerMovement : MonoBehaviour
 
     private bool CheckGround()
     {
-        return Physics2D.OverlapBox(groundCheckerTransform.position - new Vector3(0, _movementStats.ceilingCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _movementStats.ceilingCheckDistance / 2), 0f, _movementStats.groundLayer);
-        //_isGrounded = Physics2D.OverlapCircle(groundCheckerTransform.position, groundCheckDistance, groundLayer);
+        LayerMask checkGround = 0; //00000000
+
+        foreach(LayerMask groundLayer in _movementStats.groundLayers) 
+            checkGround |= groundLayer;
+        foreach (LayerMask passableLayer in _movementStats.passableLayers)
+            checkGround |= passableLayer;
+        
+        return Physics2D.OverlapBox(groundCheckerTransform.position - new Vector3(0, _movementStats.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _movementStats.groundCheckDistance / 2), 0f, checkGround);
+        
+        
 
     }
     private bool CheckWall()
@@ -239,18 +248,24 @@ public class PlayerMovement : MonoBehaviour
 
         foreach (Transform point in wallRaycastPoints)
         {
-            RaycastHit2D hit = Physics2D.Raycast(point.position, rayCastDir, _movementStats.wallCheckDistance, _movementStats.groundLayer);
-            //                                                                                        ^^^^^^^^^^^^^^^^^^^^  it's because the wall functions as the ground
-            if (hit.collider != null)
-            {
-                return true;
+            foreach (LayerMask groundLayer in _movementStats.groundLayers) {
+                RaycastHit2D hit = Physics2D.Raycast(point.position, rayCastDir, _movementStats.wallCheckDistance, groundLayer);
+                //                                                                                        ^^^^^^^^^^^^^^^^^^^^  it's because the wall functions as the ground
+                if (hit.collider != null) {
+                    return true;
+                }
             }
         }
         return false;
     }
 
     private bool CheckCeiling() {
-        return Physics2D.OverlapBox(ceilingCheckerTransform.position + new Vector3(0, _movementStats.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _movementStats.groundCheckDistance / 2), 0f, _movementStats.groundLayer);
+        LayerMask checkCeiling = 0; //00000000
+
+        foreach (LayerMask groundLayer in _movementStats.groundLayers)
+            checkCeiling |= groundLayer;
+
+        return Physics2D.OverlapBox(ceilingCheckerTransform.position + new Vector3(0, _movementStats.ceilingCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _movementStats.ceilingCheckDistance / 2), 0f, checkCeiling);
     }
 
     #endregion

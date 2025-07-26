@@ -44,5 +44,6 @@ public class ScriptablePlayerMovementStats : ScriptableObject {
     public float groundCheckDistance = 0.1f;
     public float ceilingCheckDistance = 0.1f;
     
-    public LayerMask groundLayer;
+    public LayerMask[] groundLayers;
+    public LayerMask[] passableLayers;
 }
