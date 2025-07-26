@@ -1,20 +1,27 @@
-using UnityEngine;
+ï»¿using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class BreakableWall : MonoBehaviour
+public class BreakableWall : EnemyEntity
 {
-    [SerializeField] private DollyCamera dollyCamera; // ÀÎ½ºÆåÅÍ¿¡¼­ ¿¬°áÇÏ°Å³ª ÀÚµ¿ Ã£±â
-    [SerializeField] private int targetStageIndex = 1;
+    // ì¸ìŠ¤í™í„°ì°½ì— ë³€ìˆ˜ ë³´ì´ê²Œ í•˜ë ¤ë©´ BreakableWallEditor ìŠ¤í¬ë¦½íŠ¸ì—ì„œ ì„¤ì •í•˜ê¸°
 
-    private void OnTriggerEnter2D(Collider2D other)
+
+    public void init()
     {
-        // ÇÃ·¹ÀÌ¾î¸¸ °¨ÁöÇÏ°í ½Í´Ù¸é ÅÂ±×³ª ÀÌ¸§ Á¶°Ç Ãß°¡ °¡´É
-        if (other.CompareTag("Player"))
-        {
-            if (dollyCamera != null)
-            {
-                dollyCamera.SetStageIndex(targetStageIndex);
-                // Debug.Log($"Stage index changed to {targetStageIndex}");
-            }
-        }
+        Destroy(gameObject);
     }
+    public override void TakeDamage(int damageAmount, Vector2 attackerPosition)
+    {
+        // ì• ë‹ˆë©”ì´ì…˜, ì‚¬ìš´ë“œ ì¶”ê°€
+        Destroy(gameObject);
+    }
+
+
+    #region overide
+    protected override void Awake() { }
+    protected override void Start() { }
+    protected override void Update() { }
+    protected override void FixedUpdate() { }
+    public override void OnDrawGizmos() { }
+    #endregion
 }

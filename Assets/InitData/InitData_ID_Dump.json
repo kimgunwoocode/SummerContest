@@ -25,6 +25,17 @@
         {
             "ID": 4001,
             "Type": "Interaction",
+            "Name": "BreakableWall",
+            "Position": {
+                "x": 27.56999969482422,
+                "y": 2.9000000953674318,
+                "z": 5.0
+            },
+            "Scene": "1-1_ForgottenNest"
+        },
+        {
+            "ID": 4002,
+            "Type": "Interaction",
             "Name": "InterationObject",
             "Position": {
                 "x": 26.626773834228517,
@@ -34,7 +45,7 @@
             "Scene": "1-1_ForgottenNest"
         },
         {
-            "ID": 4002,
+            "ID": 4003,
             "Type": "Interaction",
             "Name": "InterationObject",
             "Position": {
@@ -45,7 +56,7 @@
             "Scene": "1-1_ForgottenNest"
         },
         {
-            "ID": 4003,
+            "ID": 4004,
             "Type": "Interaction",
             "Name": "InterationObject",
             "Position": {
@@ -56,7 +67,7 @@
             "Scene": "1-1_ForgottenNest"
         },
         {
-            "ID": 4004,
+            "ID": 4005,
             "Type": "Interaction",
             "Name": "InterationObject",
             "Position": {
@@ -67,7 +78,7 @@
             "Scene": "1-1_ForgottenNest"
         },
         {
-            "ID": 4005,
+            "ID": 4006,
             "Type": "Interaction",
             "Name": "InterationObject",
             "Position": {
@@ -76,24 +87,13 @@
                 "z": 0.0
             },
             "Scene": "1-1_ForgottenNest"
-        },
-        {
-            "ID": 5001,
-            "Type": "PushObject",
-            "Name": "PushObject",
-            "Position": {
-                "x": 13.0,
-                "y": -9.0,
-                "z": 0.0
-            },
-            "Scene": "1-2_FoxForest"
         }
     ],
     "Summary": {
         "TotalMainSavePoints": 1,
         "TotalSemiSavePoints": 1,
         "TotalShops": 0,
-        "TotalInteractions": 5,
-        "TotalPushObjects": 1
+        "TotalInteractions": 6,
+        "TotalPushObjects": 0
     }
 }
