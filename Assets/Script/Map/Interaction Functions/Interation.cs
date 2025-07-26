@@ -32,7 +32,10 @@ public class Interaction : MonoBehaviour
     {
         _manager = Singleton.GameManager_Instance.Get<GameManager>();
         _gameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();
-        _player = _manager.Player;
+        if (_player == null)
+        {
+            _player = GameObject.FindGameObjectWithTag("Player");
+        }
 
         if (InteractionGuide != null)
             InteractionGuide.SetActive(false);

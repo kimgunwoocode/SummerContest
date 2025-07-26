@@ -4,14 +4,17 @@ public class MoveScenePoint : MonoBehaviour
 {
     public int PointID;
 
-    GameManager manager;
+    GameObject Player;
 
-    private void Start()
+    private void Awake()
     {
-        manager = Singleton.GameManager_Instance.Get<GameManager>();
-        if (manager.CurrentScenePointID == PointID)
+        if (Player == null)
         {
-            manager.Player.transform.position = gameObject.transform.position;
+            Player = GameObject.FindGameObjectWithTag("Player");
+        }
+        if (Singleton.GameManager_Instance?.Get<GameManager>().CurrentScenePointID == PointID)
+        {
+            Player.transform.position = gameObject.transform.position;
         }
     }
 }

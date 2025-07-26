@@ -43,13 +43,13 @@ public class CameraManager : MonoBehaviour
         if (_target != null)
         {
             _smoothedFollowPos = _target.position;
+            Vector3 startCamPos = CalculateClampedCameraPosition(_smoothedFollowPos);
+            transform.position = startCamPos;
         }
     }
 
     private void FixedUpdate()
     {
-        if (_target == null || _currentBounds == null || Mouse.current == null) return;
-
         Vector3 playerPos = _target.position;
         float dx = Mathf.Abs(playerPos.x - _smoothedFollowPos.x);
         float dy = Mathf.Abs(playerPos.y - _smoothedFollowPos.y);
@@ -110,11 +110,31 @@ public class CameraManager : MonoBehaviour
             transform.position = newCamPos;
         }
 
-        // Zoom transition
+        // 줌 인아웃 관련
         if (_cam.orthographicSize != _targetZoom)
         {
             _cam.orthographicSize = Mathf.Lerp(_cam.orthographicSize, _targetZoom, _zoomSpeed * Time.fixedDeltaTime);
         }
+    }
+    private Vector3 CalculateClampedCameraPosition(Vector3 desiredPos)
+    {
+        Vector2 camSize = GetCameraWorldSize();
+        Bounds bounds = _currentBounds.bounds;
+        Vector3 boundsCenter = bounds.center;
+
+        bool lockX = camSize.x >= bounds.size.x;
+        bool lockY = camSize.y >= bounds.size.y;
+
+        Vector3 newCamPos = desiredPos;
+
+        if (lockX) newCamPos.x = boundsCenter.x;
+        else newCamPos.x = Mathf.Clamp(desiredPos.x, bounds.min.x + camSize.x / 2f, bounds.max.x - camSize.x / 2f);
+
+        if (lockY) newCamPos.y = boundsCenter.y;
+        else newCamPos.y = Mathf.Clamp(desiredPos.y, bounds.min.y + camSize.y / 2f, bounds.max.y - camSize.y / 2f);
+
+        newCamPos.z = _offset.z;
+        return newCamPos;
     }
 
     private Vector2 GetCameraWorldSize()

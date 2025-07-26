@@ -30,28 +30,17 @@ public class PushObject : MonoBehaviour
         position = gameObject.transform.position;
     }
 
-    void OnCollisionStay2D(Collision2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !isPlayerTouching)
         {
-            foreach (ContactPoint2D contact in collision.contacts)
-            {
-                Vector2 normal = contact.normal.normalized;
-
-                if (Mathf.Abs(normal.x) > 0.5f)
-                {
-                    isPlayerTouching = true;
-                    return;
-                }
-            }
-
-            isPlayerTouching = false;
+            isPlayerTouching = true;
         }
     }
 
-    void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
             isPlayerTouching = false;
         }
