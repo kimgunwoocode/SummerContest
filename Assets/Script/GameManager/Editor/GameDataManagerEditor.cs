@@ -3,19 +3,15 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Unity.VisualScripting;
 
-[CustomEditor(typeof(GameDataManager))]
-public class GameDataManagerEditor : Editor
+[CustomEditor(typeof(AllItems))]
+public class AllItemsEditor : Editor
 {
-    private const string GameManagerPrefabPath = "Assets/Prefab/GameManager.prefab";
-
-
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
 
-        if (GUILayout.Button("아이템 등록"))
+        if (GUILayout.Button("아이템 자동 등록"))
         {
             RegisterAllItems();
         }
@@ -23,16 +19,16 @@ public class GameDataManagerEditor : Editor
 
     private void RegisterAllItems()
     {
-        GameDataManager manager = (GameDataManager)target;
-        if (manager == null)
+        AllItems AllItems_ScriptableObject = (AllItems)target;
+        if (AllItems_ScriptableObject == null)
         {
-            Debug.LogError("GameDataManager target is null");
+            Debug.LogError("AllItems ScriptableObject를 찾을 수 없습니다.");
             return;
         }
 
-        Undo.RecordObject(manager, "Register All Items to GameDtataManager Prefab"); // 되돌리기 목록에 추가
+        Undo.RecordObject(AllItems_ScriptableObject, "AllItems 자동 등록");
 
-        // 1. Assets/ItemData 하위에서 모든 ItemData SO 불러오기
+
         string[] guids = AssetDatabase.FindAssets("t:ItemData", new[] { "Assets/ItemData" });
 
         List<ItemData> foundItems = new();
@@ -47,41 +43,33 @@ public class GameDataManagerEditor : Editor
 
             if (item != null && item.itemID != 0)
             {
-                if (seenIDs.Contains(item.itemID))
+                if (!seenIDs.Add(item.itemID))
                 {
                     duplicateIDs.Add(item.itemID);
-                    Debug.LogError($"[중복 ID 감지] itemID {item.itemID} - 파일 경로: {path}");
-                    continue; // 중복된 항목은 등록하지 않음
+                    Debug.Log($"[중복 ID 감지] itemID {item.itemID} - 경로: {path}");
+                    continue;
                 }
 
-                seenIDs.Add(item.itemID);
                 foundItems.Add(item);
                 allitems_dic[item.itemID] = item;
             }
         }
 
-        // 2. itemID 기준 정렬
         foundItems = foundItems.OrderBy(item => item.itemID).ToList();
 
-        // 3. GameDataManager에 할당
-        Undo.RecordObject(manager, "아이템 자동 등록");
-        manager.allitems.allitems = foundItems;
-        manager.allitems.allitems_dic = allitems_dic;
-        manager.Log_allitems_dic();
-        //Debug.Log("manager : "+manager.allitems_dic.Count+" editor : "+allitems_dic.Count);
-        EditorUtility.SetDirty(manager);
+        // ScriptableObject에 반영
+        AllItems_ScriptableObject.allitems = foundItems;
+        AllItems_ScriptableObject.allitems_dic = allitems_dic;
 
-        // 4. 로그 출력
-        Debug.Log($"[GameDataManagerEditor] 총 {foundItems.Count}개의 아이템이 등록되었습니다.");
-        Debug.LogWarning($"[GameDataManagerEditor] {guids.Length - foundItems.Count}개의 아이템이 제외되었습니다. (itemID가 초기화되지 않아 0 이거나 중복된 itemeID)");
+        EditorUtility.SetDirty(AllItems_ScriptableObject);
+        AssetDatabase.SaveAssets();
 
+        // 로그 출력
+        Debug.Log($"[AllItemsEditor] 총 {foundItems.Count}개의 아이템이 등록되었습니다.");
         if (duplicateIDs.Count > 0)
         {
             string dupText = string.Join(", ", duplicateIDs.Distinct());
-            Debug.LogError($"[GameDataManagerEditor] 중복된 itemID 감지: {dupText}");
+            Debug.LogError($"[AllItemsEditor] 중복된 itemID 감지: {dupText}");
         }
-
-        EditorUtility.SetDirty(manager);
-        EditorUtility.SetDirty(manager.gameObject); // 변경사항 존재 표시하기
     }
 }

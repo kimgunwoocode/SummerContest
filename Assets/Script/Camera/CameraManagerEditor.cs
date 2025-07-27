@@ -56,7 +56,6 @@ public class CameraManagerEditor : Editor
             so.ApplyModifiedProperties();
 
             EditorUtility.SetDirty(camManager);
-            Debug.Log("카메라 바운드가 자동으로 할당되었습니다.");
         }
     }
 }

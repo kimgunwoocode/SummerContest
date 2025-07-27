@@ -189,11 +189,13 @@ public class MapTool : EditorWindow
     {
         var finalMapData = new MapData();
 
+        //-------------------------------------------------------------------ID 명명 규칙------------------------------------------------------------------------
         int semiID = 1001;
         int mainID = 2001;
         int shopID = 3001;
         int interactionID = 4001;
         int pushObjectID = 5001;
+        //-------------------------------------------------------------------ID 명명 규칙------------------------------------------------------------------------
 
         int totalMain = 0, totalSemi = 0, totalShop = 0, totalInteraction = 0, totalPushObject = 0;
 
@@ -357,10 +359,6 @@ public class MapTool : EditorWindow
         {
             GameObject gameManagerPrefab = PrefabUtility.LoadPrefabContents(gameManagerPrefabPath);
             GameObject gameManagerAsset = AssetDatabase.LoadAssetAtPath<GameObject>(gameManagerPrefabPath);
-            
-            //Debug.Log("원본 확인 ID : " + PrefabUtility.LoadPrefabContents(gameManagerPrefabPath).GetInstanceID()+ " : " + gameManagerPrefab.GetInstanceID() + " , " + AssetDatabase.LoadAssetAtPath<GameObject>(gameManagerPrefabPath).GetInstanceID() + " : " + gameManagerAsset.GetInstanceID());
-            Debug.Log("prefab 접근 : " + gameManagerPrefab.GetComponent<GameDataManager>().GettedItems.Count);
-            Debug.Log("asset 접근 : " + gameManagerAsset.GetComponent<GameDataManager>().GettedItems.Count);
 
             if (gameManagerPrefab == null)
             {

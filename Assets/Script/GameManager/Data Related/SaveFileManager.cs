@@ -279,6 +279,8 @@ public static class SaveFileManager
         Debug.Log("InitData가 슬롯 0번에 저장되었습니다.");
     }
 
+    // 디버깅 기능이 SaveInitDataToSlot0와 겹쳐서 그냥 안씀
+    /*
     [MenuItem("Tools/Check InitData PlayerData 내용 확인")]
     public static void LogInitDataPlayerInfo()
     {
@@ -305,4 +307,5 @@ public static class SaveFileManager
         foreach (var kv in pd.GettedItems)
             Debug.Log($"   - GettedItems[{kv.Key}] = {kv.Value}");
     }
+    */
 }

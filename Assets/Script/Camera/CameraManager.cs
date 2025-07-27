@@ -42,15 +42,17 @@ public class CameraManager : MonoBehaviour
         _targetZoom = _cam.orthographicSize;
         SetStageIndex(_stageIndex);
 
+        GameManager = Singleton.GameManager_Instance.Get<GameManager>();
+        _stageIndex = GameManager.CurrentStartSceneCameraArea;
+    }
+    private void Start()
+    {
         if (_target != null)
         {
             _smoothedFollowPos = _target.position;
             Vector3 startCamPos = CalculateClampedCameraPosition(_smoothedFollowPos);
             transform.position = startCamPos;
         }
-
-        GameManager = Singleton.GameManager_Instance.Get<GameManager>();
-        _stageIndex = GameManager.CurrentStartSceneCameraArea;
     }
 
     private void FixedUpdate()

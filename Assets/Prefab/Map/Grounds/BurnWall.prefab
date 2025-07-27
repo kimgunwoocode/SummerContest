@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 7406036366864112762}
   - component: {fileID: 5325527500429782734}
   - component: {fileID: 7437006958154428589}
-  m_Layer: 0
+  - component: {fileID: 377353741694687534}
+  m_Layer: 3
   m_Name: BurnWall
-  m_TagString: Untagged
+  m_TagString: BurnWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,3 +148,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ac9c74d61c2fb4b8369bcba1c63aea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &377353741694687534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524236343976882212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef30d09af36b24846ad595ae5b7ac2a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: 
+  InitEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7437006958154428589}
+        m_TargetAssemblyTypeName: BurnWall, Assembly-CSharp
+        m_MethodName: init
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  InteractEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  ID: 0
+  isInteracted: 1
+  InteractionGuide: {fileID: 0}

@@ -3,7 +3,6 @@
 public class PushObject : MonoBehaviour
 {
     public int ID;
-    public Vector2 position;
 
     GameDataManager gameDataManager;
     private Rigidbody2D rb;
@@ -17,8 +16,12 @@ public class PushObject : MonoBehaviour
     private void Start()
     {
         gameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();
-        if (gameDataManager.PushObjects != null && gameDataManager.PushObjects.Count > 0)
+        if (gameDataManager.PushObjects != null && gameDataManager.PushObjects.ContainsKey(ID))
             gameObject.transform.position = gameDataManager.PushObjects[ID];
+        else
+        {
+            Debug.LogError("PushObject가 등록되지 않음 (ID : " + ID + " )");
+        }
     }
 
     void FixedUpdate()
@@ -27,7 +30,7 @@ public class PushObject : MonoBehaviour
         {
             rb.linearVelocity = Vector2.zero;
         }
-        position = gameObject.transform.position;
+        gameDataManager.PushObjects[ID] = gameObject.transform.position;
     }
 
     private void OnTriggerStay2D(Collider2D collision)

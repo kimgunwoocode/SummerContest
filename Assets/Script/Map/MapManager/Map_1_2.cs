@@ -14,7 +14,7 @@ public class Map_1_2 : MonoBehaviour
         CameraManager.SetStageIndex(index);
     }
 
-    public void SetZoom(int size)
+    public void SetZoom(float size)
     {
         CameraManager.SetZoom(size, 5f);
     }
