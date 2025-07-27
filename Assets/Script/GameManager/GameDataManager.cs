@@ -15,8 +15,11 @@ public class GameDataManager : MonoBehaviour
     public int Money = 0;
     public List<int> EquipSkill = new();
 
-    // 스킬 활용을 위한 변수 접근
-    //public List<BreathItemData> EquipBreathItemData = new();
+    [Space]
+    [Header("브레스 게이지 회복 속도 설정")]
+    // 저장하는 변수 X --> 그냥 내부 시스템으로 고정할거임. 필요하면 그 때 아이템 정보 가져와서 따로 계산하기
+    public float BreathFillSpeed = 0.1f;
+    [Space]
 
     public List<bool> PlayerAbility = new();
     public Dictionary<int, bool> PlayerSkill = new();

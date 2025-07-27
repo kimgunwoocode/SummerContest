@@ -53,8 +53,24 @@ public class GameManager : MonoBehaviour
     }
 
 
+    private void Update()
+    {
+        FillBreathGauge_byUpdate();// 브레스 게이지 회복
+    }
 
 
+
+
+
+    private void FillBreathGauge_byUpdate()
+    {
+        if (GameDataManager.CurrentBreathGauge < GameDataManager.MaxBreathGauge)
+        {
+            GameDataManager.CurrentBreathGauge += GameDataManager.BreathFillSpeed * Time.deltaTime;
+        }
+        else if (GameDataManager.CurrentBreathGauge > GameDataManager.MaxBreathGauge)
+            GameDataManager.CurrentBreathGauge = GameDataManager.MaxBreathGauge;
+    }
 
 
     public void PlayerDie()//플레이어 사망시 호출해야할 함수
