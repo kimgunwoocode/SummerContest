@@ -278,4 +278,31 @@ public static class SaveFileManager
         SaveFileManager.Save(initData, 0);
         Debug.Log("InitData가 슬롯 0번에 저장되었습니다.");
     }
+
+    [MenuItem("Tools/Check InitData PlayerData 내용 확인")]
+    public static void LogInitDataPlayerInfo()
+    {
+        const string path = "Assets/InitData/InitData.asset";
+        InitSaveData data = AssetDatabase.LoadAssetAtPath<InitSaveData>(path);
+
+        if (data == null)
+        {
+            Debug.LogError("InitData.asset 로드 실패");
+            return;
+        }
+
+        var pd = data.InitData.PlayerData;
+
+        Debug.Log($"▶ MaxHP = {pd.MaxHP}, CurrentHP = {pd.CurrentHP}, ATK = {pd.ATK}\n\t▶ Money = {pd.Money}, MaxBreathGauge = {pd.MaxBreathGauge}, CurrentBreathGauge = {pd.CurrentBreathGauge}");
+        Debug.Log($"▶ EquipSkill.Count = {pd.EquipSkill?.Count ?? 0}");
+        Debug.Log($"▶ PlayerAbility = [{string.Join(", ", pd.PlayerAbility)}]");
+
+        Debug.Log($"▶ PlayerSkill.Count = {pd.PlayerSkill?.Count ?? 0}");
+        foreach (var kv in pd.PlayerSkill)
+            Debug.Log($"   - PlayerSkill[{kv.Key}] = {kv.Value}");
+
+        Debug.Log($"▶ GettedItems.Count = {pd.GettedItems?.Count ?? 0}");
+        foreach (var kv in pd.GettedItems)
+            Debug.Log($"   - GettedItems[{kv.Key}] = {kv.Value}");
+    }
 }

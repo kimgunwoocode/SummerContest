@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(menuName = "Input/DefaultKeyBindings")]
+[CreateAssetMenu(menuName = "Init/DefaultKeyBindings")]
 public class DefaultKeyBindings : ScriptableObject
 {
     public string inputActionAssetPath; // InputActionAsset 경로

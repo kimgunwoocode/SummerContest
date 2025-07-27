@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Map_1_1 : MonoBehaviour
+public class Map_1_2 : MonoBehaviour
 {
     public CameraManager CameraManager;
 
@@ -12,5 +12,10 @@ public class Map_1_1 : MonoBehaviour
     public void MoveBound(int index)
     {
         CameraManager.SetStageIndex(index);
+    }
+
+    public void SetZoom(int size)
+    {
+        CameraManager.SetZoom(size, 5f);
     }
 }

@@ -23,6 +23,8 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private Collider2D[] _cameraBoundsList;
     [SerializeField] private int _stageIndex = 0;
 
+    private GameManager GameManager;
+
     private Camera _cam;
     private Vector3 _offset;
     private Collider2D _currentBounds;
@@ -46,6 +48,9 @@ public class CameraManager : MonoBehaviour
             Vector3 startCamPos = CalculateClampedCameraPosition(_smoothedFollowPos);
             transform.position = startCamPos;
         }
+
+        GameManager = Singleton.GameManager_Instance.Get<GameManager>();
+        _stageIndex = GameManager.CurrentStartSceneCameraArea;
     }
 
     private void FixedUpdate()
@@ -169,19 +174,9 @@ public class CameraManager : MonoBehaviour
         _biasOffset = Vector2.zero;
     }
 
-    public void SetCameraPositionInstant(Vector3 worldPosition)
-    {
-        _smoothedFollowPos = worldPosition;
-        transform.position = new Vector3(worldPosition.x, worldPosition.y, _offset.z);
-    }
-
-    public void SetZoom(float newSize)
+    public void SetZoom(float newSize, float zoomSpeed = -1f)
     {
         _targetZoom = newSize;
-    }
-
-    public float GetZoom()
-    {
-        return _cam != null ? _cam.orthographicSize : 0f;
+        if (zoomSpeed >= 0f) _zoomSpeed = zoomSpeed;
     }
 }
