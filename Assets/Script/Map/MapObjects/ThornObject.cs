@@ -22,7 +22,7 @@ public class ThornObject : MonoBehaviour
         {
             Attack(collision);
             //애니메이션 및 효과
-            SpawnPlayer_to_SpawnPoint();
+            SpawnPlayer_to_SpawnPoint(collision.gameObject);
         }
     }
 
@@ -35,22 +35,22 @@ public class ThornObject : MonoBehaviour
     }
 
 
-    void SpawnPlayer_to_SpawnPoint()
+    void SpawnPlayer_to_SpawnPoint(GameObject Player)
     {
         if (SpawnPoint != null)
         {
-            GameManager.Player.transform.position = SpawnPoint;
+            Player.transform.position = SpawnPoint;
         }
         else if (SpawnPoint == null)
         {
-            SpawnPlayer_to_NearSpawnPoint();
+            SpawnPlayer_to_NearSpawnPoint(Player);
         }
     }
 
 
 
     // 그 다음 가장 가까운 ThornSpawnPoint 위치로 이동시키기
-    void SpawnPlayer_to_NearSpawnPoint()
+    void SpawnPlayer_to_NearSpawnPoint(GameObject Player)
     {
         if (ThornSpawnPoints == null)
         {
@@ -58,11 +58,11 @@ public class ThornObject : MonoBehaviour
         }
 
         GameObject nearest = ThornSpawnPoints[0];
-        float minDistance = Vector2.Distance(GameManager.Player.transform.position, nearest.transform.position);
+        float minDistance = Vector2.Distance(Player.transform.position, nearest.transform.position);
 
         foreach (GameObject spawnPoint in ThornSpawnPoints)
         {
-            float dist = Vector2.Distance(GameManager.Player.transform.position, spawnPoint.transform.position);
+            float dist = Vector2.Distance(Player.transform.position, spawnPoint.transform.position);
             if (dist < minDistance)
             {
                 minDistance = dist;
@@ -70,7 +70,7 @@ public class ThornObject : MonoBehaviour
             }
         }
 
-        GameManager.Player.transform.position = nearest.transform.position;
+        Player.transform.position = nearest.transform.position;
     }
 
 }

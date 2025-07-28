@@ -9,8 +9,9 @@ public class ScriptablePlayerMovementStats : ScriptableObject {
     public float CrounchSpeed = 250f;
     public float WalkSpeed = 300f;
     public float MaxSpeed = 800f;
-    public bool isCrounchActionByToggle = true;
-    public bool isGlideActionByToggle = false;
+    public float ClimbSpeed = 100f;
+    public bool IsCrounchActionByToggle = true;
+    public bool IsGlideActionByToggle = false;
 
     [Header("Jump")]
     [Tooltip("the basic jump force")]public float JumpForce = 10f;
@@ -20,6 +21,10 @@ public class ScriptablePlayerMovementStats : ScriptableObject {
     [Tooltip("the apex range, if player's y-axis speed is included in the apex range, it judged as a apex")]public float ApexThreadHold = 0.1f;
     [Tooltip("allowed jump time while the player is in the air when doesn't jump")]public float CoyoteTime = 0.14f;
     [Tooltip("allowed jump time while the player is in the air when does jump")]public float JumpBufferTime = 0.24f;
+    public float WallJumpBufferTime = 0.1f;
+    public float WallJumpingDuration = 0.2f;
+    public float WallJumpXVelocity = 50f;
+    public float WallJumpYVelocity = 15;
     [Tooltip("allowed ")] public int bonusJump = 1;
 
     [Header("Gravity")]
@@ -40,9 +45,12 @@ public class ScriptablePlayerMovementStats : ScriptableObject {
     public bool IsGlideUnlocked = false;
 
     [Header("Collision Check")]
-    public float wallCheckDistance = 0.6f;
-    public float groundCheckDistance = 0.1f;
-    public float ceilingCheckDistance = 0.1f;
+    public float WallCheckDistance = 0.6f;
+    public float GroundCheckDistance = 0.1f;
+    public float CeilingCheckDistance = 0.1f;
     
-    public LayerMask groundLayer;
+    public LayerMask[] GroundLayers;
+    public LayerMask[] PassableLayers;
+    public LayerMask PlatformLayers;
+    public LayerMask ClimbableWallLayer;
 }

@@ -7,6 +7,7 @@ public enum ItemType { Nomal, Ability, Breath }//Nomal : 설명만 있는 수집
 
 public abstract class ItemData : ScriptableObject
 {
+    [Header("아이템 기본 정보")]
     public ItemType itemType;
     public int itemID;
     public Sprite icon;

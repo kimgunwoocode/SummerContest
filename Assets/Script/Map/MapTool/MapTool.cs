@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.IO;
 using System;
+using static UnityEngine.EventSystems.EventTrigger;
 
 
 public class MapTool : EditorWindow
@@ -38,6 +39,24 @@ public class MapTool : EditorWindow
         foldoutStates = new Dictionary<string, bool>();
 
         string[] guids = AssetDatabase.FindAssets("t:Prefab", new[] { "Assets/Prefab/Map" });
+
+        foreach (string guid in guids)
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            if (prefab == null) continue;
+
+            string category = GetCategoryFromPath(prefab);
+            if (!categorizedPrefabs.ContainsKey(category))
+            {
+                categorizedPrefabs[category] = new List<GameObject>();
+                foldoutStates[category] = true;
+            }
+
+            categorizedPrefabs[category].Add(prefab);
+        }
+        
+        guids = AssetDatabase.FindAssets("t:Prefab", new[] { "Assets/Prefab/Enemy" });
 
         foreach (string guid in guids)
         {
@@ -164,16 +183,19 @@ public class MapTool : EditorWindow
     private const string ScenePath = "Assets/Scenes/Map";
     private const string InitSaveDataPath = "Assets/InitData/InitData.asset";
     private const string DumpPath = "Assets/InitData/InitData_ID_Dump.json";
+    private const string gameManagerPrefabPath = "Assets/Prefab/GameManager.prefab";
 
     public static void AssignIDsAndSaveToInitData()
     {
         var finalMapData = new MapData();
 
+        //-------------------------------------------------------------------ID 명명 규칙------------------------------------------------------------------------
         int semiID = 1001;
         int mainID = 2001;
         int shopID = 3001;
         int interactionID = 4001;
         int pushObjectID = 5001;
+        //-------------------------------------------------------------------ID 명명 규칙------------------------------------------------------------------------
 
         int totalMain = 0, totalSemi = 0, totalShop = 0, totalInteraction = 0, totalPushObject = 0;
 
@@ -331,12 +353,67 @@ public class MapTool : EditorWindow
             }
         }
 
-        // 마지막에 한 번만 원본 InitSaveData에 MapData 넣고 저장
+        //  원본 InitSaveData에 MapData 넣고 저장
         InitSaveData finalInitData = AssetDatabase.LoadAssetAtPath<InitSaveData>(InitSaveDataPath);
         if (finalInitData != null)
         {
+            GameObject gameManagerPrefab = PrefabUtility.LoadPrefabContents(gameManagerPrefabPath);
+            GameObject gameManagerAsset = AssetDatabase.LoadAssetAtPath<GameObject>(gameManagerPrefabPath);
+
+            if (gameManagerPrefab == null)
+            {
+                Debug.LogError("GameManager 프리팹을 불러오지 못했습니다.");
+                return;
+            }
+
+            GameDataManager GameDataManager = gameManagerPrefab.GetComponent<GameDataManager>();
+            if (GameDataManager == null)
+            {
+                Debug.LogError("GameDataManager 컴포넌트를 GameManager 프리팹에서 찾을 수 없습니다.");
+                return;
+            }
+
+            if (finalInitData == null)
+            {
+                Debug.LogError("InitSaveData를 불러오지 못했습니다.");
+                return;
+            }
+
+
+            PlayerData player = new PlayerData
+            {
+                MaxHP = 6,
+                CurrentHP = 6,
+                ATK = 50,
+                MaxBreathGauge = 60f,
+                CurrentBreathGauge = 60f,
+                Money = 0,
+                EquipSkill = new List<int>(),
+                PlayerAbility = new List<bool> { false, false, false, false, false, false },
+                PlayerSkill = new Dictionary<int, bool>(),
+                GettedItems = new Dictionary<int, int>()
+            };
+
+
+            foreach (var kv in GameDataManager.allitems.allitems_dic)
+            {
+                int id = kv.Key;
+
+                player.GettedItems[id] = 0;
+
+                if (id >= 1201 && id <= 1400)
+                {
+                    player.PlayerSkill[id] = false;
+                }
+            }
+
+
             finalInitData.InitData.MapData = finalMapData;
+            finalInitData.InitData.PlayerData = player;
+
+
             SaveInitSaveDataAsset(finalInitData);
+
             DumpToJson(dumpEntries, totalMain, totalSemi, totalShop, totalInteraction, totalPushObject);
         }
         else

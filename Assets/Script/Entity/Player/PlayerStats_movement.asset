@@ -18,15 +18,20 @@ MonoBehaviour:
   CrounchSpeed: 150
   WalkSpeed: 250
   MaxSpeed: 800
-  isCrounchActionByToggle: 0
-  isGlideActionByToggle: 0
-  JumpForce: 10
+  ClimbSpeed: 100
+  IsCrounchActionByToggle: 1
+  IsGlideActionByToggle: 0
+  JumpForce: 11
   GravityByNormalForce: 0
   MidAirGravity: 20
   MaxFallingSpeed: -40
   ApexThreadHold: 0.36
   CoyoteTime: 0.1
   JumpBufferTime: 0.1
+  WallJumpBufferTime: 0.1
+  WallJumpingDuration: 0.1
+  WallJumpXVelocity: 30
+  WallJumpYVelocity: 15
   bonusJump: 1
   GravityModifierWhenJumpEndedEarly: 4
   GravityModifierWhenFalling: 1.5
@@ -39,9 +44,16 @@ MonoBehaviour:
   IsDashUnlocked: 1
   IsDoubleJumpUnloceked: 1
   IsGlideUnlocked: 1
-  wallCheckDistance: 0.6
-  groundCheckDistance: 0.1
-  ceilingCheckDistance: 0.1
-  groundLayer:
-    serializedVersion: 2
+  WallCheckDistance: 0.6
+  GroundCheckDistance: 0.1
+  CeilingCheckDistance: 0.1
+  GroundLayers:
+  - serializedVersion: 2
     m_Bits: 8
+  PassableLayers: []
+  PlatformLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  ClimbableWallLayer:
+    serializedVersion: 2
+    m_Bits: 64
