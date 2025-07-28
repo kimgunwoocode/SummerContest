@@ -1,0 +1,142 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7274566e6ef912a43b75a6a6fdaea24b, type: 3}
+  m_Name: Default Key Bindings
+  m_EditorClassIdentifier: 
+  inputActionAssetPath: Assets/PlayerInput_Action.inputactions
+  bindings:
+  - actionName: Move
+    bindingPath: <Gamepad>/leftStick
+    bindingIndex: 0
+  - actionName: Move
+    bindingPath: <XRController>/{Primary2DAxis}
+    bindingIndex: 6
+  - actionName: Move
+    bindingPath: <Joystick>/stick
+    bindingIndex: 7
+  - actionName: Look
+    bindingPath: <Gamepad>/rightStick
+    bindingIndex: 0
+  - actionName: Look
+    bindingPath: <Pointer>/delta
+    bindingIndex: 1
+  - actionName: Look
+    bindingPath: <Joystick>/{Hatswitch}
+    bindingIndex: 2
+  - actionName: Attack
+    bindingPath: <Gamepad>/buttonWest
+    bindingIndex: 0
+  - actionName: Attack
+    bindingPath: <Mouse>/leftButton
+    bindingIndex: 1
+  - actionName: Attack
+    bindingPath: <Touchscreen>/primaryTouch/tap
+    bindingIndex: 2
+  - actionName: Attack
+    bindingPath: <Joystick>/trigger
+    bindingIndex: 3
+  - actionName: Attack
+    bindingPath: <XRController>/{PrimaryAction}
+    bindingIndex: 4
+  - actionName: Attack
+    bindingPath: <Keyboard>/enter
+    bindingIndex: 5
+  - actionName: Interact
+    bindingPath: <Keyboard>/e
+    bindingIndex: 0
+  - actionName: Interact
+    bindingPath: <Gamepad>/buttonNorth
+    bindingIndex: 1
+  - actionName: Crouch
+    bindingPath: <Gamepad>/buttonEast
+    bindingIndex: 0
+  - actionName: Crouch
+    bindingPath: <Keyboard>/ctrl
+    bindingIndex: 1
+  - actionName: Jump
+    bindingPath: <Keyboard>/space
+    bindingIndex: 0
+  - actionName: Jump
+    bindingPath: <Gamepad>/buttonSouth
+    bindingIndex: 1
+  - actionName: Jump
+    bindingPath: <XRController>/secondaryButton
+    bindingIndex: 2
+  - actionName: Previous
+    bindingPath: <Keyboard>/1
+    bindingIndex: 0
+  - actionName: Previous
+    bindingPath: <Gamepad>/dpad/left
+    bindingIndex: 1
+  - actionName: Next
+    bindingPath: <Keyboard>/2
+    bindingIndex: 0
+  - actionName: Next
+    bindingPath: <Gamepad>/dpad/right
+    bindingIndex: 1
+  - actionName: Dash
+    bindingPath: <Keyboard>/leftShift
+    bindingIndex: 0
+  - actionName: Dash
+    bindingPath: <Gamepad>/leftStickPress
+    bindingIndex: 1
+  - actionName: Dash
+    bindingPath: <XRController>/trigger
+    bindingIndex: 2
+  - actionName: Glide
+    bindingPath: <Keyboard>/w
+    bindingIndex: 0
+  - actionName: Navigate
+    bindingPath: <Gamepad>/dpad
+    bindingIndex: 9
+  - actionName: Submit
+    bindingPath: '*/{Submit}'
+    bindingIndex: 0
+  - actionName: Cancel
+    bindingPath: '*/{Cancel}'
+    bindingIndex: 0
+  - actionName: Point
+    bindingPath: <Mouse>/position
+    bindingIndex: 0
+  - actionName: Point
+    bindingPath: <Pen>/position
+    bindingIndex: 1
+  - actionName: Point
+    bindingPath: <Touchscreen>/touch*/position
+    bindingIndex: 2
+  - actionName: Click
+    bindingPath: <Mouse>/leftButton
+    bindingIndex: 0
+  - actionName: Click
+    bindingPath: <Pen>/tip
+    bindingIndex: 1
+  - actionName: Click
+    bindingPath: <Touchscreen>/touch*/press
+    bindingIndex: 2
+  - actionName: Click
+    bindingPath: <XRController>/trigger
+    bindingIndex: 3
+  - actionName: RightClick
+    bindingPath: <Mouse>/rightButton
+    bindingIndex: 0
+  - actionName: MiddleClick
+    bindingPath: <Mouse>/middleButton
+    bindingIndex: 0
+  - actionName: ScrollWheel
+    bindingPath: <Mouse>/scroll
+    bindingIndex: 0
+  - actionName: TrackedDevicePosition
+    bindingPath: <XRController>/devicePosition
+    bindingIndex: 0
+  - actionName: TrackedDeviceOrientation
+    bindingPath: <XRController>/deviceRotation
+    bindingIndex: 0

@@ -49,8 +49,8 @@ public class MeleeAttackState : AttackState
         foreach(Collider2D col in detectedObjs)
         {
             // 플레이어 공격
-            // col.GetComponent<PlayerManager>()?.TakeDamage(1, enemy.aliveGO.transform.position);
-            Debug.Log("적이 플레이어를 공격함");
+            col.GetComponent<PlayerManager>()?.TakeDamage(1, enemy.aliveGO.transform.position);
+            //Debug.Log("적이 플레이어를 공격함");
         }
     }
 

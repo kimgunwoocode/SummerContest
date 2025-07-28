@@ -2,6 +2,9 @@
 
 public class PushObject : MonoBehaviour
 {
+    public int ID;
+
+    GameDataManager gameDataManager;
     private Rigidbody2D rb;
     private bool isPlayerTouching = false;
 
@@ -10,36 +13,37 @@ public class PushObject : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    private void Start()
+    {
+        gameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();
+        if (gameDataManager.PushObjects != null && gameDataManager.PushObjects.ContainsKey(ID))
+            gameObject.transform.position = gameDataManager.PushObjects[ID];
+        else
+        {
+            Debug.LogError("PushObject가 등록되지 않음 (ID : " + ID + " )");
+        }
+    }
+
     void FixedUpdate()
     {
         if (!isPlayerTouching)
         {
             rb.linearVelocity = Vector2.zero;
         }
+        gameDataManager.PushObjects[ID] = gameObject.transform.position;
     }
 
-    void OnCollisionStay2D(Collision2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !isPlayerTouching)
         {
-            foreach (ContactPoint2D contact in collision.contacts)
-            {
-                Vector2 normal = contact.normal.normalized;
-
-                if (Mathf.Abs(normal.x) > 0.5f)
-                {
-                    isPlayerTouching = true;
-                    return;
-                }
-            }
-
-            isPlayerTouching = false;
+            isPlayerTouching = true;
         }
     }
 
-    void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
             isPlayerTouching = false;
         }

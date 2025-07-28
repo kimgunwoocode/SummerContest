@@ -1,17 +1,47 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
     public GameDataManager GameDataManager;
     public GameObject Player;
+
+    [Header("씬 이동 시 가져가야할 정보들")]
     public string CurrentSceneName;
+    public int CurrentScenePointID = -1;
+    public int CurrentStartSceneCameraArea = 0;
+
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (Player == null || Player.activeSelf == false)
+        {
+            Player = GameObject.FindGameObjectWithTag("Player");
+        }
+    }
+    
+    
 
     private void Awake()
     {
         if (Player == null)
         {
             Player = GameObject.FindGameObjectWithTag("Player");
+        }
+        if (CurrentSceneName == null)
+        {
+            CurrentSceneName = SceneManager.GetActiveScene().name;
         }
     }
     private void Start()
@@ -23,8 +53,24 @@ public class GameManager : MonoBehaviour
     }
 
 
+    private void Update()
+    {
+        FillBreathGauge_byUpdate();// 브레스 게이지 회복
+    }
 
 
+
+
+
+    private void FillBreathGauge_byUpdate()
+    {
+        if (GameDataManager.CurrentBreathGauge < GameDataManager.MaxBreathGauge)
+        {
+            GameDataManager.CurrentBreathGauge += GameDataManager.BreathFillSpeed * Time.deltaTime;
+        }
+        else if (GameDataManager.CurrentBreathGauge > GameDataManager.MaxBreathGauge)
+            GameDataManager.CurrentBreathGauge = GameDataManager.MaxBreathGauge;
+    }
 
 
     public void PlayerDie()//플레이어 사망시 호출해야할 함수
@@ -32,6 +78,32 @@ public class GameManager : MonoBehaviour
         LoadData__SavePoint();//이전 세이브 포인트로 시점 되돌리기
 
         //이전 세이브 포인트로 위치 이동시키기
+    }
+
+    public void Get_Item(int ItemID)
+    {
+        GameDataManager.GettedItems[ItemID]++;
+
+        ItemData item = GameDataManager.allitems.allitems.Find(item => item.itemID == ItemID);
+        if (item == null)
+        {
+            Debug.LogWarning("존재하지 않는 아이템 ID");
+            return;
+        }
+
+        // 능력해금 아이템일 경우 획득시 능력 해금하기
+        if (item.itemType == ItemType.Ability && item is AbilityItemData abilityItem) 
+        {
+            int slot = abilityItem.AbilitySlot;
+            abilityItem.UnlockAbility();
+            Unlock_PlayerAbility(slot);
+        }
+    }
+
+    public void Lose_Item(int ItemID)
+    {
+        if (GameDataManager.GettedItems[ItemID] > 0)
+            GameDataManager.GettedItems[ItemID]--;
     }
 
     public void Unlock_PlayerAbility(int PlayerAbilityID)
@@ -60,7 +132,7 @@ public class GameManager : MonoBehaviour
         LoadData__SavePoint();
     }
 
-    private void LoadData__SavePoint()
+    public void LoadData__SavePoint()
     {
         //플레이어 데이터
         GameDataManager.MaxHP = GameDataManager.GameData.PlayerData.MaxHP;
@@ -76,6 +148,7 @@ public class GameManager : MonoBehaviour
 
         //맵 데이터
         GameDataManager.InteractionObjects = GameDataManager.GameData.MapData.InteractionObjects;
+        GameDataManager.PushObjects = GameDataManager.GameData.MapData.PushObjects;
         GameDataManager.Shops = GameDataManager.GameData.MapData.Shops;
         GameDataManager.SpawnPoints = GameDataManager.GameData.MapData.SpawnPoints;
         GameDataManager.SpawnPoint = GameDataManager.GameData.MapData.SpawnPoint;
@@ -98,6 +171,7 @@ public class GameManager : MonoBehaviour
 
         //맵 데이터
         GameDataManager.GameData.MapData.InteractionObjects = GameDataManager.InteractionObjects;
+        GameDataManager.GameData.MapData.PushObjects = GameDataManager.PushObjects;
         GameDataManager.GameData.MapData.Shops = GameDataManager.Shops;
         GameDataManager.GameData.MapData.SpawnPoints = GameDataManager.SpawnPoints;
         GameDataManager.GameData.MapData.SpawnPoint = GameDataManager.SpawnPoint;

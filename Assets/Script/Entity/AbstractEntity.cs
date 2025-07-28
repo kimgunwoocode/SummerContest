@@ -2,10 +2,6 @@ using UnityEngine;
 
 public abstract class AbstractEntity : MonoBehaviour
 {
-    [Header("Entity's life info")]
-    [SerializeField] protected int maxHP;
-    [SerializeField] protected int currentHP;
-    [SerializeField] protected float attackRate;
 
     protected bool facingLeft = true;
     protected int facingDir = -1; // Left:-1, Right:1
