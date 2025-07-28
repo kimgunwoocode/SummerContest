@@ -70,6 +70,8 @@ public class PlayerManager : MonoBehaviour {
 
         _inputActions.Player.Attack.performed += Attack;
 
+        _inputActions.Player.Down.performed += _movement.OnPlatformDown;
+
         _inputActions.Player.Enable();
     }
 
@@ -91,6 +93,8 @@ public class PlayerManager : MonoBehaviour {
         _inputActions.Player.Interact.performed -= _interaction.OnInteraction;
 
         _inputActions.Player.Attack.performed += Attack;
+
+        _inputActions.Player.Down.performed += _movement.OnPlatformDown;
 
         _inputActions.Player.Disable();
     }

@@ -46,4 +46,5 @@ public class ScriptablePlayerMovementStats : ScriptableObject {
     
     public LayerMask[] groundLayers;
     public LayerMask[] passableLayers;
+    public LayerMask platformLayers;
 }

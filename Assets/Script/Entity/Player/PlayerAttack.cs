@@ -19,10 +19,12 @@ public class PlayerAttack : MonoBehaviour {
             hit.GetComponentInParent<EnemyEntity>()?.TakeDamage(_attackStats.MeleeAttackDamage, transform.position);
         }
     }
+
+    [SerializeField] ScriptablePlayerAttackStats debug;
     private void OnDrawGizmosSelected() {
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(Debugging ,_attackStats.MelleAttackRange);
+        Gizmos.DrawWireSphere(transform.position ,debug.MelleAttackRange);
     }
 
     internal void NormalBreath() {

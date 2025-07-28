@@ -17,6 +17,9 @@ public class PlayerMovement : MonoBehaviour
     private bool _cachedQueryStartInColliders;
     private Vector2 _calculatedVelocity;
 
+    private BoxCollider2D _playerCollider;
+    private Collider2D _currentPlatform;
+
     private ScriptablePlayerMovementStats _movementStats;
 
     private void Awake()
@@ -24,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _cachedQueryStartInColliders = Physics2D.queriesStartInColliders;
         _movementStats = GetComponent<PlayerManager>().playerMovementStats;
+        _playerCollider = GetComponent<BoxCollider2D>();
     }
 
     private void Start() {
@@ -47,6 +51,17 @@ public class PlayerMovement : MonoBehaviour
     private bool _isDashing;
     private bool _isAbleToDash;
     private bool _isGlide;
+    private bool _isPlatformDownRequestExist;
+
+    private IEnumerator DownPlatform() {
+        _isPlatformDownRequestExist = true;
+        BoxCollider2D _platformC = _currentPlatform.GetComponent<BoxCollider2D>();
+
+        Physics2D.IgnoreCollision(_playerCollider, _platformC);
+        yield return new WaitForSeconds(0.25f);
+        Physics2D.IgnoreCollision(_playerCollider, _platformC, false);
+        _isPlatformDownRequestExist = false;
+    }
 
     internal void OnMovePerformed(InputAction.CallbackContext context) {
         _currentInput = context.ReadValue<Vector2>();
@@ -95,14 +110,26 @@ public class PlayerMovement : MonoBehaviour
         _isAbleToDash = true;
     }
 
+    internal void OnPlatformDown(InputAction.CallbackContext context) {
+        if (_currentPlatform != null) {
+            StartCoroutine(DownPlatform());
+        }
+    }
+
     private void UpdateMoveDir()
     {
         if (_isDashing) return;
         if (_currentInput.x == 0) return;
         _moveDirection.x = _currentInput.x;
     }
+
+    private void DownFromPlatform() {
+        if (!_isPlatformDownRequestExist) return;
+    }
+
     private void Move()
     {
+        DownFromPlatform();
         UpdateMoveDir();
 
         _calculatedVelocity.x = _isTouchingWall ? 0f : _isDashing ? (_movementStats.DashSpeed * _moveDirection.x * Time.fixedDeltaTime) : _isCrouch ? ((_isGrounded ? _movementStats.CrounchSpeed : _movementStats.WalkSpeed) * Time.fixedDeltaTime * _currentInput.x) : (_movementStats.WalkSpeed * Time.fixedDeltaTime * _currentInput.x);
@@ -179,6 +206,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _isTouchingWall;
     internal bool _isGrounded = false;
     internal bool _isCeiling = false;
+    internal bool _isStuckInPlatform = false;
 
     private void CheckCollisions()
     {
@@ -193,6 +221,8 @@ public class PlayerMovement : MonoBehaviour
         //check ceiling hit
         bool ceilingCheck = CheckCeiling();
 
+        bool platformStuckCheck = CheckIsStuckInPlatform();
+
         //landed on ground
         if (groundCheck && !_isGrounded) {
             _isGrounded = true;
@@ -200,11 +230,13 @@ public class PlayerMovement : MonoBehaviour
             _isJumped = false;
             _leftBonusJump = _movementStats.bonusJump;
             _groundedTime = Time.time;
+            _isPlatformDownRequestExist = false;
 
         //leave from ground
         } else if (!groundCheck && _isGrounded) {
             _isGrounded = false;
             _leftGroundTime = Time.time;
+            _currentPlatform = null;
         }
 
         if (ceilingCheck && !_isCeiling) {
@@ -225,18 +257,31 @@ public class PlayerMovement : MonoBehaviour
             _isTouchingWall = false;
         }
 
+        if (platformStuckCheck && !_isPlatformDownRequestExist) {
+            Debug.Log("Platform up");
+            transform.position = transform.position + new Vector3(0, 0.1f, 0);
+        }else if(platformStuckCheck && _isPlatformDownRequestExist) {
+            Debug.Log("Platform Down");
+            _isGrounded = false;
+        }
+
+
         Physics2D.queriesStartInColliders = _cachedQueryStartInColliders;
     }
 
-    private bool CheckGround()
-    {
+    private bool CheckGround() {
         LayerMask checkGround = 0; //00000000
 
         foreach(LayerMask groundLayer in _movementStats.groundLayers) 
             checkGround |= groundLayer;
-        foreach (LayerMask passableLayer in _movementStats.passableLayers)
-            checkGround |= passableLayer;
-        
+
+        if (!_isPlatformDownRequestExist) {
+            checkGround |= _movementStats.platformLayers;
+        }
+
+
+        _currentPlatform = Physics2D.OverlapBox(groundCheckerTransform.position - new Vector3(0, _movementStats.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _movementStats.groundCheckDistance / 2), 0f, _movementStats.platformLayers);
+
         return Physics2D.OverlapBox(groundCheckerTransform.position - new Vector3(0, _movementStats.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _movementStats.groundCheckDistance / 2), 0f, checkGround);
         
         
@@ -266,6 +311,13 @@ public class PlayerMovement : MonoBehaviour
             checkCeiling |= groundLayer;
 
         return Physics2D.OverlapBox(ceilingCheckerTransform.position + new Vector3(0, _movementStats.ceilingCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _movementStats.ceilingCheckDistance / 2), 0f, checkCeiling);
+    }
+
+    private bool CheckIsStuckInPlatform() {
+        LayerMask checkIsPlatform = 0;
+        checkIsPlatform |= _movementStats.platformLayers;
+
+        return Physics2D.OverlapBox(groundCheckerTransform.position + new Vector3(0, _movementStats.groundCheckDistance), new Vector2(transform.localScale.x * 0.85f, _movementStats.groundCheckDistance / 2), 0f, checkIsPlatform);
     }
 
     #endregion
@@ -299,6 +351,7 @@ public class PlayerMovement : MonoBehaviour
         if (groundCheckerTransform != null)
         {
             Gizmos.color = _isGrounded ? Color.green : Color.red;
+            Gizmos.DrawWireCube(groundCheckerTransform.position + new Vector3(0, _GizmoStats.groundCheckDistance), new Vector2(transform.localScale.x * 0.85f, _GizmoStats.groundCheckDistance / 2));
             Gizmos.DrawWireCube(groundCheckerTransform.position - new Vector3(0, _GizmoStats.groundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _GizmoStats.groundCheckDistance / 2));
         }
 

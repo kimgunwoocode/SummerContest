@@ -180,6 +180,15 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Down"",
+                    ""type"": ""Button"",
+                    ""id"": ""20e33a28-166a-4bd3-800f-44eb8cb79645"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -532,6 +541,17 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Glide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1f189c9a-b171-4610-9eb3-08aa9af4d16b"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Down"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1129,6 +1149,7 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
         m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Glide = m_Player.FindAction("Glide", throwIfNotFound: true);
+        m_Player_Down = m_Player.FindAction("Down", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1232,6 +1253,7 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Next;
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Glide;
+    private readonly InputAction m_Player_Down;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1283,6 +1305,10 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Glide".
         /// </summary>
         public InputAction @Glide => m_Wrapper.m_Player_Glide;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Down".
+        /// </summary>
+        public InputAction @Down => m_Wrapper.m_Player_Down;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1339,6 +1365,9 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
             @Glide.started += instance.OnGlide;
             @Glide.performed += instance.OnGlide;
             @Glide.canceled += instance.OnGlide;
+            @Down.started += instance.OnDown;
+            @Down.performed += instance.OnDown;
+            @Down.canceled += instance.OnDown;
         }
 
         /// <summary>
@@ -1380,6 +1409,9 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
             @Glide.started -= instance.OnGlide;
             @Glide.performed -= instance.OnGlide;
             @Glide.canceled -= instance.OnGlide;
+            @Down.started -= instance.OnDown;
+            @Down.performed -= instance.OnDown;
+            @Down.canceled -= instance.OnDown;
         }
 
         /// <summary>
@@ -1750,6 +1782,13 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnGlide(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Down" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDown(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
