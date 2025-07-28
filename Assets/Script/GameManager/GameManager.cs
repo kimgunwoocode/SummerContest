@@ -80,6 +80,11 @@ public class GameManager : MonoBehaviour
         //이전 세이브 포인트로 위치 이동시키기
     }
 
+    public void Get_Money(int min, int max)
+    {
+        GameDataManager.Money += Random.Range(min, max);
+    }
+
     public void Get_Item(int ItemID)
     {
         GameDataManager.GettedItems[ItemID]++;

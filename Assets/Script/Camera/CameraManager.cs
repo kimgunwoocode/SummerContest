@@ -37,13 +37,14 @@ public class CameraManager : MonoBehaviour
 
     private void Awake()
     {
+        GameManager = Singleton.GameManager_Instance.Get<GameManager>();
+        _stageIndex = GameManager.CurrentStartSceneCameraArea;
+
+
         _cam = Camera.main;
         _offset = new Vector3(0, 0, -10);
         _targetZoom = _cam.orthographicSize;
         SetStageIndex(_stageIndex);
-
-        GameManager = Singleton.GameManager_Instance.Get<GameManager>();
-        _stageIndex = GameManager.CurrentStartSceneCameraArea;
     }
     private void Start()
     {
