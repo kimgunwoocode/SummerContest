@@ -7,24 +7,32 @@ public class PlayerAttack : MonoBehaviour {
     }
 
 
+    private float _lastAttackTime = 0f;
+
     private Vector3 Debugging;
     [SerializeField] ScriptablePlayerAttackStats test;
 
     internal void MeleeAttack(Vector3 direction) {
-        Vector3 attackPos = transform.position + direction.normalized * _attackStats.MelleAttackRange * 0.5f;
+        if (Time.time - _lastAttackTime < _attackStats.MeleeAttackCooldown) {
+            Debug.Log("Melee Attack is on Cooldown");
+            return;
+        }
+
+        Vector3 attackPos = transform.position + direction.normalized * _attackStats.MeleeAttackRange * 0.5f;
         Debugging = attackPos;
-        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPos, _attackStats.MelleAttackRange, _attackStats.EnemyLayer); 
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPos, _attackStats.MeleeAttackRange, _attackStats.EnemyLayer); 
         foreach (var hit in hits) {
             Debug.Log(hit.name);
             hit.GetComponentInParent<EnemyEntity>()?.TakeDamage(_attackStats.MeleeAttackDamage, transform.position);
         }
+        _lastAttackTime = Time.time;
     }
 
     [SerializeField] ScriptablePlayerAttackStats debug;
     private void OnDrawGizmosSelected() {
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position ,debug.MelleAttackRange);
+        Gizmos.DrawWireSphere(transform.position ,debug.MeleeAttackRange);
     }
 
     internal void NormalBreath() {

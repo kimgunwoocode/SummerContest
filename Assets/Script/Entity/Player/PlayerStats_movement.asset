@@ -28,6 +28,10 @@ MonoBehaviour:
   ApexThreadHold: 0.36
   CoyoteTime: 0.1
   JumpBufferTime: 0.1
+  WallJumpBufferTime: 0.1
+  WallJumpingDuration: 0.1
+  WallJumpXVelocity: 30
+  WallJumpYVelocity: 15
   bonusJump: 1
   GravityModifierWhenJumpEndedEarly: 4
   GravityModifierWhenFalling: 1.5
@@ -43,11 +47,13 @@ MonoBehaviour:
   WallCheckDistance: 0.6
   GroundCheckDistance: 0.1
   CeilingCheckDistance: 0.1
-  GroundLayers: []
+  GroundLayers:
+  - serializedVersion: 2
+    m_Bits: 8
   PassableLayers: []
   PlatformLayers:
     serializedVersion: 2
     m_Bits: 512
-  platformLayers:
+  ClimbableWallLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 64
