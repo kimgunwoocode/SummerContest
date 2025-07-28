@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Gumiho_MoveState : Boss_MoveState
 {
@@ -20,6 +21,13 @@ public class Gumiho_MoveState : Boss_MoveState
     {
         base.LogicUpdate();
 
+        if (Keyboard.current.fKey.wasPressedThisFrame)
+        {
+            stateMachine.ChangeState(gumiho.FoxFireAttackState);
+        }
+
+        gumiho.LookAtPlayer();
+
         if(performCloseRangeAction)
         {
             if(enemy.currentHP > gumiho.phase2HP) // 1 Phase
@@ -39,7 +47,7 @@ public class Gumiho_MoveState : Boss_MoveState
     {
         base.PhysicsUpdate();
 
-        gumiho.LookAtPlayer();
+        if(!isGround) return;
 
         Vector2 target = new Vector2(gumiho.player.position.x, enemy.rb.position.y);
         Vector2 newPos = Vector2.MoveTowards(enemy.rb.position, target, moveSpeed * Time.fixedDeltaTime);

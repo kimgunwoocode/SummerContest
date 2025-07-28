@@ -1,7 +1,6 @@
 using NUnit.Framework.Constraints;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class EnemyEntity : MonoBehaviour
 {
@@ -67,11 +66,6 @@ public class EnemyEntity : MonoBehaviour
     protected virtual void Update()
     {
         stateMachine.currentState.LogicUpdate();
-
-        if (Keyboard.current.kKey.wasPressedThisFrame)
-        {
-            TakeDamage(1, Vector2.zero);
-        }
     }
 
     protected virtual void FixedUpdate() 

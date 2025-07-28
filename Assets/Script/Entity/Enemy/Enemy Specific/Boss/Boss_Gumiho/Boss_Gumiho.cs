@@ -3,11 +3,14 @@ using UnityEngine;
 public class Boss_Gumiho : EnemyEntity
 {
     [Header("States")]
-    [SerializeField] Gumiho_MoveState moveState;
-    [SerializeField] Gumiho_ClawAttackState clawAttackState;
-    [SerializeField] Gumiho_TailAttackState tailAttackState;
-    [SerializeField] Gumiho_KnockbackState knockbackState;
-    [SerializeField] Gumiho_DeadState deadState;
+    [SerializeField] private Gumiho_MoveState moveState;
+    [SerializeField] private Gumiho_ClawAttackState clawAttackState;
+    [SerializeField] private Gumiho_TailAttackState tailAttackState;
+    [SerializeField] private Gumiho_FoxOrbAttackState foxOrbAttackState;
+    [SerializeField] private Gumiho_FoxFireAttackState foxFireAttackState;
+    [SerializeField] private Gumiho_SpiritLeapAttackState spiritLeapAttackState;
+    [SerializeField] private Gumiho_KnockbackState knockbackState;
+    [SerializeField] private Gumiho_DeadState deadState;
 
     [Header("Gumiho Details")]
     public int phase2HP = 5;
@@ -16,6 +19,9 @@ public class Boss_Gumiho : EnemyEntity
     public Gumiho_MoveState MoveState => moveState;
     public Gumiho_ClawAttackState ClawAttackState => clawAttackState;
     public Gumiho_TailAttackState TailAttackState => tailAttackState;
+    public Gumiho_FoxOrbAttackState FoxOrbAttackState => foxOrbAttackState;
+    public Gumiho_FoxFireAttackState FoxFireAttackState => foxFireAttackState;
+    public Gumiho_SpiritLeapAttackState SpiritLeapAttackState => spiritLeapAttackState;
     public Gumiho_KnockbackState KnockbackState => knockbackState;
     public Gumiho_DeadState DeadState => deadState;
 
@@ -49,13 +55,9 @@ public class Boss_Gumiho : EnemyEntity
 
     public void LookAtPlayer()
     {
-        Vector2 directionToPlayer = player.position - transform.position;
+        Vector2 directionToPlayer = player.position - rb.transform.position;
 
-        if (directionToPlayer.x > 0 && facingDir == -1)
-        {
-            Flip();
-        }
-        else if (directionToPlayer.x < 0 && facingDir == 1)
+        if (directionToPlayer.x > 0 && facingDir == -1 || directionToPlayer.x < 0 && facingDir == 1)
         {
             Flip();
         }

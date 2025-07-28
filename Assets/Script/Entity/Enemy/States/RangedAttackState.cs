@@ -1,25 +1,17 @@
 using UnityEngine;
 
-public class Boss_MoveState : State
-{
-    [SerializeField] protected float moveSpeed = 3;
-
-    protected bool isGround;
-    protected bool performCloseRangeAction;
-
+public class RangedAttackState : AttackState
+{   
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
         base.Initialize(enemy, stateMachine);
 
-        animBoolName = "move";
+        animBoolName = "rangedAttack";
     }
 
     public override void DoCheck()
     {
         base.DoCheck();
-
-        isGround = enemy.CheckGround();
-        performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
     }
 
     public override void Enter()
@@ -40,5 +32,17 @@ public class Boss_MoveState : State
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+
+    public override void TriggerAttack()
+    {
+        base.TriggerAttack();
+
+        // RangedAttack();
+    }
+
+    public override void FinishAttack()
+    {
+        base.FinishAttack();
     }
 }
