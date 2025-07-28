@@ -6,7 +6,7 @@ using DG.Tweening;
 public class PauseButton : MonoBehaviour,
     IPointerEnterHandler, IPointerExitHandler
 {
-    public float hoverUp = 1.1f;          // 호버 시 확대 비율
+    public float hoverUp = 1.05f;          // 호버 시 확대 비율
     public float duration = 0.15f;        // 애니메이션 시간
 
     private Vector3 originalScale;        // 원래 크기
