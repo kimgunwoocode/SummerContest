@@ -9,7 +9,7 @@ public class Pause : MonoBehaviour
     public GameObject PausePanel;         // 퍼즈UI 화면
     internal bool isPause;                // 퍼즈중인지 판별
 
-    public float clickUp = 1.3f;          // 클릭 시 확대 비율
+    public float clickUp = 1.2f;          // 클릭 시 확대 비율
     public float duration = 0.15f;        // 애니메이션 시간
 
     private Vector3 originalScale = new Vector3(1f, 1f, 1f);        // 원래 크기
