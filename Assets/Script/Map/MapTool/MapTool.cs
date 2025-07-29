@@ -183,6 +183,7 @@ public class MapTool : EditorWindow
     private const string ScenePath = "Assets/Scenes/Map";
     private const string InitSaveDataPath = "Assets/InitData/InitData.asset";
     private const string DumpPath = "Assets/InitData/InitData_ID_Dump.json";
+    private const string SavePointDumpPath = "Assets/InitData/SavePointID.json";
     private const string gameManagerPrefabPath = "Assets/Prefab/GameManager.prefab";
 
     public static void AssignIDsAndSaveToInitData()
@@ -417,7 +418,9 @@ public class MapTool : EditorWindow
             finalInitData.InitData.MapData = finalMapData;
 
 
-            SaveInitSaveDataAsset(finalInitData);
+            EditorUtility.SetDirty(finalInitData);
+            AssetDatabase.SaveAssets();
+            Debug.Log("InitSaveData.asset 저장 완료");
 
             DumpToJson(dumpEntries, totalMain, totalSemi, totalShop, totalInteraction, totalPushObject);
         }
@@ -427,12 +430,6 @@ public class MapTool : EditorWindow
         }
     }
 
-    public static void SaveInitSaveDataAsset(InitSaveData data)
-    {
-        EditorUtility.SetDirty(data);
-        AssetDatabase.SaveAssets();
-        Debug.Log("InitSaveData.asset 저장 완료");
-    }
 
     private static void DumpToJson(List<DumpEntry> entries, int totalMain, int totalSemi, int totalShop, int totalInteraction, int totlaPushObject)
     {
@@ -452,6 +449,7 @@ public class MapTool : EditorWindow
 
         string json = JsonUtility.ToJson(wrapper, true);
         File.WriteAllText(DumpPath, json);
+        //File.WriteAllText(SavePointDumpPath, );
         AssetDatabase.Refresh();
 
         Debug.Log($"상세 정보 JSON으로 저장됨: {DumpPath}");
