@@ -1,6 +1,34 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Interactions;
+using System.IO;
+using System.Collections.Generic;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+[System.Serializable]
+public class PlayerUtilUnlock {
+    private List<bool> PlayerUtilList;
+
+    public void Setter(int index, bool value) {
+        if (index < 0 || index > PlayerUtilList.Count) { 
+            Debug.LogError("The index must be between 0 and 5 (inclusive).");
+            return;
+        }
+
+        PlayerUtilList[index] = value;
+
+    }
+
+    public bool Getter(int index) {
+        if (index < 0 || index > PlayerUtilList.Count) {
+            Debug.LogError("The index must be between 0 and 5 (inclusive).");
+            return false;
+        }
+
+        return PlayerUtilList[index];
+    }
+}
 
 public class PlayerManager : MonoBehaviour {
     private PlayerInput_Action _inputActions;
@@ -26,6 +54,8 @@ public class PlayerManager : MonoBehaviour {
 
 
     private void Awake() {
+        _data = Singleton.GameManager_Instance.Get<GameDataManager>();
+
         _rb = GetComponent<Rigidbody2D>();
 
         _movement = GetComponent<PlayerMovement>();
@@ -35,7 +65,6 @@ public class PlayerManager : MonoBehaviour {
     }
 
     private void Start() {
-        _data = Singleton.GameManager_Instance.Get<GameDataManager>();
         if (_data == null) Debug.LogError("Can't found GameDataManager at GameManager");
         if (_attack == null) Debug.LogError("PlayerAttack component must exist on this object");
         if (_movement == null) Debug.LogError("PlayerMovement component must exist on this object");
@@ -69,6 +98,7 @@ public class PlayerManager : MonoBehaviour {
         _inputActions.Player.Interact.performed += _interaction.OnInteraction;
 
         _inputActions.Player.Attack.performed += Attack;
+        _inputActions.Player.Breath.performed += Attack;
 
         _inputActions.Player.Down.performed += _movement.OnPlatformDown;
 
@@ -85,26 +115,43 @@ public class PlayerManager : MonoBehaviour {
         _inputActions.Player.Crouch.performed -= _movement.OnCrouchPerformed;
         _inputActions.Player.Crouch.canceled -= _movement.OnCrouchCanceled;
 
-        _inputActions.Player.Glide.performed += _movement.OnGlidePerformed;
-        _inputActions.Player.Glide.canceled += _movement.OnGlideCanceled;
+        _inputActions.Player.Glide.performed -= _movement.OnGlidePerformed;
+        _inputActions.Player.Glide.canceled -= _movement.OnGlideCanceled;
 
         _inputActions.Player.Dash.performed -= _movement.OnDashPerformed;
 
         _inputActions.Player.Interact.performed -= _interaction.OnInteraction;
 
-        _inputActions.Player.Attack.performed += Attack;
+        _inputActions.Player.Attack.performed -= Attack;
+        _inputActions.Player.Breath.performed -= Attack;
 
-        _inputActions.Player.Down.performed += _movement.OnPlatformDown;
+        _inputActions.Player.Down.performed -= _movement.OnPlatformDown;
 
         _inputActions.Player.Disable();
     }
 
-    public void Attack(InputAction.CallbackContext context) {
-        _attack.MeleeAttack((_mousePosition - transform.position).normalized);
+    private string GetPath() {
+    #if UNITY_EDITOR
+            string relativePath = "Assets/InitData/EditorSaveData";
+
+            string fullPath = Path.Combine(Application.dataPath.Replace("/Assets", ""), relativePath);
+
+            if (!Directory.Exists(fullPath))
+                Directory.CreateDirectory(fullPath);
+
+            AssetDatabase.Refresh();
+
+        return Path.Combine(fullPath, $"Player's Util.json");
+    #else
+        return Path.Combine(Application.persistentDataPath, $"save_slot_{slotIndex}.json");
+    #endif
     }
 
-    protected void Move() {
-        //rb.linearVelocity = movement.ApplyMove();
+    private void Attack(InputAction.CallbackContext context) {
+        if (context.action.name == "Attack")
+            _attack.MeleeAttack((_mousePosition - transform.position).normalized);
+        else if (context.action.name == "Breath")
+            _attack.FireBreath();
     }
 
     
@@ -158,10 +205,5 @@ public class PlayerManager : MonoBehaviour {
 
     private void Update() {
         _mousePosition = cam.WorldToScreenPoint(Mouse.current.position.ReadValue());
-    }
-
-
-    private void FixedUpdate() {
-        Move();
     }
 }
