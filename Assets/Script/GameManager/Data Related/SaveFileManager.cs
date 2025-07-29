@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
+
 using UnityEngine;
 
 #region Serializable Structures
@@ -84,7 +85,7 @@ public static class SaveFileManager
 {
     private static string GetPath(int slotIndex)
     {
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
         // Assets 내부 경로 (Unity가 인식 가능)
         string relativePath = "Assets/InitData/EditorSaveData";
 
@@ -98,9 +99,9 @@ public static class SaveFileManager
         AssetDatabase.Refresh();
 
         return Path.Combine(fullPath, $"save_slot_{slotIndex}.json");
-#else
-    return Path.Combine(Application.persistentDataPath, $"save_slot_{slotIndex}.json");
-#endif
+    #else
+        return Path.Combine(Application.persistentDataPath, $"save_slot_{slotIndex}.json");
+    #endif
     }
 
 

@@ -2,15 +2,14 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour {
     private ScriptablePlayerAttackStats _attackStats;
+    private int _currentBreath;
+
     private void Awake() {
         _attackStats = GetComponent<PlayerManager>().playerAttackStats;
     }
 
 
     private float _lastAttackTime = 0f;
-
-    private Vector3 Debugging;
-    [SerializeField] ScriptablePlayerAttackStats test;
 
     internal void MeleeAttack(Vector3 direction) {
         if (Time.time - _lastAttackTime < _attackStats.MeleeAttackCooldown) {
@@ -19,7 +18,6 @@ public class PlayerAttack : MonoBehaviour {
         }
 
         Vector3 attackPos = transform.position + direction.normalized * _attackStats.MeleeAttackRange * 0.5f;
-        Debugging = attackPos;
         Collider2D[] hits = Physics2D.OverlapCircleAll(attackPos, _attackStats.MeleeAttackRange, _attackStats.EnemyLayer); 
         foreach (var hit in hits) {
             Debug.Log(hit.name);
@@ -28,18 +26,20 @@ public class PlayerAttack : MonoBehaviour {
         _lastAttackTime = Time.time;
     }
 
-    [SerializeField] ScriptablePlayerAttackStats debug;
-    private void OnDrawGizmosSelected() {
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position ,debug.MeleeAttackRange);
-    }
-
-    internal void NormalBreath() {
-
+    internal void FireBreath() {
+        
     }
 
     internal void ChangeBreath(int breathType) {
 
     }
+
+    #region Debugging
+    [SerializeField] ScriptablePlayerAttackStats debug;
+    private void OnDrawGizmos() {
+        if (transform == null) return;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position ,debug.MeleeAttackRange);
+    }
+    #endregion
 }
