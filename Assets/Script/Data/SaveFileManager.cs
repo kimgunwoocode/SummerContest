@@ -82,7 +82,7 @@ public class SerializablePlayerData
 
 public static class SaveFileManager
 {
-    private static string GetPath(int slotIndex)
+    public static string GetPath(int slotIndex)
     {
 #if UNITY_EDITOR
         // Assets 내부 경로 (Unity가 인식 가능)

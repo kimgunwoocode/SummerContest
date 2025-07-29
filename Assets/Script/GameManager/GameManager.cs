@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (Player == null || Player.activeSelf == false)
+        if (scene.name != "Title" && Player == null || Player.activeSelf == false)
         {
             Player = GameObject.FindGameObjectWithTag("Player");
         }

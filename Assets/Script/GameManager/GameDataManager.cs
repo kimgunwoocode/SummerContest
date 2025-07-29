@@ -34,7 +34,8 @@ public class GameDataManager : MonoBehaviour
 
 
     //Item Data
-    public AllItems allitems;
+    [SerializeField] private AllItems allitems_SO;
+    public Dictionary<int, ItemData> allitems;
 
     private void Start()
     {
@@ -49,16 +50,5 @@ public class GameDataManager : MonoBehaviour
     public void LoadGameData(SaveData Data)
     {
         GameData = Data;
-    }
-
-    // 디버깅 용도
-    [ContextMenu("아이템 딕셔너리 확인")]
-    public void Log_allitems_dic()
-    {
-        Debug.Log("items count : " + allitems.allitems_dic.Count);
-    }
-    public void Set_ItemDictionary(Dictionary<int, ItemData> value)
-    {
-        allitems.allitems_dic = value;
     }
 }

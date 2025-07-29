@@ -1,10 +1,10 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 
 public class ThroughBreath : BreathObject
 {
     public float speed;
-    [Header("ºÎµúÇô »ç¶óÁö°Ô ÇÒ ·¹ÀÌ¾î")]
+    [Header("ë¶€ë”ªí˜€ ì‚¬ë¼ì§€ê²Œ í•  ë ˆì´ì–´")]
     [SerializeField] private LayerMask hitLayers;
 
     [Space]
