@@ -37,6 +37,10 @@ public class GameDataManager : MonoBehaviour
     public AllItems allitems_SO;
     public Dictionary<int, ItemData> allitems;
 
+    private void Awake()
+    {
+        Apply_allitems();
+    }
     private void Start()
     {
         /*
@@ -50,5 +54,14 @@ public class GameDataManager : MonoBehaviour
     public void LoadGameData(SaveData Data)
     {
         GameData = Data;
+    }
+    public void Apply_allitems()
+    {
+        foreach (var kv in allitems_SO.allitems)
+        {
+            int id = kv.itemID;
+
+            allitems[id] = kv;
+        }
     }
 }

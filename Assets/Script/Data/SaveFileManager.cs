@@ -201,6 +201,10 @@ public static class SaveFileManager
         const string saveDataPath = "Assets/InitData/EditorSaveData/save_slot_0.json";
         string json = File.ReadAllText(saveDataPath);
 #else
+        if (slotIndex == 0)
+        {
+            
+        }
         if (!File.Exists(GetPath(slotIndex)))
         {
             Debug.LogWarning($"저장 슬롯 {slotIndex}에 해당하는 파일이 없습니다.");
