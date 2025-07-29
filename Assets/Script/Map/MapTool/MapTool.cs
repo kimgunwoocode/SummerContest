@@ -199,6 +199,7 @@ public class MapTool : EditorWindow
         //-------------------------------------------------------------------ID 명명 규칙------------------------------------------------------------------------
 
         int totalMain = 0, totalSemi = 0, totalShop = 0, totalInteraction = 0, totalPushObject = 0;
+        List<SavePoint_class> savepoint_list = new();
 
         var dumpEntries = new List<DumpEntry>();
         string[] sceneGuids = AssetDatabase.FindAssets("t:Scene", new[] { ScenePath });
@@ -255,6 +256,12 @@ public class MapTool : EditorWindow
                     Scene = scene.name
                 });
 
+                savepoint_list.Add(new SavePoint_class
+                {
+                    ID = sp.ID,
+                    ScenName = scene.name,
+                });
+                
                 if (sp.SavePoint_type == SavePoint.SP_type.Main) totalMain++;
                 else totalSemi++;
             }
@@ -422,7 +429,7 @@ public class MapTool : EditorWindow
             AssetDatabase.SaveAssets();
             Debug.Log("InitSaveData.asset 저장 완료");
 
-            DumpToJson(dumpEntries, totalMain, totalSemi, totalShop, totalInteraction, totalPushObject);
+            DumpToJson(dumpEntries, totalMain, totalSemi, totalShop, totalInteraction, totalPushObject, savepoint_list);
         }
         else
         {
@@ -431,7 +438,7 @@ public class MapTool : EditorWindow
     }
 
 
-    private static void DumpToJson(List<DumpEntry> entries, int totalMain, int totalSemi, int totalShop, int totalInteraction, int totlaPushObject)
+    private static void DumpToJson(List<DumpEntry> entries, int totalMain, int totalSemi, int totalShop, int totalInteraction, int totlaPushObject, List<SavePoint_class> savepoint_list)
     {
         var wrapper = new DumpWrapper
         {
@@ -447,9 +454,15 @@ public class MapTool : EditorWindow
             }
         };
 
-        string json = JsonUtility.ToJson(wrapper, true);
-        File.WriteAllText(DumpPath, json);
-        //File.WriteAllText(SavePointDumpPath, );
+        var savepointID = new SavePointID_Wrapper
+        {
+            savepoint_list = savepoint_list
+        };
+
+        string json1 = JsonUtility.ToJson(wrapper, true);
+        File.WriteAllText(DumpPath, json1);
+        string json2 = JsonUtility.ToJson(savepointID, true);
+        File.WriteAllText(SavePointDumpPath, json2);
         AssetDatabase.Refresh();
 
         Debug.Log($"상세 정보 JSON으로 저장됨: {DumpPath}");
@@ -481,6 +494,18 @@ public class MapTool : EditorWindow
         public string time;
         public List<DumpEntry> Entries;
         public DumpSummary Summary;
+    }
+
+    [System.Serializable]
+    private class SavePointID_Wrapper
+    {
+        public List<SavePoint_class> savepoint_list;
+    }
+    [System.Serializable]
+    private class SavePoint_class
+    {
+        public int ID;
+        public string ScenName;
     }
     #endregion
 

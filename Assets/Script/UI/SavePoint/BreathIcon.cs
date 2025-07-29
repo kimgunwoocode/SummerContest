@@ -76,8 +76,8 @@ public class BreathIcon : MonoBehaviour,
         {
             if (SetImages[i].sprite == null)
             {
-                SetImages[i].sprite = data.allitems.allitems_dic[MyId].icon;
-                Ingame_SetImages[i].sprite = data.allitems.allitems_dic[MyId].icon;
+                SetImages[i].sprite = data.allitems[MyId].icon;
+                Ingame_SetImages[i].sprite = data.allitems[MyId].icon;
 
                 data.EquipSkill.Add(MyId);  // 장착 정보 게임매니저한테 전달
                 break;
@@ -91,7 +91,7 @@ public class BreathIcon : MonoBehaviour,
         // 본인의 스프라이트를 장착한 슬롯 찾아서 제거
         for (int i = 0; i < SetImages.Length; i++)
         {
-            if (SetImages[i].sprite == data.allitems.allitems_dic[MyId].icon)
+            if (SetImages[i].sprite == data.allitems[MyId].icon)
             {
                 SetImages[i].sprite = null; // 빈 슬롯 이미지 스프라이트로 대체 필요
                 Ingame_SetImages[i].sprite = null;
@@ -141,17 +141,17 @@ public class BreathIcon : MonoBehaviour,
         // 장비 얻었는지 여부에 따라 표기가 다름
         if (data.PlayerSkill.TryGetValue(MyId, out bool isUnlocked) && isUnlocked)
         {
-            BreathName.text = data.allitems.allitems_dic[MyId].itemName;
-            BreathInfor.text = data.allitems.allitems_dic[MyId].description;
+            BreathName.text = data.allitems[MyId].itemName;
+            BreathInfor.text = data.allitems[MyId].description;
             BreathImage.color = new Color(1f, 1f, 1f, 1f);
-            BreathImage.sprite = data.allitems.allitems_dic[MyId].icon;
+            BreathImage.sprite = data.allitems[MyId].icon;
         }
         else
         {
             BreathName.text = "???";
             BreathInfor.text = "???";
             BreathImage.color = new Color(0.3f, 0.3f, 0.3f, 1f);
-            BreathImage.sprite = data.allitems.allitems_dic[MyId].icon;
+            BreathImage.sprite = data.allitems[MyId].icon;
         }
 
     }

@@ -36,7 +36,7 @@ public class ChracterPanel : MonoBehaviour
             if (i < data.EquipSkill.Count)
             {
                 // 스킬이 존재하면 해당 아이콘으로 설정
-                breathIcons[i].sprite = data.allitems.allitems_dic[data.EquipSkill[i]].icon;
+                breathIcons[i].sprite = data.allitems[data.EquipSkill[i]].icon;
             }
             else if (i == 0)
             {
