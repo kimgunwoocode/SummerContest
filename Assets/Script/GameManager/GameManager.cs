@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
 
     [Header("씬 이동 시 가져가야할 정보들")]
-    public string CurrentSceneName;
+    //public string CurrentSceneName;
     public int CurrentScenePointID = -1;
     public int CurrentStartSceneCameraArea = 0;
 
@@ -42,10 +42,12 @@ public class GameManager : MonoBehaviour
         {
             Player = GameObject.FindGameObjectWithTag("Player");
         }
+        /*
         if (CurrentSceneName == null)
         {
             CurrentSceneName = SceneManager.GetActiveScene().name;
         }
+        */
     }
     private void Start()
     {
