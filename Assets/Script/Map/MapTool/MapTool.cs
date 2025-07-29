@@ -398,7 +398,7 @@ public class MapTool : EditorWindow
             };
 
 
-            foreach (var kv in GameDataManager.allitems.allitems_SO)
+            foreach (var kv in GameDataManager.allitems_SO.allitems)
             {
                 int id = kv.itemID;
 

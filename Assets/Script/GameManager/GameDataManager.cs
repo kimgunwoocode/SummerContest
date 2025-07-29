@@ -34,7 +34,7 @@ public class GameDataManager : MonoBehaviour
 
 
     //Item Data
-    [SerializeField] private AllItems allitems_SO;
+    public AllItems allitems_SO;
     public Dictionary<int, ItemData> allitems;
 
     private void Start()
