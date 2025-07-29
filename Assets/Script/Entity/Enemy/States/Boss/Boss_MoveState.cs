@@ -6,6 +6,8 @@ public class Boss_MoveState : State
 
     protected bool isGround;
     protected bool performCloseRangeAction;
+    protected bool isPlayerMinRange;
+    protected bool isPlayerMaxRange;
 
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
@@ -20,6 +22,8 @@ public class Boss_MoveState : State
 
         isGround = enemy.CheckGround();
         performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
+        isPlayerMinRange = enemy.CheckPlayerMinRange();
+        isPlayerMaxRange = enemy.CheckPlayerMaxRange();
     }
 
     public override void Enter()

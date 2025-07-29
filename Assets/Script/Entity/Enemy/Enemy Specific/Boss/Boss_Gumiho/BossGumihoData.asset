@@ -18,9 +18,11 @@ MonoBehaviour:
   wallCheckDistance: 0.2
   ledgeCheckDistance: 0.4
   groundCkeckRadius: 0.3
-  minPlayerCheckDistance: 0
-  maxPlayerCheckDistance: 0
-  closeRangeActionDistance: 0.8
+  minPlayerCheckDistance: 3
+  maxPlayerCheckDistance: 7
+  closeRangeActionDistance: 0.86
+  minCoinReward: 1
+  maxCoinReward: 2
   hitParticle: {fileID: 0}
   groundLayer:
     serializedVersion: 2

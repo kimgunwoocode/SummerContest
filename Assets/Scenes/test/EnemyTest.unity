@@ -1051,7 +1051,9 @@ GameObject:
   m_Component:
   - component: {fileID: 686449720}
   - component: {fileID: 686449721}
+  - component: {fileID: 686449730}
   - component: {fileID: 686449725}
+  - component: {fileID: 686449731}
   - component: {fileID: 686449724}
   - component: {fileID: 686449723}
   - component: {fileID: 686449727}
@@ -1075,7 +1077,7 @@ Transform:
   m_GameObject: {fileID: 686449719}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.05, y: -3.62, z: 0}
+  m_LocalPosition: {x: 5.43, y: -3.62, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1100,7 +1102,9 @@ MonoBehaviour:
   ledgeCheck: {fileID: 901188401}
   groundCheck: {fileID: 706729124}
   playerCheck: {fileID: 493379049}
+  idleState: {fileID: 686449730}
   moveState: {fileID: 686449725}
+  chargeState: {fileID: 686449731}
   clawAttackState: {fileID: 686449724}
   tailAttackState: {fileID: 686449723}
   foxOrbAttackState: {fileID: 686449727}
@@ -1142,6 +1146,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
+  attackCooldown: 0.5
 --- !u!114 &686449724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1160,6 +1165,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
+  attackCooldown: 0.5
 --- !u!114 &686449725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1172,7 +1178,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 587bac507d4a5864e84fbe16540743fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
+  moveSpeed: 3
+  isClawAttackCancelled: 0
 --- !u!114 &686449726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1200,8 +1207,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPosition: {fileID: 958022293}
+  attackCooldown: 1
   foxOrbPrefab: {fileID: 1742269957432150281, guid: 350d0e7a093c8bd46861505e3f549a02, type: 3}
-  foxOrbSpeed: 5
+  foxOrbSpeed: 10
   foxOrbReturnDelay: 0.5
   foxOrbThrowTime: 1
 --- !u!114 &686449728
@@ -1217,11 +1225,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPosition: {fileID: 958022293}
+  attackCooldown: 1
   foxOrbPrefab: {fileID: 3831979649908390737, guid: 1a4ce71f14401674a8675df02d9dfc65, type: 3}
   rotationSpeed: 250
-  radiusIncreaseSpeed: 2
+  radiusIncreaseSpeed: 5
   circleRadius: 1
-  maxRadius: 5
+  maxRadius: 7
   numberOfOrbs: 5
 --- !u!114 &686449729
 MonoBehaviour:
@@ -1236,12 +1245,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPosition: {fileID: 958022293}
+  attackCooldown: 1
   jumpForce: 10
   airAttackDelay: 0.6
   foxOrbPrefab: {fileID: 3831979649908390737, guid: 1a4ce71f14401674a8675df02d9dfc65, type: 3}
   foxOrbSpeed: 8
   foxOrbLifeTime: 1.5
   numberOfOrbs: 5
+--- !u!114 &686449730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686449719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62cdb6f60b5fd1047a91ab1a6551df1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &686449731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686449719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efbca79808cd8da45ac532f58a5e6ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargeSpeed: 6
+  chargeTime: 2
 --- !u!1 &706729123
 GameObject:
   m_ObjectHideFlags: 0
@@ -1556,6 +1592,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8420885227792175148, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 519420031}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

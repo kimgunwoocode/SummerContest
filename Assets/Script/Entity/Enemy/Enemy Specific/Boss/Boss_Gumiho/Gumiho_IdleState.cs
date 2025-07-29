@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Gumiho_KnockbackState : KnockbackState
+public class Gumiho_IdleState : Boss_IdleState
 {
     Boss_Gumiho gumiho;
 
@@ -15,7 +15,7 @@ public class Gumiho_KnockbackState : KnockbackState
     {
         base.LogicUpdate();
 
-        if(isKnockbackOver)
+        if(isIdleTimeOver)
         {
             stateMachine.ChangeState(gumiho.MoveState);
         }

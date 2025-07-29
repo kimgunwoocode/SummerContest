@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Gumiho_SpiritLeapAttackState : AttackState
 {
+    [SerializeField] float attackCooldown;
+    
     [Header("Jump Settings")]
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private float airAttackDelay = 0.5f; // 점프 후 여우불 발사까지 시간
@@ -40,6 +42,8 @@ public class Gumiho_SpiritLeapAttackState : AttackState
     {
         base.Enter();
 
+        gumiho.canBeKnockedBack = false;
+
         hasAttacked = false;
         hasJumped = false;
 
@@ -63,7 +67,8 @@ public class Gumiho_SpiritLeapAttackState : AttackState
         // 공격 끝났으면 상태 전환
         if (isAnimationFinished && isGrounded)
         {
-            stateMachine.ChangeState(gumiho.MoveState);
+            gumiho.IdleState.SetIdleTime(attackCooldown);
+            stateMachine.ChangeState(gumiho.IdleState);
         }
     }
 
@@ -71,6 +76,7 @@ public class Gumiho_SpiritLeapAttackState : AttackState
     {
         if (hasAttacked) return;
         hasAttacked = true;
+        gumiho.canBeKnockedBack = true;
 
         base.TriggerAttack();
 
@@ -113,7 +119,7 @@ public class Gumiho_SpiritLeapAttackState : AttackState
     {
         for (int i = 0; i < foxFires.Count; i++)
         {
-            if(foxFires[i] != null) Destroy(foxFires[i]);
+            if (foxFires[i] != null) Destroy(foxFires[i]);
         }
 
         base.FinishAttack();

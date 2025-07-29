@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Gumiho_KnockbackState : KnockbackState
+public class Gumiho_ChargeState : ChargeState
 {
     Boss_Gumiho gumiho;
 
@@ -8,6 +8,7 @@ public class Gumiho_KnockbackState : KnockbackState
     {
         base.Initialize(enemy, stateMachine);
 
+        animBoolName = "move"; // TODO: 달리기로 수정
         gumiho = enemy as Boss_Gumiho;
     }
 
@@ -15,7 +16,7 @@ public class Gumiho_KnockbackState : KnockbackState
     {
         base.LogicUpdate();
 
-        if(isKnockbackOver)
+        if (performCloseRangeAction || isChargeTimeOver || !isLedge || isWall)
         {
             stateMachine.ChangeState(gumiho.MoveState);
         }

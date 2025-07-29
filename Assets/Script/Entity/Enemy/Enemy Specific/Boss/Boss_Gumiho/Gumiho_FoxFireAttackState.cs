@@ -6,16 +6,18 @@ using UnityEngine.iOS;
 
 public class Gumiho_FoxFireAttackState : AttackState
 {
+    [SerializeField] float attackCooldown;
+
     [SerializeField] private GameObject foxOrbPrefab;
     [SerializeField] private float rotationSpeed = 2f;
 
-    [SerializeField, Tooltip("반경 증가 속도")] 
+    [SerializeField, Tooltip("반경 증가 속도")]
     private float radiusIncreaseSpeed = 0.5f;
 
     [SerializeField, Tooltip("초기 반경")]
     private float circleRadius;
 
-    [SerializeField, Tooltip("최대 반경")] 
+    [SerializeField, Tooltip("최대 반경")]
     private float maxRadius = 10f;
     [SerializeField] private int numberOfOrbs = 5;
 
@@ -35,6 +37,7 @@ public class Gumiho_FoxFireAttackState : AttackState
     {
         base.Enter();
 
+        gumiho.canBeKnockedBack = false;
         currentCircleRadius = circleRadius;
     }
 
@@ -45,13 +48,15 @@ public class Gumiho_FoxFireAttackState : AttackState
         // 공격 끝났으면 상태 전환
         if (isAnimationFinished)
         {
-            stateMachine.ChangeState(gumiho.MoveState);
+            gumiho.IdleState.SetIdleTime(attackCooldown);
+            stateMachine.ChangeState(gumiho.IdleState);
         }
     }
 
     public override void TriggerAttack()
     {
         base.TriggerAttack();
+        gumiho.canBeKnockedBack = true;
 
         foxFires = new List<GameObject>();
 
@@ -96,14 +101,14 @@ public class Gumiho_FoxFireAttackState : AttackState
             for (int i = 0; i < foxFires.Count; i++)
             {
                 GameObject foxFire = foxFires[i];
-                
-                if(foxFire == null) continue;
+
+                if (foxFire == null) continue;
 
                 // 각 여우불의 위치를 동심원으로 회전
                 float angle = deg + (i * (360f / numberOfOrbs)); // 각 여우불에 대한 회전 속도 조정
                 float x = currentCircleRadius * Mathf.Cos(Mathf.Deg2Rad * angle);
                 float y = currentCircleRadius * Mathf.Sin(Mathf.Deg2Rad * angle);
-                foxFire.transform.position = transform.position + new Vector3(x, y, 0);
+                foxFire.transform.position = attackPosition.position + new Vector3(x, y, 0);
             }
 
             // 반경 증가

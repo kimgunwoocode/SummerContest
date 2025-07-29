@@ -24,11 +24,14 @@ public class D_Enemy : ScriptableObject
    [Tooltip("근접 공격 거리")]
    public float closeRangeActionDistance = 1f;
 
+   [SerializeField, Tooltip("최소 재화 양. 최소 값과 최대 값 사이에서 랜덤으로 재화가 결정됩니다.")]
+   public int minCoinReward = 1;
+    
+   [SerializeField, Tooltip("최대 재화 양. 최소 값과 최대 값 사이에서 랜덤으로 재화가 결정됩니다.")]
+   public int maxCoinReward = 2;
+
    public GameObject hitParticle;
 
    public LayerMask groundLayer;
    public LayerMask playerLayer;
-
-   //public int stunResistance = 3;
-   //public float stunRecoveryTime = 2f;
 }

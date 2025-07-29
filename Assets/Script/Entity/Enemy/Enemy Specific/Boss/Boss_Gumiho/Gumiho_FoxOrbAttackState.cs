@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class Gumiho_FoxOrbAttackState : AttackState
 {
+    [SerializeField] float attackCooldown;
+
     [SerializeField] private Gumiho_FoxOrb foxOrbPrefab;
     [SerializeField] private float foxOrbSpeed = 5f;
 
-    [SerializeField, Tooltip("여우구슬이 돌아오는 딜레이 시간")] 
+    [SerializeField, Tooltip("여우구슬이 돌아오는 딜레이 시간")]
     private float foxOrbReturnDelay = 0.5f;
 
     [SerializeField, Tooltip("여우구슬이 던져지는 시간")]
@@ -26,6 +28,7 @@ public class Gumiho_FoxOrbAttackState : AttackState
     {
         base.Enter();
 
+        gumiho.canBeKnockedBack = false;
         // 구슬이 던져지고 돌아오기까지의 전체 시간 계산
         totalFoxOrbLifetime = foxOrbThrowTime * 2 + foxOrbReturnDelay;
     }
@@ -34,22 +37,23 @@ public class Gumiho_FoxOrbAttackState : AttackState
     {
         base.LogicUpdate();
 
-        if(Time.time >= startTime + totalFoxOrbLifetime && !isAnimationFinished)
+        if (Time.time >= startTime + totalFoxOrbLifetime && !isAnimationFinished)
         {
             FinishAttack();
         }
 
-        if(isAnimationFinished)
+        if (isAnimationFinished)
         {
-            stateMachine.ChangeState(gumiho.MoveState);
-            // TODO: 나중에 딜레이 로직 추가
+            gumiho.IdleState.SetIdleTime(attackCooldown);
+            stateMachine.ChangeState(gumiho.IdleState);
         }
     }
 
     public override void TriggerAttack()
     {
         base.TriggerAttack();
-
+        gumiho.canBeKnockedBack = true;
+        
         FoxOrbAttack();
     }
 

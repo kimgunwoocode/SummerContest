@@ -4,6 +4,8 @@ public class Gumiho_ClawAttackState : MeleeAttackState
 {
     Boss_Gumiho gumiho;
 
+    [SerializeField] float attackCooldown;
+
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
         base.Initialize(enemy, stateMachine);
@@ -23,9 +25,10 @@ public class Gumiho_ClawAttackState : MeleeAttackState
     {
         base.LogicUpdate();
 
-        if(isAnimationFinished)
+        if (isAnimationFinished)
         {
-            stateMachine.ChangeState(gumiho.MoveState);
+            gumiho.IdleState.SetIdleTime(attackCooldown);
+            stateMachine.ChangeState(gumiho.IdleState);
         }
     }
 
