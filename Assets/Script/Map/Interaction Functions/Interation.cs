@@ -82,4 +82,11 @@ public class Interaction : MonoBehaviour
             InteractEvent.Invoke();
         }
     }
+
+
+    public void Change_isInteracted(bool isInteracte)
+    {
+        isInteracted = isInteracte;
+        _gameDataManager.InteractionObjects[ID] = isInteracte;
+    }
 }
