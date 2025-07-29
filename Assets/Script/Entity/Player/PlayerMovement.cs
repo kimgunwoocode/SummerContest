@@ -22,6 +22,32 @@ public class PlayerMovement : MonoBehaviour {
     private ScriptablePlayerMovementStats _movementStats;
     private bool isControllablePlayer = true;
 
+    private bool IsGlideUnlocked = false;
+    private bool IsDashUnlocked = false;
+    private bool IsDoubleJumpUnlocked = false;
+    private bool IsWallStickUnlocked = false;
+
+    internal void SyncingUtiles(bool dash, bool doubleJump, bool Glide, bool Stick) {
+        IsDashUnlocked = dash;
+        IsDoubleJumpUnlocked = doubleJump;
+        IsGlideUnlocked = Glide;
+        IsWallStickUnlocked = Stick;
+    }
+
+    internal void SetUtils(int id) {
+        if (id == 0) {
+            IsDashUnlocked = true;
+        } else if(id == 2) {
+            IsDoubleJumpUnlocked = true;
+        } else if(id == 4) {
+            IsGlideUnlocked = true;
+        } else if(id == 5) {
+
+        }else {
+            Debug.LogError("unva");
+        }
+    }
+
 
     private void Awake()
     {
@@ -79,17 +105,17 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     internal void OnGlidePerformed(InputAction.CallbackContext context) {
-        if (!_movementStats.IsGlideUnlocked) return;
+        if (!IsGlideUnlocked) return;
         _isGlide = _movementStats.IsGlideActionByToggle ? !_isGlide : true;
     }
 
     internal void OnGlideCanceled(InputAction.CallbackContext context) {
-        if (!_movementStats.IsGlideUnlocked) return;
+        if (!IsGlideUnlocked) return;
         _isGlide = _movementStats.IsGlideActionByToggle ? !_isGlide : false;
     }
 
     internal void OnDashPerformed(InputAction.CallbackContext context) {
-        if (!_movementStats.IsDashUnlocked || !_isAbleToDash || _isDashing) return;
+        if (!IsDashUnlocked || !_isAbleToDash || _isDashing) return;
         _isAbleToDash = false;
         _isDashing = true;
         _calculatedVelocity.y = 0;
@@ -183,7 +209,7 @@ public class PlayerMovement : MonoBehaviour {
             _isJumped = true;
         }
         else if (jumpType == 1) {
-            if (!_movementStats.IsDoubleJumpUnloceked) return;
+            if (!IsDoubleJumpUnlocked) return;
             _leftBonusJump -= 1;
         }
         _calculatedVelocity.y = _movementStats.JumpForce;

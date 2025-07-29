@@ -281,8 +281,7 @@ public static class SaveFileManager
         const string saveDataPath = "Assets/InitData/InitData.asset";
         SaveData initData = AssetDatabase.LoadAssetAtPath<InitSaveData>(saveDataPath).InitData;
 
-        if (initData == null)
-        {
+        if (initData == null) {
             EditorUtility.DisplayDialog("에러", "InitData.asset을 찾을 수 없습니다.", "확인");
             return;
         }
