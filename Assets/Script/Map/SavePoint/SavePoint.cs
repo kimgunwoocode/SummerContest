@@ -14,13 +14,17 @@ public class SavePoint : MonoBehaviour
     [Space]
     public Interaction interaction;
     GameDataManager GameDataManager;
+    GameManager GameManager;
 
-    private void Start()
+
+    private void Awake()
     {
-        if (interaction == null) interaction = GetComponent<Interaction>();
+        GameManager = Singleton.GameManager_Instance.Get<GameManager>();
         GameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();
         if (GameDataManager.SpawnPoints?.Count > 0)
             SavePointEnabled = GameDataManager.SpawnPoints[ID];
+        if (ID == -GameManager.CurrentScenePointID)
+            GameManager.Player.transform.position = gameObject.transform.position;
     }
 
     public void InteractSavePoint()

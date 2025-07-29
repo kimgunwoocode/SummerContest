@@ -468,6 +468,20 @@ public class MapTool : EditorWindow
         Debug.Log($"상세 정보 JSON으로 저장됨: {DumpPath}");
     }
 
+
+    public static Dictionary<int, string> DictionaryFromJson(string SavePointID_json)
+    {
+        SavePointID_Wrapper savepointID_wrapper = JsonUtility.FromJson<SavePointID_Wrapper>(SavePointID_json);
+        Dictionary<int, string> savepointID_list = new();
+        foreach (var sp in savepointID_wrapper.savepoint_list)
+        {
+            savepointID_list[sp.ID] = sp.ScenName;
+        }
+        return savepointID_list;
+
+    }
+
+
     [System.Serializable]
     private class DumpEntry
     {

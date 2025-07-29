@@ -197,13 +197,18 @@ public static class SaveFileManager
 
     public static SaveData LoadFromSaveFile(int slotIndex)
     {
+#if UNITY_EDITOR
+        const string saveDataPath = "Assets/InitData/EditorSaveData/save_slot_0.json";
+        string json = File.ReadAllText(saveDataPath);
+#else
         if (!File.Exists(GetPath(slotIndex)))
         {
             Debug.LogWarning($"저장 슬롯 {slotIndex}에 해당하는 파일이 없습니다.");
             return null;
         }
-
         string json = File.ReadAllText(GetPath(slotIndex));
+#endif
+
         SerializableSaveData serializable = JsonUtility.FromJson<SerializableSaveData>(json);
 
         // 역직렬화: SerializableSaveData → SaveData
@@ -262,7 +267,7 @@ public static class SaveFileManager
         return dict;
     }
 
-    #endregion
+#endregion
 
 
 
