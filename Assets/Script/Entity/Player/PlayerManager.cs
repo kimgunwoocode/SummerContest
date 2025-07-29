@@ -77,6 +77,7 @@ public class PlayerManager : MonoBehaviour {
         SaveFileManager.Load(0);
 
         LoadData(-1);
+        _attack.InitiateBreath();
 
         _maxHealth = _data.MaxHP;
         _currentHealth = _data.CurrentHP;
@@ -139,12 +140,6 @@ public class PlayerManager : MonoBehaviour {
 
     private void LoadData(int id) {
         Abilitis = _data.PlayerAbility;
-        if (id == -1) { 
-            _movement.SyncingUtiles(Abilitis[0], Abilitis[2], Abilitis[4], Abilitis[5]);
-            return;
-        }
-        _movement.SetUtils(id);
-
     }
 
     #endregion
@@ -154,7 +149,7 @@ public class PlayerManager : MonoBehaviour {
             _attack.MeleeAttack((_mousePosition - transform.position).normalized);
         else if (context.action.name == "Breath")
             if (!Abilitis[1]) return;
-            _attack.FireBreath();
+            _attack.FireBreath((_mousePosition - transform.position).normalized);
     }
 
     
@@ -193,21 +188,18 @@ public class PlayerManager : MonoBehaviour {
         /// </summary>
         if (id == 0) {
             LoadData(0);
-            Debug.Log(0);
             //SetData(1500);
         }else if(id == 1) {
             LoadData(1);
             //SetData(1501);
         } else if(id == 2) {
             LoadData(2);
-            Debug.Log(2);
             //SetData(1502);
         } else if (id == 3) {
             LoadData(3);
             //SetData(1503);
         } else if (id == 4) {
             LoadData(4);
-            Debug.Log(4);
             //SetData(1504);
         } else if (id == 5) {
             LoadData(5);

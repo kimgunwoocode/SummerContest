@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
@@ -20,33 +21,8 @@ public class PlayerMovement : MonoBehaviour {
     private Collider2D _currentPlatform;
 
     private ScriptablePlayerMovementStats _movementStats;
+    private PlayerManager _PM;
     private bool isControllablePlayer = true;
-
-    private bool IsGlideUnlocked = false;
-    private bool IsDashUnlocked = false;
-    private bool IsDoubleJumpUnlocked = false;
-    private bool IsWallStickUnlocked = false;
-
-    internal void SyncingUtiles(bool dash, bool doubleJump, bool Glide, bool Stick) {
-        IsDashUnlocked = dash;
-        IsDoubleJumpUnlocked = doubleJump;
-        IsGlideUnlocked = Glide;
-        IsWallStickUnlocked = Stick;
-    }
-
-    internal void SetUtils(int id) {
-        if (id == 0) {
-            IsDashUnlocked = true;
-        } else if(id == 2) {
-            IsDoubleJumpUnlocked = true;
-        } else if(id == 4) {
-            IsGlideUnlocked = true;
-        } else if(id == 5) {
-
-        }else {
-            Debug.LogError("unva");
-        }
-    }
 
 
     private void Awake()
@@ -54,6 +30,7 @@ public class PlayerMovement : MonoBehaviour {
         _rb = GetComponent<Rigidbody2D>();
         _cachedQueryStartInColliders = Physics2D.queriesStartInColliders;
         _movementStats = GetComponent<PlayerManager>().playerMovementStats;
+        _PM = GetComponent<PlayerManager>();
         _playerCollider = GetComponent<BoxCollider2D>();
     }
 
@@ -105,17 +82,17 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     internal void OnGlidePerformed(InputAction.CallbackContext context) {
-        if (!IsGlideUnlocked) return;
+        if (!_PM.Abilitis[4]) return;
         _isGlide = _movementStats.IsGlideActionByToggle ? !_isGlide : true;
     }
 
     internal void OnGlideCanceled(InputAction.CallbackContext context) {
-        if (!IsGlideUnlocked) return;
+        if (!_PM.Abilitis[4]) return;
         _isGlide = _movementStats.IsGlideActionByToggle ? !_isGlide : false;
     }
 
     internal void OnDashPerformed(InputAction.CallbackContext context) {
-        if (!IsDashUnlocked || !_isAbleToDash || _isDashing) return;
+        if (!_PM.Abilitis[0] || !_isAbleToDash || _isDashing) return;
         _isAbleToDash = false;
         _isDashing = true;
         _calculatedVelocity.y = 0;
@@ -209,7 +186,7 @@ public class PlayerMovement : MonoBehaviour {
             _isJumped = true;
         }
         else if (jumpType == 1) {
-            if (!IsDoubleJumpUnlocked) return;
+            if (!_PM.Abilitis[2]) return;
             _leftBonusJump -= 1;
         }
         _calculatedVelocity.y = _movementStats.JumpForce;

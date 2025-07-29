@@ -24,7 +24,8 @@ public class NomalBreath : BreathObject
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        //디버깅을 위한 잠깐의 코드 수정.
+        if (collision.gameObject.layer == Mathf.Pow(2,7))//CompareTag("Enemy"))
         {
             collision.GetComponent<EnemyEntity>()?.TakeDamage(Singleton.GameManager_Instance.Get<GameDataManager>().ATK, transform.position);
             Destroy(gameObject);

@@ -2,10 +2,21 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour {
     private ScriptablePlayerAttackStats _attackStats;
-    private int _currentBreath;
+    private PlayerManager _pm;
+    private GameDataManager _data;
+    private int _currentBreathId;
+    private BreathItemData _currentBreathInfo;
 
     private void Awake() {
+        _data = Singleton.GameManager_Instance.Get<GameDataManager>();
         _attackStats = GetComponent<PlayerManager>().playerAttackStats;
+        _pm = GetComponent<PlayerManager>();
+    }
+
+    internal void InitiateBreath() {
+        _currentBreathId = _data.EquipSkill.Count == 0 ? -1 : _data.EquipSkill[0];
+        _currentBreathInfo = _currentBreathId == -1 ? basic :_data.allitems[_currentBreathId] as BreathItemData;
+        if (_currentBreathInfo == null) Debug.LogError("error");
     }
 
 
@@ -26,8 +37,8 @@ public class PlayerAttack : MonoBehaviour {
         _lastAttackTime = Time.time;
     }
 
-    internal void FireBreath() {
-        
+    internal void FireBreath(Vector3 direction) {
+        _currentBreathInfo.UseBreath(direction, transform.position);
     }
 
     internal void ChangeBreath(int breathType) {
@@ -36,6 +47,7 @@ public class PlayerAttack : MonoBehaviour {
 
     #region Debugging
     [SerializeField] ScriptablePlayerAttackStats debug;
+    [SerializeField] BreathItemData basic;
     private void OnDrawGizmos() {
         if (transform == null) return;
         Gizmos.color = Color.red;
