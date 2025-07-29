@@ -51,7 +51,7 @@ public class PlayerManager : MonoBehaviour {
     private int _maxHealth;
     private int _currentHealth;
 
-    internal Dictionary<int, int> Utils;
+    internal List<bool> Abilitis;
 
 
     private void Awake() {
@@ -76,8 +76,7 @@ public class PlayerManager : MonoBehaviour {
         if (playerAttackStats == null) Debug.LogError("Missing required component: PlayerAttackStats");
         SaveFileManager.Load(0);
 
-        LoadData();
-        _movement.SyncingUtiles(Utils[1500] > 0 ? true : false, Utils[1502] > 0 ? true : false, Utils[1504] > 0 ? true : false, Utils[1505] > 0 ? true : false);
+        LoadData(-1);
 
         _maxHealth = _data.MaxHP;
         _currentHealth = _data.CurrentHP;
@@ -138,8 +137,14 @@ public class PlayerManager : MonoBehaviour {
     #region Util
 
 
-    private void LoadData() {
-        Utils = _data.GettedItems;
+    private void LoadData(int id) {
+        Abilitis = _data.PlayerAbility;
+        if (id == -1) { 
+            _movement.SyncingUtiles(Abilitis[0], Abilitis[2], Abilitis[4], Abilitis[5]);
+            return;
+        }
+        _movement.SetUtils(id);
+
     }
 
     #endregion
@@ -148,7 +153,7 @@ public class PlayerManager : MonoBehaviour {
         if (context.action.name == "Attack")
             _attack.MeleeAttack((_mousePosition - transform.position).normalized);
         else if (context.action.name == "Breath")
-            if (Utils[1501] == 0) return;
+            if (!Abilitis[1]) return;
             _attack.FireBreath();
     }
 
@@ -187,22 +192,25 @@ public class PlayerManager : MonoBehaviour {
         /// 5. º®Å¸±â
         /// </summary>
         if (id == 0) {
-            LoadData();
+            LoadData(0);
+            Debug.Log(0);
             //SetData(1500);
         }else if(id == 1) {
-            LoadData();
+            LoadData(1);
             //SetData(1501);
         } else if(id == 2) {
-            LoadData();
+            LoadData(2);
+            Debug.Log(2);
             //SetData(1502);
         } else if (id == 3) {
-            LoadData();
+            LoadData(3);
             //SetData(1503);
         } else if (id == 4) {
-            LoadData();
+            LoadData(4);
+            Debug.Log(4);
             //SetData(1504);
         } else if (id == 5) {
-            LoadData();
+            LoadData(5);
             //SetData(1505);
         }
 

@@ -35,7 +35,7 @@ public class GameDataManager : MonoBehaviour
 
     //Item Data
     public AllItems allitems_SO;
-    public Dictionary<int, ItemData> allitems;
+    public Dictionary<int, ItemData> allitems = new();
 
     private void Awake()
     {
