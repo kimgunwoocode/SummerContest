@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (Player == null || Player.activeSelf == false)
+        if (scene.name != "Title" && Player == null || Player.activeSelf == false)
         {
             Player = GameObject.FindGameObjectWithTag("Player");
         }
@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
     {
         GameDataManager.GettedItems[ItemID]++;
 
-        ItemData item = GameDataManager.allitems.allitems.Find(item => item.itemID == ItemID);
+        ItemData item = GameDataManager.allitems[ItemID];
         if (item == null)
         {
             Debug.LogWarning("존재하지 않는 아이템 ID");
