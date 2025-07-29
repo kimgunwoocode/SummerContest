@@ -7,7 +7,7 @@ using UnityEditor;
 #endif
 
 [System.Serializable]
-public class PlayerUtilUnlock {
+public class PlayerUtilState {
     private List<bool> PlayerUtilList;
 
     public void Setter(int index, bool value) {
@@ -15,7 +15,6 @@ public class PlayerUtilUnlock {
             Debug.LogError("The index must be between 0 and 5 (inclusive).");
             return;
         }
-
         PlayerUtilList[index] = value;
 
     }
@@ -25,7 +24,6 @@ public class PlayerUtilUnlock {
             Debug.LogError("The index must be between 0 and 5 (inclusive).");
             return false;
         }
-
         return PlayerUtilList[index];
     }
 }
@@ -48,12 +46,16 @@ public class PlayerManager : MonoBehaviour {
     private PlayerAnimation _anima;
     private PlayerInteraction _interaction;
     private GameDataManager _data;
+    private GameManager _manager;
 
     private int _maxHealth;
     private int _currentHealth;
 
+    internal Dictionary<int, int> Utils;
+
 
     private void Awake() {
+        _manager = Singleton.GameManager_Instance.Get<GameManager>();
         _data = Singleton.GameManager_Instance.Get<GameDataManager>();
 
         _rb = GetComponent<Rigidbody2D>();
@@ -72,7 +74,10 @@ public class PlayerManager : MonoBehaviour {
         if (_anima == null) Debug.LogError("Missing required component: PlayerAnimation");
         if (playerMovementStats == null) Debug.LogError("Missing required component: PlayerMovementStats");
         if (playerAttackStats == null) Debug.LogError("Missing required component: PlayerAttackStats");
+        SaveFileManager.Load(0);
 
+        LoadData();
+        _movement.SyncingUtiles(Utils[1500] > 0 ? true : false, Utils[1502] > 0 ? true : false, Utils[1504] > 0 ? true : false, Utils[1505] > 0 ? true : false);
 
         _maxHealth = _data.MaxHP;
         _currentHealth = _data.CurrentHP;
@@ -130,27 +135,20 @@ public class PlayerManager : MonoBehaviour {
         _inputActions.Player.Disable();
     }
 
-    private string GetPath() {
-    #if UNITY_EDITOR
-            string relativePath = "Assets/InitData/EditorSaveData";
+    #region Util
 
-            string fullPath = Path.Combine(Application.dataPath.Replace("/Assets", ""), relativePath);
 
-            if (!Directory.Exists(fullPath))
-                Directory.CreateDirectory(fullPath);
-
-            AssetDatabase.Refresh();
-
-        return Path.Combine(fullPath, $"Player's Util.json");
-    #else
-        return Path.Combine(Application.persistentDataPath, $"save_slot_{slotIndex}.json");
-    #endif
+    private void LoadData() {
+        Utils = _data.GettedItems;
     }
+
+    #endregion
 
     private void Attack(InputAction.CallbackContext context) {
         if (context.action.name == "Attack")
             _attack.MeleeAttack((_mousePosition - transform.position).normalized);
         else if (context.action.name == "Breath")
+            if (Utils[1501] == 0) return;
             _attack.FireBreath();
     }
 
@@ -171,7 +169,7 @@ public class PlayerManager : MonoBehaviour {
     }
 
     private void Die(){
-
+        _manager.PlayerDie();
     }
 
     private void Knockback(int dir) {
@@ -189,18 +187,25 @@ public class PlayerManager : MonoBehaviour {
         /// 5. º®Å¸±â
         /// </summary>
         if (id == 0) {
-            playerMovementStats.IsDashUnlocked = true;
+            LoadData();
+            //SetData(1500);
         }else if(id == 1) {
-
-        }else if(id == 2) {
-            playerMovementStats.IsDoubleJumpUnloceked = true;
-        }else if(id == 3) {
-
-        }else if(id == 4) {
-            playerMovementStats.IsGlideUnlocked = true;
-        } else if(id == 5) {
-
+            LoadData();
+            //SetData(1501);
+        } else if(id == 2) {
+            LoadData();
+            //SetData(1502);
+        } else if (id == 3) {
+            LoadData();
+            //SetData(1503);
+        } else if (id == 4) {
+            LoadData();
+            //SetData(1504);
+        } else if (id == 5) {
+            LoadData();
+            //SetData(1505);
         }
+
     }
 
     private void Update() {

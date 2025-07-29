@@ -39,11 +39,6 @@ public class ScriptablePlayerMovementStats : ScriptableObject {
     public float DashTime;
     public float DashSpeed;
 
-    [Header("Available Abilities")]
-    public bool IsDashUnlocked = false;
-    public bool IsDoubleJumpUnloceked = false;
-    public bool IsGlideUnlocked = false;
-
     [Header("Collision Check")]
     public float WallCheckDistance = 0.6f;
     public float GroundCheckDistance = 0.1f;
