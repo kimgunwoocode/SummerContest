@@ -442,7 +442,8 @@ public class PlayerMovement : MonoBehaviour {
         {
             float midAirGravity = _movementStats.MidAirGravity;
             if (_isClimb[0] || _isClimb[1]) { midAirGravity = 0f; } 
-            else if (!_isGrounded && _isGlide && _calculatedVelocity.y < 0) { midAirGravity = _movementStats.MidAirGravity * _movementStats.GlideGravity; _calculatedVelocity.y = -_movementStats.GlideFallSpeed; } else if ((_isJumped) && Mathf.Abs(_calculatedVelocity.y) < _movementStats.ApexThreadHold) midAirGravity = _movementStats.MidAirGravity * _movementStats.ApexModifier;
+            else if (!_isGrounded && _isGlide && _calculatedVelocity.y < 0) { midAirGravity = _movementStats.MidAirGravity * _movementStats.GlideGravity; _calculatedVelocity.y = -_movementStats.GlideFallSpeed; } 
+            else if ((_isJumped) && Mathf.Abs(_calculatedVelocity.y) < _movementStats.ApexThreadHold) midAirGravity = _movementStats.MidAirGravity * _movementStats.ApexModifier;
             else if (_calculatedVelocity.y < 0f) midAirGravity = _movementStats.MidAirGravity * _movementStats.GravityModifierWhenFalling;
             else if (_isJumpEndedEarly) midAirGravity = _movementStats.MidAirGravity * _movementStats.GravityModifierWhenJumpEndedEarly;
 

@@ -31,6 +31,7 @@ public class ScriptablePlayerMovementStats : ScriptableObject {
     [Tooltip("the gravity multipler that is apllied after when player release the button")] public float GravityModifierWhenJumpEndedEarly = 3f;
     [Tooltip("the gravity multipler that is apllied after when player is falling down")] public float GravityModifierWhenFalling = 2.5f;
     [Tooltip("the gravity multipler that is applied when player reached about on the apex")] public float ApexModifier = 0.7f;
+    public float ApexSpeedModifier = 1.2f;
     public float GlideGravity = 0.5f;
     public float GlideFallSpeed = 0.4f;
 

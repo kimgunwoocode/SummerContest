@@ -93,8 +93,7 @@ public class GameManager : MonoBehaviour
         GameDataManager.GettedItems[ItemID]++;
 
         ItemData item = GameDataManager.allitems[ItemID];
-        if (item == null)
-        {
+        if (item == null) {
             Debug.LogWarning("존재하지 않는 아이템 ID");
             return;
         }

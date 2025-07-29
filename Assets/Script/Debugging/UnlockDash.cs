@@ -9,6 +9,6 @@ public class UnlockDash : MonoBehaviour
     }
 
     public void Unlock() {
-        _manager.Unlock_PlayerAbility(0);
+        _manager.Get_Item(1500);
     }
 }
