@@ -5,18 +5,34 @@ using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
-    public Sprite EquipBreath_1;        // 현재 선택한 브레스 스프라이트 1
-    public Sprite EquipBreath_2;        // 현재 선택한 브레스 스프라이트 2
-    public Sprite EquipBreath_3;        // 현재 선택한 브레스 스프라이트 3
-
+    public GameObject PausePanel;         // 퍼즈UI 화면
+    internal bool isPause;                // 퍼즈중인지 판별
 
     void Start()
     {
-
+        PausePanel.SetActive(false);                    // 게임 시작시 퍼즈화면 비활성화 초기화
+        isPause = false;                                // 게임 시작시 false로
     }
 
-    void Update()
+
+    // esc 누를 시 불러옴
+    internal void Pausing()
     {
 
+        if (isPause == true)
+        {
+            Time.timeScale = 1f;                      // 타임스케일
+
+            PausePanel.SetActive(false);              // 퍼즈 UI 화면 비활성화
+        }
+        else
+        {
+            Time.timeScale = 0f;                      // 타임스케일
+
+            PausePanel.SetActive(true);               // 퍼즈 UI 화면 활성화
+        }
+        isPause = !isPause;
     }
+
+
 }

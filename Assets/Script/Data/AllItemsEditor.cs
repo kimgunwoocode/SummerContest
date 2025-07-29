@@ -32,7 +32,6 @@ public class AllItemsEditor : Editor
         string[] guids = AssetDatabase.FindAssets("t:ItemData", new[] { "Assets/ItemData" });
 
         List<ItemData> foundItems = new();
-        Dictionary<int, ItemData> allitems_dic = new();
         HashSet<int> seenIDs = new();
         List<int> duplicateIDs = new();
 
@@ -51,7 +50,6 @@ public class AllItemsEditor : Editor
                 }
 
                 foundItems.Add(item);
-                allitems_dic[item.itemID] = item;
             }
         }
 
@@ -59,7 +57,6 @@ public class AllItemsEditor : Editor
 
         // ScriptableObject에 반영
         AllItems_ScriptableObject.allitems = foundItems;
-        AllItems_ScriptableObject.allitems_dic = allitems_dic;
 
         EditorUtility.SetDirty(AllItems_ScriptableObject);
         AssetDatabase.SaveAssets();
