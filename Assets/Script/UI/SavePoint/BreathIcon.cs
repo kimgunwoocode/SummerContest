@@ -11,10 +11,11 @@ public class BreathIcon : MonoBehaviour,
 
     [Header("해당 버튼의 정보")]
     public int MyId;                      // 해당 버튼에 할당된 장비의 아이디 번호
+    /*
     public string MyName;                 // 해당 버튼에 할당될 이름
     public string MyInfor;                // 해당 버튼에 할당될 정보
     public Sprite MySprite;               // 해당 버튼에 할당될 스프라이트
-
+    */
     [Header("텍스트 및 이미지 출력 창")]
     public Text BreathName;               // 호버한 브레스 이름 출력 텍스트박스
     public Text BreathInfor;              // 호버한 브레스 정보 출력 텍스트박스
@@ -75,8 +76,8 @@ public class BreathIcon : MonoBehaviour,
         {
             if (SetImages[i].sprite == null)
             {
-                SetImages[i].sprite = MySprite;
-                Ingame_SetImages[i].sprite = MySprite;
+                SetImages[i].sprite = data.allitems.allitems_dic[MyId].icon;
+                Ingame_SetImages[i].sprite = data.allitems.allitems_dic[MyId].icon;
 
                 data.EquipSkill.Add(MyId);  // 장착 정보 게임매니저한테 전달
                 break;
@@ -90,10 +91,11 @@ public class BreathIcon : MonoBehaviour,
         // 본인의 스프라이트를 장착한 슬롯 찾아서 제거
         for (int i = 0; i < SetImages.Length; i++)
         {
-            if (SetImages[i].sprite == MySprite)
+            if (SetImages[i].sprite == data.allitems.allitems_dic[MyId].icon)
             {
                 SetImages[i].sprite = null; // 빈 슬롯 이미지 스프라이트로 대체 필요
                 Ingame_SetImages[i].sprite = null;
+                Ingame_SetImages[i].color = new Color(1f, 1f, 1f, 0f); // 메인화면 UI 안보이게 하기, 수정필요
 
                 break;
             }
@@ -139,17 +141,17 @@ public class BreathIcon : MonoBehaviour,
         // 장비 얻었는지 여부에 따라 표기가 다름
         if (data.PlayerSkill.TryGetValue(MyId, out bool isUnlocked) && isUnlocked)
         {
-            BreathName.text = MyName;
-            BreathInfor.text = MyInfor;
+            BreathName.text = data.allitems.allitems_dic[MyId].itemName;
+            BreathInfor.text = data.allitems.allitems_dic[MyId].description;
             BreathImage.color = new Color(1f, 1f, 1f, 1f);
-            BreathImage.sprite = MySprite;
+            BreathImage.sprite = data.allitems.allitems_dic[MyId].icon;
         }
         else
         {
             BreathName.text = "???";
             BreathInfor.text = "???";
             BreathImage.color = new Color(0.3f, 0.3f, 0.3f, 1f);
-            BreathImage.sprite = MySprite;
+            BreathImage.sprite = data.allitems.allitems_dic[MyId].icon;
         }
 
     }
