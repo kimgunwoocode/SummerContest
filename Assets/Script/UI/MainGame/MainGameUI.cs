@@ -8,10 +8,11 @@ public class MainGameUI : MonoBehaviour
     GameDataManager data;
 
     public Image breatGauge;        // 브레스 게이지 이미지
+    public Sprite[] gaugeSprites;   // 게이지 스프라이트 리스트, 스프라이트 차례로 추가 필요
     public Text MoneyText;          // 가진 돈 텍스트
 
     [Header("Hp 관련")]
-    public GameObject heartPrefab;  // 하트 프리팹 (Image 포함된 프리팹)
+    public GameObject heartPrefab;  // 하트 프리팹
     public Transform heartContainer;// 하트들이 자식으로 정렬될 부모 오브젝트
 
     public Sprite fullHeart;        // 채워진 하트 스프라이트
@@ -28,12 +29,12 @@ public class MainGameUI : MonoBehaviour
         UICurrentHP = data.CurrentHP;
         UIMaxHP = data.MaxHP;
 
-        MoneyText.text = string.Format("{0}", data.Money); // 돈 텍스트 초기화
+        MoneyText.text = data.Money.ToString(); // 돈 텍스트 초기화
     }
 
     void Update()
     {
-        MoneyText.text = string.Format("{0}", data.Money); // 돈 텍스트 초기화
+        MoneyText.text = data.Money.ToString(); // 돈 텍스트 초기화
 
         float fillAmount = data.CurrentBreathGauge / data.MaxBreathGauge;
         breatGauge.fillAmount = Mathf.Clamp01(fillAmount); // 게이지 UI 초기화

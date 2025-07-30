@@ -54,10 +54,11 @@ MonoBehaviour:
   CurrentBreathGauge: 0
   Money: 0
   EquipSkill: 
+  BreathFillSpeed: 0.1
   PlayerAbility: 
   Shops: []
   SpawnPoint: -1
-  allitems: {fileID: 11400000, guid: c51f3ec5730d4e64299af4e7d482d162, type: 2}
+  allitems_SO: {fileID: 11400000, guid: c51f3ec5730d4e64299af4e7d482d162, type: 2}
 --- !u!114 &7945981874679585505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,9 +73,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameDataManager: {fileID: 1672343321082536275}
   Player: {fileID: 0}
-  CurrentSceneName: 
   CurrentScenePointID: -1
   CurrentStartSceneCameraArea: 0
+  SavePointID_json: {fileID: 4900000, guid: ef16207c3d171ce4fb45a219fa0fe0e8, type: 3}
 --- !u!114 &-5831135886237357416
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,10 +1,10 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class ShotBreath : BreathObject
 {
-    [Header("ÅºÈ¯ ¼³Á¤")]
-    public GameObject bulletPrefab; // NomalBreath ÇÁ¸®ÆÕ
-    public float spreadAngle = 30f; // ÀüÃ¼ ÆÛÁü °¢µµ
+    [Header("íƒ„í™˜ ì„¤ì •")]
+    public GameObject bulletPrefab; // NomalBreath í”„ë¦¬íŒ¹
+    public float spreadAngle = 30f; // ì „ì²´ í¼ì§ ê°ë„
     public int bulletCount = 4;
     public float shotSpeed = 5f;
 
@@ -14,14 +14,14 @@ public class ShotBreath : BreathObject
 
         for (int i = 0; i < bulletCount; i++)
         {
-            // ÆÛÁü °¢µµ °è»ê
+            // í¼ì§ ê°ë„ ê³„ì‚°
             float angleOffset = Mathf.Lerp(-halfSpread, halfSpread, bulletCount == 1 ? 0.5f : (float)i / (bulletCount - 1));
             float angleInRad = angleOffset * Mathf.Deg2Rad;
 
-            // È¸ÀüµÈ ¹æÇâ °è»ê
+            // íšŒì „ëœ ë°©í–¥ ê³„ì‚°
             Vector2 shotDir = Quaternion.Euler(0, 0, angleOffset) * direction.normalized;
 
-            // ÅºÈ¯ »ı¼º
+            // íƒ„í™˜ ìƒì„±
             GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             NomalBreath breath = bullet.GetComponent<NomalBreath>();
 
@@ -32,7 +32,7 @@ public class ShotBreath : BreathObject
             }
         }
 
-        // ¹ß»ç ÈÄ ShotBreath º»Ã¼´Â Á¦°Å
+        // ë°œì‚¬ í›„ ShotBreath ë³¸ì²´ëŠ” ì œê±°
         Destroy(gameObject);
     }
 }

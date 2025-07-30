@@ -25,7 +25,7 @@ public class MoveSceneArea : MonoBehaviour
         // 맵 이동 애니메이션
         gamemanager.CurrentScenePointID = NextPointID;
         gamemanager.CurrentStartSceneCameraArea = NextCameraArea;
-        gamemanager.CurrentSceneName = SceneName;
+        //gamemanager.CurrentSceneName = SceneName;
         SceneManager.LoadScene(SceneName);
     }
 }

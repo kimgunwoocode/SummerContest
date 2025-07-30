@@ -28,8 +28,7 @@ public class Interaction : MonoBehaviour
     private GameDataManager _gameDataManager;
 
 
-    private void Start()
-    {
+    private void Start() {
         _manager = Singleton.GameManager_Instance.Get<GameManager>();
         _gameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();
         if (_player == null)
@@ -53,10 +52,8 @@ public class Interaction : MonoBehaviour
         _playerInteraction = _player.GetComponent<PlayerInteraction>().interactionEvent;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player") && isInteracted)
-        {
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.CompareTag("Player") && isInteracted) {
             isPlayerNearby = true;
             _playerInteraction.AddListener(OnInteractPerformed);
             if (InteractionGuide != null)
@@ -64,10 +61,8 @@ public class Interaction : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player") && isInteracted)
-        {
+    private void OnTriggerExit2D(Collider2D other) {
+        if (other.CompareTag("Player") && isInteracted) {
             isPlayerNearby = false;
             _playerInteraction.RemoveListener(OnInteractPerformed);
             if (InteractionGuide != null)
@@ -77,9 +72,15 @@ public class Interaction : MonoBehaviour
 
     private void OnInteractPerformed()
     {
-        if (isPlayerNearby)
-        {
+        if (isPlayerNearby) {
             InteractEvent.Invoke();
         }
+    }
+
+
+    public void Change_isInteracted(bool isInteracte)
+    {
+        isInteracted = isInteracte;
+        _gameDataManager.InteractionObjects[ID] = isInteracte;
     }
 }

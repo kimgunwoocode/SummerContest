@@ -8,9 +8,16 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
 
     [Header("씬 이동 시 가져가야할 정보들")]
-    public string CurrentSceneName;
+    //public string CurrentSceneName;
     public int CurrentScenePointID = -1;
     public int CurrentStartSceneCameraArea = 0;
+
+
+
+
+    public TextAsset SavePointID_json;
+    Dictionary<int, string> SavePointID_list = new();
+
 
 
     private void OnEnable()
@@ -25,13 +32,16 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        //Debug.Log(scene.name);
+        if (scene.name == "Title")
+            return;
         if (Player == null || Player.activeSelf == false)
         {
             Player = GameObject.FindGameObjectWithTag("Player");
         }
     }
-    
-    
+
+
 
     private void Awake()
     {
@@ -39,10 +49,13 @@ public class GameManager : MonoBehaviour
         {
             Player = GameObject.FindGameObjectWithTag("Player");
         }
+        /*
         if (CurrentSceneName == null)
         {
             CurrentSceneName = SceneManager.GetActiveScene().name;
         }
+        */
+        SavePointID_list = MapTool.DictionaryFromJson(SavePointID_json.text);
     }
     private void Start()
     {
@@ -77,14 +90,23 @@ public class GameManager : MonoBehaviour
     {
         LoadData__SavePoint();//이전 세이브 포인트로 시점 되돌리기
 
+
         //이전 세이브 포인트로 위치 이동시키기
+        string SavedSceneName = SavePointID_list[GameDataManager.SpawnPoint];
+        CurrentScenePointID = -GameDataManager.SpawnPoint;
+        SceneManager.LoadScene(SavedSceneName);
+    }
+
+    public void Get_Money(int min, int max)
+    {
+        GameDataManager.Money += Random.Range(min, max);
     }
 
     public void Get_Item(int ItemID)
     {
         GameDataManager.GettedItems[ItemID]++;
 
-        ItemData item = GameDataManager.allitems.allitems.Find(item => item.itemID == ItemID);
+        ItemData item = GameDataManager.allitems[ItemID];
         if (item == null)
         {
             Debug.LogWarning("존재하지 않는 아이템 ID");
@@ -92,7 +114,7 @@ public class GameManager : MonoBehaviour
         }
 
         // 능력해금 아이템일 경우 획득시 능력 해금하기
-        if (item.itemType == ItemType.Ability && item is AbilityItemData abilityItem) 
+        if (item.itemType == ItemType.Ability && item is AbilityItemData abilityItem)
         {
             int slot = abilityItem.AbilitySlot;
             abilityItem.UnlockAbility();
@@ -112,8 +134,9 @@ public class GameManager : MonoBehaviour
         if (GameDataManager.PlayerAbility.Count != 0)
             GameDataManager.PlayerAbility[PlayerAbilityID] = true;
 
-        else {
-            GameDataManager.PlayerAbility = new List<bool>() {false, false, false, false, false, false};
+        else
+        {
+            GameDataManager.PlayerAbility = new List<bool>() { false, false, false, false, false, false };
             GameDataManager.PlayerAbility[PlayerAbilityID] = true;
         }
 

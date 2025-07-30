@@ -34,8 +34,13 @@ public class GameDataManager : MonoBehaviour
 
 
     //Item Data
-    public AllItems allitems;
+    public AllItems allitems_SO;
+    public Dictionary<int, ItemData> allitems = new();
 
+    private void Awake()
+    {
+        Apply_allitems();
+    }
     private void Start()
     {
         /*
@@ -50,15 +55,13 @@ public class GameDataManager : MonoBehaviour
     {
         GameData = Data;
     }
+    public void Apply_allitems()
+    {
+        foreach (var kv in allitems_SO.allitems)
+        {
+            int id = kv.itemID;
 
-    // 디버깅 용도
-    [ContextMenu("아이템 딕셔너리 확인")]
-    public void Log_allitems_dic()
-    {
-        Debug.Log("items count : " + allitems.allitems_dic.Count);
-    }
-    public void Set_ItemDictionary(Dictionary<int, ItemData> value)
-    {
-        allitems.allitems_dic = value;
+            allitems[id] = kv;
+        }
     }
 }

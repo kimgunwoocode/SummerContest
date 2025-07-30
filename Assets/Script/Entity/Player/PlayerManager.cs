@@ -1,6 +1,32 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Interactions;
+using System.IO;
+using System.Collections.Generic;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+[System.Serializable]
+public class PlayerUtilState {
+    private List<bool> PlayerUtilList;
+
+    public void Setter(int index, bool value) {
+        if (index < 0 || index > PlayerUtilList.Count) { 
+            Debug.LogError("The index must be between 0 and 5 (inclusive).");
+            return;
+        }
+        PlayerUtilList[index] = value;
+
+    }
+
+    public bool Getter(int index) {
+        if (index < 0 || index > PlayerUtilList.Count) {
+            Debug.LogError("The index must be between 0 and 5 (inclusive).");
+            return false;
+        }
+        return PlayerUtilList[index];
+    }
+}
 
 public class PlayerManager : MonoBehaviour {
     private PlayerInput_Action _inputActions;
@@ -20,12 +46,18 @@ public class PlayerManager : MonoBehaviour {
     private PlayerAnimation _anima;
     private PlayerInteraction _interaction;
     private GameDataManager _data;
+    private GameManager _manager;
 
     private int _maxHealth;
     private int _currentHealth;
 
+    internal List<bool> Abilitis;
+
 
     private void Awake() {
+        _manager = Singleton.GameManager_Instance.Get<GameManager>();
+        _data = Singleton.GameManager_Instance.Get<GameDataManager>();
+
         _rb = GetComponent<Rigidbody2D>();
 
         _movement = GetComponent<PlayerMovement>();
@@ -35,7 +67,6 @@ public class PlayerManager : MonoBehaviour {
     }
 
     private void Start() {
-        _data = Singleton.GameManager_Instance.Get<GameDataManager>();
         if (_data == null) Debug.LogError("Can't found GameDataManager at GameManager");
         if (_attack == null) Debug.LogError("PlayerAttack component must exist on this object");
         if (_movement == null) Debug.LogError("PlayerMovement component must exist on this object");
@@ -43,7 +74,10 @@ public class PlayerManager : MonoBehaviour {
         if (_anima == null) Debug.LogError("Missing required component: PlayerAnimation");
         if (playerMovementStats == null) Debug.LogError("Missing required component: PlayerMovementStats");
         if (playerAttackStats == null) Debug.LogError("Missing required component: PlayerAttackStats");
+        SaveFileManager.Load(0);
 
+        LoadData(-1);
+        _attack.InitiateBreath();
 
         _maxHealth = _data.MaxHP;
         _currentHealth = _data.CurrentHP;
@@ -69,6 +103,9 @@ public class PlayerManager : MonoBehaviour {
         _inputActions.Player.Interact.performed += _interaction.OnInteraction;
 
         _inputActions.Player.Attack.performed += Attack;
+        _inputActions.Player.Breath.performed += Attack;
+
+        _inputActions.Player.Down.performed += _movement.OnPlatformDown;
 
         _inputActions.Player.Enable();
     }
@@ -83,24 +120,37 @@ public class PlayerManager : MonoBehaviour {
         _inputActions.Player.Crouch.performed -= _movement.OnCrouchPerformed;
         _inputActions.Player.Crouch.canceled -= _movement.OnCrouchCanceled;
 
-        _inputActions.Player.Glide.performed += _movement.OnGlidePerformed;
-        _inputActions.Player.Glide.canceled += _movement.OnGlideCanceled;
+        _inputActions.Player.Glide.performed -= _movement.OnGlidePerformed;
+        _inputActions.Player.Glide.canceled -= _movement.OnGlideCanceled;
 
         _inputActions.Player.Dash.performed -= _movement.OnDashPerformed;
 
         _inputActions.Player.Interact.performed -= _interaction.OnInteraction;
 
-        _inputActions.Player.Attack.performed += Attack;
+        _inputActions.Player.Attack.performed -= Attack;
+        _inputActions.Player.Breath.performed -= Attack;
+
+        _inputActions.Player.Down.performed -= _movement.OnPlatformDown;
 
         _inputActions.Player.Disable();
     }
 
-    public void Attack(InputAction.CallbackContext context) {
-        _attack.MeleeAttack((_mousePosition - transform.position).normalized);
+    #region Util
+
+
+    private void LoadData(int id) {
+        Abilitis = _data.PlayerAbility;
     }
 
-    protected void Move() {
-        //rb.linearVelocity = movement.ApplyMove();
+    #endregion
+
+    private void Attack(InputAction.CallbackContext context) {
+        if (context.action.name == "Attack")
+            _attack.MeleeAttack((_mousePosition - transform.position).normalized);
+        else if (context.action.name == "Breath") {
+            if (!Abilitis[1]) return;
+            _attack.FireBreath((_mousePosition - transform.position).normalized);
+        }
     }
 
     
@@ -120,7 +170,7 @@ public class PlayerManager : MonoBehaviour {
     }
 
     private void Die(){
-
+        _manager.PlayerDie();
     }
 
     private void Knockback(int dir) {
@@ -138,26 +188,28 @@ public class PlayerManager : MonoBehaviour {
         /// 5. º®Å¸±â
         /// </summary>
         if (id == 0) {
-            playerMovementStats.IsDashUnlocked = true;
+            LoadData(0);
+            //SetData(1500);
         }else if(id == 1) {
-
-        }else if(id == 2) {
-            playerMovementStats.IsDoubleJumpUnloceked = true;
-        }else if(id == 3) {
-
-        }else if(id == 4) {
-            playerMovementStats.IsGlideUnlocked = true;
-        } else if(id == 5) {
-
+            LoadData(1);
+            //SetData(1501);
+        } else if(id == 2) {
+            LoadData(2);
+            //SetData(1502);
+        } else if (id == 3) {
+            LoadData(3);
+            //SetData(1503);
+        } else if (id == 4) {
+            LoadData(4);
+            //SetData(1504);
+        } else if (id == 5) {
+            LoadData(5);
+            //SetData(1505);
         }
+
     }
 
     private void Update() {
-        _mousePosition = cam.WorldToScreenPoint(Mouse.current.position.ReadValue());
-    }
-
-
-    private void FixedUpdate() {
-        Move();
+        _mousePosition = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
     }
 }

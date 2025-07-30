@@ -7,28 +7,33 @@ public class SavePoint : MonoBehaviour
     public SP_type SavePoint_type;
     [Header("ID")]
     public int ID;
+    public string SceneName;
     [Space]
     [Header("is activate")]
     public bool SavePointEnabled = false;
     [Space]
     public Interaction interaction;
     GameDataManager GameDataManager;
+    GameManager GameManager;
 
-    private void Start()
+
+    private void Awake()
     {
-        if (interaction == null) interaction = GetComponent<Interaction>();
+        GameManager = Singleton.GameManager_Instance.Get<GameManager>();
         GameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();
         if (GameDataManager.SpawnPoints?.Count > 0)
             SavePointEnabled = GameDataManager.SpawnPoints[ID];
+        if (ID == -GameManager.CurrentScenePointID)
+            GameManager.Player.transform.position = gameObject.transform.position;
     }
 
     public void InteractSavePoint()
     {
-        if (interaction.isInteracted)
+        if (interaction.isInteracted)// 상호작용 가능할 때
         {
-            interaction.isInteracted = false;
-            GameDataManager.InteractionObjects[ID] = false;
-            GameDataManager.SpawnPoints[ID] = true;
+            interaction.isInteracted = false;// 상호작용 했으므로 상호작용 비활성화 시키기
+            GameDataManager.InteractionObjects[ID] = false;// 데이터의 상호작용 오브젝트 값 변경
+            GameDataManager.SpawnPoints[ID] = true;// 데이터의 세이브포인트 값 변경
             // 활성 애니메이션
         }
         print("SavePoint_" + SavePoint_type + " ID:" + ID);

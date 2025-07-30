@@ -6,10 +6,11 @@ using System.Collections.Generic;
 
 public class Pause : MonoBehaviour
 {
-    public GameObject PausePanel;         // 퍼즈UI 화면
-    internal bool isPause;                // 퍼즈중인지 판별
 
-    public float clickUp = 1.3f;          // 클릭 시 확대 비율
+    public GameObject PausePanel;         // 퍼즈UI 화면
+    public GameObject currentSubPanel;    // 현재 활성화된 서브화면 프리팹
+
+    public float clickUp = 1.2f;          // 클릭 시 확대 비율
     public float duration = 0.15f;        // 애니메이션 시간
 
     private Vector3 originalScale = new Vector3(1f, 1f, 1f);        // 원래 크기
@@ -19,72 +20,45 @@ public class Pause : MonoBehaviour
 
 
 
-    [Header("퍼즈 화면 버튼")]
+    [Header("퍼즈 - 서브화면 버튼")]
     public GameObject SettingButton;
     public GameObject CollectionButton;
     public GameObject CharacterButton;
-    [Header("퍼즈 화면 정보창")]
-    public GameObject SettingPanel;
-    public GameObject CollectionPanel;
-    public GameObject CharacterPanel;
 
-    private List<GameObject> allPanels;
+    [Header("퍼즈 - 서브화면 프리팹")]
+    public GameObject SettingPanelPrefab;
+    public GameObject CollectionPanelPrefab;
+    public GameObject CharacterPanelPrefab;
+
+    private List<GameObject> allPanelPrefabs;
     private List<GameObject> allButtons;
+    private List<GameObject> allsubButtons;     // 도감 서브 버튼 리스트
     void Start()
     {
         // 퍼즈 관련 리스트
-        allPanels = new List<GameObject> { SettingPanel, CollectionPanel, CharacterPanel };
+        allPanelPrefabs = new List<GameObject> { SettingPanelPrefab, CollectionPanelPrefab, CharacterPanelPrefab };
         allButtons = new List<GameObject> { SettingButton, CollectionButton, CharacterButton };
 
 
         // Time.timeScale = 0f; // 작동 테스트용!!
-        PausePanel.SetActive(false);                    // 게임 시작시 퍼즈화면 비활성화 초기화
-        isPause = false;                                // 게임 시작시 false로
-        ClickButton(CharacterPanel, CharacterButton);   // 게임 시작시 캐릭터정보화면 활성화로 초기화
-
-
     }
 
-
-    void Update()
+    void OnEnable()
     {
-        // esc 클릭
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Debug.Log("클릭됨");
-            Pausing();
-        }
-
+        ClickButton(CharacterPanelPrefab, CharacterButton); // 활성화 될 때 캐릭터정보화면으로 초기화
     }
-
-    internal void Pausing()
-    {
-
-        if (isPause == true)
-        {
-            Time.timeScale = 1f;                      // 타임스케일
-
-            PausePanel.SetActive(false);              // 퍼즈 UI 화면 비활성화
-        }
-        else
-        {
-            Time.timeScale = 0f;                      // 타임스케일
-
-            PausePanel.SetActive(true);               // 퍼즈 UI 화면 활성화
-            ClickButton(CharacterPanel, CharacterButton); // 캐릭터 정보창 보이게 초기화
-        }
-        isPause = !isPause;
-    }
-
 
     // 버튼 클릭시 실행
-    private void ClickButton(GameObject targetPanel, GameObject targetButton)
+    private void ClickButton(GameObject targetPanelPrefab, GameObject targetButton)
     {
         // 특정 정보창만 활성화
-        foreach (var panel in allPanels)
+        if (currentSubPanel != null)
         {
-            panel.SetActive(panel == targetPanel);
+            Destroy(currentSubPanel); // 기존 프리팹 제거
         }
+
+        currentSubPanel = Instantiate(targetPanelPrefab, PausePanel.transform); // 새 서브창 생성
+
 
         // 누른 버튼의 크기 고정, 나머지 버튼 초기화
         foreach (var button in allButtons)
@@ -119,16 +93,16 @@ public class Pause : MonoBehaviour
     // 각 버튼의 On Click()에 참조
     public void OnSettingButtonClicked()
     {
-        ClickButton(SettingPanel, SettingButton);
+        ClickButton(SettingPanelPrefab, SettingButton);
     }
 
     public void OnCollectionButtonClicked()
     {
-        ClickButton(CollectionPanel, CollectionButton);
+        ClickButton(CollectionPanelPrefab, CollectionButton);
     }
 
     public void OnCharacterButtonClicked()
     {
-        ClickButton(CharacterPanel, CharacterButton);
+        ClickButton(CharacterPanelPrefab, CharacterButton);
     }
 }
