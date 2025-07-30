@@ -92,6 +92,8 @@ public class GameManager : MonoBehaviour
 
 
         //이전 세이브 포인트로 위치 이동시키기
+        if (GameDataManager.SpawnPoint == -1)
+            SceneManager.LoadScene("1-1_ForgottenNest");
         string SavedSceneName = SavePointID_list[GameDataManager.SpawnPoint];
         CurrentScenePointID = -GameDataManager.SpawnPoint;
         SceneManager.LoadScene(SavedSceneName);

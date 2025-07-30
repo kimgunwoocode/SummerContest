@@ -30,8 +30,7 @@ public class ThornObject : MonoBehaviour
     // 플레이어 공격 함수 가져다 쓰기 (엔티티 그거)
     void Attack(Collider2D collision)
     {
-        //함정 걸린 위치 저장하기
-        //AttackPosition = ;
+        collision.GetComponent<PlayerManager>()?.TakeDamage(1, gameObject.transform.position);
     }
 
 

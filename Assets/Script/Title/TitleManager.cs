@@ -12,6 +12,7 @@ public class TitleManager : MonoBehaviour
     public TMP_Text testText;
     [Space]
     public string StartSceneName;
+    public TitleUI_Manager TitleUIManager;
     [Space]
     [Header("InitData")]
     public TextAsset InitData;
@@ -43,26 +44,48 @@ public class TitleManager : MonoBehaviour
 
     public void StartNewGame()
     {
-        SaveFileManager.Load_forNewGame(InitData.text);
-        StartSceneName = "1-1_ForgottenNest";
-        GameManager.CurrentScenePointID = -1;
-        for (int i=1;i<=savefile_count;i++)
+        int index = -1;
+        for (int i = 0; i < TitleUIManager.isExistSaveFile.Count; i++)
         {
-            string path = SaveFileManager.GetPath(i);
-            testText.text += path + "\n";
-            if (!File.Exists(path))
+            Debug.Log(i);
+            if (!TitleUIManager.isExistSaveFile[i])
             {
-                SaveFileManager.Save(GameDataManager.GameData,i);
+                Debug.Log("find");
+                index = i+1;
                 break;
             }
-            if (i == savefile_count)
-            {
-                SaveFileManager.Save(GameDataManager.GameData, i); // 일단 덮어씌워
-                // 모든 세이브칸이 꽉 찼음. 새로운 게임을 시작하려면 공간을 확보해야함
-            }
         }
+        Debug.Log(index);
+        if (index < 0)
+        {
+            // 세이브파일 슬롯이 가득찬 상황
+            return;
+        }
+        else
+            SaveFileManager.Load_forNewGame(InitData.text, index);
+
+
+        StartSceneName = "1-1_ForgottenNest";
+        GameManager.CurrentScenePointID = -1;
         SceneManager.LoadScene(StartSceneName);
     }
+
+    public void deleteSaveFile(int slot)
+    {
+        string path = SaveFileManager.GetPath(slot);
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+            Debug.Log($"세이브 파일 삭제됨: {path}");
+        }
+        else
+        {
+            Debug.LogWarning($"세이브 파일이 존재하지 않습니다: {path}");
+        }
+        TitleUIManager.SetSaveFileButton();
+    }
+
 
     public void QuitGame()
     {

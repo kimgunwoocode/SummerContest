@@ -161,7 +161,7 @@ public class PlayerManager : MonoBehaviour {
 
     public void TakeDamage(int damage, Vector3 hitDir) {
         _currentHealth -= damage;
-
+        _data.CurrentHP = _currentHealth;
         if (_currentHealth <= 0) {
             Die();
             return;

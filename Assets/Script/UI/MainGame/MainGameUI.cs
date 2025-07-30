@@ -40,6 +40,7 @@ public class MainGameUI : MonoBehaviour
         UIMaxHP = data.MaxHP;
 
         MoneyText.text = data.Money.ToString(); // 돈 텍스트 초기화
+        UpdateHP(data.CurrentHP, data.MaxHP);
     }
 
     void Update()

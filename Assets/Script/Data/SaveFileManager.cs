@@ -179,14 +179,14 @@ public static class SaveFileManager
 
 
 
-    public static void Load_forNewGame(string json)
+    public static void Load_forNewGame(string json, int index)
     {
         SerializableSaveData serializable = JsonUtility.FromJson<SerializableSaveData>(json);
 
         // 역직렬화: SerializableSaveData → SaveData
         SaveData result = new SaveData
         {
-            Slot = 0,
+            Slot = index,
             Name = serializable.Name,
             Day = serializable.Day,
             MapData = new MapData
