@@ -140,6 +140,7 @@ public class TitleManager : MonoBehaviour
     {
         SaveFileManager.deleteSaveFile(selected_index);
         SetSaveFileButton();
+        Closs_warnning_screen();
     }
 
 
