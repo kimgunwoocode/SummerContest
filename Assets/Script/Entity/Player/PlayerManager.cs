@@ -147,9 +147,10 @@ public class PlayerManager : MonoBehaviour {
     private void Attack(InputAction.CallbackContext context) {
         if (context.action.name == "Attack")
             _attack.MeleeAttack((_mousePosition - transform.position).normalized);
-        else if (context.action.name == "Breath")
+        else if (context.action.name == "Breath") {
             if (!Abilitis[1]) return;
             _attack.FireBreath((_mousePosition - transform.position).normalized);
+        }
     }
 
     
@@ -209,6 +210,6 @@ public class PlayerManager : MonoBehaviour {
     }
 
     private void Update() {
-        _mousePosition = cam.WorldToScreenPoint(Mouse.current.position.ReadValue());
+        _mousePosition = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
     }
 }
