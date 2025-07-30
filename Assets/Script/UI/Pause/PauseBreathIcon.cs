@@ -16,7 +16,7 @@ public class PauseBreathIcon : MonoBehaviour
         if (data.PlayerSkill.TryGetValue(MyId, out bool isUnlocked) && isUnlocked)
         {
             BreathImage.color = new Color(1f, 1f, 1f, 1f);
-            BreathImage.sprite = data.allitems.allitems_dic[MyId].icon;
+            BreathImage.sprite = data.allitems[MyId].icon;
         }
         else
         {

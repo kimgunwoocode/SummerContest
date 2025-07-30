@@ -32,6 +32,7 @@ public class Pause : MonoBehaviour
 
     private List<GameObject> allPanelPrefabs;
     private List<GameObject> allButtons;
+    private List<GameObject> allsubButtons;     // 도감 서브 버튼 리스트
     void Start()
     {
         // 퍼즈 관련 리스트
