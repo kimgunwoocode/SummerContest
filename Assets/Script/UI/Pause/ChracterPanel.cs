@@ -26,6 +26,7 @@ public class ChracterPanel : MonoBehaviour
     public Image Pepper;
     public Image BreathGauge;
 
+
     void Start()
     {
         Image[] breathIcons = { BreathIcon_1, BreathIcon_2, BreathIcon_3 };

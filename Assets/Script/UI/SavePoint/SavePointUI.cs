@@ -10,9 +10,5 @@ public class SavePointUI : MonoBehaviour
 
     }
 
-    // 세이브 포인트에 상호작용시 세이브포인트판넬 활성화
-    public void EnterSavePoint()
-    {
-        SavePointPanel.SetActive(true);
-    }
+
 }
