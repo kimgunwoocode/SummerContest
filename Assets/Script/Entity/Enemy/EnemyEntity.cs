@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework.Constraints;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class EnemyEntity : MonoBehaviour
 {
@@ -14,12 +13,13 @@ public class EnemyEntity : MonoBehaviour
     public int facingDir {get; private set;} = -1;
     public AnimationToStatemachine atsm {get; private set;}
     public int lastDamageDirection {get; private set;}
+    public int currentHP {get; private set;}
 
     [SerializeField] SpriteRenderer spriteRenderer;
     
     [Header("Check")]
-    [SerializeField] Transform wallCheck;
-    [SerializeField] Transform ledgeCheck;
+    [SerializeField] protected Transform wallCheck;
+    [SerializeField] protected Transform ledgeCheck;
     [SerializeField] protected Transform groundCheck;
     [SerializeField] protected Transform playerCheck;
 
@@ -27,7 +27,7 @@ public class EnemyEntity : MonoBehaviour
     protected float lastDamageTime;    
 
     Vector2 velocityWorkspace;
-    int currentHP;
+    
 
     [ContextMenu("Change Facing Direction")]
     public void FlipDefaultFacingDir()
@@ -66,11 +66,6 @@ public class EnemyEntity : MonoBehaviour
     protected virtual void Update()
     {
         stateMachine.currentState.LogicUpdate();
-
-        if (Keyboard.current.kKey.wasPressedThisFrame)
-        {
-            TakeDamage(1, Vector2.zero);
-        }
     }
 
     protected virtual void FixedUpdate() 

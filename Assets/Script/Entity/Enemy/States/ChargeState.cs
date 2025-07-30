@@ -2,14 +2,19 @@ using UnityEngine;
 
 public class ChargeState : State
 {
-    [SerializeField] protected float chargeSpeed = 6f;
-    [SerializeField] protected float chargeTime = 2f;
+    [SerializeField, Tooltip("돌진 속도")]
+    protected float chargeSpeed = 6f;
+    
+    [SerializeField, Tooltip("돌진 지속 시간")]
+    protected float chargeTime = 2f;
 
-    protected bool isPlayerMinRange;
     protected bool isLedge;
     protected bool isWall;
-    protected bool isChargeTimeOver;
+
+    protected bool isPlayerMinRange;
     protected bool performCloseRangeAction;
+
+    protected bool isChargeTimeOver;
 
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {

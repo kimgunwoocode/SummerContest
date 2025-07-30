@@ -30,6 +30,8 @@ public class YoKo : EnemyEntity
 
     public override void TakeDamage(int damageAmount, Vector2 attackerPosition)
     {
+        //if (stateMachine.currentState == knockbackState) return;
+
         base.TakeDamage(damageAmount, attackerPosition);
 
         if (isDead && stateMachine.currentState != deadState)

@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class DeadState : State
 {
-   [SerializeField] protected GameObject deathChunkParticle;
-   [SerializeField] protected GameObject deathBloodParticle;
+    [SerializeField, Tooltip("파편이 생성되는 파티클.")] 
+    protected GameObject deathChunkParticle;
+
+    [SerializeField, Tooltip("혈흔이 생성되는 파티클.")] 
+    protected GameObject deathBloodParticle;
 
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
@@ -21,14 +24,15 @@ public class DeadState : State
     {
         base.Enter();
 
-        if(deathBloodParticle != null)
+        if (deathBloodParticle != null)
             GameObject.Instantiate(deathBloodParticle, enemy.aliveGO.transform.position, deathBloodParticle.transform.rotation);
-        
-        if(deathChunkParticle != null)
+
+        if (deathChunkParticle != null)
             GameObject.Instantiate(deathChunkParticle, enemy.aliveGO.transform.position, deathChunkParticle.transform.rotation);
 
-        enemy.gameObject.SetActive(false);
+        //enemy.gameObject.SetActive(false);
         // TODO: 추후 리스폰, 돈 드랍 등을 반영하여 수정 필요
+        Debug.Log($"{enemy.enemyData.enemyName}이 죽음");
     }
 
     public override void Exit()

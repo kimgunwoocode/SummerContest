@@ -46,11 +46,11 @@ public class MeleeAttackState : AttackState
 
         Collider2D[] detectedObjs = Physics2D.OverlapCircleAll(attackPosition.position, attackRadius, playerLayer);
 
-        foreach(Collider2D col in detectedObjs)
+        foreach (var col in detectedObjs)
         {
             // 플레이어 공격
             col.GetComponent<PlayerManager>()?.TakeDamage(1, enemy.aliveGO.transform.position);
-            //Debug.Log("적이 플레이어를 공격함");
+            
         }
     }
 
