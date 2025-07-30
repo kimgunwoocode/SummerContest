@@ -16,6 +16,10 @@ public class BreathIcon : MonoBehaviour,
     public string MyInfor;                // 해당 버튼에 할당될 정보
     public Sprite MySprite;               // 해당 버튼에 할당될 스프라이트
     */
+    [Header("미장착 이미지")]
+    public Sprite nullSprite;
+    public Sprite Dragonsprite;
+
     [Header("텍스트 및 이미지 출력 창")]
     public Text BreathName;               // 호버한 브레스 이름 출력 텍스트박스
     public Text BreathInfor;              // 호버한 브레스 정보 출력 텍스트박스
@@ -46,7 +50,9 @@ public class BreathIcon : MonoBehaviour,
     void Start()
     {
         data = Singleton.GameManager_Instance.Get<GameDataManager>();
+
         originalScale = transform.localScale;        // 시작 크기 저장
+
         // 이미지 리스트
         SetImages[0] = SetImage_1;
         SetImages[1] = SetImage_2;
@@ -58,6 +64,7 @@ public class BreathIcon : MonoBehaviour,
     }
     public void ClickButton()
     {
+        Debug.Log("클릭됨");
         //if (data.PlayerSkill.TryGetValue(MyId, out bool isUnlocked) && isUnlocked)
         //{
         if (data.EquipSkill.Contains(MyId))              // 이미 장착 중이면 해제
@@ -93,9 +100,16 @@ public class BreathIcon : MonoBehaviour,
         {
             if (SetImages[i].sprite == data.allitems[MyId].icon)
             {
-                SetImages[i].sprite = null; // 빈 슬롯 이미지 스프라이트로 대체 필요
-                Ingame_SetImages[i].sprite = null;
-                Ingame_SetImages[i].color = new Color(1f, 1f, 1f, 0f); // 메인화면 UI 안보이게 하기, 수정필요
+                SetImages[i].sprite = nullSprite; // 빈 슬롯 이미지 스프라이트로 대체
+                if (i == 0)
+                {
+                    Ingame_SetImages[i].sprite = Dragonsprite;
+                }
+                else
+                {
+                    Ingame_SetImages[i].sprite = nullSprite;
+                }
+
 
                 break;
             }
@@ -118,10 +132,10 @@ public class BreathIcon : MonoBehaviour,
                     if (SetImages[j].sprite != null)
                     {
                         SetImages[i].sprite = SetImages[j].sprite;
-                        SetImages[j].sprite = null;
+                        SetImages[j].sprite = nullSprite;
 
                         Ingame_SetImages[i].sprite = Ingame_SetImages[j].sprite;
-                        Ingame_SetImages[j].sprite = null;
+                        Ingame_SetImages[j].sprite = nullSprite;
 
                         break;
                     }
@@ -133,6 +147,7 @@ public class BreathIcon : MonoBehaviour,
     // 호버 관리
     public void OnPointerEnter(PointerEventData eventData)
     {
+        Debug.Log("호버됨");
         //확대 말고 후광? 같은걸로 수정해도 좋을듯
         currentTween?.Kill();
         currentTween = transform.DOScale(originalScale * hoverUp, duration).SetUpdate(true);

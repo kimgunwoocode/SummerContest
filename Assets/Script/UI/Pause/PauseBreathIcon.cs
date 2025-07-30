@@ -11,11 +11,12 @@ public class PauseBreathIcon : MonoBehaviour
 
     void Start()
     {
+        data = Singleton.GameManager_Instance.Get<GameDataManager>();
+
         // 해당 아이콘의 정보 보이기
         // 장비 얻었는지 여부에 따라 표기가 다름
         if (data.PlayerSkill.TryGetValue(MyId, out bool isUnlocked) && isUnlocked)
         {
-            BreathImage.color = new Color(1f, 1f, 1f, 1f);
             BreathImage.sprite = data.allitems[MyId].icon;
         }
         else
