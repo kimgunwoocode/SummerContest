@@ -8,6 +8,7 @@ public class MainGameUI : MonoBehaviour
     GameDataManager data;
 
     public Image breatGauge;        // 브레스 게이지 이미지
+    public Sprite[] gaugeSprites;   // 게이지 스프라이트 리스트, 스프라이트 차례로 추가 필요
     public Text MoneyText;          // 가진 돈 텍스트
 
     [Header("Hp 관련")]
