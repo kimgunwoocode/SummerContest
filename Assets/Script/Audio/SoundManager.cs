@@ -86,6 +86,7 @@ public class SoundManager : MonoBehaviour
         //   Debug.Log("currentMapBGMSource: " + currentMapBGMSource.clip);
 
             currentMapBGMSource.Play();
+            currentMapBGMSource.loop = true;
         //    Debug.Log("Play BGM: " + currentMapBGMSource.clip.name);
         }
         else
