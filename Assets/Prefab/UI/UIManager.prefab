@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2948591292852277109
+--- !u!1 &1452116268707701885
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8780989995808428684}
-  - component: {fileID: 5797730216045788981}
-  - component: {fileID: 8470451058773722515}
+  - component: {fileID: 8485581025289564878}
+  - component: {fileID: 4523250742168186369}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -18,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8780989995808428684
+--- !u!4 &8485581025289564878
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2948591292852277109}
+  m_GameObject: {fileID: 1452116268707701885}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 384.83585, y: 262.59177, z: 0}
@@ -33,43 +32,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5797730216045788981
+--- !u!114 &4523250742168186369
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2948591292852277109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a4e27535f5354b46a7bae8d28b05090, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  breatGauge: {fileID: 0}
-  gaugeSprites:
-  - {fileID: -3602785141775846246, guid: 1451c82136fef498ebf22bfda413177f, type: 3}
-  - {fileID: 2221641377615302968, guid: 1451c82136fef498ebf22bfda413177f, type: 3}
-  - {fileID: 6951830200482043683, guid: 1451c82136fef498ebf22bfda413177f, type: 3}
-  - {fileID: -5151129441508770498, guid: 1451c82136fef498ebf22bfda413177f, type: 3}
-  - {fileID: 555464774736453818, guid: 1451c82136fef498ebf22bfda413177f, type: 3}
-  MoneyText: {fileID: 0}
-  heartPrefab: {fileID: 6607621031661118477, guid: 0ff0602e1816840489a1693221e984dc, type: 3}
-  heartContainer: {fileID: 0}
-  fullHeart: {fileID: 6105805426781196044, guid: 1451c82136fef498ebf22bfda413177f, type: 3}
-  emptyHeart: {fileID: 8815528253425440400, guid: 1451c82136fef498ebf22bfda413177f, type: 3}
---- !u!114 &8470451058773722515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2948591292852277109}
+  m_GameObject: {fileID: 1452116268707701885}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1da4d00d6a7a4077ae47f7e9294bba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PausePanel: {fileID: 0}
-  SavePointPrefab: {fileID: 0}
-  ShopPrefab: {fileID: 0}
+  MainGamePrefab: {fileID: 973413276397980350, guid: 6d25abbc89c024bfb8bf7ae311eefbe8, type: 3}
+  SavePointPrefab: {fileID: 5381259683963840761, guid: 3b1f41ab8ae464d3ab924d6efa431520, type: 3}
+  ShopPrefab: {fileID: 6153569087564467831, guid: 8f11a6bcef82646baafb8e0738e36fb9, type: 3}
   ActivePanel: {fileID: 0}
