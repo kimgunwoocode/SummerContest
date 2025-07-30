@@ -7,9 +7,19 @@ public class MainGameUI : MonoBehaviour
 {
     GameDataManager data;
 
+    public Text MoneyText;          // 가진 돈 텍스트
+    [Header("브레스 아이콘 관련")]
+    public Image breatGaugeIcon_1;
+    public Image breatGaugeIcon_2;
+    public Image breatGaugeIcon_3;
+
+
+    public Sprite nullsprite;           // 비어있는 칸 이미지
+    public Sprite Dragonsprite;         // 첫번째 칸 비어있을 시 기본 이미지
+
+    [Header("브레스 게이지 관련")]
     public Image breatGauge;        // 브레스 게이지 이미지
     public Sprite[] gaugeSprites;   // 게이지 스프라이트 리스트, 스프라이트 차례로 추가 필요
-    public Text MoneyText;          // 가진 돈 텍스트
 
     [Header("Hp 관련")]
     public GameObject heartPrefab;  // 하트 프리팹
@@ -18,7 +28,7 @@ public class MainGameUI : MonoBehaviour
     public Sprite fullHeart;        // 채워진 하트 스프라이트
     public Sprite emptyHeart;       // 빈 하트 스프라이트
 
-    // UI에서 따로 카운팅하는 체력 관련
+    // UI에서 따로 카운팅하는 체력 관련, 삭제가능
     private int UICurrentHP;
     private int UIMaxHP;
     private List<Image> heartImages = new(); // 하트 이미지 리스트
@@ -54,6 +64,28 @@ public class MainGameUI : MonoBehaviour
         }
     }
 
+    // 장착 브레스 바뀌었을 시 호출
+    public void BreathIconFix()
+    {
+        Image[] breathIcons = { breatGaugeIcon_1, breatGaugeIcon_2, breatGaugeIcon_3 };
+        // 장착 브레스 아이콘 초기화
+        for (int i = 0; i < 3; i++)
+        {
+            if (i < data.EquipSkill.Count)
+            {
+                // 스킬이 존재하면 해당 아이콘으로 설정
+                breathIcons[i].sprite = data.allitems[data.EquipSkill[i]].icon;
+            }
+            else if (i == 0)
+            {
+                breathIcons[i].sprite = Dragonsprite;
+            }
+            else
+            {
+                breathIcons[i].sprite = nullsprite;
+            }
+        }
+    }
 
     // 최대체력 갱신시 호출
     public void InitializeHP(int maxHP)

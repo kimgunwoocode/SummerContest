@@ -4,12 +4,13 @@ using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject PausePanel;         // 퍼즈UI 화면
     internal bool isPause;                // 퍼즈중인지 판별
 
+    public GameObject PausePanel;         // 퍼즈UI 화면
+    public GameObject MainGamePrefab;     // 메인게임 UI 프리팹
     public GameObject SavePointPrefab;    // 세이브 포인트 UI 프리팹
-
     public GameObject ShopPrefab;         // 상점 UI 프리팹
+
 
     public Transform ActivePanel;        // 활성화 된 창 생성 위치
     private GameObject ActivePanelPrefab = null;       // 활성화된 창 프리팹
