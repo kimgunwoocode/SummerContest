@@ -23,6 +23,9 @@ public class SavePoint : MonoBehaviour
         GameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();
         if (GameDataManager.SpawnPoints?.Count > 0)
             SavePointEnabled = GameDataManager.SpawnPoints[ID];
+    }
+    private void Start()
+    {
         if (ID == -GameManager.CurrentScenePointID)
             GameManager.Player.transform.position = gameObject.transform.position;
     }

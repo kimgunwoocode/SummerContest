@@ -74,7 +74,7 @@ public class PlayerManager : MonoBehaviour {
         if (_anima == null) Debug.LogError("Missing required component: PlayerAnimation");
         if (playerMovementStats == null) Debug.LogError("Missing required component: PlayerMovementStats");
         if (playerAttackStats == null) Debug.LogError("Missing required component: PlayerAttackStats");
-        SaveFileManager.Load(0);
+        //SaveFileManager.Load(0);
 
         LoadData(-1);
         _attack.InitiateBreath();

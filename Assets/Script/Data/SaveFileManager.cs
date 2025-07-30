@@ -103,6 +103,33 @@ public static class SaveFileManager
         {
             Debug.LogWarning($"세이브 파일이 존재하지 않습니다: {path}");
         }
+
+
+#if UNITY_EDITOR
+        // Assets 내부 경로 (Unity가 인식 가능)
+        string relativePath = "Assets/InitData/EditorSaveData";
+
+        // 실제 OS상의 경로로 변환
+        string fullPath = Path.Combine(Application.dataPath.Replace("/Assets", ""), relativePath);
+
+        if (!Directory.Exists(fullPath))
+            Directory.CreateDirectory(fullPath);
+
+        // Unity가 파일을 인식할 수 있도록 강제 새로고침
+        AssetDatabase.Refresh();
+
+        path = Path.Combine(fullPath, $"save_slot_{slot}.json");
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+            Debug.Log($"세이브 파일 삭제됨: {path}");
+        }
+        else
+        {
+            Debug.LogWarning($"세이브 파일이 존재하지 않습니다: {path}");
+        }
+#endif
     }
 
     #region Save
@@ -264,10 +291,6 @@ public static class SaveFileManager
 
     public static SaveData LoadFromSaveFile(int slotIndex)
     {
-#if UNITY_EDITOR
-        const string saveDataPath = "Assets/InitData/EditorSaveData/save_slot_0.json";
-        string json = File.ReadAllText(saveDataPath);
-#else
         if (slotIndex == 0)
         {
             
@@ -278,7 +301,6 @@ public static class SaveFileManager
             return null;
         }
         string json = File.ReadAllText(GetPath(slotIndex));
-#endif
 
         SerializableSaveData serializable = JsonUtility.FromJson<SerializableSaveData>(json);
 

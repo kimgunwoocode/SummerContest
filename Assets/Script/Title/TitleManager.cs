@@ -39,6 +39,9 @@ public class TitleManager : MonoBehaviour
         SaveFileManager.Load(index);
         StartSceneName = SavePointID_list[GameDataManager.SpawnPoint];
         GameManager.CurrentScenePointID = -GameDataManager.SpawnPoint;
+
+        Debug.Log(InitData.text);
+
         SceneManager.LoadScene(StartSceneName);
     }
 
@@ -63,6 +66,9 @@ public class TitleManager : MonoBehaviour
         }
         else
             SaveFileManager.Load_forNewGame(InitData.text, index);
+
+
+        Debug.Log(GameDataManager.GameData.Slot + " 번 슬롯  --> \n" + InitData.text);
 
 
         StartSceneName = "1-1_ForgottenNest";
