@@ -418,7 +418,6 @@ MonoBehaviour:
   ledgeCheck: {fileID: 5812376372726418146}
   groundCheck: {fileID: 8848935231692898900}
   playerCheck: {fileID: 721770926365569507}
-  player: {fileID: 0}
   idleState: {fileID: 5946957712677641190}
   moveState: {fileID: 1198378843530212522}
   playerDetectedState: {fileID: 1633011069037806450}
@@ -466,7 +465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8031ad4d2e0d9324f930eed56661fa53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  longRangeActionTime: 1
+  longRangeActionTime: 0.4
 --- !u!114 &6270142184471410742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,8 +478,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a15995e1279673449bcc49f4e99b0513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpHeight: 6
-  jumpOffset: 1.8
+  jumpHeight: 1
+  jumpOffset: 1
 --- !u!114 &5087021944905460787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,8 +523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 897cf0e7ab4c3e748a9a08d282a67e59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackTime: 0.2
-  knockbackSpeed: 3
+  knockbackPower: 3
   knockbackAngle: {x: 2, y: 4}
 --- !u!114 &1694260027989886665
 MonoBehaviour:
