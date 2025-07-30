@@ -19,27 +19,27 @@ public class Yoko_JumpState : JumpState
     {
         base.Enter();
 
-        // TODO: 포물선 연산 시뮬레이션 활용하도록 수정
         player = Singleton.GameManager_Instance.Get<GameManager>().Player.transform;
         float distanceFromPlayer = Math.Abs(player.position.x - enemy.aliveGO.transform.position.x) - jumpOffset;
-        enemy.rb.AddForce(new Vector2(distanceFromPlayer * enemy.facingDir, jumpHeight), ForceMode2D.Impulse);
+
+        JumpToTarget(new Vector2(distanceFromPlayer, 0), jumpHeight);
     }
-    
+
     protected override void OnJumpLanding()
     {
         base.OnJumpLanding();
 
-        if(performCloseRangeAction)
+        if (performCloseRangeAction)
         {
             stateMachine.ChangeState(yoKo.MeleeAttackState);
         }
-        else if(!isLedge || isWall)
+        else if (!isLedge || isWall)
         {
             stateMachine.ChangeState(yoKo.LookForPlayerState);
         }
-        else if(isJumpDone)
+        else if (isJumpDone)
         {
-            if(isPlayerMinRange)
+            if (isPlayerMinRange)
             {
                 stateMachine.ChangeState(yoKo.PlayerDetectedState);
             }
@@ -48,5 +48,27 @@ public class Yoko_JumpState : JumpState
                 stateMachine.ChangeState(yoKo.LookForPlayerState);
             }
         }
+    }
+    
+    private void JumpToTarget(Vector2 displacement, float apexHeight)
+    {
+        float gravity = Mathf.Abs(Physics2D.gravity.y * enemy.rb.gravityScale);
+
+        // 1. 정점 높이까지 걸리는 시간
+        float timeToApex = Mathf.Sqrt(2 * apexHeight / gravity);
+
+        // 2. 정점에서 목표 지점까지 걸리는 시간
+        float heightAfterApex = apexHeight - displacement.y;
+        float timeFromApex = Mathf.Sqrt(2 * Mathf.Max(heightAfterApex, 0.01f) / gravity); // 음수 방지
+
+        float totalTime = timeToApex + timeFromApex;
+
+        // 3. 초기 속도 계산
+        float velocityY = gravity * timeToApex;
+        float velocityX = displacement.x / totalTime * enemy.facingDir;
+
+        // 4. 기존 속도 제거 후 점프 적용
+        enemy.rb.linearVelocity = Vector2.zero;
+        enemy.rb.AddForce(new Vector2(velocityX, velocityY), ForceMode2D.Impulse);
     }
 }
