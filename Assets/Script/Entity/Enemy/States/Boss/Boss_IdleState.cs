@@ -3,13 +3,23 @@ using UnityEngine;
 public class Boss_IdleState : State
 {
     protected bool isIdleTimeOver;
-    protected float idleTime;
+
+    private float idleTime = 0f;
+    private bool hasPlayerEnteredBossRoom = false;
+    private bool isPlayerMaxRange;
 
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
         base.Initialize(enemy, stateMachine);
 
         animBoolName = "idle";
+    }
+
+    public override void DoCheck()
+    {
+        base.DoCheck();
+
+        isPlayerMaxRange = enemy.CheckPlayerMaxRange();
     }
 
     public override void Enter()
@@ -23,8 +33,21 @@ public class Boss_IdleState : State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        
+        if (!hasPlayerEnteredBossRoom)
+        {
+            if (isPlayerMaxRange)
+            {
+                hasPlayerEnteredBossRoom = true;
+                startTime = Time.time;
+            }
+            else
+            {
+                return; // 최초 플레이어 인식 전
+            }
+        }
 
-        if(Time.time >= startTime + idleTime)
+        if (Time.time >= startTime + idleTime)
         {
             isIdleTimeOver = true;
         }
