@@ -177,6 +177,57 @@ public static class SaveFileManager
 
     #endregion
 
+
+
+    public static void Load_forNewGame(string json)
+    {
+        SerializableSaveData serializable = JsonUtility.FromJson<SerializableSaveData>(json);
+
+        // 역직렬화: SerializableSaveData → SaveData
+        SaveData result = new SaveData
+        {
+            Slot = 0,
+            Name = serializable.Name,
+            Day = serializable.Day,
+            MapData = new MapData
+            {
+                InteractionObjects = ToDictionary_bool(serializable.MapData.InteractionObjects),
+                Shops = serializable.MapData.Shops,
+                SpawnPoints = ToDictionary_bool(serializable.MapData.SpawnPoints),
+                PushObjects = ToDictionary_vec2(serializable.MapData.PushObjects),
+                SpawnPoint = serializable.MapData.SpawnPoint
+            },
+            PlayerData = new PlayerData
+            {
+                MaxHP = serializable.PlayerData.MaxHP,
+                CurrentHP = serializable.PlayerData.CurrentHP,
+                ATK = serializable.PlayerData.ATK,
+                MaxBreathGauge = serializable.PlayerData.MaxBreathGauge,
+                CurrentBreathGauge = serializable.PlayerData.CurrentBreathGauge,
+                Money = serializable.PlayerData.Money,
+                EquipSkill = serializable.PlayerData.EquipSkill,
+                PlayerAbility = serializable.PlayerData.PlayerAbility,
+                PlayerSkill = ToDictionary_bool(serializable.PlayerData.PlayerSkill),
+                GettedItems = ToDictionary_int(serializable.PlayerData.GettedItems)
+            }
+        };
+
+
+        SaveData loaded = result;
+        if (loaded != null)
+        {
+            Singleton.GameManager_Instance.Get<GameDataManager>().LoadGameData(loaded);
+            Singleton.GameManager_Instance.Get<GameManager>().LoadData__SavePoint();
+            Debug.Log($"GameDataManager에 SaveData 적용 완료 (슬롯 0)");
+        }
+        else
+        {
+            Debug.LogWarning($"슬롯 0 로드 실패");
+        }
+    }
+
+
+
     #region Load
     public static void Load(int slotIndex)
     {

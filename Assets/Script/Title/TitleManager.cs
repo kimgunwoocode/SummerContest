@@ -3,9 +3,14 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Collections;
 using System.IO;
+using UnityEngine.UI;
+using TMPro;
 
 public class TitleManager : MonoBehaviour
 {
+    [Header("test")]
+    public TMP_Text testText;
+    [Space]
     public string StartSceneName;
     [Space]
     [Header("InitData")]
@@ -38,18 +43,21 @@ public class TitleManager : MonoBehaviour
 
     public void StartNewGame()
     {
-        SaveFileManager.Load(0);
+        SaveFileManager.Load_forNewGame(InitData.text);
         StartSceneName = "1-1_ForgottenNest";
         GameManager.CurrentScenePointID = -1;
         for (int i=1;i<=savefile_count;i++)
         {
             string path = SaveFileManager.GetPath(i);
+            testText.text += path + "\n";
             if (!File.Exists(path))
             {
                 SaveFileManager.Save(GameDataManager.GameData,i);
+                break;
             }
             if (i == savefile_count)
             {
+                SaveFileManager.Save(GameDataManager.GameData, i); // 일단 덮어씌워
                 // 모든 세이브칸이 꽉 찼음. 새로운 게임을 시작하려면 공간을 확보해야함
             }
         }

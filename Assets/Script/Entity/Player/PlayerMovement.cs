@@ -84,12 +84,12 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     internal void OnGlidePerformed(InputAction.CallbackContext context) {
-        if (!_PM.Abilitis[4]) return;
+        if (!_data.PlayerAbility[4]) return;
         _isGlide = _movementStats.IsGlideActionByToggle ? !_isGlide : true;
     }
 
     internal void OnGlideCanceled(InputAction.CallbackContext context) {
-        if (!_PM.Abilitis[4]) return;
+        if (!_data.PlayerAbility[4]) return;
         _isGlide = _movementStats.IsGlideActionByToggle ? !_isGlide : false;
     }
 
