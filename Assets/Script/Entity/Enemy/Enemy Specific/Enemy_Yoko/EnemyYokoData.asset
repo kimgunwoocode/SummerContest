@@ -16,11 +16,13 @@ MonoBehaviour:
   enemyInfo: "\uC5EC\uC6B0\uB2E4"
   maxHP: 3
   wallCheckDistance: 0.4
-  ledgeCheckDistance: 0.4
+  ledgeCheckDistance: 0.35
   groundCkeckRadius: 0.3
   minPlayerCheckDistance: 5
   maxPlayerCheckDistance: 6
   closeRangeActionDistance: 1
+  minCoinReward: 1
+  maxCoinReward: 2
   hitParticle: {fileID: 0}
   groundLayer:
     serializedVersion: 2
@@ -28,3 +30,9 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
+  platformLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  climbWallLayer:
+    serializedVersion: 2
+    m_Bits: 64

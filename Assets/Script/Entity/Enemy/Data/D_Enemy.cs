@@ -26,7 +26,7 @@ public class D_Enemy : ScriptableObject
 
    [SerializeField, Tooltip("최소 재화 양. 최소 값과 최대 값 사이에서 랜덤으로 재화가 결정됩니다.")]
    public int minCoinReward = 1;
-    
+
    [SerializeField, Tooltip("최대 재화 양. 최소 값과 최대 값 사이에서 랜덤으로 재화가 결정됩니다.")]
    public int maxCoinReward = 2;
 
@@ -34,4 +34,6 @@ public class D_Enemy : ScriptableObject
 
    public LayerMask groundLayer;
    public LayerMask playerLayer;
+   public LayerMask platformLayer;
+   public LayerMask climbWallLayer;
 }

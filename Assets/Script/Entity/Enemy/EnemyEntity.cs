@@ -126,17 +126,23 @@ public class EnemyEntity : MonoBehaviour
 
     public virtual bool CheckWall()
     {
-        return Physics2D.Raycast(wallCheck.position, -aliveGO.transform.right, enemyData.wallCheckDistance, enemyData.groundLayer);
+        LayerMask combinedWall = enemyData.groundLayer | enemyData.climbWallLayer;
+
+        return Physics2D.Raycast(wallCheck.position, -aliveGO.transform.right, enemyData.wallCheckDistance, combinedWall);
     }
 
     public virtual bool ChackLedge()
     {
-        return Physics2D.Raycast(ledgeCheck.position, Vector2.down, enemyData.ledgeCheckDistance, enemyData.groundLayer);
+        LayerMask combinedGround = enemyData.groundLayer | enemyData.platformLayer;
+
+        return Physics2D.Raycast(ledgeCheck.position, Vector2.down, enemyData.ledgeCheckDistance, combinedGround);
     }
 
     public virtual bool CheckGround()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, enemyData.groundCkeckRadius, enemyData.groundLayer);
+        LayerMask combinedGround = enemyData.groundLayer | enemyData.platformLayer;
+
+        return Physics2D.OverlapCircle(groundCheck.position, enemyData.groundCkeckRadius, combinedGround);
     }
 
     public virtual bool CheckPlayerMinRange()
