@@ -41,7 +41,7 @@ public class Interaction : MonoBehaviour
 
         SetPlayerInteraction();
 
-        if (_gameDataManager.InteractionObjects != null)
+        if (_gameDataManager.InteractionObjects.ContainsKey(ID))
             isInteracted = _gameDataManager.InteractionObjects[ID];
         //Debug.Log(ID + " --> isInteracted : " + isInteracted);
         if (!isInteracted)
