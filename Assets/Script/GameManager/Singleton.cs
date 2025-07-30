@@ -5,6 +5,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Singleton : MonoBehaviour
 {
+    public TextAsset initdata;
     public static Singleton GameManager_Instance { get; private set; }
     [SerializeField] List<Component> scriptEntries = new();
     private Dictionary<Type, Component> scriptMap = new();
@@ -14,6 +15,14 @@ public class Singleton : MonoBehaviour
             GameManager_Instance = this;
             DontDestroyOnLoad(gameObject);
             BuildDictionary();
+            GameDataManager GameDataManager = Get<GameDataManager>();
+            if (GameDataManager.GameData == null)
+            {
+                if (GameDataManager.GameData == null)
+                {
+                    SaveFileManager.Load_forNewGame(initdata.text, 100);
+                }
+            }
         }
 
         else if (GameManager_Instance != this) {
