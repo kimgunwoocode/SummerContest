@@ -56,14 +56,6 @@ public class PlayerAttack : MonoBehaviour {
         _currentBreathInfo.UseBreath(direction, transform.position);
     }
 
-    private IEnumerator fillBreathGauge() {
-        while (true) {
-            if ((CurrentBreathGauge < MaxBreathGauge)) yield return null;//new WaitUntil(CurrentBreathGauge > MaxBreathGauge);
-            CurrentBreathGauge += _data.BreathFillSpeed;
-            yield return new WaitForSeconds(_data.BreathFillSpeed);
-        }
-    }
-
 
     internal void ChangeBreath(int breathType) {
 

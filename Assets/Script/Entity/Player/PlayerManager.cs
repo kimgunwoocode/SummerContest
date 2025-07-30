@@ -2,9 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.IO;
 using System.Collections.Generic;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 [System.Serializable]
 public class PlayerUtilState {
@@ -40,6 +37,8 @@ public class PlayerManager : MonoBehaviour {
     [Header("camera")]
     [SerializeField] private Camera cam;
     private Vector3 _mousePosition;
+    [Header("debug")]
+    [Tooltip("DO NOT TURN ON IN BULID TEST VERSION.")][SerializeField] private bool isTestingEnvironment = false;
 
     private PlayerMovement _movement;
     private PlayerAttack _attack;
@@ -74,7 +73,10 @@ public class PlayerManager : MonoBehaviour {
         if (_anima == null) Debug.LogError("Missing required component: PlayerAnimation");
         if (playerMovementStats == null) Debug.LogError("Missing required component: PlayerMovementStats");
         if (playerAttackStats == null) Debug.LogError("Missing required component: PlayerAttackStats");
-        //SaveFileManager.Load(0);
+        
+        if (isTestingEnvironment) {
+            SaveFileManager.Load(0);
+        }
 
         LoadData(-1);
         _attack.InitiateBreath();
