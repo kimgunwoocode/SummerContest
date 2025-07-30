@@ -8,11 +8,20 @@ using TMPro;
 
 public class TitleManager : MonoBehaviour
 {
+    [Header("Screen")]
+    public GameObject SelectPanel_Screen;
+    public Button[] SelectPanel_SaveFile;
+    public GameObject Warnning_Screen;
+    [HideInInspector] public List<bool> isExistSaveFile;
+    [Header("Text")]
+    public TMP_Text[] SaveFileDate;
+
+    [Space(30)]
+
     [Header("test")]
     public TMP_Text testText;
     [Space]
     public string StartSceneName;
-    public TitleUI_Manager TitleUIManager;
     [Space]
     [Header("InitData")]
     public TextAsset InitData;
@@ -20,7 +29,7 @@ public class TitleManager : MonoBehaviour
     GameManager GameManager;
     GameDataManager GameDataManager;
 
-    int savefile_count = 3;
+    int selected_index = -1;
 
     Dictionary<int, string> SavePointID_list = new();
 
@@ -33,6 +42,56 @@ public class TitleManager : MonoBehaviour
         SavePointID_list = DictionaryFromJson(SavePointID_json.text);
     }
 
+    private void Start()
+    {
+        SelectPanel_Screen.SetActive(false);
+        Warnning_Screen.SetActive(false);
+        SetSaveFileButton();
+    }
+
+    #region UI
+    public void SetSaveFileButton()
+    {
+        int i = 1;
+        foreach (Button screen in SelectPanel_SaveFile)
+        {
+            string path = SaveFileManager.GetPath(i);
+            if (!File.Exists(path))
+            {
+                isExistSaveFile.Add(false);
+                screen.interactable = false;
+            }
+            else
+            {
+                isExistSaveFile.Add(true);
+                string json = File.ReadAllText(path);
+                SerializableSaveData serializable = JsonUtility.FromJson<SerializableSaveData>(json);
+                SaveFileDate[i].text = serializable.Day;
+            }
+            i++;
+        }
+    }
+
+    public void Open_SelectPanel_Screen()
+    {
+        SelectPanel_Screen.SetActive(true);
+    }
+
+    public void Closs_SelectPanel_Screen()
+    {
+        SelectPanel_Screen.SetActive(false);
+    }
+
+    public void Open_warnning_screen(int index)
+    {
+        selected_index = index;
+        Warnning_Screen.SetActive(true);
+    }
+    public void Closs_warnning_screen()
+    {
+        Warnning_Screen.SetActive(false);
+    }
+    #endregion
 
     public void ContinueSavedGame(int index)
     {
@@ -48,10 +107,10 @@ public class TitleManager : MonoBehaviour
     public void StartNewGame()
     {
         int index = -1;
-        for (int i = 0; i < TitleUIManager.isExistSaveFile.Count; i++)
+        for (int i = 0; i < isExistSaveFile.Count; i++)
         {
             //Debug.Log(i);
-            if (!TitleUIManager.isExistSaveFile[i])
+            if (!isExistSaveFile[i])
             {
                 //Debug.Log("find");
                 index = i+1;
@@ -77,10 +136,10 @@ public class TitleManager : MonoBehaviour
         SceneManager.LoadScene(StartSceneName);
     }
 
-    public void deleteSaveFile(int slot)
+    public void deleteSaveFile()
     {
-        SaveFileManager.deleteSaveFile(slot);
-        TitleUIManager.SetSaveFileButton();
+        SaveFileManager.deleteSaveFile(selected_index);
+        SetSaveFileButton();
     }
 
 
