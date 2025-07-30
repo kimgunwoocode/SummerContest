@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class DeadState : State
 {
-    [SerializeField, Tooltip("파편이 생성되는 파티클.")] 
+    [SerializeField, Tooltip("파편이 생성되는 파티클.")]
     protected GameObject deathChunkParticle;
 
-    [SerializeField, Tooltip("혈흔이 생성되는 파티클.")] 
+    [SerializeField, Tooltip("혈흔이 생성되는 파티클.")]
     protected GameObject deathBloodParticle;
 
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
@@ -30,9 +30,11 @@ public class DeadState : State
         if (deathChunkParticle != null)
             GameObject.Instantiate(deathChunkParticle, enemy.aliveGO.transform.position, deathChunkParticle.transform.rotation);
 
-        //enemy.gameObject.SetActive(false);
-        // TODO: 추후 리스폰, 돈 드랍 등을 반영하여 수정 필요
+        // 리워드 수령
+        Singleton.GameManager_Instance.Get<GameManager>().Get_Money(enemy.enemyData.minCoinReward, enemy.enemyData.maxCoinReward + 1);
+
         Debug.Log($"{enemy.enemyData.enemyName}이 죽음");
+        Invoke(nameof(DisableEnemy), 2f);
     }
 
     public override void Exit()
@@ -48,5 +50,10 @@ public class DeadState : State
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+    
+    void DisableEnemy()
+    {
+        enemy.gameObject.SetActive(false);
     }
 }

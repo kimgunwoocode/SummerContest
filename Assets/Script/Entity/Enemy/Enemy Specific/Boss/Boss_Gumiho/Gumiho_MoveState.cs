@@ -41,7 +41,7 @@ public class Gumiho_MoveState : Boss_MoveState
     {
         base.PhysicsUpdate();
 
-        if (!isGround) return;
+        if (!isGround && gumiho.player == null) return;
 
         Vector2 target = new Vector2(gumiho.player.position.x, enemy.rb.position.y);
         Vector2 newPos = Vector2.MoveTowards(enemy.rb.position, target, moveSpeed * Time.fixedDeltaTime);
