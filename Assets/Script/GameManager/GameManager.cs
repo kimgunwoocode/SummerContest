@@ -56,10 +56,6 @@ public class GameManager : MonoBehaviour
             CurrentSceneName = SceneManager.GetActiveScene().name;
         }
         */
-        if (GameDataManager.GameData == null)
-        {
-            SaveFileManager.Load_forNewGame(initdata.text, 100);
-        }
         SavePointID_list = DictionaryFromJson(SavePointID_json.text);
     }
     private void Start()
