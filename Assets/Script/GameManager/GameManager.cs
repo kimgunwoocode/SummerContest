@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
 
     [Header("씬 이동 시 가져가야할 정보들")]
-    public string CurrentSceneName;
+    //public string CurrentSceneName;
     public int CurrentScenePointID = -1;
     public int CurrentStartSceneCameraArea = 0;
 
@@ -25,7 +25,10 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name != "Title" && Player == null || Player.activeSelf == false)
+        //Debug.Log(scene.name);
+        if (scene.name == "Title")
+            return;
+        if (Player == null || Player.activeSelf == false)
         {
             Player = GameObject.FindGameObjectWithTag("Player");
         }
@@ -39,10 +42,12 @@ public class GameManager : MonoBehaviour
         {
             Player = GameObject.FindGameObjectWithTag("Player");
         }
+        /*
         if (CurrentSceneName == null)
         {
             CurrentSceneName = SceneManager.GetActiveScene().name;
         }
+        */
     }
     private void Start()
     {
@@ -90,8 +95,7 @@ public class GameManager : MonoBehaviour
         GameDataManager.GettedItems[ItemID]++;
 
         ItemData item = GameDataManager.allitems[ItemID];
-        if (item == null)
-        {
+        if (item == null) {
             Debug.LogWarning("존재하지 않는 아이템 ID");
             return;
         }

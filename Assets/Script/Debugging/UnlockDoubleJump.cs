@@ -9,6 +9,6 @@ public class UnlockDoubleJump : MonoBehaviour
     }
 
     public void Unlock() {
-        _manager.Unlock_PlayerAbility(2);
+        _manager.Get_Item(1502);
     }
 }

@@ -7,4 +7,6 @@ public class ScriptablePlayerAttackStats : ScriptableObject {
     public int MeleeAttackDamage = 1;
     public float MeleeAttackCooldown = 0.2f;
     public float MeleeAttackRange = 2f;
+
+    public float BreathReadyTime = 2f;
 }

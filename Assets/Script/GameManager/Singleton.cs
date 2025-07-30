@@ -9,22 +9,19 @@ public class Singleton : MonoBehaviour
     [SerializeField] List<Component> scriptEntries = new();
     private Dictionary<Type, Component> scriptMap = new();
 
-    private void Awake()
-    {
-        if (GameManager_Instance == null)
-        {
+    private void Awake() {
+        if (GameManager_Instance == null) {
             GameManager_Instance = this;
             DontDestroyOnLoad(gameObject);
             BuildDictionary();
         }
-        else if (GameManager_Instance != this)
-        {
+
+        else if (GameManager_Instance != this) {
             Destroy(gameObject);
         }
     }
 
-    public T Get<T>() where T : Component
-    {
+    public T Get<T>() where T : Component {
         if (scriptMap.TryGetValue(typeof(T), out var comp))
             return comp as T;
 
@@ -33,12 +30,9 @@ public class Singleton : MonoBehaviour
     }
 
 
-    private void BuildDictionary()
-    {
-        foreach (var entry in scriptEntries)
-        {
-            if (entry != null)
-            {
+    private void BuildDictionary() {
+        foreach (var entry in scriptEntries) {
+            if (entry != null) {
                 var type = entry.GetType();
                 if (!scriptMap.ContainsKey(type))
                     scriptMap[type] = entry;

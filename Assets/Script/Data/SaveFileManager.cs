@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
+
 using UnityEngine;
 
 #region Serializable Structures
@@ -84,23 +85,7 @@ public static class SaveFileManager
 {
     public static string GetPath(int slotIndex)
     {
-#if UNITY_EDITOR
-        // Assets 내부 경로 (Unity가 인식 가능)
-        string relativePath = "Assets/InitData/EditorSaveData";
-
-        // 실제 OS상의 경로로 변환
-        string fullPath = Path.Combine(Application.dataPath.Replace("/Assets", ""), relativePath);
-
-        if (!Directory.Exists(fullPath))
-            Directory.CreateDirectory(fullPath);
-
-        // Unity가 파일을 인식할 수 있도록 강제 새로고침
-        AssetDatabase.Refresh();
-
-        return Path.Combine(fullPath, $"save_slot_{slotIndex}.json");
-#else
-    return Path.Combine(Application.persistentDataPath, $"save_slot_{slotIndex}.json");
-#endif
+        return Path.Combine(Application.persistentDataPath, $"save_slot_{slotIndex}.json");
     }
 
 
@@ -112,7 +97,7 @@ public static class SaveFileManager
 
         // 이름 설정
         if (string.IsNullOrEmpty(data.Name))
-            data.Name = $"SaveFile{slotIndex + 1}";
+            data.Name = $"SaveFile{slotIndex}";
 
         // 날짜 형식 지정
         data.Day = DateTime.Now.ToString("yy/MM/dd-HH:mm");
@@ -148,6 +133,24 @@ public static class SaveFileManager
         // 저장
         string json = JsonUtility.ToJson(serializableData, true);
         File.WriteAllText(GetPath(slotIndex), json);
+
+#if UNITY_EDITOR
+        // Assets 내부 경로 (Unity가 인식 가능)
+        string relativePath = "Assets/InitData/EditorSaveData";
+
+        // 실제 OS상의 경로로 변환
+        string fullPath = Path.Combine(Application.dataPath.Replace("/Assets", ""), relativePath);
+
+        if (!Directory.Exists(fullPath))
+            Directory.CreateDirectory(fullPath);
+
+        // Unity가 파일을 인식할 수 있도록 강제 새로고침
+        AssetDatabase.Refresh();
+
+        string path = Path.Combine(fullPath, $"save_slot_{slotIndex}.json");
+
+        File.WriteAllText(path, json);
+#endif
 
         Debug.Log($"저장 완료: 슬롯 {slotIndex} → {data.Name} ({data.Day}) " + json);
     }
@@ -194,13 +197,22 @@ public static class SaveFileManager
 
     public static SaveData LoadFromSaveFile(int slotIndex)
     {
+#if UNITY_EDITOR
+        const string saveDataPath = "Assets/InitData/EditorSaveData/save_slot_0.json";
+        string json = File.ReadAllText(saveDataPath);
+#else
+        if (slotIndex == 0)
+        {
+            
+        }
         if (!File.Exists(GetPath(slotIndex)))
         {
             Debug.LogWarning($"저장 슬롯 {slotIndex}에 해당하는 파일이 없습니다.");
             return null;
         }
-
         string json = File.ReadAllText(GetPath(slotIndex));
+#endif
+
         SerializableSaveData serializable = JsonUtility.FromJson<SerializableSaveData>(json);
 
         // 역직렬화: SerializableSaveData → SaveData
@@ -259,7 +271,7 @@ public static class SaveFileManager
         return dict;
     }
 
-    #endregion
+#endregion
 
 
 
@@ -269,8 +281,7 @@ public static class SaveFileManager
         const string saveDataPath = "Assets/InitData/InitData.asset";
         SaveData initData = AssetDatabase.LoadAssetAtPath<InitSaveData>(saveDataPath).InitData;
 
-        if (initData == null)
-        {
+        if (initData == null) {
             EditorUtility.DisplayDialog("에러", "InitData.asset을 찾을 수 없습니다.", "확인");
             return;
         }

@@ -8,6 +8,6 @@ public class UnlockGlide : MonoBehaviour {
     }
 
     public void Unlock() {
-        _manager.Unlock_PlayerAbility(4);
+        _manager.Get_Item(1504);
     }
 }
