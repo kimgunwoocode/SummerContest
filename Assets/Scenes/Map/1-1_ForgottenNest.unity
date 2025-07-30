@@ -12626,6 +12626,14 @@ PrefabInstance:
       propertyPath: SavePoint_ID
       value: 1001
       objectReference: {fileID: 0}
+    - target: {fileID: 143418227145601671, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 143418227145601671, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.65
+      objectReference: {fileID: 0}
     - target: {fileID: 524236343976882212, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
       propertyPath: m_Name
       value: SavePoint_Semi
@@ -12678,6 +12686,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5580602866239929998, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5580602866239929998, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5580602866239929998, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5
+      objectReference: {fileID: 0}
     - target: {fileID: 7663552162257314837, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
       propertyPath: InteractionGuide
       value: 
@@ -12718,6 +12738,10 @@ PrefabInstance:
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8593535818288213239, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9208665218476391066, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
       propertyPath: ID
       value: 4002
@@ -12725,7 +12749,7 @@ PrefabInstance:
     - target: {fileID: 9208665218476391066, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
       propertyPath: InteractionGuide
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2000344185}
     - target: {fileID: 9208665218476391066, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -12756,6 +12780,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
+--- !u!1 &2000344185 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 821428535541272705, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
+  m_PrefabInstance: {fileID: 1999721313}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2008039337
 PrefabInstance:
   m_ObjectHideFlags: 0
