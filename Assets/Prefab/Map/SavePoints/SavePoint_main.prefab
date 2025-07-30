@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 8112537033899200815, guid: cb9435fa43a33cc46bab8ab475257561, type: 3}
   m_Color: {r: 0, g: 0.6901961, b: 0.3137255, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SavePoint_type: 0
   ID: 0
+  SceneName: 
   SavePointEnabled: 0
   interaction: {fileID: 3790926741225592997}
 --- !u!1001 &7105341247894966941
@@ -152,6 +153,14 @@ PrefabInstance:
     - target: {fileID: 4870227233617450167, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5325527500429782734, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 8.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5325527500429782734, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 10.04
       objectReference: {fileID: 0}
     - target: {fileID: 5505560654318433701, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: m_LocalPosition.x
@@ -249,6 +258,10 @@ PrefabInstance:
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 7406036366864112762, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 8112537033899200815, guid: cb9435fa43a33cc46bab8ab475257561, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
