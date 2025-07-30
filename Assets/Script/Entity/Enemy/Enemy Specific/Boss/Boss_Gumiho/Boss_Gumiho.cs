@@ -43,7 +43,7 @@ public class Boss_Gumiho : EnemyEntity
     public override void TakeDamage(int damageAmount, Vector2 attackerPosition)
     {
         // 꼬리치기, 원거리 공격 시 캔슬 불가
-        if (stateMachine.currentState == knockbackState || !canBeKnockedBack) return;
+        if (!canBeKnockedBack) return;
 
         base.TakeDamage(damageAmount, attackerPosition);
 

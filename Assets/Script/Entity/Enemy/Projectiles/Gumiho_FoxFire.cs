@@ -8,8 +8,7 @@ public class Gumiho_FoxFire : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             Debug.Log("여우불 공격");
-            // 플레이어에게 데미지 처리 (예시 코드)
-            // other.GetComponent<PlayerManager>().TakeDamage(1, transform.position);
+            other.GetComponent<PlayerManager>().TakeDamage(1, transform.position);
             Destroy(gameObject);
         }
     }
