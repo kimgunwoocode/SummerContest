@@ -50,10 +50,10 @@ public class TitleManager : MonoBehaviour
         int index = -1;
         for (int i = 0; i < TitleUIManager.isExistSaveFile.Count; i++)
         {
-            Debug.Log(i);
+            //Debug.Log(i);
             if (!TitleUIManager.isExistSaveFile[i])
             {
-                Debug.Log("find");
+                //Debug.Log("find");
                 index = i+1;
                 break;
             }
@@ -62,6 +62,7 @@ public class TitleManager : MonoBehaviour
         if (index < 0)
         {
             // 세이브파일 슬롯이 가득찬 상황
+            Debug.Log("슬롯 가득참");
             return;
         }
         else
