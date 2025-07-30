@@ -152,11 +152,35 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         _calculatedVelocity.x = _isWallJumping ? _calculatedVelocity.x : (_isTouchingWall[0] && _moveDirection.x < 0) || (_isTouchingWall[1] && _moveDirection.x > 0) || (_isClimb[0] && _currentInput.x <= 0) || (_isClimb[1] && _currentInput.x >= 0) ? 0f : _isDashing ? (_movementStats.DashSpeed * _moveDirection.x * Time.fixedDeltaTime) : _isCrouch ? ((_isGrounded ? _movementStats.CrounchSpeed : _movementStats.WalkSpeed) * Time.fixedDeltaTime * _currentInput.x) : (_movementStats.WalkSpeed * Time.fixedDeltaTime * _currentInput.x);
+
+
+        if (_calculatedVelocity.x == 0 && _isGrounded) {
+            SetAnimaState(AnimationType.Idle);
+        }else if (_calculatedVelocity.x != 0 && _isCrouch && _isGrounded) {
+            SetAnimaState(AnimationType.Walk);
+        } else if (_calculatedVelocity.x != 0 && !_isCrouch && _isGrounded) {
+            SetAnimaState(AnimationType.Run);
+        }
+    }
+
+    enum AnimationType { Idle, Walk, Run, JumpStart, JumpApex, JumpFalling, JumpGrounded}
+    private void SetAnimaState(AnimationType type) {
+        if (type == AnimationType.Idle) _PM.Anima.SetSpeed(0);
+        else if(type == AnimationType.Walk) _PM.Anima.SetSpeed(1);
+        else if (type == AnimationType.Run) _PM.Anima.SetSpeed(2);
+        else if (type == AnimationType.JumpStart) _PM.Anima.EnterJump();
+        else if (type == AnimationType.JumpApex) _PM.Anima.SetPeakValue(true);
+        else if (type == AnimationType.JumpFalling) _PM.Anima.SetFalling(true);
+        else if (type == AnimationType.JumpGrounded) _PM.Anima.SetGrounded(true);
     }
 
 
     internal Vector2 ApplyMove() {
         return _calculatedVelocity;
+    }
+
+    internal float ApplyMoveDir() {
+        return _moveDirection.x;
     }
     #endregion
 
@@ -188,6 +212,7 @@ public class PlayerMovement : MonoBehaviour {
         _moveDirection = _currentInput.x == 0 ? _moveDirection : _currentInput;
         if (jumpType == 0) {
             _isJumped = true;
+            SetAnimaState(AnimationType.JumpStart);
         }
         else if (jumpType == 1) {
             if (!_PM.Abilitis[2]) return;
@@ -291,11 +316,14 @@ public class PlayerMovement : MonoBehaviour {
             _isPlatformDownRequestExist = false;
             _wallLeftTime = 0f;
 
+            SetAnimaState(AnimationType.JumpGrounded);
+
         //leave from ground
         } else if (!groundCheck && _isGrounded) {
             _isGrounded = false;
             _leftGroundTime = Time.time;
             _currentPlatform = null;
+            _PM.Anima.SetGrounded(false);
         }
 
         if (ceilingCheck && !_isCeiling) {
@@ -419,14 +447,16 @@ public class PlayerMovement : MonoBehaviour {
         if (_isGrounded && _calculatedVelocity.y <= 0f) _calculatedVelocity.y = -_movementStats.GravityByNormalForce;
 
         //in mid-air
-        else
-        {
+        else {
             float midAirGravity = _movementStats.MidAirGravity;
-            if (_isClimb[0] || _isClimb[1]) { midAirGravity = 0f; } 
+            if (_isClimb[0] || _isClimb[1]) { midAirGravity = 0f; }
+            //하강부
             else if (!_isGrounded && _isGlide && _calculatedVelocity.y < 0) { midAirGravity = _movementStats.MidAirGravity * _movementStats.GlideGravity; _calculatedVelocity.y = -_movementStats.GlideFallSpeed; } 
-            else if ((_isJumped) && Mathf.Abs(_calculatedVelocity.y) < _movementStats.ApexThreadHold) midAirGravity = _movementStats.MidAirGravity * _movementStats.ApexModifier;
-            else if (_calculatedVelocity.y < 0f) midAirGravity = _movementStats.MidAirGravity * _movementStats.GravityModifierWhenFalling;
-            else if (_isJumpEndedEarly) midAirGravity = _movementStats.MidAirGravity * _movementStats.GravityModifierWhenJumpEndedEarly;
+            else if ((_isJumped) && Mathf.Abs(_calculatedVelocity.y) < _movementStats.ApexThreadHold) { midAirGravity = _movementStats.MidAirGravity * _movementStats.ApexModifier; SetAnimaState(AnimationType.JumpApex); } 
+            else if (_calculatedVelocity.y < 0f) {midAirGravity = _movementStats.MidAirGravity * _movementStats.GravityModifierWhenFalling; SetAnimaState(AnimationType.JumpFalling); }
+            //상승부
+            else if (_isJumpEndedEarly) {midAirGravity = _movementStats.MidAirGravity * _movementStats.GravityModifierWhenJumpEndedEarly;}
+            else if (_calculatedVelocity.y > 0) { }
 
             _calculatedVelocity.y = Mathf.MoveTowards(_calculatedVelocity.y, _movementStats.MaxFallingSpeed, Time.fixedDeltaTime * midAirGravity);
         }
@@ -471,6 +501,7 @@ public class PlayerMovement : MonoBehaviour {
         Gravity();
         Move();
         JumpRequestValidation();
+        transform.localScale = new Vector3(_moveDirection.x * -1, 1, 1);
         _rb.linearVelocity = _calculatedVelocity;
     }
 }

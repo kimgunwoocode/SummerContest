@@ -22,7 +22,7 @@ public class PlayerManager : MonoBehaviour {
 
     private PlayerMovement _movement;
     private PlayerAttack _attack;
-    private PlayerAnimation _anima;
+    internal PlayerAnimation Anima;
     private PlayerInteraction _interaction;
     private GameDataManager _data;
     private GameManager _manager;
@@ -43,7 +43,7 @@ public class PlayerManager : MonoBehaviour {
         _movement = GetComponent<PlayerMovement>();
         _interaction = GetComponent<PlayerInteraction>();
         _attack = GetComponent<PlayerAttack>();
-        _anima = GetComponent<PlayerAnimation>();
+        Anima = GetComponent<PlayerAnimation>();
     }
 
     private void Start() {
@@ -51,7 +51,7 @@ public class PlayerManager : MonoBehaviour {
         if (_attack == null) Debug.LogError("PlayerAttack component must exist on this object");
         if (_movement == null) Debug.LogError("PlayerMovement component must exist on this object");
         if (_interaction == null) Debug.LogError("PlayerInteraction component must exist on this object");
-        if (_anima == null) Debug.LogError("Missing required component: PlayerAnimation");
+        if (Anima == null) Debug.LogError("Missing required component: PlayerAnimation");
         if (playerMovementStats == null) Debug.LogError("Missing required component: PlayerMovementStats");
         if (playerAttackStats == null) Debug.LogError("Missing required component: PlayerAttackStats");
         
@@ -119,8 +119,6 @@ public class PlayerManager : MonoBehaviour {
     }
 
     #region Util
-
-
     private void LoadData(int id) {
         Abilitis = _data.PlayerAbility;
     }
