@@ -75,7 +75,6 @@ public class PlayerManager : MonoBehaviour {
         if (playerAttackStats == null) Debug.LogError("Missing required component: PlayerAttackStats");
         
         if (isTestingEnvironment) {
-            SaveFileManager.Load(0);
         }
 
         LoadData(-1);
