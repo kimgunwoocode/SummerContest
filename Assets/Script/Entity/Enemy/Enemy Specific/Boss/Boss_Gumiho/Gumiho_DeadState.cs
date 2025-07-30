@@ -10,4 +10,11 @@ public class Gumiho_DeadState : DeadState
 
         gumiho = enemy as Boss_Gumiho;
     }
+
+    public override void LogicUpdate()
+    {
+        base.LogicUpdate();
+
+        // 여기에 아이템 획득 등의 함수 추가
+    }
 }

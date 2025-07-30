@@ -13,6 +13,7 @@ public class Boss_Gumiho : EnemyEntity
     [SerializeField] private Gumiho_SpiritLeapAttackState spiritLeapAttackState;
     [SerializeField] private Gumiho_KnockbackState knockbackState;
     [SerializeField] private Gumiho_DeadState deadState;
+    [SerializeField] private Gumiho_Phase2State phase2State;
 
     [Header("Gumiho Details")]
     public int phase2HP = 5;
@@ -28,14 +29,15 @@ public class Boss_Gumiho : EnemyEntity
     public Gumiho_SpiritLeapAttackState SpiritLeapAttackState => spiritLeapAttackState;
     public Gumiho_KnockbackState KnockbackState => knockbackState;
     public Gumiho_DeadState DeadState => deadState;
+    public Gumiho_Phase2State Phase2State => phase2State;
 
-    public Transform player {get; private set;}
+    public Transform player { get; private set; }
 
     protected override void Start()
     {
         base.Start();
 
-        stateMachine.Initialize(moveState);
+        stateMachine.Initialize(idleState);
         player = Singleton.GameManager_Instance.Get<GameManager>().Player.transform;
         canBeKnockedBack = true;
     }
@@ -43,7 +45,7 @@ public class Boss_Gumiho : EnemyEntity
     public override void TakeDamage(int damageAmount, Vector2 attackerPosition)
     {
         // 꼬리치기, 원거리 공격 시 캔슬 불가
-        if (!canBeKnockedBack) return;
+        if (!canBeKnockedBack && stateMachine.currentState == phase2State) return;
 
         base.TakeDamage(damageAmount, attackerPosition);
 
@@ -61,6 +63,12 @@ public class Boss_Gumiho : EnemyEntity
         else if (stateMachine.currentState != knockbackState)
         {
             stateMachine.ChangeState(knockbackState);
+        }
+
+        // phase 2 전환
+        if (currentHP == phase2HP)
+        {
+            stateMachine.ChangeState(phase2State);
         }
     }
 

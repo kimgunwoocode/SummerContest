@@ -106,8 +106,12 @@ public class Gumiho_FoxOrb : MonoBehaviour
         // 플레이어와 충돌 시 공격 처리
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            Debug.Log("여우구슬 공격");
-            other.GetComponent<PlayerManager>().TakeDamage(1, transform.position);
+            PlayerManager playerManager = other.GetComponent<PlayerManager>();
+            if (!playerManager.IsInvincible)
+            {
+                Debug.Log("여우구슬 공격");
+                playerManager.TakeDamage(1, transform.position);
+            }
         }
     }
 }
