@@ -355,8 +355,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5580602866239929998}
-  - component: {fileID: 143418227145601671}
-  - component: {fileID: 8952278580773279095}
+  - component: {fileID: 1447127203719749226}
+  - component: {fileID: 6462427141787514861}
   - component: {fileID: 5545314557988464998}
   m_Layer: 0
   m_Name: Particle
@@ -374,13 +374,13 @@ Transform:
   m_GameObject: {fileID: 8810506886000518985}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.27, y: 0.87500024, z: 0}
+  m_LocalPosition: {x: 0, y: 0.05, z: -5}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5505560654318433701}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!198 &143418227145601671
+--- !u!198 &1447127203719749226
 ParticleSystem:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -463,7 +463,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.65
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -1107,7 +1107,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 1.2
       mode: 0
       spread: 0
       speed:
@@ -5121,7 +5121,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!199 &8952278580773279095
+--- !u!199 &6462427141787514861
 ParticleSystemRenderer:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -5342,7 +5342,7 @@ PrefabInstance:
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 143418227145601671}
+      objectReference: {fileID: 1447127203719749226}
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
