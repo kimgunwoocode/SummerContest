@@ -14,7 +14,7 @@ public class UnlockDash : MonoBehaviour
     public void Unlock() {
         _manager.Get_Item(1500);
         diestroygameobject();
-        _gameDataManager.InteractionObjects[interaction.ID] = false;
+        //_gameDataManager.InteractionObjects[interaction.ID] = false;
     }
 
     public void diestroygameobject()

@@ -9,5 +9,10 @@ public class UnlockGlide : MonoBehaviour {
 
     public void Unlock() {
         _manager.Get_Item(1504);
+        destroygameobject();
+    }
+
+    public void destroygameobject() {
+        Destroy(gameObject);
     }
 }

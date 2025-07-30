@@ -3,31 +3,11 @@ using UnityEngine.InputSystem;
 using System.IO;
 using System.Collections.Generic;
 
-[System.Serializable]
-public class PlayerUtilState {
-    private List<bool> PlayerUtilList;
-
-    public void Setter(int index, bool value) {
-        if (index < 0 || index > PlayerUtilList.Count) { 
-            Debug.LogError("The index must be between 0 and 5 (inclusive).");
-            return;
-        }
-        PlayerUtilList[index] = value;
-
-    }
-
-    public bool Getter(int index) {
-        if (index < 0 || index > PlayerUtilList.Count) {
-            Debug.LogError("The index must be between 0 and 5 (inclusive).");
-            return false;
-        }
-        return PlayerUtilList[index];
-    }
-}
 
 public class PlayerManager : MonoBehaviour {
     private PlayerInput_Action _inputActions;
     private Rigidbody2D _rb;
+    internal bool IsInvincible;
 
     [Header("Stats")]
     [SerializeField] internal ScriptablePlayerMovementStats playerMovementStats;
@@ -54,6 +34,7 @@ public class PlayerManager : MonoBehaviour {
 
 
     private void Awake() {
+        IsInvincible = false;
         _manager = Singleton.GameManager_Instance.Get<GameManager>();
         _data = Singleton.GameManager_Instance.Get<GameDataManager>();
 
@@ -155,20 +136,16 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
-    
-    public void TakeDamage(int damage, int hitDir){
-        Debug.Log("Player has been damaged");
-    }
-
-    public void TakeDamage(int damage, Vector3 hitDir) {
+    public bool TakeDamage(int damage, Vector3 hitDir) {
+        if (IsInvincible) return false;
         _currentHealth -= damage;
         _data.CurrentHP = _currentHealth;
         if (_currentHealth <= 0) {
             Die();
-            return;
+            return true;
         }
-
         Knockback(hitDir.x > 0 ? 1 : -1);
+        return true;
     }
 
     private void Die(){
