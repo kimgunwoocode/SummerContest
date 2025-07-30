@@ -85,7 +85,25 @@ public static class SaveFileManager
     {
         return Path.Combine(Application.persistentDataPath, $"save_slot_{slotIndex}.json");
     }
+    public static void deleteSaveFile(int slot)
+    {
+        if (slot == 0)
+        {
+            Debug.LogError("초기화파일을 삭제할 수 없습니다.");
+            return;
+        }
+        string path = SaveFileManager.GetPath(slot);
 
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+            Debug.Log($"세이브 파일 삭제됨: {path}");
+        }
+        else
+        {
+            Debug.LogWarning($"세이브 파일이 존재하지 않습니다: {path}");
+        }
+    }
 
     #region Save
     public static void Save(SaveData data, int slotIndex)

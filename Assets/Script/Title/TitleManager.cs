@@ -72,17 +72,7 @@ public class TitleManager : MonoBehaviour
 
     public void deleteSaveFile(int slot)
     {
-        string path = SaveFileManager.GetPath(slot);
-
-        if (File.Exists(path))
-        {
-            File.Delete(path);
-            Debug.Log($"세이브 파일 삭제됨: {path}");
-        }
-        else
-        {
-            Debug.LogWarning($"세이브 파일이 존재하지 않습니다: {path}");
-        }
+        SaveFileManager.deleteSaveFile(slot);
         TitleUIManager.SetSaveFileButton();
     }
 

@@ -27,12 +27,12 @@ public class TitleUI_Manager : MonoBehaviour
             string path = SaveFileManager.GetPath(i);
             if (!File.Exists(path))
             {
-                isExistSaveFile.Add(true);
+                isExistSaveFile.Add(false);
                 screen.interactable = false;
             }
             else
             {
-                isExistSaveFile.Add(false);
+                isExistSaveFile.Add(true);
                 string json = File.ReadAllText(path);
                 SerializableSaveData serializable = JsonUtility.FromJson<SerializableSaveData>(json);
                 SaveFileDate[i].text = serializable.Day;

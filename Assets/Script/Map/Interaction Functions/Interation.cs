@@ -43,7 +43,7 @@ public class Interaction : MonoBehaviour
 
         if (_gameDataManager.InteractionObjects != null)
             isInteracted = _gameDataManager.InteractionObjects[ID];
-        Debug.Log(ID + " --> isInteracted : " + isInteracted);
+        //Debug.Log(ID + " --> isInteracted : " + isInteracted);
         if (!isInteracted)
             InitEvent.Invoke();
     }
