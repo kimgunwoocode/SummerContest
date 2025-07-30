@@ -19,9 +19,13 @@ public class Enemy_Bullet : MonoBehaviour
         // 플레이어와 충돌 시 공격 처리
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            Debug.Log("도깨비불 공격");
-            other.GetComponent<PlayerManager>().TakeDamage(1, transform.position);
-            Destroy(gameObject);
+            PlayerManager playerManager = other.GetComponent<PlayerManager>();
+            if (!playerManager.IsInvincible)
+            {
+                Debug.Log("도깨비불 공격");
+                playerManager.TakeDamage(1, transform.position);
+                Destroy(gameObject);
+            }
         }
         else if(other.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
