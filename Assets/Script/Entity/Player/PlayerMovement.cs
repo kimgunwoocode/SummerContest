@@ -98,6 +98,7 @@ public class PlayerMovement : MonoBehaviour {
         _isAbleToDash = false;
         _isDashing = true;
         _calculatedVelocity.y = 0;
+        _PM.IsInvincible = true;
         StartCoroutine(StopDash());
         StartCoroutine(DashCooldown());
     }
@@ -106,6 +107,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         yield return new WaitForSeconds(_movementStats.DashTime);
         _isDashing = false;
+        _PM.IsInvincible = false;
     }
 
     private IEnumerator DashCooldown()
