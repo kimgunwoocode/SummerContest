@@ -11,6 +11,7 @@ public class TitleManager : MonoBehaviour
     [Header("Screen")]
     public GameObject SelectPanel_Screen;
     public Button[] SelectPanel_SaveFile;
+    public Button[] DeleteSaveFile;
     public GameObject Warnning_Screen;
     [HideInInspector] public List<bool> isExistSaveFile;
     [Header("Text")]
@@ -60,6 +61,7 @@ public class TitleManager : MonoBehaviour
             {
                 isExistSaveFile.Add(false);
                 screen.interactable = false;
+                DeleteSaveFile[i-1].interactable = false;
             }
             else
             {
