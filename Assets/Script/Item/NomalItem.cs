@@ -1,10 +1,10 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Item/NomalItem")]
 public class NomalItemData : ItemData, INoamlItem
 {
-    public bool isStackable;     // ¾ÆÀÌÅÛÀÌ ¿©·¯ °³ ½×ÀÏ ¼ö ÀÖ´Â°¡?
-    public int maxStackCount;    // ÃÖ´ë ÁßÃ¸ °³¼ö
+    public bool isStackable;     // ì•„ì´í…œì´ ì—¬ëŸ¬ ê°œ ìŒ“ì¼ ìˆ˜ ìˆëŠ”ê°€?
+    public int maxStackCount;    // ìµœëŒ€ ì¤‘ì²© ê°œìˆ˜
 }
 public interface INoamlItem
 {

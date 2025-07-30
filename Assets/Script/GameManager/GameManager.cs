@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     public GameDataManager GameDataManager;
+    public TextAsset initdata;
     public GameObject Player;
 
     [Header("씬 이동 시 가져가야할 정보들")]
@@ -55,6 +56,10 @@ public class GameManager : MonoBehaviour
             CurrentSceneName = SceneManager.GetActiveScene().name;
         }
         */
+        if (GameDataManager.GameData == null)
+        {
+            SaveFileManager.Load_forNewGame(initdata.text, 100);
+        }
         SavePointID_list = DictionaryFromJson(SavePointID_json.text);
     }
     private void Start()
