@@ -7,10 +7,11 @@ public class TitleManager : MonoBehaviour
 {
     public string StartSceneName;
     [Space]
+    [Header("InitData")]
     public TextAsset InitData;
     public TextAsset SavePointID_json;
-    public GameManager GameManager;
-    public GameDataManager GameDataManager;
+    GameManager GameManager;
+    GameDataManager GameDataManager;
 
     Dictionary<int, string> SavePointID_list = new();
 
@@ -38,5 +39,10 @@ public class TitleManager : MonoBehaviour
         StartSceneName = "1-1_ForgottenNest";
         GameManager.CurrentScenePointID = -1;
         SceneManager.LoadScene(StartSceneName);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

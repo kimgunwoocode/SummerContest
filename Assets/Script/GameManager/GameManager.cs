@@ -13,6 +13,13 @@ public class GameManager : MonoBehaviour
     public int CurrentStartSceneCameraArea = 0;
 
 
+
+
+    public TextAsset SavePointID_json;
+    Dictionary<int, string> SavePointID_list = new();
+
+
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -33,8 +40,8 @@ public class GameManager : MonoBehaviour
             Player = GameObject.FindGameObjectWithTag("Player");
         }
     }
-    
-    
+
+
 
     private void Awake()
     {
@@ -48,6 +55,7 @@ public class GameManager : MonoBehaviour
             CurrentSceneName = SceneManager.GetActiveScene().name;
         }
         */
+        SavePointID_list = MapTool.DictionaryFromJson(SavePointID_json.text);
     }
     private void Start()
     {
@@ -82,7 +90,11 @@ public class GameManager : MonoBehaviour
     {
         LoadData__SavePoint();//이전 세이브 포인트로 시점 되돌리기
 
+
         //이전 세이브 포인트로 위치 이동시키기
+        string SavedSceneName = SavePointID_list[GameDataManager.SpawnPoint];
+        CurrentScenePointID = -GameDataManager.SpawnPoint;
+        SceneManager.LoadScene(SavedSceneName);
     }
 
     public void Get_Money(int min, int max)
@@ -95,13 +107,14 @@ public class GameManager : MonoBehaviour
         GameDataManager.GettedItems[ItemID]++;
 
         ItemData item = GameDataManager.allitems[ItemID];
-        if (item == null) {
+        if (item == null)
+        {
             Debug.LogWarning("존재하지 않는 아이템 ID");
             return;
         }
 
         // 능력해금 아이템일 경우 획득시 능력 해금하기
-        if (item.itemType == ItemType.Ability && item is AbilityItemData abilityItem) 
+        if (item.itemType == ItemType.Ability && item is AbilityItemData abilityItem)
         {
             int slot = abilityItem.AbilitySlot;
             abilityItem.UnlockAbility();
@@ -121,8 +134,9 @@ public class GameManager : MonoBehaviour
         if (GameDataManager.PlayerAbility.Count != 0)
             GameDataManager.PlayerAbility[PlayerAbilityID] = true;
 
-        else {
-            GameDataManager.PlayerAbility = new List<bool>() {false, false, false, false, false, false};
+        else
+        {
+            GameDataManager.PlayerAbility = new List<bool>() { false, false, false, false, false, false };
             GameDataManager.PlayerAbility[PlayerAbilityID] = true;
         }
 
