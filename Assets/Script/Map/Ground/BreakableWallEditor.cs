@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(BreakableWall))]
@@ -14,3 +15,4 @@ public class BreakableWallEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 }
+#endif

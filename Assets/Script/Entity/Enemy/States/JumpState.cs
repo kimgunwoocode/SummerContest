@@ -1,6 +1,4 @@
-using UnityEditor.Callbacks;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class JumpState : State
 {

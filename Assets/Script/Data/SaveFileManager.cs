@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
-
 using UnityEngine;
 
 #region Serializable Structures
@@ -271,10 +269,10 @@ public static class SaveFileManager
         return dict;
     }
 
-#endregion
+    #endregion
 
 
-
+#if UNITY_EDITOR
     [MenuItem("Tools/SaveInitData")]
     public static void SaveInitDataToSlot0()
     {
@@ -319,4 +317,5 @@ public static class SaveFileManager
             Debug.Log($"   - GettedItems[{kv.Key}] = {kv.Value}");
     }
     */
+#endif
 }

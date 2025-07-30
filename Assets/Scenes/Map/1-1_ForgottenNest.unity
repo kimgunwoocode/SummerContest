@@ -1683,7 +1683,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "(F)\uD0A4\uB97C \uB20C\uB7EC \uC0C1\uD638\uC791\uC6A9"
+  m_text: "(E)\uD0A4\uB97C \uB20C\uB7EC \uC0C1\uD638\uC791\uC6A9"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d46ec9e084b8bbe4c8ef465ed15f3c2a, type: 2}
   m_sharedMaterial: {fileID: -4385086077278555112, guid: d46ec9e084b8bbe4c8ef465ed15f3c2a, type: 2}
@@ -2702,6 +2702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c971872b264a8304ca1b41eff2122006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interaction: {fileID: 1002481822}
 --- !u!4 &828118331
 Transform:
   m_ObjectHideFlags: 0
@@ -2783,12 +2784,32 @@ PrefabInstance:
       value: 4003
       objectReference: {fileID: 0}
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
+      propertyPath: InitEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
+      propertyPath: InitEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
+      propertyPath: InitEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 828118330}
+    - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
+      propertyPath: InitEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
+      propertyPath: InitEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: diestroygameobject
       objectReference: {fileID: 0}
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2803,8 +2824,16 @@ PrefabInstance:
       value: Unlock
       objectReference: {fileID: 0}
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
+      propertyPath: InitEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnlockDash, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UnlockDash, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
+      propertyPath: InitEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -3234,6 +3263,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 524236343976882212, guid: 79d370d365b329143b749e30d59d51c9, type: 3}
   m_PrefabInstance: {fileID: 952783349}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1002481822 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
+  m_PrefabInstance: {fileID: 851276637}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef30d09af36b24846ad595ae5b7ac2a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1004885393
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5686,10 +5726,6 @@ PrefabInstance:
     - target: {fileID: 3642353287358555366, guid: 56edbe545bae4c746a180f38b9a5d5c7, type: 3}
       propertyPath: isInteracted
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5325527500429782734, guid: 56edbe545bae4c746a180f38b9a5d5c7, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5505560654318433701, guid: 56edbe545bae4c746a180f38b9a5d5c7, type: 3}
       propertyPath: m_LocalScale.x

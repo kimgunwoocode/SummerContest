@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(CameraManager))]
@@ -59,3 +60,4 @@ public class CameraManagerEditor : Editor
         }
     }
 }
+#endif

@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
             CurrentSceneName = SceneManager.GetActiveScene().name;
         }
         */
-        SavePointID_list = MapTool.DictionaryFromJson(SavePointID_json.text);
+        SavePointID_list = DictionaryFromJson(SavePointID_json.text);
     }
     private void Start()
     {
@@ -203,5 +203,30 @@ public class GameManager : MonoBehaviour
 
         //세이브파일에 저장하는 프로세스도 여기에 만들어두기
         SaveFileManager.Save(GameDataManager.GameData, GameDataManager.GameData.Slot);
+    }
+
+
+    public Dictionary<int, string> DictionaryFromJson(string SavePointID_json)
+    {
+        SavePointID_Wrapper savepointID_wrapper = JsonUtility.FromJson<SavePointID_Wrapper>(SavePointID_json);
+        Dictionary<int, string> savepointID_list = new();
+        foreach (var sp in savepointID_wrapper.savepoint_list)
+        {
+            savepointID_list[sp.ID] = sp.ScenName;
+        }
+        return savepointID_list;
+
+    }
+
+    [System.Serializable]
+    private class SavePointID_Wrapper
+    {
+        public List<SavePoint_class> savepoint_list;
+    }
+    [System.Serializable]
+    private class SavePoint_class
+    {
+        public int ID;
+        public string ScenName;
     }
 }

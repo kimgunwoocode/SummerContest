@@ -81,6 +81,7 @@ public class PlayerManager : MonoBehaviour {
 
         _maxHealth = _data.MaxHP;
         _currentHealth = _data.CurrentHP;
+        Abilitis = _data.PlayerAbility;
     }
 
     private void OnEnable() {

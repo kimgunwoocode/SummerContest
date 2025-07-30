@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private ScriptablePlayerMovementStats _movementStats;
     private PlayerManager _PM;
+    private GameDataManager _data;
     private bool isControllablePlayer = true;
 
 
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour {
         _movementStats = GetComponent<PlayerManager>().playerMovementStats;
         _PM = GetComponent<PlayerManager>();
         _playerCollider = GetComponent<BoxCollider2D>();
+        _data = Singleton.GameManager_Instance.Get<GameDataManager>();
     }
 
     private void Start() {
@@ -92,7 +94,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     internal void OnDashPerformed(InputAction.CallbackContext context) {
-        if (!_PM.Abilitis[0] || !_isAbleToDash || _isDashing) return;
+        if (!_data.PlayerAbility[0] || !_isAbleToDash || _isDashing) return;
         _isAbleToDash = false;
         _isDashing = true;
         _calculatedVelocity.y = 0;

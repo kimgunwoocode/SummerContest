@@ -1,6 +1,3 @@
-using TreeEditor;
-using UnityEngine;
-
 public class FenFire_DeadState : DeadState
 {
     FenFire fenFire;

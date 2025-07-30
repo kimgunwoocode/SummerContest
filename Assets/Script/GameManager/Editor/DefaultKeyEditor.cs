@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(DefaultKeyBindings))]
@@ -18,3 +19,4 @@ public class DefaultKeyBindingsEditor : Editor
         }
     }
 }
+#endif

@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.IO;
 using System;
-using static UnityEngine.EventSystems.EventTrigger;
 
 
 public class MapTool : EditorWindow
@@ -566,3 +566,4 @@ public class MapTool : EditorWindow
         return categoryObj;
     }
 }
+#endif
