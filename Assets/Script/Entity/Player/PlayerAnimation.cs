@@ -39,7 +39,6 @@ public class PlayerAnimation : MonoBehaviour
     }
 
     public void SetClimb(bool value) {
-        flip(!value);
         animator.SetBool("isClimb", value);
     }
 }
