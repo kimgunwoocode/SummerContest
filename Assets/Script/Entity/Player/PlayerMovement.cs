@@ -216,7 +216,7 @@ public class PlayerMovement : MonoBehaviour {
     internal void OnJumpPerformed(InputAction.CallbackContext context) {
         _heldJump = true;
         _jumpPressTime = Time.time;
-        _isJumpRequestExist = isControllablePlayer;
+        _isJumpRequestExist = true;
     }
 
     private void ExecuteJump(int jumpType)
@@ -270,7 +270,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private void JumpRequestValidation()
     {
-        if (_isDashing) return;
+        if (_isDashing || isControllablePlayer || _isStun) return;
         _isJumpEndedEarly = CheckJumpEndedBeforeApex();
 
         bool jumpBufferValidation = ((_groundedTime - _jumpPressTime) < _movementStats.JumpBufferTime) && _isGrounded;
