@@ -16,6 +16,7 @@ public class ChracterPanel : MonoBehaviour
 
     [Header("Hp 관련")]
     public Image Dragonheart;       // 드래곤 하트 모은 정도 출력할 이미지
+    public Sprite Dragonheart_0; // 비어있는 스프라이트
     public Sprite Dragonheart_1;    // 출력할 스프라이트 (1은 조각 1개, 2는 조각 2개. 3은 모든 조각 다 모으면 출력)
     public Sprite Dragonheart_2;
     public Sprite Dragonheart_3;
@@ -28,6 +29,7 @@ public class ChracterPanel : MonoBehaviour
 
     [Header("브레스 게이지 관련")]
     public Image Pepper;
+    public Sprite Pepper_0;
     public Sprite Pepper_1;    // 출력할 스프라이트 (1은 조각 1개, 2는 조각 2개. 3은 모든 조각 다 모으면 출력)
     public Sprite Pepper_2;
     public Sprite Pepper_3;
@@ -89,7 +91,7 @@ public class ChracterPanel : MonoBehaviour
         // 최종적으로 다 모았을 시 몇개인지 나오면 첫 조건문 몇개일 시 Dragonheart_3으로 변경 가능
         if (data.GettedItems[1001] % 3 == 0)
         {
-            Dragonheart.sprite = null;
+            Dragonheart.sprite = Dragonheart_0;
         }
         else if (data.GettedItems[1001] % 3 == 1)
         {
@@ -105,7 +107,7 @@ public class ChracterPanel : MonoBehaviour
         // 아이템 번호 수정 필요!!!!!!! (수정 완료)
         if (data.GettedItems[1002] % 3 == 0)
         {
-            Pepper.sprite = null;
+            Pepper.sprite = Pepper_0;
         }
         else if (data.GettedItems[1002] % 3 == 1)
         {

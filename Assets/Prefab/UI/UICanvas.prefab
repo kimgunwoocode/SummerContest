@@ -4584,6 +4584,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4713552697000884909}
     m_Modifications:
+    - target: {fileID: 234803761125053241, guid: 9a318d23c244c4c14815b653d0f8ebe3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -7951692301866361869, guid: c742b8c3d4929634c9f6340d9c9d33a0, type: 3}
+    - target: {fileID: 3014954014364501859, guid: 9a318d23c244c4c14815b653d0f8ebe3, type: 3}
+      propertyPath: Pepper_0
+      value: 
+      objectReference: {fileID: 3141295456810363277, guid: 4ffdb06c18abe4923b2d9a052a37dd86, type: 3}
+    - target: {fileID: 3014954014364501859, guid: 9a318d23c244c4c14815b653d0f8ebe3, type: 3}
+      propertyPath: Dragonheart_0
+      value: 
+      objectReference: {fileID: -1779091719746014821, guid: 4ffdb06c18abe4923b2d9a052a37dd86, type: 3}
     - target: {fileID: 3014954014364501859, guid: 9a318d23c244c4c14815b653d0f8ebe3, type: 3}
       propertyPath: heartImages.Array.size
       value: 10
@@ -4630,11 +4642,11 @@ PrefabInstance:
       objectReference: {fileID: 4076329218228629094}
     - target: {fileID: 3573968582114545764, guid: 9a318d23c244c4c14815b653d0f8ebe3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 139
       objectReference: {fileID: 0}
     - target: {fileID: 3573968582114545764, guid: 9a318d23c244c4c14815b653d0f8ebe3, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 52
       objectReference: {fileID: 0}
     - target: {fileID: 4733003719521668492, guid: 9a318d23c244c4c14815b653d0f8ebe3, type: 3}
       propertyPath: m_Pivot.x
@@ -4716,13 +4728,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5130307240617967400, guid: 9a318d23c244c4c14815b653d0f8ebe3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 376
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130307240617967400, guid: 9a318d23c244c4c14815b653d0f8ebe3, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 235
+      objectReference: {fileID: 0}
     - target: {fileID: 9171663702268804993, guid: 9a318d23c244c4c14815b653d0f8ebe3, type: 3}
       propertyPath: m_Name
       value: CharacterPanel
       objectReference: {fileID: 0}
     - target: {fileID: 9171663702268804993, guid: 9a318d23c244c4c14815b653d0f8ebe3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
