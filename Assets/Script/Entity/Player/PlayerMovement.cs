@@ -174,12 +174,13 @@ public class PlayerMovement : MonoBehaviour {
         _calculatedVelocity.x = _isWallJumping ? _calculatedVelocity.x : (_isTouchingWall[0] && _moveDirection.x < 0) || (_isTouchingWall[1] && _moveDirection.x > 0) || (_isClimb[0] && _currentInput.x <= 0) || (_isClimb[1] && _currentInput.x >= 0) ? 0f : _isDashing ? (_movementStats.DashSpeed * _moveDirection.x * Time.fixedDeltaTime) : _isCrouch ? ((_isGrounded ? _movementStats.CrounchSpeed : _movementStats.WalkSpeed) * Time.fixedDeltaTime * _currentInput.x) : (_movementStats.WalkSpeed * Time.fixedDeltaTime * _currentInput.x);
     }
 
-    public void Knockback(int dir, int power = 4, float stunTime = 1f) {
-        StartCoroutine(RunKnockback(dir, power, stunTime));
+    public void Knockback(Vector3 attackerPos, int power = 4, float stunTime = 1f) {
+        StartCoroutine(RunKnockback(attackerPos, power, stunTime));
     }
 
-    private IEnumerator RunKnockback(int dir, int power, float stunTime) {
-        _calculatedVelocity = new Vector2(power * 2 * -dir, power * 3);
+    private IEnumerator RunKnockback(Vector3 attackerPos, int power, float stunTime) {
+        int direction = attackerPos.x - transform.position.x > 0 ? -1 : 1;
+        _calculatedVelocity = new Vector2(power * 2 * direction, power * 3);
         isControllablePlayer = false;
         _isStun = true;
         yield return new WaitForSeconds(stunTime);
