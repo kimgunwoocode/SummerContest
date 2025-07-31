@@ -13,6 +13,7 @@ public class SavePoint : MonoBehaviour
     public bool SavePointEnabled = false;
     [Space]
     public Interaction interaction;
+    public UIManager UImanager;
     GameDataManager GameDataManager;
     GameManager GameManager;
 
@@ -21,6 +22,11 @@ public class SavePoint : MonoBehaviour
     {
         GameManager = Singleton.GameManager_Instance.Get<GameManager>();
         GameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();
+        if (UImanager == null)
+        {
+            UImanager = GameObject.FindWithTag("UIManager").GetComponent<UIManager>();
+        }
+
         if (GameDataManager.SpawnPoints?.Count > 0)
             SavePointEnabled = GameDataManager.SpawnPoints[ID];
         if (SavePointEnabled)
@@ -44,6 +50,8 @@ public class SavePoint : MonoBehaviour
         print("SavePoint_" + SavePoint_type + " ID:" + ID);
         GameDataManager.SpawnPoint = ID;
         Singleton.GameManager_Instance.Get<GameManager>().SaveData__SavePoint();
+        if (SavePoint_type == SP_type.Main)
+            UImanager.EnterSavePoint();
     }
 
     // 한 번 상호작용했으면 활성화 시키기
