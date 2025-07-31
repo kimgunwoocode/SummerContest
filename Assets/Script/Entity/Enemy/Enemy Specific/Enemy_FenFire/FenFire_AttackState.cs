@@ -5,9 +5,11 @@ public class FenFire_AttackState : AttackState
     FenFire fenFire;
 
     [Header("Attack Details")]
-    [SerializeField] Enemy_Bullet bulletPrefab;
     [SerializeField] float bulletSpeed = 5f;
     [SerializeField] float bulletLifetime = 1f;
+
+    private Enemy_Bullet bullet;
+    private Vector2 bulletVelocity;
 
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
@@ -20,7 +22,7 @@ public class FenFire_AttackState : AttackState
     {
         base.LogicUpdate();
 
-        if(isAnimationFinished)
+        if (isAnimationFinished)
         {
             stateMachine.ChangeState(fenFire.IdleState);
         }
@@ -29,17 +31,23 @@ public class FenFire_AttackState : AttackState
     public override void TriggerAttack()
     {
         base.TriggerAttack();
-        
+
         CreatBullet();
     }
 
-    void CreatBullet()
+    private void CreatBullet()
     {
-        Enemy_Bullet newBullet = Instantiate(bulletPrefab, attackPosition.position, Quaternion.identity);
+        bullet = PoolManager.instance.Get(0).GetComponent<Enemy_Bullet>();
+        bullet.gameObject.transform.position = attackPosition.position;
 
-        Vector2 bulletVelocity = new Vector2(bulletSpeed, 0);
-        newBullet.SetVelocity(bulletVelocity * enemy.facingDir);
+        bulletVelocity = new Vector2(bulletSpeed, 0);
+        bullet.SetVelocity(bulletVelocity * enemy.facingDir);
 
-        Destroy(newBullet.gameObject, bulletLifetime);
+        Invoke(nameof(DestroyBullet), bulletLifetime);
+    }
+
+    private void DestroyBullet()
+    {
+        bullet.gameObject.SetActive(false);
     }
 }

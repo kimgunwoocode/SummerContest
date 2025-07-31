@@ -24,12 +24,12 @@ public class Enemy_Bullet : MonoBehaviour
             {
                 Debug.Log("도깨비불 공격");
                 playerManager.TakeDamage(1, transform.position);
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
         else if(other.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }    
     }
 }
