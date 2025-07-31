@@ -135,7 +135,7 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
-    public bool TakeDamage(int damage, Vector3 hitDir) {
+    public bool TakeDamage(int damage, Vector3 attackerPosition) {
         if (IsInvincible) return false;
         _currentHealth -= damage;
         _data.CurrentHP = _currentHealth;
@@ -143,12 +143,12 @@ public class PlayerManager : MonoBehaviour {
             Die();
             return true;
         }
-        _movement.Knockback(hitDir.x > 0 ? 1 : -1);
+        _movement.Knockback(attackerPosition);
         return true;
     }
 
-    public void Knockback(int dir, int power = 4, float stunTime = 1f) {
-        _movement.Knockback(dir, power, stunTime);
+    public void Knockback(Vector3 attackerPosition, int power = 4, float stunTime = 1f) {
+        _movement.Knockback(attackerPosition, power, stunTime);
     }
 
     private void Die(){
