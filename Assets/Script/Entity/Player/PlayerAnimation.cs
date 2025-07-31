@@ -22,6 +22,10 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetBool("Dash", value);
     }
 
+    public void SetStun(bool value) {
+        animator.SetBool("isStun", value);
+    }
+
     public void SetSpeed(int speed) {
         if (!(0 <= speed || speed <= 2)) {
             Debug.LogError("the \"speed\" must be between 0 and 2 (inclusive).");

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 
 
@@ -142,17 +143,19 @@ public class PlayerManager : MonoBehaviour {
             Die();
             return true;
         }
-        Knockback(hitDir.x > 0 ? 1 : -1);
+        _movement.Knockback(hitDir.x > 0 ? 1 : -1);
         return true;
+    }
+
+    public void Knockback(int dir, int power = 4, float stunTime = 1f) {
+        _movement.Knockback(dir, power, stunTime);
     }
 
     private void Die(){
         _manager.PlayerDie();
     }
 
-    private void Knockback(int dir) {
-
-    }
+    
 
     internal void UnlockAbility(int id) {
         /// <summary>

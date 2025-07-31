@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour {
         _PM.Anima.SetGrounded(_isGrounded);
         _PM.Anima.SetGlide(_isGlide);
         _PM.Anima.SetClimb(_isClimb[0] || _isClimb[1]);
+        _PM.Anima.SetStun(_isStun);
 
         if (_isIdle && _isGrounded) {
             _PM.Anima.SetSpeed(0);
@@ -73,6 +74,7 @@ public class PlayerMovement : MonoBehaviour {
     private bool _isPlatformDownRequestExist;
     private bool[] _isClimb = new bool[2];
     private float _wallLeftTime;
+    private bool _isStun = false;
 
     private IEnumerator DownPlatform() {
         _isPlatformDownRequestExist = true;
@@ -85,6 +87,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     internal void OnMovePerformed(InputAction.CallbackContext context) {
+        if (!isControllablePlayer) return;
         _currentInput = context.ReadValue<Vector2>();
     }
 
@@ -111,7 +114,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     internal void OnDashPerformed(InputAction.CallbackContext context) {
-        if (!_data.PlayerAbility[0] || !_isAbleToDash || _isDashing) return;
+        if (!_data.PlayerAbility[0] || !_isAbleToDash || _isDashing || !isControllablePlayer) return;
         _isAbleToDash = false;
         _isDashing = true;
         _calculatedVelocity.y = 0;
@@ -167,11 +170,22 @@ public class PlayerMovement : MonoBehaviour {
         if((_isClimb[0] && _currentInput.x <= 0 && !_isWallJumping) || _isClimb[1] && _currentInput.x >= 0 && !_isWallJumping) {
             _calculatedVelocity.y = 0;
         }
-
+        if (!isControllablePlayer) return;
         _calculatedVelocity.x = _isWallJumping ? _calculatedVelocity.x : (_isTouchingWall[0] && _moveDirection.x < 0) || (_isTouchingWall[1] && _moveDirection.x > 0) || (_isClimb[0] && _currentInput.x <= 0) || (_isClimb[1] && _currentInput.x >= 0) ? 0f : _isDashing ? (_movementStats.DashSpeed * _moveDirection.x * Time.fixedDeltaTime) : _isCrouch ? ((_isGrounded ? _movementStats.CrounchSpeed : _movementStats.WalkSpeed) * Time.fixedDeltaTime * _currentInput.x) : (_movementStats.WalkSpeed * Time.fixedDeltaTime * _currentInput.x);
     }
 
+    public void Knockback(int dir, int power = 4, float stunTime = 1f) {
+        StartCoroutine(RunKnockback(dir, power, stunTime));
+    }
 
+    private IEnumerator RunKnockback(int dir, int power, float stunTime) {
+        _calculatedVelocity = new Vector2(power * 2 * -dir, power * 3);
+        isControllablePlayer = false;
+        _isStun = true;
+        yield return new WaitForSeconds(stunTime);
+        isControllablePlayer = true;
+        _isStun = false;
+    }
 
     internal Vector2 ApplyMove() {
         return _calculatedVelocity;
@@ -202,7 +216,7 @@ public class PlayerMovement : MonoBehaviour {
     internal void OnJumpPerformed(InputAction.CallbackContext context) {
         _heldJump = true;
         _jumpPressTime = Time.time;
-        _isJumpRequestExist = true;
+        _isJumpRequestExist = isControllablePlayer;
     }
 
     private void ExecuteJump(int jumpType)
@@ -349,7 +363,6 @@ public class PlayerMovement : MonoBehaviour {
         if (climbableCheck[0] && !_isClimbable[0]) {
             _isClimbable[0] = true;
             _wallJumpDirection = 1;
-            Debug.Log("Landed in left");
         } else if (!climbableCheck[0] && _isClimbable[0]) {
             _isClimbable[0] = false;
             _wallLeftTime = Time.time;
@@ -359,7 +372,6 @@ public class PlayerMovement : MonoBehaviour {
         if (climbableCheck[1] && !_isClimbable[1]) {
             _isClimbable[1] = true;
             _wallJumpDirection = -1;
-            Debug.Log("Landed in right");
 
         } else if (!climbableCheck[1] && _isClimbable[1]) {
             _isClimbable[1] = false;
