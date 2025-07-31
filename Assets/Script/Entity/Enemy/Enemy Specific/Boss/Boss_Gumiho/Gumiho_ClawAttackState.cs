@@ -35,7 +35,5 @@ public class Gumiho_ClawAttackState : MeleeAttackState
     public override void TriggerAttack()
     {
         base.TriggerAttack();
-
-        Debug.Log("발톱 공격");
     }
 }
