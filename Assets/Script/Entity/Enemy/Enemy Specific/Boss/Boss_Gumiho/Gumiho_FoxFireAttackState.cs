@@ -34,7 +34,7 @@ public class Gumiho_FoxFireAttackState : AttackState
     {
         base.Enter();
 
-        gumiho.canBeKnockedBack = false;
+        gumiho.CanBeKnockedBack = false;
         currentCircleRadius = circleRadius;
     }
 
@@ -53,7 +53,7 @@ public class Gumiho_FoxFireAttackState : AttackState
     public override void TriggerAttack()
     {
         base.TriggerAttack();
-        gumiho.canBeKnockedBack = true;
+        gumiho.CanBeKnockedBack = true;
 
         foxFires = new List<GameObject>();
 

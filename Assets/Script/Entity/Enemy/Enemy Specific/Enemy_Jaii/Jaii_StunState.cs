@@ -19,6 +19,7 @@ public class Jaii_StunState : StunState
 
         if (DoStunKnockback)
         {
+            enemy.SetVelocity(stunKnockbackPower, stunKnockbackAngle, -enemy.facingDir);
             DoStunKnockback = false;
         }
         else

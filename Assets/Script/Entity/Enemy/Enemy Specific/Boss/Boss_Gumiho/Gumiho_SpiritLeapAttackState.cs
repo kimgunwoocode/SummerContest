@@ -42,7 +42,7 @@ public class Gumiho_SpiritLeapAttackState : AttackState
     {
         base.Enter();
 
-        gumiho.canBeKnockedBack = false;
+        gumiho.CanBeKnockedBack = false;
 
         hasAttacked = false;
         hasJumped = false;
@@ -76,7 +76,7 @@ public class Gumiho_SpiritLeapAttackState : AttackState
     {
         if (hasAttacked) return;
         hasAttacked = true;
-        gumiho.canBeKnockedBack = true;
+        gumiho.CanBeKnockedBack = true;
 
         base.TriggerAttack();
 

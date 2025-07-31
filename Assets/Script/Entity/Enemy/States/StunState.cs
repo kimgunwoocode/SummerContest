@@ -3,8 +3,7 @@ using UnityEngine;
 public class StunState : State
 {
     [SerializeField] protected float stunTime = 3f;
-    [SerializeField] protected float stunKnockbackTime = 0.2f;
-    [SerializeField] protected float stunKnockbackSpeed = 20f;
+    [SerializeField] protected float stunKnockbackPower = 20f;
     [SerializeField] protected Vector2 stunKnockbackAngle;
 
     protected bool isStunTimeOver;

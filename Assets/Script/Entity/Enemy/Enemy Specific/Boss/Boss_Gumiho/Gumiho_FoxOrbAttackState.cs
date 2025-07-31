@@ -28,7 +28,7 @@ public class Gumiho_FoxOrbAttackState : AttackState
     {
         base.Enter();
 
-        gumiho.canBeKnockedBack = false;
+        gumiho.CanBeKnockedBack = false;
         // 구슬이 던져지고 돌아오기까지의 전체 시간 계산
         totalFoxOrbLifetime = foxOrbThrowTime * 2 + foxOrbReturnDelay;
     }
@@ -52,7 +52,7 @@ public class Gumiho_FoxOrbAttackState : AttackState
     public override void TriggerAttack()
     {
         base.TriggerAttack();
-        gumiho.canBeKnockedBack = true;
+        gumiho.CanBeKnockedBack = true;
         
         FoxOrbAttack();
     }

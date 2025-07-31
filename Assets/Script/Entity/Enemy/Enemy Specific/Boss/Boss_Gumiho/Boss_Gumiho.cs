@@ -17,7 +17,14 @@ public class Boss_Gumiho : EnemyEntity
 
     [Header("Gumiho Details")]
     public int phase2HP = 5;
-    public bool canBeKnockedBack = true;
+
+    public bool CanBeKnockedBack
+    {
+        get{ return canBeKnockedBack; } set{ canBeKnockedBack = value; }
+    }
+
+    private bool canBeKnockedBack;
+    
 
     public Gumiho_IdleState IdleState => idleState;
     public Gumiho_MoveState MoveState => moveState;

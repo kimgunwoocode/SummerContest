@@ -18,7 +18,7 @@ public class Gumiho_TailAttackState : MeleeAttackState
     {
         base.Enter();
 
-        gumiho.canBeKnockedBack = false;
+        gumiho.CanBeKnockedBack = false;
 
         enemy.SetVelocity(0f);
     }
@@ -37,7 +37,7 @@ public class Gumiho_TailAttackState : MeleeAttackState
     public override void TriggerAttack()
     {
         base.TriggerAttack();
-        gumiho.canBeKnockedBack = true;
+        gumiho.CanBeKnockedBack = true;
 
         Debug.Log("꼬리 공격");
     }

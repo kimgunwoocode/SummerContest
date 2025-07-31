@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d207ef26facac174295b32ca10cce354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  longRangeActionTime: 1.5
+  longRangeActionTime: 1
 --- !u!114 &2496954641299654890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chargeSpeed: 10
-  chargeTime: 1.5
+  chargeTime: 1.3
 --- !u!114 &6217520579533286077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,9 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d15f996ae6ae124e9119b1d03a4c8d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stunTime: 2
-  stunKnockbackTime: 0.2
-  stunKnockbackSpeed: 4
+  stunTime: 1.5
+  stunKnockbackPower: 4
   stunKnockbackAngle: {x: 2, y: 4}
 --- !u!114 &8510276790118465102
 MonoBehaviour:

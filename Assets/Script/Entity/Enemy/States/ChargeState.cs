@@ -45,6 +45,7 @@ public class ChargeState : State
     public override void Exit()
     {
         base.Exit();
+        enemy.SetVelocity(0f);
     }
 
     public override void LogicUpdate()

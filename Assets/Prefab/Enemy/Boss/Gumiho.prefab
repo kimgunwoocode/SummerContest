@@ -104,8 +104,7 @@ MonoBehaviour:
   knockbackState: {fileID: 9161884421082190626}
   deadState: {fileID: 4494930001627154478}
   phase2State: {fileID: 7339678446260502469}
-  phase2HP: 5
-  canBeKnockedBack: 0
+  phase2HP: 10
 --- !u!114 &6707175369488368145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,6 +117,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62cdb6f60b5fd1047a91ab1a6551df1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartBossEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &4173339463943288479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,6 +271,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathChunkParticle: {fileID: 0}
   deathBloodParticle: {fileID: 0}
+  DieEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7339678446260502469
 MonoBehaviour:
   m_ObjectHideFlags: 0
