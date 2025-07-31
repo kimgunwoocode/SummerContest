@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 5982830510286306634}
   - component: {fileID: 9161884421082190626}
   - component: {fileID: 4494930001627154478}
+  - component: {fileID: 7339678446260502469}
   m_Layer: 0
   m_Name: Gumiho
   m_TagString: Untagged
@@ -102,6 +103,7 @@ MonoBehaviour:
   spiritLeapAttackState: {fileID: 5982830510286306634}
   knockbackState: {fileID: 9161884421082190626}
   deadState: {fileID: 4494930001627154478}
+  phase2State: {fileID: 7339678446260502469}
   phase2HP: 5
   canBeKnockedBack: 0
 --- !u!114 &6707175369488368145
@@ -214,7 +216,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPosition: {fileID: 1915083614469230263}
   attackCooldown: 1
-  foxOrbPrefab: {fileID: 3831979649908390737, guid: 1a4ce71f14401674a8675df02d9dfc65, type: 3}
   rotationSpeed: 250
   radiusIncreaseSpeed: 5
   circleRadius: 1
@@ -268,6 +269,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathChunkParticle: {fileID: 0}
   deathBloodParticle: {fileID: 0}
+--- !u!114 &7339678446260502469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601308612967832141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7f3fdf8fc5ed2f498f7b615d6c10ef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phaseChangeTime: 2
 --- !u!1 &2127422945931503210
 GameObject:
   m_ObjectHideFlags: 0
