@@ -19,8 +19,8 @@ public class PlayerAttack : MonoBehaviour {
     }
 
     internal void InitiateBreath() {
-        MaxBreathGauge = _data.MaxBreathGauge == 0 ? 100 : _data.MaxBreathGauge;
-        CurrentBreathGauge = MaxBreathGauge;
+        //MaxBreathGauge = _data.MaxBreathGauge == 0 ? 100 : _data.MaxBreathGauge;
+        //CurrentBreathGauge = MaxBreathGauge;
 
         _currentBreathId = _data.EquipSkill.Count == 0 ? -1 : _data.EquipSkill[0];
         _currentBreathInfo = _currentBreathId == -1 ? basic :_data.allitems[_currentBreathId] as BreathItemData;
@@ -48,11 +48,11 @@ public class PlayerAttack : MonoBehaviour {
     }
 
     internal void FireBreath(Vector3 direction) {
-        if (Time.time - _lastBreathFireTime < _currentBreathInfo.breathCoolDown || CurrentBreathGauge < _currentBreathInfo.breathCost) {
+        if (Time.time - _lastBreathFireTime < _currentBreathInfo.breathCoolDown || _data.CurrentBreathGauge < _currentBreathInfo.breathCost) {
             return;
         }
 
-        CurrentBreathGauge -= _currentBreathInfo.breathCost;
+        _data.CurrentBreathGauge -= _currentBreathInfo.breathCost;
         _currentBreathInfo.UseBreath(direction, transform.position);
     }
 

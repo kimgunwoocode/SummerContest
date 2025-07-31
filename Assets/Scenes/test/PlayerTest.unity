@@ -1071,6 +1071,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547221691}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &467901181 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5370909606959610827, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
+  m_PrefabInstance: {fileID: 6890096988812018242}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &486781201
 GameObject:
   m_ObjectHideFlags: 0
@@ -2793,6 +2798,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1099504552 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 267410051914795254, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
+  m_PrefabInstance: {fileID: 6890096988812018242}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1155213456
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5067,6 +5077,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 267410051914795254, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.55
+      objectReference: {fileID: 0}
     - target: {fileID: 2500127282153597911, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -5142,6 +5156,22 @@ PrefabInstance:
     - target: {fileID: 3431744776875554849, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
       propertyPath: wallcheckTransforms.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3431744776875554849, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
+      propertyPath: cornerCheckTransforms.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3431744776875554849, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
+      propertyPath: 'cornerCheckTransforms.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1099504552}
+    - target: {fileID: 3431744776875554849, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
+      propertyPath: 'cornerCheckTransforms.Array.data[1]'
+      value: 
+      objectReference: {fileID: 467901181}
+    - target: {fileID: 5370909606959610827, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 5777702738308349266, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
       propertyPath: m_LocalPosition.x

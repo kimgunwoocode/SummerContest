@@ -12,7 +12,10 @@ public class PlayerAnimation : MonoBehaviour
 
     public void EnterJump() {
         animator.SetTrigger("JumpStart");
+    }
 
+    public void EnterDoubleJump() {
+        animator.SetTrigger("doubleJump");
     }
     
     public void SetDash(bool value) {

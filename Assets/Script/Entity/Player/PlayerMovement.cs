@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private Transform groundCheckerTransform;
     [SerializeField] private Transform ceilingCheckerTransform;
     [SerializeField] private Transform[] wallcheckTransforms;
+    [SerializeField] private Transform[] cornerCheckTransforms;
 
     internal Vector2 _currentInput;
     private Rigidbody2D _rb;
@@ -213,6 +214,7 @@ public class PlayerMovement : MonoBehaviour {
         else if (jumpType == 1) {
             if (!_PM.Abilitis[2]) return;
             _leftBonusJump -= 1;
+            _PM.Anima.EnterDoubleJump();
         }
         _calculatedVelocity.y = _movementStats.JumpForce;
         _isJumpRequestExist = false;
@@ -298,6 +300,8 @@ public class PlayerMovement : MonoBehaviour {
 
         bool[] climbableCheck = CheckClimbable();
 
+        bool[] cornerCheck = CheckCorner();
+
         //landed on ground
         if (groundCheck && !_isGrounded) {
             _isGrounded = true;
@@ -368,6 +372,11 @@ public class PlayerMovement : MonoBehaviour {
             _isGrounded = false;
         }
 
+        if (cornerCheck[0] && !_isGrounded) {
+            _rb.transform.position = _rb.transform.position + new Vector3(0, 0.1f, 0);
+        }else if (cornerCheck[1] && !_isGrounded) {
+            _rb.transform.position = _rb.transform.position - new Vector3(0, 0.1f, 0);
+        }
 
         Physics2D.queriesStartInColliders = _cachedQueryStartInColliders;
     }
@@ -436,6 +445,22 @@ public class PlayerMovement : MonoBehaviour {
         checkIsPlatform |= _movementStats.PlatformLayers;
 
         return Physics2D.OverlapBox(groundCheckerTransform.position + new Vector3(0, _movementStats.GroundCheckDistance), new Vector2(transform.localScale.x * 0.85f, _movementStats.GroundCheckDistance / 2), 0f, checkIsPlatform);
+    }
+
+    private bool[] CheckCorner() {
+        bool[] results = new bool[2];
+        int index = 0;
+
+        foreach (Transform corner in cornerCheckTransforms) {
+            RaycastHit2D hit;
+            hit = Physics2D.Raycast(corner.position, Vector2.down, _movementStats.GroundCheckDistance/2);
+
+            results[index] = hit;
+            
+            index++;
+        }
+
+        return results;
     }
 
     #endregion
