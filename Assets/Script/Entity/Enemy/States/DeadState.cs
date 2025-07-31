@@ -24,6 +24,8 @@ public class DeadState : State
     {
         base.Enter();
 
+        enemy.SetVelocity(0f);
+
         if (deathBloodParticle != null)
             GameObject.Instantiate(deathBloodParticle, enemy.aliveGO.transform.position, Quaternion.identity, enemy.transform);
 
@@ -34,7 +36,7 @@ public class DeadState : State
         Singleton.GameManager_Instance.Get<GameManager>().Get_Money(enemy.enemyData.minCoinReward, enemy.enemyData.maxCoinReward + 1);
 
         Debug.Log($"{enemy.enemyData.enemyName}이 죽음");
-        Invoke(nameof(DisableEnemy), 2f);
+        Invoke(nameof(DisableEnemy), 1f);
     }
 
     public override void Exit()

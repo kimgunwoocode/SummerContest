@@ -103,7 +103,7 @@ public class EnemyEntity : MonoBehaviour
 
         if(enemyData.hitParticle != null)
         {
-            Instantiate(enemyData.hitParticle, aliveGO.transform.position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
+            Instantiate(enemyData.hitParticle, aliveGO.transform.position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)), transform);
         }
 
         if(attackerPosition.x > aliveGO.transform.position.x)
