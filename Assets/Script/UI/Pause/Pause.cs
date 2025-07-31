@@ -30,6 +30,10 @@ public class Pause : MonoBehaviour
 
     private List<GameObject> allPanels;
     private List<GameObject> allButtons;
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     void Start()
     {
         // 퍼즈 관련 리스트
