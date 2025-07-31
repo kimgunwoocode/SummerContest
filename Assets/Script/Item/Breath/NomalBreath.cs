@@ -45,6 +45,7 @@ public class NomalBreath : BreathObject
         foreach (var hit in hits) {
             Debug.Log(hit.name);
             hit.GetComponentInParent<EnemyEntity>()?.TakeDamage(Singleton.GameManager_Instance.Get<GameDataManager>().ATK, transform.position);
+            Destroy(gameObject);
         }
     }
 

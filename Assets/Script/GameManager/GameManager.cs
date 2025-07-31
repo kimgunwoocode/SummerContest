@@ -1,11 +1,12 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public GameDataManager GameDataManager;
-    public TextAsset initdata;
+    public TextAsset InitData;
     public GameObject Player;
 
     [Header("씬 이동 시 가져가야할 정보들")]
@@ -95,6 +96,8 @@ public class GameManager : MonoBehaviour
         //이전 세이브 포인트로 위치 이동시키기
         if (GameDataManager.SpawnPoint == -1)
         {
+            SaveFileManager.Load_forNewGame(InitData.text, GameDataManager.GameData.Slot);
+            CurrentScenePointID = -1;
             SceneManager.LoadScene("1-1_ForgottenNest");
         }
         string SavedSceneName = SavePointID_list[GameDataManager.SpawnPoint];
@@ -104,7 +107,7 @@ public class GameManager : MonoBehaviour
 
     public void Get_Money(int min, int max)
     {
-        GameDataManager.Money += Random.Range(min, max);
+        GameDataManager.Money += UnityEngine.Random.Range(min, max);
     }
 
     public void Get_Item(int ItemID)
