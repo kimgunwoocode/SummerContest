@@ -98,10 +98,11 @@ public class TitleManager : MonoBehaviour
     public void ContinueSavedGame(int index)
     {
         SaveFileManager.Load(index);
+
+        Debug.Log("SpawnPoint : " + GameDataManager.SpawnPoint);
+
         StartSceneName = SavePointID_list[GameDataManager.SpawnPoint];
         GameManager.CurrentScenePointID = -GameDataManager.SpawnPoint;
-
-        Debug.Log(InitData.text);
 
         SceneManager.LoadScene(StartSceneName);
     }
