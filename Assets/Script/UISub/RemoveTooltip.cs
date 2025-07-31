@@ -1,13 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using TMPro;
 
 public class RemoveTooltip : MonoBehaviour
 {
-    [SerializeField] private float _seconds;
+    [SerializeField] TextMeshProUGUI _selfUGUI;
     private void Awake()
     {
-        gameObject.SetActive(false);
+        _selfUGUI.text = " ";
     }
     public void RmAfter(float seconds)
     {
@@ -15,7 +16,7 @@ public class RemoveTooltip : MonoBehaviour
     }
 
     IEnumerator discard(float seconds) {
-        gameObject.SetActive(true);
+        _selfUGUI.text = "Esc키로 도감 확인";
         yield return new WaitForSeconds(seconds);
         Destroy(gameObject);
     }
