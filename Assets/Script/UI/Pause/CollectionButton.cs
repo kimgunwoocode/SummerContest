@@ -6,8 +6,17 @@ public class CollectionButton : MonoBehaviour
     GameDataManager data;
 
     [Header("해당 버튼의 정보")]
-    public int MyId;                      // 해당 버튼에 할당된 장비의 아이디 번호
-    // public Text L_ItemName;               // 아이템 이름 출력 텍스트박스 - 버튼쪽
+    private int myId;
+    public int MyId
+    {
+        get => myId;
+        set
+        {
+            myId = value;
+            UpdateButtonUI();
+        }
+    }                     // 해당 버튼에 할당된 장비의 아이디 번호
+    public Text L_ItemName;               // 아이템 이름 출력 텍스트박스 - 버튼쪽
 
     [Header("텍스트 및 이미지 출력 창")]
     public Text ItemName;               // 아이템 이름 출력 텍스트박스
@@ -18,20 +27,22 @@ public class CollectionButton : MonoBehaviour
     void Start()
     {
         data = Singleton.GameManager_Instance.Get<GameDataManager>();
-        /*
-                if (data.PlayerSkill.TryGetValue(MyId, out bool isUnlocked) && isUnlocked)
-                {
-                    // 획득
-                    L_ItemName.text = data.allitems[MyId].itemName;
-                }
-                else
-                {
-                    // 미획득
-                    L_ItemName.text = "???";
-                }
-                */
     }
 
+    // 버튼 내부 텍스트 초기화
+    public void UpdateButtonUI()
+    {
+        if (data.PlayerSkill.TryGetValue(MyId, out bool isUnlocked) && isUnlocked)
+        {
+            // 획득
+            L_ItemName.text = data.allitems[MyId].itemName;
+        }
+        else
+        {
+            // 미획득
+            L_ItemName.text = "???";
+        }
+    }
     public void ClickButton()
     {
 

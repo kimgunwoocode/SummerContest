@@ -28,8 +28,6 @@ public class CollectionPanel : MonoBehaviour
 
     [Header("버튼 클릭시 나타나는 좌측 버튼 관련")]
     public GameObject ButtonContainer;         // 도감 좌측페이지 버튼을 담는 컨테이너
-    private int InsertID;                       // 버튼에 할당할 ID
-    public Text L_ItemName;               // 버튼에 나타나는 아이템 이름 출력 텍스트박스
 
     public List<GameObject> CollectiopnButtons = new(); // 좌측 버튼 리스트
 
@@ -63,30 +61,15 @@ public class CollectionPanel : MonoBehaviour
                 // 구체적인 수치는 변경 필요!!
                 if (targetButton == EnemyButton) // 적 ID 라인으로 변경 필요
                 {
-                    InsertID = 1000 + i;
-                    codexBtn.MyId = InsertID;
+                    codexBtn.MyId = 1000 + i;
                 }
                 else if (targetButton == ItemButton) // 아이템 ID 수정 완료, 아이템 수 추가될 시 변경 필요
                 {
-                    InsertID = 1017 + i;
-                    codexBtn.MyId = InsertID;
+                    codexBtn.MyId = 1017 + i;
                 }
                 else if (targetButton == DocumentButton) // 문서 ID 라인으로 변경 필요
                 {
-                    InsertID = 3000 + i;
-                    codexBtn.MyId = InsertID;
-                }
-
-                // 버튼에 표기할 아이템 이름 초기화
-                if (data.PlayerSkill.TryGetValue(InsertID, out bool isUnlocked) && isUnlocked)
-                {
-                    // 획득
-                    L_ItemName.text = data.allitems[InsertID].itemName;
-                }
-                else
-                {
-                    // 미획득
-                    L_ItemName.text = "???";
+                    codexBtn.MyId = 3000 + i;
                 }
             }
         }
