@@ -445,7 +445,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPosition: {fileID: 192005055250757878}
-  bulletPrefab: {fileID: 2687278638108176264, guid: cf69c8294fcf3784d903fb2f5174c47f, type: 3}
   bulletSpeed: 5
   bulletLifetime: 1
 --- !u!114 &7703114439212037786
@@ -460,8 +459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 598ea738a2262774a80b584510f67ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackTime: 0.2
-  knockbackSpeed: 3
+  knockbackPower: 3
   knockbackAngle: {x: 2, y: 4}
 --- !u!114 &6154016169718118366
 MonoBehaviour:
@@ -475,5 +473,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c942566e0cb60b04a8feb812aa9900ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathChunkParticle: {fileID: 0}
+  deathChunkParticle: {fileID: 1831005131455281727, guid: 3196453eb9197794bb21991acc8720fd, type: 3}
   deathBloodParticle: {fileID: 0}
