@@ -8561,6 +8561,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a1fdfa9c6dd340049d71909f0e96396, type: 3}
+--- !u!114 &596700008 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4523250742168186369, guid: 8a1fdfa9c6dd340049d71909f0e96396, type: 3}
+  m_PrefabInstance: {fileID: 596700007}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1da4d00d6a7a4077ae47f7e9294bba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!21 &599010307
 Material:
   serializedVersion: 8
@@ -9319,6 +9330,10 @@ PrefabInstance:
       propertyPath: SceneName
       value: 1-2_FoxForest
       objectReference: {fileID: 0}
+    - target: {fileID: -1750447531863836778, guid: a94a501db63fc5d44ab18fed694baae6, type: 3}
+      propertyPath: UImanager
+      value: 
+      objectReference: {fileID: 596700008}
     - target: {fileID: 314329406757310183, guid: a94a501db63fc5d44ab18fed694baae6, type: 3}
       propertyPath: m_Enabled
       value: 0
