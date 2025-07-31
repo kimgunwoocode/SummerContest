@@ -3,6 +3,8 @@ using UnityEngine;
 public class Gumiho_FoxOrb : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private Animator anim;
+    private SpriteRenderer sp;
     private Vector2 initialVelocity;
 
     private float fireTime;
@@ -13,6 +15,8 @@ public class Gumiho_FoxOrb : MonoBehaviour
     private bool isStopped = false;
     private bool isReturning = false;
     private float elapsedTime = 0f;
+
+    private bool initialFlipX;
 
     /// <summary>
     /// 여우구슬 초기화 함수
@@ -27,11 +31,16 @@ public class Gumiho_FoxOrb : MonoBehaviour
         throwTime = lifeTime;
         returnDelay = delayTime;
         fireTime = Time.time;
+
+        if (initialVelocity.x > 0) sp.flipX = true;
+        initialFlipX = sp.flipX;
     }
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        sp = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -41,14 +50,19 @@ public class Gumiho_FoxOrb : MonoBehaviour
         // 구슬의 상태 업데이트 (발사 후, 돌아오는 상태)
         if (!isStopped && !isReturning)
         {
+            anim.SetBool("move", true);
             ApplyThrowMovement();
         }
         else if (isStopped && !isReturning)
         {
+            anim.SetBool("move", false);
             HandleReturnDelay();
         }
         else if (isReturning)
         {
+            anim.SetBool("move", true);
+            if(initialFlipX == sp.flipX)
+                sp.flipX = !sp.flipX;
             ApplyReturnMovement();
         }
     }

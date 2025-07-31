@@ -11,7 +11,7 @@ public class LitToUnlit_Converter : EditorWindow
     }
 
     private void OnGUI() {
-        GUILayout.Label("Lit → Unlit 머테리얼 일괄 변환기", EditorStyles.boldLabel);
+        GUILayout.Label("머테리얼 일괄 변환기", EditorStyles.boldLabel);
 
         if (GUILayout.Button("현재 씬의 모든 머테리얼 검사 후 변환")) {
             ConvertToUnlit();
@@ -28,28 +28,26 @@ public class LitToUnlit_Converter : EditorWindow
             foreach (SpriteRenderer sr in renderers) {
                 if (sr.sharedMaterial != null && sr.sharedMaterial.shader != null) {
                     string shaderName = sr.sharedMaterial.shader.name;
-                    Debug.Log(sr.gameObject.name + ", " + sr.material.name);
-                    if (shaderName == "Universal Render Pipeline/2D/Sprite-Lit-Default") {
-                        // Unlit용 기본 쉐이더
-                        Shader unlitShader = Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default");
-                        if (unlitShader == null) {
-                            Debug.LogError("Unlit Shader not found.");
+                    //if (shaderName == "Universal Render Pipeline/2D/Sprite-Lit-Default") {
+                        Shader target = Shader.Find("Universal Render Pipeline/2D/Sprite-Lit-Default");
+                        if (target == null) {
+                            Debug.LogError("Target Shader not found.");
                             return;
                         }
 
-                        Material newMat = new Material(unlitShader);
+                        Material newMat = new Material(target);
                         newMat.mainTexture = sr.sprite?.texture;
                       
-                        Undo.RecordObject(sr, "Convert to Unlit Sprite");
+                        Undo.RecordObject(sr, "Convert to target Sprite");
                         sr.sharedMaterial = newMat;
                         EditorUtility.SetDirty(sr);
 
                         convertedCount++;
-                    }
+                    //}
                 }
             }
         }
 
-        Debug.Log($"Converted {convertedCount} SpriteRenderer(s) to Unlit.");
+        Debug.Log($"Converted {convertedCount} SpriteRenderer(s) to material.");
     }
 }
