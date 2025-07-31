@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
 */
 
     // public Transform ActivePanel;        // 활성화 된 창 생성 위치
-    public GameObject ActivePanel = null;       // 활성화된 창
+    private GameObject ActivePanel = null;       // 활성화된 창
 
     void Start()
     {
