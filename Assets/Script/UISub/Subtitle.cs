@@ -28,7 +28,7 @@ public class Subtitle : MonoBehaviour
     {
         _selfUGUI = GetComponent<TextMeshProUGUI>();
         _selfRTrans = GetComponent<RectTransform>();
-        _color = new Color(1, 1, 1, 0);
+        _color = _icon.color;
         _selfUGUI.text = null;
 
         _iconOriginPos = _iconTrans.position; // 기준 위치 저장
