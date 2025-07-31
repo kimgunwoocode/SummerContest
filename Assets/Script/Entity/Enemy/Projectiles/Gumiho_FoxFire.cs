@@ -10,7 +10,7 @@ public class Gumiho_FoxFire : MonoBehaviour
             PlayerManager playerManager = other.GetComponent<PlayerManager>();
             if (!playerManager.IsInvincible)
             {
-                Debug.Log("여우불 공격");
+                Debug.Log("여우불에 공격 당함");
                 playerManager.TakeDamage(1, transform.position);
                 gameObject.SetActive(false);
             }

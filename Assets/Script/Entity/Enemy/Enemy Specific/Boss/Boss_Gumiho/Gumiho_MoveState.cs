@@ -70,7 +70,6 @@ public class Gumiho_MoveState : Boss_MoveState
             isClawAttackCancelled = false;
             lastAttack = gumiho.TailAttackState;
             stateMachine.ChangeState(gumiho.TailAttackState); // 꼬리치기 실행
-            Debug.Log("발톱공격 캔슬로 꼬리치기 반격");
         }
         else if (lastAttack == gumiho.TailAttackState) // 꼬리치기 이후에는 원거리 공격 실행
         {

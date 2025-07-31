@@ -109,7 +109,7 @@ public class Gumiho_FoxOrb : MonoBehaviour
             PlayerManager playerManager = other.GetComponent<PlayerManager>();
             if (!playerManager.IsInvincible)
             {
-                Debug.Log("여우구슬 공격");
+                Debug.Log("여우구슬에 공격 당함");
                 playerManager.TakeDamage(1, transform.position);
             }
         }

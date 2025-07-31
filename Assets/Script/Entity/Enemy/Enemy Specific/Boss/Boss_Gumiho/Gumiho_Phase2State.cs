@@ -25,7 +25,9 @@ public class Gumiho_Phase2State : Boss_PhaseChangeState
     {
         base.LogicUpdate();
 
-        if(isPhaseChangeTimeOver)
+        gumiho.LookAtPlayer();
+
+        if (isPhaseChangeTimeOver)
         {
             stateMachine.ChangeState(gumiho.MoveState);
         }

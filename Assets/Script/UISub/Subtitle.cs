@@ -10,6 +10,7 @@ public class Subtitle : MonoBehaviour
     [SerializeField] private Transform _bagTrans;
     [SerializeField] private Image _icon;
     [SerializeField] private Image _bag;
+    [SerializeField] private GameObject _tip;
 
     private TextMeshProUGUI _selfUGUI;
     private RectTransform _selfRTrans;
@@ -45,6 +46,8 @@ public class Subtitle : MonoBehaviour
         _coroutine = true;
 
         _color.a = 1;
+        if(_tip != null)
+        _tip.SetActive(true);
         _icon.color = _color;
 
         if (_isTem)
@@ -74,6 +77,8 @@ public class Subtitle : MonoBehaviour
         _selfUGUI.text = null;
 
         _color.a = 0;
+        if(_tip != null)
+        _tip.SetActive(false);
         _icon.color = _color;
         if (_isTem) _bag.color = _color;
 
@@ -106,9 +111,9 @@ public class Subtitle : MonoBehaviour
 
         float moveX = -0.5f * newSize.x - 235f;
         Vector3 newIconPos = _iconOriginPos + new Vector3(moveX, 0f, 0f);
-        _iconTrans.position = newIconPos;
 
         Vector3 newBagPos = newIconPos + _bagOffset;
+        newBagPos.z = newIconPos.z + 1f;
         _bagTrans.position = newBagPos;
 
         _prevTextWidth = -moveX;
@@ -129,7 +134,6 @@ public class Subtitle : MonoBehaviour
         float moveX = -0.5f * newSize.x - 205f;
         Vector3 newIconPos = _iconOriginPos + new Vector3(moveX, 0f, 0f);
         _iconTrans.position = newIconPos;
-
         _bagTrans.position = newIconPos + _bagOffset;
 
         _prevTextWidth = -moveX;

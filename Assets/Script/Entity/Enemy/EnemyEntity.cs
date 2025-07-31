@@ -96,7 +96,6 @@ public class EnemyEntity : MonoBehaviour
     {
         if (currentHP == 0) return;
         
-        Debug.Log("attacked");
         lastDamageTime = Time.time;
 
         currentHP -= damageAmount;
