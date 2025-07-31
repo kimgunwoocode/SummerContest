@@ -19,9 +19,12 @@ public class ChracterPanel : MonoBehaviour
     public Sprite Dragonheart_1;    // 출력할 스프라이트 (1은 조각 1개, 2는 조각 2개. 3은 모든 조각 다 모으면 출력)
     public Sprite Dragonheart_2;
     public Sprite Dragonheart_3;
+    /*
     public GameObject heartPrefab;  // 하트 프리팹
     public Transform heartContainer;// 하트들이 자식으로 정렬될 부모 오브젝트
+    */
 
+    public List<GameObject> heartImages = new(); // 하트 이미지 리스트
 
     [Header("브레스 게이지 관련")]
     public Image Pepper;
@@ -55,20 +58,30 @@ public class ChracterPanel : MonoBehaviour
                 breathIcons[i].sprite = nullsprite;
             }
         }
+        /*
+                // 최대 체력 수만큼 하트를 생성
+                // 이전 하트들 제거
+                foreach (Transform child in heartContainer)
+                {
+                    Debug.Log("하트 프리팹 제거");
+                    Destroy(child.gameObject);
+                }
 
-        // 최대 체력 수만큼 하트를 생성
-        // 이전 하트들 제거
-        foreach (Transform child in heartContainer)
-        {
-            Debug.Log("하트 프리팹 제거");
-            Destroy(child.gameObject);
-        }
+                // 최대 체력 수만큼 하트를 생성
+                for (int i = 0; i < data.MaxHP; i++)
+                {
+                    Debug.Log("하트 프리팹 생성");
+                    GameObject heart = Instantiate(heartPrefab, heartContainer);
+                }
+        */
 
-        // 최대 체력 수만큼 하트를 생성
+        // 전체 비활성
+        foreach (GameObject child in heartImages)
+        { child.gameObject.SetActive(false); }
+        // 최대체력만큼 활성
         for (int i = 0; i < data.MaxHP; i++)
         {
-            Debug.Log("하트 프리팹 생성");
-            GameObject heart = Instantiate(heartPrefab, heartContainer);
+            heartImages[i].gameObject.SetActive(true);
         }
 
         // 모은 만큼 하트 조각 이미지 스프라이트 추가

@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     public GameObject MainGamePanel;     // 메인게임 UI 화면
     public GameObject SavePointPanel;    // 세이브 포인트 UI 화면
     public GameObject ShopPanel;         // 상점 UI 화면
+    public GameObject CloseButton;         // 창 닫기 제어하는 버튼
+
     /*
     public GameObject MainGamePrefab;     // 메인게임 UI 프리팹
     public GameObject SavePointPrefab;    // 세이브 포인트 UI 프리팹
@@ -26,6 +28,7 @@ public class UIManager : MonoBehaviour
         SavePointPanel.SetActive(false);
         ShopPanel.SetActive(false);
         MainGamePanel.SetActive(true);
+        CloseButton.SetActive(false);
         ActivePanel = null;
 
         isPause = false;                                // 게임 시작시 false로
@@ -71,6 +74,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0f;
 
         SavePointPanel.SetActive(true);
+        CloseButton.SetActive(true);
 
         ActivePanel = SavePointPanel;
         // ActivePanelPrefab = Instantiate(SavePointPrefab, ActivePanel); // 세이브포인트 창 생성
@@ -82,6 +86,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0f;
 
         ShopPanel.SetActive(true);
+        CloseButton.SetActive(true);
 
         ActivePanel = ShopPanel;
         // ActivePanelPrefab = Instantiate(ShopPrefab, ActivePanel); // 상점 창 생성
@@ -91,6 +96,8 @@ public class UIManager : MonoBehaviour
     public void ExitPanel()
     {
         ActivePanel.SetActive(false);
+        CloseButton.SetActive(false);
+
         ActivePanel = null;
 
         Time.timeScale = 1f;
