@@ -23,6 +23,8 @@ public class SavePoint : MonoBehaviour
         GameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();
         if (GameDataManager.SpawnPoints?.Count > 0)
             SavePointEnabled = GameDataManager.SpawnPoints[ID];
+        if (SavePointEnabled)
+            InitInteractedSavePoint();
     }
     private void Start()
     {
