@@ -71,7 +71,7 @@ public class ChracterPanel : MonoBehaviour
         }
 
         // 모은 만큼 하트 조각 이미지 스프라이트 추가
-        // 아이템 번호 수정 필요!!!
+        // 아이템 번호 수정 필요!!! (수정 완료)
         // 최종적으로 다 모았을 시 몇개인지 나오면 첫 조건문 몇개일 시 Dragonheart_3으로 변경 가능
         if (data.GettedItems[1001] % 3 == 0)
         {
@@ -88,24 +88,24 @@ public class ChracterPanel : MonoBehaviour
 
 
         // 모은 만큼 고추 조각 이미지 스프라이트 추가
-        // 아이템 번호 수정 필요!!!!!!!
-        if (data.GettedItems[1001] % 3 == 0)
+        // 아이템 번호 수정 필요!!!!!!! (수정 완료)
+        if (data.GettedItems[1002] % 3 == 0)
         {
             Pepper.sprite = null;
         }
-        else if (data.GettedItems[1001] % 3 == 1)
+        else if (data.GettedItems[1002] % 3 == 1)
         {
             Pepper.sprite = Pepper_1;
         }
-        else if (data.GettedItems[1001] % 3 == 2)
+        else if (data.GettedItems[1002] % 3 == 2)
         {
             Pepper.sprite = Pepper_2;
         }
 
 
         // 브레스 게이지 크기 알맞는 스프라이트 출력
-        // 아이템 번호 수정 필요!!!!
-        int index = data.GettedItems[1001] / 3;
+        // 아이템 번호 수정 필요!!!! (수정 완료)
+        int index = data.GettedItems[1002] / 3;
         BreathGauge.sprite = gaugeSprites[index];
     }
 

@@ -91,8 +91,8 @@ public class MainGameUI : MonoBehaviour
     // 최대브레스게이지 갱신시 호출
     public void InitializeBreathGauge()
     {
-        // 아이템 번호 고추 조각으로 변경 필요!!!!!!!
-        breatGauge.sprite = gaugeSprites[data.GettedItems[1001] / 3];
+        // 아이템 번호 고추 조각으로 변경 필요!!!!!!! (수정 완료)
+        breatGauge.sprite = gaugeSprites[data.GettedItems[1002] / 3];
     }
 
     // 최대체력 갱신시 호출
