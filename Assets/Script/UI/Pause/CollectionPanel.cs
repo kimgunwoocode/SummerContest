@@ -53,24 +53,26 @@ public class CollectionPanel : MonoBehaviour
 
             CollectionButton codexBtn = Colletionbutton.GetComponent<CollectionButton>();
 
-            // 구체적인 수치는 변경 필요!!
-            if (targetButton == EnemyButton)
-            {
-                codexBtn.MyId = 1000 + i;
-            }
-            else if (targetButton == ItemButton)
-            {
-                codexBtn.MyId = 2000 + i;
-            }
-            else
-            {
-                codexBtn.MyId = 3000 + i;
-            }
-
             // 버튼에서의 연결
             codexBtn.ItemName = itemNameText;
             codexBtn.ItemInfor = itemInforText;
             codexBtn.ItemImage = itemImageImage;
+
+            // 구체적인 수치는 변경 필요!!
+            if (targetButton == EnemyButton) // 적 ID 라인으로 변경 필요
+            {
+                codexBtn.MyId = 1000 + i;
+            }
+            else if (targetButton == ItemButton) // 아이템 ID 수정 완료, 아이템 수 추가될 시 변경 필요
+            {
+                codexBtn.MyId = 1017 + i;
+                if (i == 5) break;
+            }
+            else if (targetButton == DocumentButton) // 문서 ID 라인으로 변경 필요
+            {
+                codexBtn.MyId = 3000 + i;
+            }
+
         }
 
 
