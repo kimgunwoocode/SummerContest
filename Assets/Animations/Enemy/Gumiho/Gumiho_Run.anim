@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FenFire_Stun
+  m_Name: Gumiho_Run
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,23 +21,19 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-<<<<<<< Updated upstream:Assets/Animations/Enemy/FenFire/FenFire_Stun.anim
-      value: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-    - time: 1
-      value: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-=======
-      value: {fileID: -3966301110949134133, guid: 52d2e69072fcb3a44869e41f8d6dec1a, type: 3}
+      value: {fileID: 2839316697585857279, guid: 0a0dce2f8986db743bc311bbe79ba10d, type: 3}
+    - time: 0.16666667
+      value: {fileID: 3542503189255554220, guid: b4e9294db273e7d43ba3c0b7a2227b39, type: 3}
+    - time: 0.25
+      value: {fileID: 2116413181458396126, guid: d90061c2e37e7e04f802e38babd13c5c, type: 3}
     - time: 0.41666666
-      value: {fileID: 7470217015063282736, guid: ac3da4d7d5f3a3d49b19e5eb63b6a469, type: 3}
-    - time: 1
-      value: {fileID: 7470217015063282736, guid: ac3da4d7d5f3a3d49b19e5eb63b6a469, type: 3}
->>>>>>> Stashed changes:Assets/Animations/Enemy/Gumiho/Gumiho_SpiritLeapAttack.anim
+      value: {fileID: -884579870833014012, guid: a527fa831a7b8414f9af0f9e458e1421, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 60
+  m_SampleRate: 12
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -54,20 +50,16 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-<<<<<<< Updated upstream:Assets/Animations/Enemy/FenFire/FenFire_Stun.anim
-    - {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-    - {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-=======
-    - {fileID: -3966301110949134133, guid: 52d2e69072fcb3a44869e41f8d6dec1a, type: 3}
-    - {fileID: 7470217015063282736, guid: ac3da4d7d5f3a3d49b19e5eb63b6a469, type: 3}
-    - {fileID: 7470217015063282736, guid: ac3da4d7d5f3a3d49b19e5eb63b6a469, type: 3}
->>>>>>> Stashed changes:Assets/Animations/Enemy/Gumiho/Gumiho_SpiritLeapAttack.anim
+    - {fileID: 2839316697585857279, guid: 0a0dce2f8986db743bc311bbe79ba10d, type: 3}
+    - {fileID: 3542503189255554220, guid: b4e9294db273e7d43ba3c0b7a2227b39, type: 3}
+    - {fileID: 2116413181458396126, guid: d90061c2e37e7e04f802e38babd13c5c, type: 3}
+    - {fileID: -884579870833014012, guid: a527fa831a7b8414f9af0f9e458e1421, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.0166667
+    m_StopTime: 0.5
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

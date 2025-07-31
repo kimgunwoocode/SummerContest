@@ -12,13 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 082730b636578d446b2451e1e72bdfba, type: 3}
   m_Name: BossGumihoData
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream
   maxHP: 0
+=======
+  enemyName: "\uAD6C\uBBF8\uD638"
+  enemyInfo: "\uBCF4\uC2A4\uB2E4"
+  maxHP: 1200
+>>>>>>> Stashed changes
   wallCheckDistance: 0.2
   ledgeCheckDistance: 0.4
-  groundCkeckRadius: 0.3
+  groundCkeckRadius: 0.15
   minPlayerCheckDistance: 3
+<<<<<<< Updated upstream
   maxPlayerCheckDistance: 4
   closeRangeActionDistance: 1
+=======
+  maxPlayerCheckDistance: 7
+  closeRangeActionDistance: 0.56
+  minCoinReward: 1
+  maxCoinReward: 2
+>>>>>>> Stashed changes
   hitParticle: {fileID: 0}
   groundLayer:
     serializedVersion: 2

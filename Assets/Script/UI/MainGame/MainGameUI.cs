@@ -53,6 +53,38 @@ public class MainGameUI : MonoBehaviour
         }
     }
 
+<<<<<<< Updated upstream
+=======
+    // 장착 브레스 바뀌었을 시 호출
+    public void BreathIconFix()
+    {
+        Image[] breathIcons = { breatGaugeIcon_1, breatGaugeIcon_2, breatGaugeIcon_3 };
+        // 장착 브레스 아이콘 초기화
+        for (int i = 0; i < 3; i++)
+        {
+            if (i < data.EquipSkill.Count)
+            {
+                // 스킬이 존재하면 해당 아이콘으로 설정
+                breathIcons[i].sprite = data.allitems[data.EquipSkill[i]].icon;
+            }
+            else if (i == 0)
+            {
+                breathIcons[i].sprite = Dragonsprite;
+            }
+            else
+            {
+                breathIcons[i].sprite = nullsprite;
+            }
+        }
+    }
+
+    // 최대브레스게이지 갱신시 호출
+    public void InitializeBreathGauge()
+    {
+        // 아이템 번호 고추 조각으로 변경 필요!!!!!!! (수정완료)
+        breatGauge.sprite = gaugeSprites[data.GettedItems[1002] / 3];
+    }
+>>>>>>> Stashed changes
 
     // 최대체력 갱신시 호출
     public void InitializeHP(int maxHP)
