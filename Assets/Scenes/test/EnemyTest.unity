@@ -1193,6 +1193,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gumiho
       objectReference: {fileID: 0}
+    - target: {fileID: 601308612967832141, guid: 8a02031f78cf2544d925b7e949b4dad7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 701854720003739219, guid: 8a02031f78cf2544d925b7e949b4dad7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.54
@@ -1233,6 +1237,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9179701265714819833, guid: 8a02031f78cf2544d925b7e949b4dad7, type: 3}
+      propertyPath: phase2HP
+      value: 1199
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1246,14 +1254,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1216524846655624624, guid: 95e5222d3b8bebb498b24a68b3db3f3b, type: 3}
-      propertyPath: prefabs.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1216524846655624624, guid: 95e5222d3b8bebb498b24a68b3db3f3b, type: 3}
-      propertyPath: 'prefabs.Array.data[1]'
-      value: 
-      objectReference: {fileID: 3831979649908390737, guid: 1a4ce71f14401674a8675df02d9dfc65, type: 3}
     - target: {fileID: 4874386912073956154, guid: 95e5222d3b8bebb498b24a68b3db3f3b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

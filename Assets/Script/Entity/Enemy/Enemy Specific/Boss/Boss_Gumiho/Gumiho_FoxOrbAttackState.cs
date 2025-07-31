@@ -53,6 +53,7 @@ public class Gumiho_FoxOrbAttackState : AttackState
     {
         base.TriggerAttack();
         gumiho.CanBeKnockedBack = true;
+        startTime = Time.time;
         
         FoxOrbAttack();
     }

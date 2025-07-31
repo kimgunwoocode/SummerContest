@@ -23,6 +23,8 @@ public class EnemyEntity : MonoBehaviour
     [SerializeField] protected Transform groundCheck;
     [SerializeField] protected Transform playerCheck;
 
+    private ParticleSystem hitParticle;
+
     protected bool isDead;
     protected float lastDamageTime;    
 
@@ -100,12 +102,18 @@ public class EnemyEntity : MonoBehaviour
 
         currentHP -= damageAmount;
 
-        if(enemyData.hitParticle != null)
+        // Hit 파티클 재생
+        if (hitParticle == null)
         {
-            Instantiate(enemyData.hitParticle, aliveGO.transform.position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)), transform);
+            if (enemyData.hitParticle != null)
+                hitParticle = Instantiate(enemyData.hitParticle, aliveGO.transform.position, Quaternion.identity, aliveGO.transform).GetComponent<ParticleSystem>();
+        }
+        else
+        {
+            hitParticle.Play();
         }
 
-        if(attackerPosition.x > aliveGO.transform.position.x)
+        if (attackerPosition.x > aliveGO.transform.position.x)
         {
             lastDamageDirection = -1;
         }
