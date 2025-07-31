@@ -2981,7 +2981,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &808088424
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3389,7 +3389,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_FloatArgument
-      value: 1.625
+      value: 2.75
       objectReference: {fileID: 0}
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
@@ -3397,7 +3397,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
-      value: "[\uB098\uC758 \uC544\uC774\uB97C \uADF8\uB9AC\uBA70.]"
+      value: "Shift\uB85C '\uB3CC\uC9C4'\uD560 \uC218 \uC788\uAC8C \uB418\uC5C8\uB2E4."
       objectReference: {fileID: 0}
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgument
@@ -13189,8 +13189,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.5
-  m_fontSizeBase: 0.5
+  m_fontSize: 0.4
+  m_fontSizeBase: 0.4
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -13227,7 +13227,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 95.249565, y: 23.296114, z: 101.00085, w: 26.010315}
+  m_margin: {x: 96.20382, y: 23.296114, z: 101.00085, w: 26.144508}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -13719,6 +13719,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SavePoint_Semi
       objectReference: {fileID: 0}
+    - target: {fileID: 3035106885854188838, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 5505560654318433701, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.01
@@ -13798,6 +13802,10 @@ PrefabInstance:
     - target: {fileID: 7663552162257314837, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8580936881664614400, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
+      propertyPath: m_text
+      value: "(E)\uD0A4\uB85C \uC800\uC7A5"
       objectReference: {fileID: 0}
     - target: {fileID: 8593535818288213239, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
       propertyPath: m_IsActive
