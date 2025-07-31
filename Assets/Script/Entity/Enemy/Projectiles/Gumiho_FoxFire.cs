@@ -12,7 +12,7 @@ public class Gumiho_FoxFire : MonoBehaviour
             {
                 Debug.Log("여우불 공격");
                 playerManager.TakeDamage(1, transform.position);
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
     }

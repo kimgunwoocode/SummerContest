@@ -8,7 +8,7 @@ public class FenFire_AttackState : AttackState
     [SerializeField] float bulletSpeed = 5f;
     [SerializeField] float bulletLifetime = 1f;
 
-    private Enemy_Bullet bullet;
+    private GameObject bullet;
     private Vector2 bulletVelocity;
 
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
@@ -37,11 +37,11 @@ public class FenFire_AttackState : AttackState
 
     private void CreatBullet()
     {
-        bullet = PoolManager.instance.Get(0).GetComponent<Enemy_Bullet>();
-        bullet.gameObject.transform.position = attackPosition.position;
+        bullet = PoolManager.instance.Get(0);
+        bullet.transform.position = attackPosition.position;
 
         bulletVelocity = new Vector2(bulletSpeed, 0);
-        bullet.SetVelocity(bulletVelocity * enemy.facingDir);
+        bullet.GetComponent<Enemy_Bullet>().SetVelocity(bulletVelocity * enemy.facingDir);
 
         Invoke(nameof(DestroyBullet), bulletLifetime);
     }

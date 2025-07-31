@@ -60,7 +60,7 @@ public class Gumiho_FoxOrbAttackState : AttackState
     public void FoxOrbAttack()
     {
         // FoxOrb 인스턴스 생성
-        Gumiho_FoxOrb newOrb = Instantiate(foxOrbPrefab, attackPosition.position, Quaternion.identity);
+        Gumiho_FoxOrb newOrb = Instantiate(foxOrbPrefab, attackPosition.position, Quaternion.identity, enemy.transform);
 
         // 구슬 초기 속도 설정, 초기화
         Vector2 foxOrbVelocity = new Vector2(foxOrbSpeed, 0);
