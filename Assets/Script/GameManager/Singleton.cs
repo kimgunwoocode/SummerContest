@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Singleton : MonoBehaviour
 {
@@ -16,12 +17,9 @@ public class Singleton : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             BuildDictionary();
             GameDataManager GameDataManager = Get<GameDataManager>();
-            if (GameDataManager.GameData == null)
+            if (GameDataManager.GameData == null && SceneManager.GetActiveScene().name != "Title")
             {
-                if (GameDataManager.GameData == null)
-                {
-                    SaveFileManager.Load_forNewGame(initdata.text, 100);
-                }
+                SaveFileManager.Load_forNewGame(initdata.text, 100);
             }
         }
 

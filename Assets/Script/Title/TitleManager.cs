@@ -9,6 +9,8 @@ using TMPro;
 public class TitleManager : MonoBehaviour
 {
     [Header("Screen")]
+    public GameObject NewGame_button;
+    public GameObject Countinue_button;
     public GameObject SelectPanel_Screen;
     public Button[] SelectPanel_SaveFile;
     public Button[] DeleteSaveFile;
@@ -53,24 +55,44 @@ public class TitleManager : MonoBehaviour
     #region UI
     public void SetSaveFileButton()
     {
+        bool isfulled = true;
+        bool isempty = true;
         int i = 1;
         foreach (Button screen in SelectPanel_SaveFile)
         {
             string path = SaveFileManager.GetPath(i);
-            if (!File.Exists(path))
+            if (!File.Exists(path))//비어있을 때
             {
+                isfulled = false;
                 isExistSaveFile.Add(false);
                 screen.interactable = false;
                 DeleteSaveFile[i-1].interactable = false;
             }
-            else
+            else// 존재할 때
             {
+                isempty = false;
                 isExistSaveFile.Add(true);
                 string json = File.ReadAllText(path);
                 SerializableSaveData serializable = JsonUtility.FromJson<SerializableSaveData>(json);
-                SaveFileDate[i].text = serializable.Day;
+                SaveFileDate[i-1].text = serializable.Day;
             }
             i++;
+        }
+
+        if (isfulled)
+        {
+            NewGame_button.SetActive(false);
+            Countinue_button.SetActive(true);
+        }
+        else if (isempty)
+        {
+            NewGame_button.SetActive(true);
+            Countinue_button.SetActive(false);
+        }
+        else
+        {
+            NewGame_button.SetActive(true);
+            Countinue_button.SetActive(true);
         }
     }
 
