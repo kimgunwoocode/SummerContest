@@ -181,8 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c9f392751380f3438f3b26cdafc706c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackTime: 0.2
-  knockbackSpeed: 3
+  knockbackPower: 3
   knockbackAngle: {x: 2, y: 4}
 --- !u!114 &6523280152791488403
 MonoBehaviour:
@@ -212,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f2b394ba7d0a744ae6bd6129c25b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathChunkParticle: {fileID: 0}
+  deathChunkParticle: {fileID: 1831005131455281727, guid: 3196453eb9197794bb21991acc8720fd, type: 3}
   deathBloodParticle: {fileID: 0}
 --- !u!1 &4528402205541318985
 GameObject:
