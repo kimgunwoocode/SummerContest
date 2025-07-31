@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Boss_IdleState : State
 {
+    public UnityEvent StartBossEvent;
+
     protected bool isIdleTimeOver;
 
     private float idleTime = 0f;
@@ -40,6 +43,7 @@ public class Boss_IdleState : State
             {
                 hasPlayerEnteredBossRoom = true;
                 startTime = Time.time;
+                StartBossEvent?.Invoke();
             }
             else
             {
