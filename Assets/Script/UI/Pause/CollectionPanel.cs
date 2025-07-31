@@ -28,11 +28,12 @@ public class CollectionPanel : MonoBehaviour
     public Image itemImageImage;             // 아이템 이미지 출력 이미지창
     private Dictionary<GameObject, Tween> buttonTweens = new();     // 버튼별 트윈 저장용 딕셔너리
 
-    void Start()
+
+    void OnEnable()
     {
         allsubButtons = new List<GameObject> { EnemyButton, ItemButton, DocumentButton };
 
-        ClickButton(EnemyButton); // 생성 될 때 캐릭터정보화면으로 초기화
+        ClickButton(EnemyButton); // 활성화 될 때 적화면으로 초기화
 
     }
 

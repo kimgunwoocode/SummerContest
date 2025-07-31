@@ -32,7 +32,8 @@ public class ChracterPanel : MonoBehaviour
     public Sprite[] gaugeSprites;   // 게이지 스프라이트 리스트, 스프라이트 차례로 추가 필요
 
 
-    void Start()
+
+    void OnEnable()
     {
         data = Singleton.GameManager_Instance.Get<GameDataManager>();
         Image[] breathIcons = { BreathIcon_1, BreathIcon_2, BreathIcon_3 };
