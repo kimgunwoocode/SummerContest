@@ -25,18 +25,25 @@ public class Pause : MonoBehaviour
     public GameObject CollectionButton;
     public GameObject CharacterButton;
 
-    [Header("퍼즈 - 서브화면 프리팹")]
+    [Header("퍼즈 - 서브화면")]
+    public GameObject SettingPanel;
+    public GameObject CollectionPanel;
+    public GameObject CharacterPanel;
+    /*
     public GameObject SettingPanelPrefab;
     public GameObject CollectionPanelPrefab;
     public GameObject CharacterPanelPrefab;
 
     private List<GameObject> allPanelPrefabs;
+    */
+
+    private List<GameObject> allSubPanel;
     private List<GameObject> allButtons;
     private List<GameObject> allsubButtons;     // 도감 서브 버튼 리스트
     void Start()
     {
         // 퍼즈 관련 리스트
-        allPanelPrefabs = new List<GameObject> { SettingPanelPrefab, CollectionPanelPrefab, CharacterPanelPrefab };
+        allSubPanel = new List<GameObject> { SettingPanel, CollectionPanel, CharacterPanel };
         allButtons = new List<GameObject> { SettingButton, CollectionButton, CharacterButton };
 
 
@@ -45,19 +52,21 @@ public class Pause : MonoBehaviour
 
     void OnEnable()
     {
-        ClickButton(CharacterPanelPrefab, CharacterButton); // 활성화 될 때 캐릭터정보화면으로 초기화
+        ClickButton(CharacterPanel, CharacterButton); // 활성화 될 때 캐릭터정보화면으로 초기화
     }
 
     // 버튼 클릭시 실행
-    private void ClickButton(GameObject targetPanelPrefab, GameObject targetButton)
+    private void ClickButton(GameObject targetPanel, GameObject targetButton)
     {
         // 특정 정보창만 활성화
         if (currentSubPanel != null)
         {
-            Destroy(currentSubPanel); // 기존 프리팹 제거
+            currentSubPanel.SetActive(false); // 기존 화면 비활성화
         }
 
-        currentSubPanel = Instantiate(targetPanelPrefab, PausePanel.transform); // 새 서브창 생성
+        currentSubPanel = targetPanel;
+        currentSubPanel.SetActive(true);
+        // currentSubPanel = Instantiate(targetPanel, PausePanel.transform); // 새 서브창 생성
 
 
         // 누른 버튼의 크기 고정, 나머지 버튼 초기화
@@ -93,16 +102,16 @@ public class Pause : MonoBehaviour
     // 각 버튼의 On Click()에 참조
     public void OnSettingButtonClicked()
     {
-        ClickButton(SettingPanelPrefab, SettingButton);
+        ClickButton(SettingPanel, SettingButton);
     }
 
     public void OnCollectionButtonClicked()
     {
-        ClickButton(CollectionPanelPrefab, CollectionButton);
+        ClickButton(CollectionPanel, CollectionButton);
     }
 
     public void OnCharacterButtonClicked()
     {
-        ClickButton(CharacterPanelPrefab, CharacterButton);
+        ClickButton(CharacterPanel, CharacterButton);
     }
 }
