@@ -25,10 +25,10 @@ public class DeadState : State
         base.Enter();
 
         if (deathBloodParticle != null)
-            GameObject.Instantiate(deathBloodParticle, enemy.aliveGO.transform.position, deathBloodParticle.transform.rotation);
+            GameObject.Instantiate(deathBloodParticle, enemy.aliveGO.transform.position, Quaternion.identity, enemy.transform);
 
         if (deathChunkParticle != null)
-            GameObject.Instantiate(deathChunkParticle, enemy.aliveGO.transform.position, deathChunkParticle.transform.rotation);
+            GameObject.Instantiate(deathChunkParticle, enemy.aliveGO.transform.position, Quaternion.identity, enemy.transform);
 
         // 리워드 수령
         Singleton.GameManager_Instance.Get<GameManager>().Get_Money(enemy.enemyData.minCoinReward, enemy.enemyData.maxCoinReward + 1);
