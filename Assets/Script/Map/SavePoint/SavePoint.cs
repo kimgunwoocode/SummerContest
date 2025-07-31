@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class SavePoint : MonoBehaviour
 {
@@ -32,22 +32,22 @@ public class SavePoint : MonoBehaviour
 
     public void InteractSavePoint()
     {
-        if (interaction.isInteracted)// »óÈ£ÀÛ¿ë °¡´ÉÇÒ ¶§
+        if (interaction.isInteracted)// ìƒí˜¸ì‘ìš© ê°€ëŠ¥í•  ë•Œ
         {
-            interaction.isInteracted = false;// »óÈ£ÀÛ¿ë ÇßÀ¸¹Ç·Î »óÈ£ÀÛ¿ë ºñÈ°¼ºÈ­ ½ÃÅ°±â
-            GameDataManager.InteractionObjects[ID] = false;// µ¥ÀÌÅÍÀÇ »óÈ£ÀÛ¿ë ¿ÀºêÁ§Æ® °ª º¯°æ
-            GameDataManager.SpawnPoints[ID] = true;// µ¥ÀÌÅÍÀÇ ¼¼ÀÌºêÆ÷ÀÎÆ® °ª º¯°æ
-            // È°¼º ¾Ö´Ï¸ŞÀÌ¼Ç
+            //interaction.isInteracted = false;// ìƒí˜¸ì‘ìš© í–ˆìœ¼ë¯€ë¡œ ìƒí˜¸ì‘ìš© ë¹„í™œì„±í™” ì‹œí‚¤ê¸°
+            //GameDataManager.InteractionObjects[ID] = false;// ë°ì´í„°ì˜ ìƒí˜¸ì‘ìš© ì˜¤ë¸Œì íŠ¸ ê°’ ë³€ê²½
+            GameDataManager.SpawnPoints[ID] = true;// ë°ì´í„°ì˜ ì„¸ì´ë¸Œí¬ì¸íŠ¸ ê°’ ë³€ê²½
+            // í™œì„± ì• ë‹ˆë©”ì´ì…˜
         }
         print("SavePoint_" + SavePoint_type + " ID:" + ID);
         GameDataManager.SpawnPoint = ID;
         Singleton.GameManager_Instance.Get<GameManager>().SaveData__SavePoint();
     }
 
-    // ÇÑ ¹ø »óÈ£ÀÛ¿ëÇßÀ¸¸é È°¼ºÈ­ ½ÃÅ°±â
+    // í•œ ë²ˆ ìƒí˜¸ì‘ìš©í–ˆìœ¼ë©´ í™œì„±í™” ì‹œí‚¤ê¸°
     public void InitInteractedSavePoint()
     {
         SavePointEnabled = true;
-        // È°¼ºÈ­ »óÅÂ·Î ÀüÈ¯ (½ºÇÁ¶óÀÌÆ® µî...)
+        // í™œì„±í™” ìƒíƒœë¡œ ì „í™˜ (ìŠ¤í”„ë¼ì´íŠ¸ ë“±...)
     }
 }
