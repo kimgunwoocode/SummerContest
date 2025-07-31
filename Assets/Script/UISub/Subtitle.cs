@@ -121,6 +121,8 @@ public class Subtitle : MonoBehaviour
 
     public void InitImage(Sprite interactedSprite)
     {
+        _color = _icon.color;
+
         // 아이콘 위치 초기화
         _iconTrans.position = _iconOriginPos;
         _bagTrans.position = _iconOriginPos + _bagOffset;
