@@ -270,7 +270,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private void JumpRequestValidation()
     {
-        if (_isDashing || isControllablePlayer || _isStun) return;
+        if (_isDashing || !isControllablePlayer || _isStun) return;
         _isJumpEndedEarly = CheckJumpEndedBeforeApex();
 
         bool jumpBufferValidation = ((_groundedTime - _jumpPressTime) < _movementStats.JumpBufferTime) && _isGrounded;
