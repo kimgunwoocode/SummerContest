@@ -58,7 +58,7 @@ public class PlayerManager : MonoBehaviour {
         if (isTestingEnvironment) {
         }
 
-        LoadData(-1);
+        LoadData();
         _attack.InitiateBreath();
 
         _maxHealth = _data.MaxHP;
@@ -119,7 +119,7 @@ public class PlayerManager : MonoBehaviour {
     }
 
     #region Util
-    private void LoadData(int id) {
+    private void LoadData() {
         Abilitis = _data.PlayerAbility;
     }
 
@@ -165,22 +165,22 @@ public class PlayerManager : MonoBehaviour {
         /// 5. º®Å¸±â
         /// </summary>
         if (id == 0) {
-            LoadData(0);
+            LoadData();
             //SetData(1500);
         }else if(id == 1) {
-            LoadData(1);
+            LoadData();
             //SetData(1501);
         } else if(id == 2) {
-            LoadData(2);
+            LoadData();
             //SetData(1502);
         } else if (id == 3) {
-            LoadData(3);
+            LoadData();
             //SetData(1503);
         } else if (id == 4) {
-            LoadData(4);
+            LoadData();
             //SetData(1504);
         } else if (id == 5) {
-            LoadData(5);
+            LoadData();
             //SetData(1505);
         }
 

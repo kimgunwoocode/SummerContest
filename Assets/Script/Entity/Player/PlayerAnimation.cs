@@ -3,13 +3,20 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private Animator animator;
+    [SerializeField] private SpriteRenderer sprite;     
+
+    public void flip(bool value) {
+        sprite.flipX = value;
+    }
+
 
     public void EnterJump() {
         animator.SetTrigger("JumpStart");
 
-       /* SetPeakValue(false);
-        SetFalling(false);
-        SetGrounded(false);*/
+    }
+    
+    public void SetDash(bool value) {
+        animator.SetBool("Dash", value);
     }
 
     public void SetSpeed(int speed) {
@@ -21,24 +28,18 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetInteger("Speed", speed);
     }
 
-    public void SetPeakValue(bool value) {
-        animator.SetBool("isPeak", value);
 
-        /*animator.SetBool("isFalling", !value);
-        animator.SetBool("isGrounded", !value);*/
-    }
-
-    public void SetFalling(bool value) {
-        animator.SetBool("isFalling", value);
-
-        /*animator.SetBool("isPeak", !value);
-        animator.SetBool("isGrounded", !value);*/
-    }
 
     public void SetGrounded(bool value) {
         animator.SetBool("isGrounded", value);
+    }
 
-        /*animator.SetBool("isPeak", !value);
-        animator.SetBool("isFalling", !value);*/
+    public void SetGlide(bool value) {
+        animator.SetBool("isGlide", value);
+    }
+
+    public void SetClimb(bool value) {
+        flip(!value);
+        animator.SetBool("isClimb", value);
     }
 }

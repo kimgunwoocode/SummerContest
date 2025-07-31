@@ -47,6 +47,22 @@ public class PlayerMovement : MonoBehaviour {
 
     }
 
+    private void AnimationState() {
+        _PM.Anima.SetDash(_isDashing);
+        _PM.Anima.SetGrounded(_isGrounded);
+        _PM.Anima.SetGlide(_isGlide);
+        _PM.Anima.SetClimb(_isClimb[0] || _isClimb[1]);
+
+        if (_isIdle && _isGrounded) {
+            _PM.Anima.SetSpeed(0);
+        } else if (!_isIdle && _isCrouch && _isGrounded) {
+            _PM.Anima.SetSpeed(1);
+        } else if (!_isIdle && !_isCrouch && _isGrounded) {
+            _PM.Anima.SetSpeed(2);
+        }
+
+    }
+
     #region Movement
     private bool _isCrouch;
     private Vector2 _moveDirection;
@@ -152,27 +168,8 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         _calculatedVelocity.x = _isWallJumping ? _calculatedVelocity.x : (_isTouchingWall[0] && _moveDirection.x < 0) || (_isTouchingWall[1] && _moveDirection.x > 0) || (_isClimb[0] && _currentInput.x <= 0) || (_isClimb[1] && _currentInput.x >= 0) ? 0f : _isDashing ? (_movementStats.DashSpeed * _moveDirection.x * Time.fixedDeltaTime) : _isCrouch ? ((_isGrounded ? _movementStats.CrounchSpeed : _movementStats.WalkSpeed) * Time.fixedDeltaTime * _currentInput.x) : (_movementStats.WalkSpeed * Time.fixedDeltaTime * _currentInput.x);
-
-
-        if (_calculatedVelocity.x == 0 && _isGrounded) {
-            SetAnimaState(AnimationType.Idle);
-        }else if (_calculatedVelocity.x != 0 && _isCrouch && _isGrounded) {
-            SetAnimaState(AnimationType.Walk);
-        } else if (_calculatedVelocity.x != 0 && !_isCrouch && _isGrounded) {
-            SetAnimaState(AnimationType.Run);
-        }
     }
 
-    enum AnimationType { Idle, Walk, Run, JumpStart, JumpApex, JumpFalling, JumpGrounded}
-    private void SetAnimaState(AnimationType type) {
-        if (type == AnimationType.Idle) _PM.Anima.SetSpeed(0);
-        else if(type == AnimationType.Walk) _PM.Anima.SetSpeed(1);
-        else if (type == AnimationType.Run) _PM.Anima.SetSpeed(2);
-        else if (type == AnimationType.JumpStart) _PM.Anima.EnterJump();
-        else if (type == AnimationType.JumpApex) _PM.Anima.SetPeakValue(true);
-        else if (type == AnimationType.JumpFalling) _PM.Anima.SetFalling(true);
-        else if (type == AnimationType.JumpGrounded) _PM.Anima.SetGrounded(true);
-    }
 
 
     internal Vector2 ApplyMove() {
@@ -212,7 +209,6 @@ public class PlayerMovement : MonoBehaviour {
         _moveDirection = _currentInput.x == 0 ? _moveDirection : _currentInput;
         if (jumpType == 0) {
             _isJumped = true;
-            SetAnimaState(AnimationType.JumpStart);
         }
         else if (jumpType == 1) {
             if (!_PM.Abilitis[2]) return;
@@ -228,8 +224,7 @@ public class PlayerMovement : MonoBehaviour {
         float targetVelocityX = wallJumpDirection * _movementStats.WallJumpXVelocity;
         float startVelocityX = _calculatedVelocity.x;
 
-        float targetVelocityY = _movementStats.WallJumpYVelocity;
-        float StartVelocityY = _calculatedVelocity.y;
+         _calculatedVelocity.y = _movementStats.JumpForce;
 
         float lerpDuration = _movementStats.WallJumpingDuration;
         float timeElapsed = 0f;
@@ -241,14 +236,11 @@ public class PlayerMovement : MonoBehaviour {
         while (timeElapsed < lerpDuration) {
             timeElapsed += Time.deltaTime;
             float t = timeElapsed / lerpDuration;
-            _calculatedVelocity.x = Mathf.Lerp(startVelocityX, targetVelocityX, t);
-            _calculatedVelocity.y = Mathf.Lerp(StartVelocityY, targetVelocityY, t);
+            _calculatedVelocity.x = Mathf.Lerp(startVelocityX, targetVelocityX, 1-t);
             yield return null;
         }
 
-        // 최종 속도 확정
         _calculatedVelocity.x = targetVelocityX;
-        _calculatedVelocity.y = targetVelocityY;
         _isWallJumping = false;
     }
 
@@ -282,7 +274,7 @@ public class PlayerMovement : MonoBehaviour {
     }
     #endregion
 
-    #region CollisionCheck
+    #region Collision Check
     private bool[] _isTouchingWall = new bool[2];//_isTouchingWall[0] means left side, the other one means right side
     internal bool _isGrounded = false;
     internal bool _isCeiling = false;
@@ -315,8 +307,6 @@ public class PlayerMovement : MonoBehaviour {
             _groundedTime = Time.time;
             _isPlatformDownRequestExist = false;
             _wallLeftTime = 0f;
-
-            SetAnimaState(AnimationType.JumpGrounded);
 
         //leave from ground
         } else if (!groundCheck && _isGrounded) {
@@ -355,7 +345,7 @@ public class PlayerMovement : MonoBehaviour {
         if (climbableCheck[0] && !_isClimbable[0]) {
             _isClimbable[0] = true;
             _wallJumpDirection = 1;
-
+            Debug.Log("Landed in left");
         } else if (!climbableCheck[0] && _isClimbable[0]) {
             _isClimbable[0] = false;
             _wallLeftTime = Time.time;
@@ -365,8 +355,9 @@ public class PlayerMovement : MonoBehaviour {
         if (climbableCheck[1] && !_isClimbable[1]) {
             _isClimbable[1] = true;
             _wallJumpDirection = -1;
+            Debug.Log("Landed in right");
 
-        } else if (!climbableCheck[0] && _isClimbable[1]) {
+        } else if (!climbableCheck[1] && _isClimbable[1]) {
             _isClimbable[1] = false;
             _wallLeftTime = Time.time;
         }
@@ -415,10 +406,18 @@ public class PlayerMovement : MonoBehaviour {
     private bool[] CheckClimbable() {
         if (_isGrounded) return new bool[] {false, false};
         LayerMask wallLayer = _movementStats.ClimbableWallLayer;
+        Vector3 leftSidePos = wallcheckTransforms[0].position;
+        Vector3 rightSidePos = wallcheckTransforms[1].position;
 
         bool[] results = new bool[2];
-        results[0] = Physics2D.OverlapBox(wallcheckTransforms[0].position, new Vector2(0.1f, transform.localScale.y * 0.8f), 0f, wallLayer);
-        results[1] = Physics2D.OverlapBox(wallcheckTransforms[1].position, new Vector2(0.1f, transform.localScale.y * 0.8f), 0f, wallLayer);
+        bool leftSide = false;
+        bool rightSide = false;
+
+        rightSide = Physics2D.OverlapBox(rightSidePos, new Vector2(0.1f, transform.localScale.y * 0.8f), 0f, wallLayer);
+        leftSide = Physics2D.OverlapBox(leftSidePos, new Vector2(0.1f, transform.localScale.y * 0.8f), 0f, wallLayer);
+
+        results[0] = leftSide;
+        results[1] = rightSide;
 
         return results;
     }
@@ -440,6 +439,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     #endregion
+
     #region Gravity
     private void Gravity()
     {
@@ -450,20 +450,17 @@ public class PlayerMovement : MonoBehaviour {
         else {
             float midAirGravity = _movementStats.MidAirGravity;
             if (_isClimb[0] || _isClimb[1]) { midAirGravity = 0f; }
-            //하강부
+            
             else if (!_isGrounded && _isGlide && _calculatedVelocity.y < 0) { midAirGravity = _movementStats.MidAirGravity * _movementStats.GlideGravity; _calculatedVelocity.y = -_movementStats.GlideFallSpeed; } 
-            else if ((_isJumped) && Mathf.Abs(_calculatedVelocity.y) < _movementStats.ApexThreadHold) { midAirGravity = _movementStats.MidAirGravity * _movementStats.ApexModifier; SetAnimaState(AnimationType.JumpApex); } 
-            else if (_calculatedVelocity.y < 0f) {midAirGravity = _movementStats.MidAirGravity * _movementStats.GravityModifierWhenFalling; SetAnimaState(AnimationType.JumpFalling); }
-            //상승부
+            else if ((_isJumped) && Mathf.Abs(_calculatedVelocity.y) < _movementStats.ApexThreadHold) { midAirGravity = _movementStats.MidAirGravity * _movementStats.ApexModifier;} 
+            else if (_calculatedVelocity.y < 0f) {midAirGravity = _movementStats.MidAirGravity * _movementStats.GravityModifierWhenFalling;}
+            
             else if (_isJumpEndedEarly) {midAirGravity = _movementStats.MidAirGravity * _movementStats.GravityModifierWhenJumpEndedEarly;}
-            else if (_calculatedVelocity.y > 0) { }
+            else if (_calculatedVelocity.y > 0) {}
 
             _calculatedVelocity.y = Mathf.MoveTowards(_calculatedVelocity.y, _movementStats.MaxFallingSpeed, Time.fixedDeltaTime * midAirGravity);
         }
     }
-
-
-
     #endregion
 
     #region Debugging
@@ -495,13 +492,35 @@ public class PlayerMovement : MonoBehaviour {
     }
     #endregion
 
-    private void FixedUpdate()
-    {
+    #region Frame Buffer
+    private const int FRAME_BUFFER_SIZE = 20;
+    private float[] _prevInputInfo = new float[FRAME_BUFFER_SIZE];
+    private int _frameIndex = 0;
+
+    private bool _isIdle;
+
+    private void Update() {
+        _prevInputInfo[_frameIndex] = _currentInput.x;
+        _frameIndex = (_frameIndex + 1) % FRAME_BUFFER_SIZE;
+
+        float _inputSum = 0;
+        foreach (float inputInfo in _prevInputInfo) {
+            _inputSum += Mathf.Abs(inputInfo);
+
+        }
+
+        _isIdle = _inputSum == 0 ? true : false;
+    }
+    #endregion
+
+
+    private void FixedUpdate() {
         CheckCollisions();
         Gravity();
         Move();
         JumpRequestValidation();
-        transform.localScale = new Vector3(_moveDirection.x * -1, 1, 1);
+        AnimationState();
+        _PM.Anima.flip(_moveDirection.x > 0);
         _rb.linearVelocity = _calculatedVelocity;
     }
 }

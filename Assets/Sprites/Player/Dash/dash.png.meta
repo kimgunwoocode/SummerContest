@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: 80b2734ab2606954fa4d9cf107f1bb52
+guid: c03e189af6b23ed48a51a73df9a2115d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8503201572387435136
-    second: stand0_0
+      213: 7110878671101974141
+    second: dash_0
   - first:
-      213: 4594422591178936131
-    second: stand0_1
+      213: 7643240275301989466
+    second: dash_1
+  - first:
+      213: -8809873816130030523
+    second: dash_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -129,45 +132,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: stand0_0
+      name: dash_0
       rect:
         serializedVersion: 2
-        x: 387
-        y: 502
-        width: 679
-        height: 352
+        x: 315
+        y: 612
+        width: 777
+        height: 203
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 08232b737c0710670800000000000000
-      internalID: 8503201572387435136
+      spriteID: d765fefe97aeea260800000000000000
+      internalID: 7110878671101974141
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stand0_1
+      name: dash_1
       rect:
         serializedVersion: 2
-        x: 795
-        y: 426
-        width: 8
-        height: 7
+        x: 1096
+        y: 773
+        width: 18
+        height: 14
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 34f004f110ba2cf30800000000000000
-      internalID: 4594422591178936131
+      spriteID: a5c7556e88e321a60800000000000000
+      internalID: 7643240275301989466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dash_2
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 556
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 544fd81e07a0db580800000000000000
+      internalID: -8809873816130030523
       vertices: []
       indices: 
       edges: []
@@ -176,7 +201,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 69b79ad469568fc439598e1ac192711f
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -186,8 +211,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      stand0_0: 8503201572387435136
-      stand0_1: 4594422591178936131
+      dash_0: 7110878671101974141
+      dash_1: 7643240275301989466
+      dash_2: -8809873816130030523
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
