@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Boss_Gumiho : EnemyEntity
@@ -85,7 +86,8 @@ public class Boss_Gumiho : EnemyEntity
 
         if (directionToPlayer.x > 0 && facingDir == -1 || directionToPlayer.x < 0 && facingDir == 1)
         {
-            Flip();
+            if (Mathf.Abs(directionToPlayer.x) > 0.2f)
+                Flip();
         }
     }
 

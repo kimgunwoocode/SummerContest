@@ -8,11 +8,23 @@ public class Gumiho_MoveState : Boss_MoveState
     private State lastAttack;
     public bool isClawAttackCancelled = false;
 
+    private float directionToPlayer;
+
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
         base.Initialize(enemy, stateMachine);
 
         gumiho = enemy as Boss_Gumiho;
+    }
+
+    public override void DoCheck()
+    {
+        base.DoCheck();
+        
+        directionToPlayer = Mathf.Abs(gumiho.player.position.x - enemy.rb.transform.position.x);
+
+        isPlayerMinRange = directionToPlayer <= enemy.enemyData.minPlayerCheckDistance;
+        isPlayerMaxRange = directionToPlayer <= enemy.enemyData.maxPlayerCheckDistance;
     }
 
     public override void Enter()

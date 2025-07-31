@@ -22,8 +22,6 @@ public class Boss_MoveState : State
 
         isGround = enemy.CheckGround();
         performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
-        isPlayerMinRange = enemy.CheckPlayerMinRange();
-        isPlayerMaxRange = enemy.CheckPlayerMaxRange();
     }
 
     public override void Enter()
