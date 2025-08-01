@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using GameAudio;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance { get; private set; }
-    [SerializeField] private GameAudioData gameAudioData;       // À½¿ø µ¥ÀÌÅÍ¼Â
+    [SerializeField] private GameAudioData gameAudioData;       // ìŒì› ë°ì´í„°ì…‹
     private AudioSource currentBGMSource;
 
     void Awake()
@@ -58,30 +58,30 @@ public class SoundManager : MonoBehaviour
             return true;
     }
 
-    /* AudioSource¿¡ ÄÄÆ÷³ÍÆ® °¡Á®¿À±â  */
+    /* AudioSourceì— ì»´í¬ë„ŒíŠ¸ ê°€ì ¸ì˜¤ê¸°  */
     private void SetAudioSource()
     {
         if (currentBGMSource == null)
         {
-            // ÇöÀç gameObject¿¡ ºÙ¾îÀÖ´Â ÄÄÆ÷³ÍÆ® °¡Á®¿Â´Ù
+            // í˜„ì¬ gameObjectì— ë¶™ì–´ìˆëŠ” ì»´í¬ë„ŒíŠ¸ ê°€ì ¸ì˜¨ë‹¤
             currentBGMSource = gameObject.GetComponent<AudioSource>();
             // Debug.Log("GetComponent Done");
             if (currentBGMSource == null)
             {
-                // Á÷Á¢ »õ ÄÄÆ÷³ÍÆ®¸¦ Ãß°¡ÇÑ´Ù
+                // ì§ì ‘ ìƒˆ ì»´í¬ë„ŒíŠ¸ë¥¼ ì¶”ê°€í•œë‹¤
                 currentBGMSource = gameObject.AddComponent<AudioSource>();
                 //   Debug.Log("AddComponent Done");
             }
         }
     }
 
-    /* BGM Á¾·á */
+    /* BGM ì¢…ë£Œ */
     public void StopCurrentBGM()
     {
         currentBGMSource.Stop();
     }
 
-    /* ¸Ê¿¡ µû¸¥ BGM Ãâ·Â */
+    /* ë§µì— ë”°ë¥¸ BGM ì¶œë ¥ */
     private void PlayMapBGM(string sceneName)
     {
         // Null Check

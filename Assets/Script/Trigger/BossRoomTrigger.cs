@@ -1,16 +1,16 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 
 /**
  *      Name                   : BossRoomTrigger
  *      Last Update         : 2025-08-01
- *      Description          : º¸½ºÀü¿¡ °üÇÑ Æ¯º°ÇÑ ÀÌº¥Æ® °ü¸®
- *      Todo                    : º¸½º »ç¸Á ÀÌº¥Æ®°¡ ÇÊ¿äÇÏ´Ù
+ *      Description          : ë³´ìŠ¤ì „ì— ê´€í•œ íŠ¹ë³„í•œ ì´ë²¤íŠ¸ ê´€ë¦¬
+ *      Todo                    : ë³´ìŠ¤ ì‚¬ë§ ì´ë²¤íŠ¸ê°€ í•„ìš”í•˜ë‹¤
  */
 
 public class BossRoomTrigger : MonoBehaviour
 {
-    [Tooltip("º¸½º ¿ÀºêÁ§Æ®¸¦ Inspector¿¡ ÇÒ´ç")]
+    [Tooltip("ë³´ìŠ¤ ì˜¤ë¸Œì íŠ¸ë¥¼ Inspectorì— í• ë‹¹")]
     [SerializeField] private EnemyEntity boss;
 
     private bool hasTriggered = false;
