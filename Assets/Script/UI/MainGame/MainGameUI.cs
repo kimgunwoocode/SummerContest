@@ -108,7 +108,6 @@ public class MainGameUI : MonoBehaviour
         // 최대체력만큼 활성
         for (int i = 0; i < maxHP; i++)
         {
-            Debug.Log("World");
             heartImages[i].gameObject.SetActive(true);
         }
 
