@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 082730b636578d446b2451e1e72bdfba, type: 3}
-  m_Name: EnemyYokoData
+  m_Name: BossGumihoData
   m_EditorClassIdentifier: 
-  enemyName: "\uC694\uD638"
-  enemyInfo: "\uC5EC\uC6B0\uB2E4"
-  maxHP: 180
-  wallCheckDistance: 0.4
-  ledgeCheckDistance: 0.35
-  groundCkeckRadius: 0.3
-  minPlayerCheckDistance: 5
-  maxPlayerCheckDistance: 6
-  closeRangeActionDistance: 1
+  enemyName: "\uAD6C\uBBF8\uD638"
+  enemyInfo: "\uBCF4\uC2A4\uB2E4"
+  maxHP: 1000
+  wallCheckDistance: 0.2
+  ledgeCheckDistance: 0.4
+  groundCkeckRadius: 0.27
+  minPlayerCheckDistance: 3
+  maxPlayerCheckDistance: 7
+  closeRangeActionDistance: 1.19
   minCoinReward: 1
   maxCoinReward: 2
-  hitParticle: {fileID: 1238838853291663469, guid: 16853eb04bb538a46b2382200a44aab0, type: 3}
+  hitParticle: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8

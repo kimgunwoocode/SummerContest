@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 082730b636578d446b2451e1e72bdfba, type: 3}
-  m_Name: EnemyJaiiData
+  m_Name: EnemyYokoData
   m_EditorClassIdentifier: 
-  enemyName: "\uC790\uC774"
-  enemyInfo: "\uB3CC\uC774\uB2E4"
-  maxHP: 540
-  wallCheckDistance: 0.3
+  enemyName: "\uC694\uD638"
+  enemyInfo: "\uC5EC\uC6B0\uB2E4"
+  maxHP: 150
+  wallCheckDistance: 0.4
   ledgeCheckDistance: 0.35
   groundCkeckRadius: 0.3
-  minPlayerCheckDistance: 6
-  maxPlayerCheckDistance: 7
-  closeRangeActionDistance: 0.64
+  minPlayerCheckDistance: 5
+  maxPlayerCheckDistance: 6
+  closeRangeActionDistance: 1
   minCoinReward: 1
   maxCoinReward: 2
   hitParticle: {fileID: 1238838853291663469, guid: 16853eb04bb538a46b2382200a44aab0, type: 3}
