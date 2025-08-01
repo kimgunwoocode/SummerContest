@@ -1,19 +1,19 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using GameAudio;
 using UnityEngine.SceneManagement;
 
 
 /**
  *      Name                   : GameAudioData
- *      Last Update         : 2025-07-30
+ *      Last Update         : 2025-08-01
  *      Description          : Manage playing sounds
  *      Todo                    : Implement playing boss thema in runtime
  */
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance { get; private set; }
-    [SerializeField] private GameAudioData gameAudioData;
-    private AudioSource currentMapBGMSource;
+    [SerializeField] private GameAudioData gameAudioData;       // ÏùåÏõê Îç∞Ïù¥ÌÑ∞ÏÖã
+    private AudioSource currentBGMSource;
 
     void Awake()
     {
@@ -27,6 +27,7 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        SetAudioSource();
         string sceneName = SceneManager.GetActiveScene().name;
         PlayMapBGM(sceneName);
     }
@@ -42,57 +43,99 @@ public class SoundManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Debug.Log(scene.name);
         PlayMapBGM(scene.name);
     }
 
-    /* ∏ ø° µ˚∏• BGM √‚∑¬ */
-    // ¡÷¿« : clip, currentMapBGMSource, currentMapBGMSource.clip «“¥Á »Æ¿Œ
-    private void PlayMapBGM(string sceneName)
+    /* AudioSource Null Check */
+    private bool HasAudioSource()
     {
-        AudioClip clip = gameAudioData.GetMapBGMClip(sceneName);
-
-        if (currentMapBGMSource == null)
+        if (currentBGMSource == null)
         {
-            // «ˆ¿Á gameObjectø° ∫ŸæÓ¿÷¥¬ ƒƒ∆˜≥Õ∆Æ ∞°¡Æø¬¥Ÿ
-            currentMapBGMSource = gameObject.GetComponent<AudioSource>();
-            // Debug.Log("GetComponent Done");
-            if (currentMapBGMSource == null)
-            {
-                // ¡˜¡¢ ªı ƒƒ∆˜≥Õ∆Æ∏¶ √ﬂ∞°«—¥Ÿ
-                currentMapBGMSource = gameObject.AddComponent<AudioSource>();
-             //   Debug.Log("AddComponent Done");
-            }
-        }
-
-        if (clip != null)
-        {   
-            if (currentMapBGMSource.clip != null)
-            {
-                if (currentMapBGMSource.clip != clip && currentMapBGMSource.isPlaying)
-                {
-                    currentMapBGMSource.Stop();
-                //    Debug.Log("Stop BGM" + currentMapBGMSource.clip.name);
-                }
-                else
-                {
-                 //   Debug.Log("Same Scene, continue play bgm: " + currentMapBGMSource.clip.name);
-                    return;
-                }
-            }
-            currentMapBGMSource.clip = clip;
-        //   Debug.Log("currentMapBGMSource: " + currentMapBGMSource.clip);
-
-            currentMapBGMSource.Play();
-            currentMapBGMSource.loop = true;
-        //    Debug.Log("Play BGM: " + currentMapBGMSource.clip.name);
+            Debug.LogError("Failed to Get AudioSources");
+            return false;
         }
         else
+            return true;
+    }
+
+    /* AudioSourceÏóê Ïª¥Ìè¨ÎÑåÌä∏ Í∞ÄÏ†∏Ïò§Í∏∞  */
+    private void SetAudioSource()
+    {
+        if (currentBGMSource == null)
         {
-         //   Debug.LogWarning("No map BGM!!");
+            // ÌòÑÏû¨ gameObjectÏóê Î∂ôÏñ¥ÏûàÎäî Ïª¥Ìè¨ÎÑåÌä∏ Í∞ÄÏ†∏Ïò®Îã§
+            currentBGMSource = gameObject.GetComponent<AudioSource>();
+            // Debug.Log("GetComponent Done");
+            if (currentBGMSource == null)
+            {
+                // ÏßÅÏ†ë ÏÉà Ïª¥Ìè¨ÎÑåÌä∏Î•º Ï∂îÍ∞ÄÌïúÎã§
+                currentBGMSource = gameObject.AddComponent<AudioSource>();
+                //   Debug.Log("AddComponent Done");
+            }
         }
     }
 
-    public void SetVolume(float volume) {
+    /* BGM Ï¢ÖÎ£å */
+    public void StopCurrentBGM()
+    {
+        currentBGMSource.Stop();
+    }
+
+    /* ÎßµÏóê Îî∞Î•∏ BGM Ï∂úÎ†• */
+    private void PlayMapBGM(string sceneName)
+    {
+        // Null Check
+        if (!HasAudioSource())
+            return;
+
+        AudioClip clip = gameAudioData.GetMapBGMClip(sceneName);
+
+        if (clip != null)
+        {   
+            if (currentBGMSource.clip != null)
+            {
+                if (currentBGMSource.clip != clip)
+                {
+                    currentBGMSource.Stop();
+                //    Debug.Log("PlayMapBGM: Stop BGM -" + currentMapBGMSource.clip.name);
+                }
+                else
+                {
+                 //   Debug.Log("PlayMapBGM: Same Scene, continue play bgm - " + currentMapBGMSource.clip.name);
+                    return;
+                }
+            }
+            currentBGMSource.clip = clip;
+        //   Debug.Log("PlayMapBGM: currentMapBGMSource: " + currentMapBGMSource.clip);
+
+            currentBGMSource.Play();
+            currentBGMSource.loop = true;
+        //    Debug.Log("PlayMapBGM: Play" + currentMapBGMSource.clip.name);
+        }
+        else
+        {
+         //   Debug.LogWarning("PlayMapBGM: Map BGM is null");
+        }
+    }
+
+
+    public void PlayBossBGM(string bossName)
+    {
+        if (!HasAudioSource()) return;
+
+        currentBGMSource.clip = gameAudioData.GetBossBGMClip(bossName);
+        Debug.Log("PlayBossBGM: bossName -" +  currentBGMSource.clip);
+        if (currentBGMSource.clip != null)
+        {
+            currentBGMSource.Play();
+            currentBGMSource.loop = true;
+            Debug.Log("PlayBossBGM: Play Boss BGM");
+        }
+        else
+        {
+            Debug.LogWarning("PlayBossBGM: Boss BGM is null");
+        }
 
     }
 }
