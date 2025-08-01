@@ -35,7 +35,7 @@ public class MainGameUI : MonoBehaviour
     private int UIMaxHP;
     public List<Image> heartImages = new(); // 하트 이미지 리스트
 
-    void Start()
+    void Awake()
     {
         data = Singleton.GameManager_Instance.Get<GameDataManager>();
         UICurrentHP = data.CurrentHP;
@@ -43,7 +43,8 @@ public class MainGameUI : MonoBehaviour
 
         MoneyText.text = data.Money.ToString(); // 돈 텍스트 초기화
 
-        InitializeHP(data.MaxHP);
+        Debug.Log("Hello");
+        InitializeHP(UIMaxHP);
     }
 
     void Update()
@@ -107,6 +108,7 @@ public class MainGameUI : MonoBehaviour
         // 최대체력만큼 활성
         for (int i = 0; i < maxHP; i++)
         {
+            Debug.Log("World");
             heartImages[i].gameObject.SetActive(true);
         }
 
