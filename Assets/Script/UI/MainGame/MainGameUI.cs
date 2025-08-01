@@ -99,8 +99,12 @@ public class MainGameUI : MonoBehaviour
         // 최대 체력 수만큼 하트를 생성
         for (int i = 0; i < maxHP; i++)
         {
+<<<<<<< Updated upstream
             GameObject heart = Instantiate(heartPrefab, heartContainer);
             heartImages.Add(heart.GetComponent<Image>());
+=======
+            heartImages[i].gameObject.SetActive(true);
+>>>>>>> Stashed changes
         }
         // 스프라이트 초기화
         UpdateHP(data.CurrentHP, data.MaxHP);
