@@ -16,6 +16,7 @@ public class ShakeItem : MonoBehaviour
         // 위아래 반복 애니메이션
         transform.DOLocalMoveY(_originalPosition.y + floatHeight, duration)
             .SetEase(Ease.InOutSine)
-            .SetLoops(-1, LoopType.Yoyo);
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetLink(gameObject);
     }
 }
