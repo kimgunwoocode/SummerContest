@@ -13,7 +13,7 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance { get; private set; }
     [SerializeField] private GameAudioData gameAudioData;
-    private AudioSource currentMapBGMSource;
+    private AudioSource currentBGMSource;
 
     void Awake()
     {
@@ -27,6 +27,7 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        SetAudioSource();
         string sceneName = SceneManager.GetActiveScene().name;
         PlayMapBGM(sceneName);
     }
@@ -45,50 +46,92 @@ public class SoundManager : MonoBehaviour
         PlayMapBGM(scene.name);
     }
 
+    private bool HasAudioSource()
+    {
+        if (currentBGMSource == null)
+        {
+            Debug.LogError("Failed to Get AudioSources");
+            return false;
+        }
+        else
+            return true;
+    }
+
+    private void SetAudioSource()
+    {
+        if (currentBGMSource == null)
+        {
+            // 현재 gameObject에 붙어있는 컴포넌트 가져온다
+            currentBGMSource = gameObject.GetComponent<AudioSource>();
+            // Debug.Log("GetComponent Done");
+            if (currentBGMSource == null)
+            {
+                // 직접 새 컴포넌트를 추가한다
+                currentBGMSource = gameObject.AddComponent<AudioSource>();
+                //   Debug.Log("AddComponent Done");
+            }
+        }
+    }
+
+    public void StopCurrentBGM()
+    {
+        currentBGMSource.Stop();
+    }
+
     /* 맵에 따른 BGM 출력 */
     // 주의 : clip, currentMapBGMSource, currentMapBGMSource.clip 할당 확인
     private void PlayMapBGM(string sceneName)
     {
-        AudioClip clip = gameAudioData.GetMapBGMClip(sceneName);
+        if (!HasAudioSource())
+            return;
 
-        if (currentMapBGMSource == null)
-        {
-            // 현재 gameObject에 붙어있는 컴포넌트 가져온다
-            currentMapBGMSource = gameObject.GetComponent<AudioSource>();
-            // Debug.Log("GetComponent Done");
-            if (currentMapBGMSource == null)
-            {
-                // 직접 새 컴포넌트를 추가한다
-                currentMapBGMSource = gameObject.AddComponent<AudioSource>();
-             //   Debug.Log("AddComponent Done");
-            }
-        }
+        AudioClip clip = gameAudioData.GetMapBGMClip(sceneName);
 
         if (clip != null)
         {   
-            if (currentMapBGMSource.clip != null)
+            if (currentBGMSource.clip != null)
             {
-                if (currentMapBGMSource.clip != clip && currentMapBGMSource.isPlaying)
+                if (currentBGMSource.clip != clip && currentBGMSource.isPlaying)
                 {
-                    currentMapBGMSource.Stop();
-                //    Debug.Log("Stop BGM" + currentMapBGMSource.clip.name);
+                    currentBGMSource.Stop();
+                //    Debug.Log("PlayMapBGM: Stop BGM -" + currentMapBGMSource.clip.name);
                 }
                 else
                 {
-                 //   Debug.Log("Same Scene, continue play bgm: " + currentMapBGMSource.clip.name);
+                 //   Debug.Log("PlayMapBGM: Same Scene, continue play bgm - " + currentMapBGMSource.clip.name);
                     return;
                 }
             }
-            currentMapBGMSource.clip = clip;
-        //   Debug.Log("currentMapBGMSource: " + currentMapBGMSource.clip);
+            currentBGMSource.clip = clip;
+        //   Debug.Log("PlayMapBGM: currentMapBGMSource: " + currentMapBGMSource.clip);
 
-            currentMapBGMSource.Play();
-            currentMapBGMSource.loop = true;
-        //    Debug.Log("Play BGM: " + currentMapBGMSource.clip.name);
+            currentBGMSource.Play();
+            currentBGMSource.loop = true;
+        //    Debug.Log("PlayMapBGM: Play" + currentMapBGMSource.clip.name);
         }
         else
         {
-         //   Debug.LogWarning("No map BGM!!");
+         //   Debug.LogWarning("PlayMapBGM: Map BGM is null");
         }
+    }
+
+
+    public void PlayBossBGM(string bossName)
+    {
+        if (!HasAudioSource()) return;
+
+        currentBGMSource.clip = gameAudioData.GetBossBGMClip(bossName);
+        Debug.Log("PlayBossBGM: bossName -" +  currentBGMSource.clip);
+        if (currentBGMSource.clip != null)
+        {
+            currentBGMSource.Play();
+            currentBGMSource.loop = true;
+            Debug.Log("PlayBossBGM: Play Boss BGM");
+        }
+        else
+        {
+            Debug.LogWarning("PlayBossBGM: Boss BGM is null");
+        }
+
     }
 }

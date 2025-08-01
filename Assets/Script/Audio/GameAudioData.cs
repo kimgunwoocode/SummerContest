@@ -37,6 +37,16 @@ namespace GameAudio
                     return null;
             }
         }
+        public AudioClip GetBossBGMClip(string bossName)
+        {
+            switch (bossName)
+            {
+                case "Gumiho":
+                    return themaBGM.BossBGM.Gumiho;
+                default:
+                    return null;
+            }
+        }
     }
 
     /* All BGMs */
