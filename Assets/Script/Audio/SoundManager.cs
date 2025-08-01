@@ -5,14 +5,14 @@ using UnityEngine.SceneManagement;
 
 /**
  *      Name                   : GameAudioData
- *      Last Update         : 2025-07-30
+ *      Last Update         : 2025-08-01
  *      Description          : Manage playing sounds
  *      Todo                    : Implement playing boss thema in runtime
  */
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance { get; private set; }
-    [SerializeField] private GameAudioData gameAudioData;
+    [SerializeField] private GameAudioData gameAudioData;       // 음원 데이터셋
     private AudioSource currentBGMSource;
 
     void Awake()
@@ -46,6 +46,7 @@ public class SoundManager : MonoBehaviour
         PlayMapBGM(scene.name);
     }
 
+    /* AudioSource Null Check */
     private bool HasAudioSource()
     {
         if (currentBGMSource == null)
@@ -57,6 +58,7 @@ public class SoundManager : MonoBehaviour
             return true;
     }
 
+    /* AudioSource에 컴포넌트 가져오기  */
     private void SetAudioSource()
     {
         if (currentBGMSource == null)
@@ -73,15 +75,16 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    /* BGM 종료 */
     public void StopCurrentBGM()
     {
         currentBGMSource.Stop();
     }
 
     /* 맵에 따른 BGM 출력 */
-    // 주의 : clip, currentMapBGMSource, currentMapBGMSource.clip 할당 확인
     private void PlayMapBGM(string sceneName)
     {
+        // Null Check
         if (!HasAudioSource())
             return;
 
@@ -91,7 +94,7 @@ public class SoundManager : MonoBehaviour
         {   
             if (currentBGMSource.clip != null)
             {
-                if (currentBGMSource.clip != clip && currentBGMSource.isPlaying)
+                if (currentBGMSource.clip != clip)
                 {
                     currentBGMSource.Stop();
                 //    Debug.Log("PlayMapBGM: Stop BGM -" + currentMapBGMSource.clip.name);
