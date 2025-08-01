@@ -49,7 +49,7 @@ public class CollectionButton : MonoBehaviour
     public void ClickButton()
     {
 
-        if (data.PlayerSkill.TryGetValue(MyId, out bool isUnlocked) && isUnlocked)
+        if (data.GettedItems.TryGetValue(MyId, out int isUnlocked) && isUnlocked != 0)
         {
             // 획득
             ItemName.text = data.allitems[MyId].itemName;
@@ -63,9 +63,12 @@ public class CollectionButton : MonoBehaviour
             ItemName.text = "???";
             ItemInfor.text = "???";
             ItemImage.color = new Color(0.3f, 0.3f, 0.3f, 1f);
-            if (data.allitems.ContainsKey(MyId)) {
+            if (data.allitems.ContainsKey(MyId))
+            {
                 ItemImage.sprite = data.allitems[MyId].icon;
-            } else {
+            }
+            else
+            {
                 ItemImage.sprite = null;
             }
         }

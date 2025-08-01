@@ -29,6 +29,8 @@ public class CollectionPanel : MonoBehaviour
     [Header("버튼 클릭시 나타나는 좌측 버튼 관련")]
     public GameObject ButtonContainer;         // 도감 좌측페이지 버튼을 담는 컨테이너
 
+    public int InsertMyID = 0;                      // 버튼에 할당될 ID
+
     public List<GameObject> CollectiopnButtons = new(); // 좌측 버튼 리스트
 
     private Dictionary<GameObject, Tween> buttonTweens = new();     // 버튼별 트윈 저장용 딕셔너리
@@ -42,7 +44,7 @@ public class CollectionPanel : MonoBehaviour
     {
         allsubButtons = new List<GameObject> { EnemyButton, ItemButton, DocumentButton };
 
-        ClickButton(ItemButton); // 활성화 될 때 적화면으로 초기화
+        ClickButton(EnemyButton); // 활성화 될 때 적화면으로 초기화
 
     }
 
@@ -64,15 +66,44 @@ public class CollectionPanel : MonoBehaviour
                 // 구체적인 수치는 변경 필요!!
                 if (targetButton == EnemyButton) // 적 ID 라인으로 변경 필요
                 {
-                    codexBtn.MyId = 1000 + i;
+                    InsertMyID = 2000 + i;
+                    //if (data.allitems.ContainsKey(InsertMyID))
+                    //{
+                    //    codexBtn.gameObject.SetActive(true);
+                    codexBtn.MyId = InsertMyID;
+                    //}
+                    //else
+                    //{
+                    //    codexBtn.gameObject.SetActive(false);
+                    //}
+
                 }
                 else if (targetButton == ItemButton) // 아이템 ID 수정 완료, 아이템 수 추가될 시 변경 필요
                 {
-                    codexBtn.MyId = 1017 + i;
+                    InsertMyID = 1017 + i;
+
+                    //if (data.allitems.ContainsKey(InsertMyID))
+                    //{
+                    //    codexBtn.gameObject.SetActive(true);
+                    codexBtn.MyId = InsertMyID;
+                    //}
+                    //else
+                    //{
+                    //    codexBtn.gameObject.SetActive(false);
+                    //}
                 }
                 else if (targetButton == DocumentButton) // 문서 ID 라인으로 변경 필요
                 {
-                    codexBtn.MyId = 3000 + i;
+                    InsertMyID = 3000 + i;
+                    //if (data.allitems.ContainsKey(InsertMyID))
+                    //{
+                    //    codexBtn.gameObject.SetActive(true);
+                    codexBtn.MyId = InsertMyID;
+                    //}
+                    //else
+                    //{
+                    //    codexBtn.gameObject.SetActive(false);
+                    //}
                 }
             }
         }
