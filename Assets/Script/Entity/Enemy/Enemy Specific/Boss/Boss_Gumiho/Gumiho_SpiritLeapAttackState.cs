@@ -91,9 +91,9 @@ public class Gumiho_SpiritLeapAttackState : AttackState
         // 여우불 5개 생성
         for (int i = 0; i < numberOfOrbs; i++)
         {
-            //GameObject foxFire = Instantiate(foxOrbPrefab, attackPosition.position, Quaternion.identity);
-            GameObject foxFire = PoolManager.instance.Get(1);
-            foxFire.transform.position = attackPosition.position;
+            GameObject foxFire = Instantiate(foxOrbPrefab, attackPosition.position, Quaternion.identity);
+            // GameObject foxFire = PoolManager.instance.Get(1);
+            // foxFire.transform.position = attackPosition.position;
 
             foxFires.Add(foxFire);
 
@@ -122,7 +122,8 @@ public class Gumiho_SpiritLeapAttackState : AttackState
     {
         for (int i = 0; i < foxFires.Count; i++)
         {
-            if (foxFires[i] != null) foxFires[i].SetActive(false);
+            //if (foxFires[i] != null) foxFires[i].SetActive(false);
+            if (foxFires[i] != null) Destroy(foxFires[i]);
         }
 
         base.FinishAttack();

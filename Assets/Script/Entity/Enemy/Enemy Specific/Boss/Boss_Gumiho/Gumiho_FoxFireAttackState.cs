@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Gumiho_FoxFireAttackState : AttackState
 {
+    [SerializeField] private GameObject foxOrbPrefab;
     [SerializeField] float attackCooldown;
     [SerializeField] private float rotationSpeed = 2f;
 
@@ -64,8 +65,10 @@ public class Gumiho_FoxFireAttackState : AttackState
             float angle = 360f / numberOfOrbs * i;
             Vector2 initialPosition = new Vector2(Mathf.Cos(Mathf.Deg2Rad * angle) * circleRadius, Mathf.Sin(Mathf.Deg2Rad * angle) * circleRadius);
 
-            GameObject foxFire = PoolManager.instance.Get(1);
-            foxFire.transform.position = attackPosition.position + (Vector3)initialPosition;
+            //GameObject foxFire = PoolManager.instance.Get(1);
+            //foxFire.transform.position = attackPosition.position + (Vector3)initialPosition;
+
+            GameObject foxFire = Instantiate(foxOrbPrefab, attackPosition.position + (Vector3)initialPosition, Quaternion.identity);
 
             foxFires.Add(foxFire);
         }
@@ -78,7 +81,8 @@ public class Gumiho_FoxFireAttackState : AttackState
     {
         for (int i = 0; i < foxFires.Count; i++)
         {
-            foxFires[i].SetActive(false);
+            //foxFires[i].SetActive(false);
+            Destroy(foxFires[i]);
         }
 
         base.FinishAttack();
