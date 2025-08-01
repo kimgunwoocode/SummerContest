@@ -43,7 +43,6 @@ public class MainGameUI : MonoBehaviour
 
         MoneyText.text = data.Money.ToString(); // 돈 텍스트 초기화
 
-        Debug.Log("Hello");
         InitializeHP(UIMaxHP);
     }
 

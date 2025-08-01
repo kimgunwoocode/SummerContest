@@ -20,7 +20,6 @@ namespace GameAudio
         // 현재 씬에 따라 적절한 bgm을 리턴한다
         public AudioClip GetMapBGMClip(string sceneName)
         {
-           //  Debug.Log("Scene Name: " + sceneName);
             switch (sceneName)
             {
                 case "1-1_ForgottenNest":
