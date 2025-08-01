@@ -46,6 +46,14 @@ public class CollectionPanel : MonoBehaviour
 
     }
 
+    private void OnDisable() {
+        foreach (GameObject child in CollectiopnButtons) {
+            CollectionButton codexBtn = child.GetComponent<CollectionButton>();
+            //Debug.Log(codexBtn.gameObject.activeSelf);
+            codexBtn.gameObject.SetActive(false);
+        }
+    }
+
 
     // 서브 탭(적, 아이템, 문서) 클릭시 실행
     private void ClickButton(GameObject targetButton)

@@ -34,14 +34,7 @@ public class UIManager : MonoBehaviour
         isPause = false;                                // 게임 시작시 false로
     }
 
-    internal void Pause() {
-        bool value = Singleton.GameManager_Instance.Get<GameManager>().IsPause;
-        if (value) {
-            PausePanel.SetActive(true);
-        } else {
-            PausePanel.SetActive(false);
-        }
-    }
+    
 
     // esc 누를 시 불러옴
     internal void Pausing()

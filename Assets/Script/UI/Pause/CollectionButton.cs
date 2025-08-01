@@ -34,7 +34,7 @@ public class CollectionButton : MonoBehaviour
     // 버튼 내부 텍스트 초기화
     public void UpdateButtonUI()
     {
-        if (data == null) return;
+        //if (data == null) return;
         if (data.PlayerSkill.TryGetValue(MyId, out bool isUnlocked) && isUnlocked)
         {
             // 획득

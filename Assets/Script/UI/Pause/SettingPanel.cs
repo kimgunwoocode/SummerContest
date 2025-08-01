@@ -13,6 +13,7 @@ public class SettingPanel : MonoBehaviour
 
     public void TitleButton()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("Title");
     }
 }
