@@ -63,7 +63,11 @@ public class CollectionButton : MonoBehaviour
             ItemName.text = "???";
             ItemInfor.text = "???";
             ItemImage.color = new Color(0.3f, 0.3f, 0.3f, 1f);
-            ItemImage.sprite = data.allitems[MyId].icon;
+            if (data.allitems.ContainsKey(MyId)) {
+                ItemImage.sprite = data.allitems[MyId].icon;
+            } else {
+                ItemImage.sprite = null;
+            }
         }
     }
 

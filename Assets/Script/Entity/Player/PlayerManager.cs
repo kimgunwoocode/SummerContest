@@ -144,8 +144,8 @@ public class PlayerManager : MonoBehaviour {
     #endregion
 
     private void OnPause(InputAction.CallbackContext context) {
-        bool currentPauseState = _manager.RequestTogglePause();
-        _ui.Pause();
+        //bool currentPauseState = _manager.RequestTogglePause();
+        _ui.Pausing();
     }
 
     private void Attack(InputAction.CallbackContext context) {
