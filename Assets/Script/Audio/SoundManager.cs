@@ -42,6 +42,7 @@ public class SoundManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Debug.Log(scene.name);
         PlayMapBGM(scene.name);
     }
 
@@ -88,6 +89,7 @@ public class SoundManager : MonoBehaviour
         }
         else
         {
+            currentMapBGMSource.Stop();
          //   Debug.LogWarning("No map BGM!!");
         }
     }
