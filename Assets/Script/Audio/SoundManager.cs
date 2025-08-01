@@ -115,6 +115,7 @@ public class SoundManager : MonoBehaviour
         }
         else
         {
+            StopCurrentBGM();
          //   Debug.LogWarning("PlayMapBGM: Map BGM is null");
         }
     }

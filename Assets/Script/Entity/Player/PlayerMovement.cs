@@ -174,7 +174,7 @@ public class PlayerMovement : MonoBehaviour {
         _calculatedVelocity.x = _isWallJumping ? _calculatedVelocity.x : (_isTouchingWall[0] && _moveDirection.x < 0) || (_isTouchingWall[1] && _moveDirection.x > 0) || (_isClimb[0] && _currentInput.x <= 0) || (_isClimb[1] && _currentInput.x >= 0) ? 0f : _isDashing ? (_movementStats.DashSpeed * _moveDirection.x * Time.fixedDeltaTime) : _isCrouch ? ((_isGrounded ? _movementStats.CrounchSpeed : _movementStats.WalkSpeed) * Time.fixedDeltaTime * _currentInput.x) : (_movementStats.WalkSpeed * Time.fixedDeltaTime * _currentInput.x);
     }
 
-    public void Knockback(Vector3 attackerPos, int power = 4, float stunTime = 1f) {
+    public void Knockback(Vector3 attackerPos, int power = 1, float stunTime = 0.5f) {
         StartCoroutine(RunKnockback(attackerPos, power, stunTime));
     }
 
