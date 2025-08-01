@@ -198,6 +198,15 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""325746bc-bc31-45be-b60f-7353eac827f4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -572,6 +581,17 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Breath"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a49eb532-52ae-411c-a872-aba7fd3d718c"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1092,34 +1112,6 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
-        },
-        {
-            ""name"": ""New action map"",
-            ""id"": ""8b71b0e0-db7c-4ba4-91a6-ef2119235583"",
-            ""actions"": [
-                {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
-                    ""id"": ""640cd3fa-168b-4987-a0aa-149e9a043127"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""9dcfeeb5-29a9-4367-944a-1e2eeb051ecd"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""New action"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
         }
     ],
     ""controlSchemes"": [
@@ -1199,6 +1191,7 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
         m_Player_Glide = m_Player.FindAction("Glide", throwIfNotFound: true);
         m_Player_Down = m_Player.FindAction("Down", throwIfNotFound: true);
         m_Player_Breath = m_Player.FindAction("Breath", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1211,16 +1204,12 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
         m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
-        // New action map
-        m_Newactionmap = asset.FindActionMap("New action map", throwIfNotFound: true);
-        m_Newactionmap_Newaction = m_Newactionmap.FindAction("New action", throwIfNotFound: true);
     }
 
     ~@PlayerInput_Action()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerInput_Action.Player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerInput_Action.UI.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_Newactionmap.enabled, "This will cause a leak and performance issues, PlayerInput_Action.Newactionmap.Disable() has not been called.");
     }
 
     /// <summary>
@@ -1308,6 +1297,7 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Glide;
     private readonly InputAction m_Player_Down;
     private readonly InputAction m_Player_Breath;
+    private readonly InputAction m_Player_Pause;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1367,6 +1357,10 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Breath".
         /// </summary>
         public InputAction @Breath => m_Wrapper.m_Player_Breath;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Pause".
+        /// </summary>
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1429,6 +1423,9 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
             @Breath.started += instance.OnBreath;
             @Breath.performed += instance.OnBreath;
             @Breath.canceled += instance.OnBreath;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         /// <summary>
@@ -1476,6 +1473,9 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
             @Breath.started -= instance.OnBreath;
             @Breath.performed -= instance.OnBreath;
             @Breath.canceled -= instance.OnBreath;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         /// <summary>
@@ -1704,102 +1704,6 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="UIActions" /> instance referencing this action map.
     /// </summary>
     public UIActions @UI => new UIActions(this);
-
-    // New action map
-    private readonly InputActionMap m_Newactionmap;
-    private List<INewactionmapActions> m_NewactionmapActionsCallbackInterfaces = new List<INewactionmapActions>();
-    private readonly InputAction m_Newactionmap_Newaction;
-    /// <summary>
-    /// Provides access to input actions defined in input action map "New action map".
-    /// </summary>
-    public struct NewactionmapActions
-    {
-        private @PlayerInput_Action m_Wrapper;
-
-        /// <summary>
-        /// Construct a new instance of the input action map wrapper class.
-        /// </summary>
-        public NewactionmapActions(@PlayerInput_Action wrapper) { m_Wrapper = wrapper; }
-        /// <summary>
-        /// Provides access to the underlying input action "Newactionmap/Newaction".
-        /// </summary>
-        public InputAction @Newaction => m_Wrapper.m_Newactionmap_Newaction;
-        /// <summary>
-        /// Provides access to the underlying input action map instance.
-        /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_Newactionmap; }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
-        public void Enable() { Get().Enable(); }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
-        public void Disable() { Get().Disable(); }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
-        public bool enabled => Get().enabled;
-        /// <summary>
-        /// Implicitly converts an <see ref="NewactionmapActions" /> to an <see ref="InputActionMap" /> instance.
-        /// </summary>
-        public static implicit operator InputActionMap(NewactionmapActions set) { return set.Get(); }
-        /// <summary>
-        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-        /// </summary>
-        /// <param name="instance">Callback instance.</param>
-        /// <remarks>
-        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
-        /// </remarks>
-        /// <seealso cref="NewactionmapActions" />
-        public void AddCallbacks(INewactionmapActions instance)
-        {
-            if (instance == null || m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
-        }
-
-        /// <summary>
-        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-        /// </summary>
-        /// <remarks>
-        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
-        /// </remarks>
-        /// <seealso cref="NewactionmapActions" />
-        private void UnregisterCallbacks(INewactionmapActions instance)
-        {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
-        }
-
-        /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="NewactionmapActions.UnregisterCallbacks(INewactionmapActions)" />.
-        /// </summary>
-        /// <seealso cref="NewactionmapActions.UnregisterCallbacks(INewactionmapActions)" />
-        public void RemoveCallbacks(INewactionmapActions instance)
-        {
-            if (m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        /// <summary>
-        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
-        /// </remarks>
-        /// <seealso cref="NewactionmapActions.AddCallbacks(INewactionmapActions)" />
-        /// <seealso cref="NewactionmapActions.RemoveCallbacks(INewactionmapActions)" />
-        /// <seealso cref="NewactionmapActions.UnregisterCallbacks(INewactionmapActions)" />
-        public void SetCallbacks(INewactionmapActions instance)
-        {
-            foreach (var item in m_Wrapper.m_NewactionmapActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    /// <summary>
-    /// Provides a new <see cref="NewactionmapActions" /> instance referencing this action map.
-    /// </summary>
-    public NewactionmapActions @Newactionmap => new NewactionmapActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -1956,6 +1860,13 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnBreath(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPause(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
@@ -2034,20 +1945,5 @@ public partial class @PlayerInput_Action: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
-    }
-    /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "New action map" which allows adding and removing callbacks.
-    /// </summary>
-    /// <seealso cref="NewactionmapActions.AddCallbacks(INewactionmapActions)" />
-    /// <seealso cref="NewactionmapActions.RemoveCallbacks(INewactionmapActions)" />
-    public interface INewactionmapActions
-    {
-        /// <summary>
-        /// Method invoked when associated input action "New action" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnNewaction(InputAction.CallbackContext context);
     }
 }

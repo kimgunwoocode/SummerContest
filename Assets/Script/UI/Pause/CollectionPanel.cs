@@ -34,7 +34,7 @@ public class CollectionPanel : MonoBehaviour
     private Dictionary<GameObject, Tween> buttonTweens = new();     // 버튼별 트윈 저장용 딕셔너리
 
 
-    void Start()
+    void Awake()
     {
         data = Singleton.GameManager_Instance.Get<GameDataManager>();
     }
@@ -42,7 +42,7 @@ public class CollectionPanel : MonoBehaviour
     {
         allsubButtons = new List<GameObject> { EnemyButton, ItemButton, DocumentButton };
 
-        ClickButton(EnemyButton); // 활성화 될 때 적화면으로 초기화
+        ClickButton(ItemButton); // 활성화 될 때 적화면으로 초기화
 
     }
 
@@ -55,6 +55,9 @@ public class CollectionPanel : MonoBehaviour
         foreach (GameObject child in CollectiopnButtons)
         {
             CollectionButton codexBtn = child.GetComponent<CollectionButton>();
+            //Debug.Log(codexBtn.gameObject.activeSelf);
+            codexBtn.gameObject.SetActive(true);
+            //Debug.Log(codexBtn.isAwakeActivated);
 
             for (int i = 0; i < 11; i++)
             {

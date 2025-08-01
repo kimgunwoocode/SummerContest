@@ -237,4 +237,21 @@ public class GameManager : MonoBehaviour
         public int ID;
         public string ScenName;
     }
+
+
+    //확인 후 보완 혹은 제거 결정 요망.
+    [HideInInspector] public bool IsPause;
+
+    //반환값이 참이면 정지, 거짓이면 진행.
+    public bool RequestTogglePause() {
+        if (Time.timeScale == 1) {
+            Time.timeScale = 0;
+            IsPause = true;
+            return true;
+        } else {
+            Time.timeScale = 1;
+            IsPause = false;
+            return false;
+        }
+    }
 }

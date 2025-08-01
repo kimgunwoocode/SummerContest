@@ -1,11 +1,8 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using DG.Tweening;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class Pause : MonoBehaviour
-{
+public class Pause : MonoBehaviour {
 
     public GameObject PausePanel;         // 퍼즈UI 화면
     public GameObject currentSubPanel;    // 현재 활성화된 서브화면 프리팹
@@ -40,27 +37,22 @@ public class Pause : MonoBehaviour
     private List<GameObject> allSubPanel;
     private List<GameObject> allButtons;
     private List<GameObject> allsubButtons;     // 도감 서브 버튼 리스트
-    void Start()
-    {
+    void Awake() {
         // 퍼즈 관련 리스트
         allSubPanel = new List<GameObject> { SettingPanel, CollectionPanel, CharacterPanel };
         allButtons = new List<GameObject> { SettingButton, CollectionButton, CharacterButton };
 
-
         // Time.timeScale = 0f; // 작동 테스트용!!
     }
 
-    void OnEnable()
-    {
+    void OnEnable() {
         ClickButton(CharacterPanel, CharacterButton); // 활성화 될 때 캐릭터정보화면으로 초기화
     }
 
     // 버튼 클릭시 실행
-    private void ClickButton(GameObject targetPanel, GameObject targetButton)
-    {
+    private void ClickButton(GameObject targetPanel, GameObject targetButton) {
         // 특정 정보창만 활성화
-        if (currentSubPanel != null)
-        {
+        if (currentSubPanel != null) {
             currentSubPanel.SetActive(false); // 기존 화면 비활성화
         }
 
@@ -70,8 +62,7 @@ public class Pause : MonoBehaviour
 
 
         // 누른 버튼의 크기 고정, 나머지 버튼 초기화
-        foreach (var button in allButtons)
-        {
+        foreach (var button in allButtons) {
             // 클릭 여부 설정
             var pauseScript = button.GetComponent<PauseButton>();
             pauseScript.isclick = (button == targetButton);
@@ -79,19 +70,15 @@ public class Pause : MonoBehaviour
             var btnTransform = button.transform;
 
             // 현재 실행중인 트윈 있을시 중단
-            if (buttonTweens.TryGetValue(button, out Tween existingTween))
-            {
+            if (buttonTweens.TryGetValue(button, out Tween existingTween)) {
                 existingTween.Kill();
             }
 
             Tween newTween;                 // 새 트윈 생성
             // 버튼에 따라 맞는 애니메이션 실행
-            if (button == targetButton)
-            {
+            if (button == targetButton) {
                 newTween = btnTransform.DOScale(originalScale * clickUp, duration).SetUpdate(true);
-            }
-            else
-            {
+            } else {
                 newTween = btnTransform.DOScale(originalScale, duration).SetUpdate(true);
             }
 
@@ -100,18 +87,15 @@ public class Pause : MonoBehaviour
     }
 
     // 각 버튼의 On Click()에 참조
-    public void OnSettingButtonClicked()
-    {
+    public void OnSettingButtonClicked() {
         ClickButton(SettingPanel, SettingButton);
     }
 
-    public void OnCollectionButtonClicked()
-    {
+    public void OnCollectionButtonClicked() {
         ClickButton(CollectionPanel, CollectionButton);
     }
 
-    public void OnCharacterButtonClicked()
-    {
+    public void OnCharacterButtonClicked() {
         ClickButton(CharacterPanel, CharacterButton);
     }
 }

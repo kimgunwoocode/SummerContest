@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerManager : MonoBehaviour {
@@ -21,6 +22,7 @@ public class PlayerManager : MonoBehaviour {
     [Header("debug")]
     [Tooltip("DO NOT TURN ON IN BULID TEST VERSION.")][SerializeField] private bool isTestingEnvironment = false;
 
+    private UIManager _ui;
     private PlayerMovement _movement;
     private PlayerAttack _attack;
     internal PlayerAnimation Anima;
@@ -32,7 +34,13 @@ public class PlayerManager : MonoBehaviour {
     private int _currentHealth;
 
     internal List<bool> Abilitis;
-
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        if (scene.name == "Title")
+            return;
+        if (_ui == null) {
+            _ui = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+        }
+    }
 
     private void Awake() {
         IsInvincible = false;
@@ -45,6 +53,8 @@ public class PlayerManager : MonoBehaviour {
         _interaction = GetComponent<PlayerInteraction>();
         _attack = GetComponent<PlayerAttack>();
         Anima = GetComponent<PlayerAnimation>();
+
+        if(_ui == null) _ui = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
     }
 
     private void Start() {
@@ -68,6 +78,8 @@ public class PlayerManager : MonoBehaviour {
     }
 
     private void OnEnable() {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
         _inputActions = new PlayerInput_Action();
 
         _inputActions.Player.Jump.performed += _movement.OnJumpPerformed;
@@ -91,10 +103,14 @@ public class PlayerManager : MonoBehaviour {
 
         _inputActions.Player.Down.performed += _movement.OnPlatformDown;
 
+        _inputActions.Player.Pause.performed += OnPause;
+
         _inputActions.Player.Enable();
     }
 
     private void OnDisable() {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+
         _inputActions.Player.Jump.performed -= _movement.OnJumpPerformed;
         _inputActions.Player.Jump.canceled -= _movement.OnJumpCanceled;
 
@@ -116,6 +132,8 @@ public class PlayerManager : MonoBehaviour {
 
         _inputActions.Player.Down.performed -= _movement.OnPlatformDown;
 
+        _inputActions.Player.Pause.performed -= OnPause;
+
         _inputActions.Player.Disable();
     }
 
@@ -123,8 +141,12 @@ public class PlayerManager : MonoBehaviour {
     private void LoadData() {
         Abilitis = _data.PlayerAbility;
     }
-
     #endregion
+
+    private void OnPause(InputAction.CallbackContext context) {
+        bool currentPauseState = _manager.RequestTogglePause();
+        _ui.Pause();
+    }
 
     private void Attack(InputAction.CallbackContext context) {
         if (context.action.name == "Attack")
@@ -188,6 +210,9 @@ public class PlayerManager : MonoBehaviour {
         }
 
     }
+
+
+
 
     private void Update() {
         _mousePosition = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());

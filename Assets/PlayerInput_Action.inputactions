@@ -112,6 +112,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "325746bc-bc31-45be-b60f-7353eac827f4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -486,6 +495,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Breath",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a49eb532-52ae-411c-a872-aba7fd3d718c",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -1002,34 +1022,6 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "New action map",
-            "id": "8b71b0e0-db7c-4ba4-91a6-ef2119235583",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "640cd3fa-168b-4987-a0aa-149e9a043127",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "9dcfeeb5-29a9-4367-944a-1e2eeb051ecd",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
