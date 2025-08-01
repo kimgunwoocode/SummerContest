@@ -19,6 +19,7 @@ public class BreathIcon : MonoBehaviour,
     [Header("미장착 이미지")]
     public Sprite nullSprite;
     public Sprite Dragonsprite;
+    public Sprite SkillnullSprite;
 
     [Header("텍스트 및 이미지 출력 창")]
     public Text BreathName;               // 호버한 브레스 이름 출력 텍스트박스
@@ -166,7 +167,7 @@ public class BreathIcon : MonoBehaviour,
             BreathName.text = "???";
             BreathInfor.text = "???";
             BreathImage.color = new Color(0.3f, 0.3f, 0.3f, 1f);
-            BreathImage.sprite = data.allitems[MyId].icon;
+            BreathImage.sprite = SkillnullSprite;
         }
 
     }
