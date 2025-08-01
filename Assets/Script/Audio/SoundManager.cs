@@ -43,7 +43,6 @@ public class SoundManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log(scene.name);
         PlayMapBGM(scene.name);
     }
 
@@ -88,7 +87,7 @@ public class SoundManager : MonoBehaviour
         // Null Check
         if (!HasAudioSource())
             return;
-
+        Debug.Log(gameAudioData == null);
         AudioClip clip = gameAudioData.GetMapBGMClip(sceneName);
 
         if (clip != null)

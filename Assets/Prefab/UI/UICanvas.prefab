@@ -6035,6 +6035,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2666012821053744312}
     m_Modifications:
+    - target: {fileID: 146544811128216107, guid: 8f11a6bcef82646baafb8e0738e36fb9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2203538906806959726, guid: 8f11a6bcef82646baafb8e0738e36fb9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6119,7 +6123,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShopPanel
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2044575072807489947, guid: 8f11a6bcef82646baafb8e0738e36fb9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
