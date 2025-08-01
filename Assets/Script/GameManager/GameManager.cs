@@ -99,6 +99,7 @@ public class GameManager : MonoBehaviour
             SaveFileManager.Load_forNewGame(InitData.text, GameDataManager.GameData.Slot);
             CurrentScenePointID = -1;
             SceneManager.LoadScene("1-1_ForgottenNest");
+            return;
         }
         string SavedSceneName = SavePointID_list[GameDataManager.SpawnPoint];
         CurrentScenePointID = -GameDataManager.SpawnPoint;
