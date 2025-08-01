@@ -9,10 +9,12 @@ public class SavePointUI : MonoBehaviour
 
     public Image[] BreathIconButton;
     public Sprite nullSprite;
-
-    void Start()
+    void Awake()
     {
         data = Singleton.GameManager_Instance.Get<GameDataManager>();
+    }
+    void OnEnable()
+    {
         for (int i = 0; i < BreathIconButton.Length; i++)
         {
             // 장비 얻었는지 여부에 따라 표기가 다름
