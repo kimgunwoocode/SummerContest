@@ -10,5 +10,6 @@ public class UnlockDoubleJump : MonoBehaviour
 
     public void Unlock() {
         _manager.Get_Item(1502);
+        Destroy(gameObject);
     }
 }
