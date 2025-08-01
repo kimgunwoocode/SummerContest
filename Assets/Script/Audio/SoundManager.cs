@@ -20,16 +20,15 @@ public class SoundManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); 
+            SetAudioSource();
+            string sceneName = SceneManager.GetActiveScene().name;
+            PlayMapBGM(sceneName);
         }
         else
         {
             Destroy(gameObject);
         }
-
-        SetAudioSource();
-        string sceneName = SceneManager.GetActiveScene().name;
-        PlayMapBGM(sceneName);
     }
 
     private void OnEnable()
@@ -87,35 +86,24 @@ public class SoundManager : MonoBehaviour
         // Null Check
         if (!HasAudioSource())
             return;
-        Debug.Log(gameAudioData == null);
         AudioClip clip = gameAudioData.GetMapBGMClip(sceneName);
 
-        if (clip != null)
-        {   
-            if (currentBGMSource.clip != null)
-            {
-                if (currentBGMSource.clip != clip)
-                {
+        if (clip != null) {   
+            if (currentBGMSource.clip != null) {
+                if (currentBGMSource.clip != clip) {
                     currentBGMSource.Stop();
-                //    Debug.Log("PlayMapBGM: Stop BGM -" + currentMapBGMSource.clip.name);
-                }
-                else
-                {
-                 //   Debug.Log("PlayMapBGM: Same Scene, continue play bgm - " + currentMapBGMSource.clip.name);
-                    return;
                 }
             }
             currentBGMSource.clip = clip;
-        //   Debug.Log("PlayMapBGM: currentMapBGMSource: " + currentMapBGMSource.clip);
-
             currentBGMSource.Play();
-            currentBGMSource.loop = true;
-        //    Debug.Log("PlayMapBGM: Play" + currentMapBGMSource.clip.name);
+            currentBGMSource.loop = true; 
+            
+            //    Debug.Log("PlayMapBGM: Play" + currentMapBGMSource.clip.name);
         }
-        else
+        else if(sceneName == "Title")
         {
             StopCurrentBGM();
-         //   Debug.LogWarning("PlayMapBGM: Map BGM is null");
+            
         }
     }
 
