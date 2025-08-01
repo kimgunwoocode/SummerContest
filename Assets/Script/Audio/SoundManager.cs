@@ -91,4 +91,8 @@ public class SoundManager : MonoBehaviour
          //   Debug.LogWarning("No map BGM!!");
         }
     }
+
+    public void SetVolume(float volume) {
+
+    }
 }
