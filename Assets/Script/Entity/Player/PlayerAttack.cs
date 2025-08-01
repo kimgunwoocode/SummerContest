@@ -41,8 +41,8 @@ public class PlayerAttack : MonoBehaviour {
         Instantiate(MeleeEffect, attackPos, Quaternion.Euler(0, 0, angle - 90));
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, _attackStats.MeleeAttackRange, _attackStats.EnemyLayer); 
         foreach (var hit in hits) {
-            Debug.Log(hit.name);
             hit.GetComponentInParent<EnemyEntity>()?.TakeDamage(_data.ATK, transform.position);
+            _data.CurrentBreathGauge += 1;
         }
         _lastAttackTime = Time.time;
     }
