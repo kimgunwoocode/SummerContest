@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
@@ -17,7 +17,7 @@ namespace GameAudio
         public ThemaBGMGroup themaBGM;
         public EffectSoundGroup effectSound;
 
-        // ÇöÀç ¾À¿¡ µû¶ó ÀûÀıÇÑ bgmÀ» ¸®ÅÏÇÑ´Ù
+        // í˜„ì¬ ì”¬ì— ë”°ë¼ ì ì ˆí•œ bgmì„ ë¦¬í„´í•œë‹¤
         public AudioClip GetMapBGMClip(string sceneName)
         {
            //  Debug.Log("Scene Name: " + sceneName);
@@ -33,6 +33,16 @@ namespace GameAudio
                     return themaBGM.MapBGM.foxHole;
                 case "1-5_ThousandTree":
                     return themaBGM.MapBGM.thousandTree;
+                default:
+                    return null;
+            }
+        }
+        public AudioClip GetBossBGMClip(string bossName)
+        {
+            switch (bossName)
+            {
+                case "Gumiho":
+                    return themaBGM.BossBGM.Gumiho;
                 default:
                     return null;
             }
