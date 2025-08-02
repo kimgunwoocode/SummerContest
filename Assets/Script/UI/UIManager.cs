@@ -128,6 +128,16 @@ public class UIManager : MonoBehaviour
 
         SavePointPanel.SetActive(true);
         CloseButton.SetActive(true);
+        hiddenUiSubObjects.Clear();
+
+        foreach (var obj in uiSubObjects)
+        {
+            if (obj != null && obj.activeInHierarchy)
+            {
+                hiddenUiSubObjects.Add(obj);
+                HideUiSubObject(obj);
+            }
+        }
 
         ActivePanel = SavePointPanel;
         // ActivePanelPrefab = Instantiate(SavePointPrefab, ActivePanel); // 세이브포인트 창 생성
@@ -152,5 +162,13 @@ public class UIManager : MonoBehaviour
         ActivePanel.SetActive(false);
         CloseButton.SetActive(false);
         ActivePanel = null;
+        foreach (var obj in hiddenUiSubObjects)
+        {
+            if (obj != null)
+            {
+                ShowUiSubObject(obj);
+            }
+        }
+        hiddenUiSubObjects.Clear();
     }
 }
