@@ -147,7 +147,7 @@ public class Subtitle : MonoBehaviour
 
         // === 대기 시간 ===
         float displayDuration = Mathf.Max(1f, _currentText.Length / 8f);
-        yield return new WaitForSeconds(displayDuration);
+        yield return new WaitForSecondsRealtime(displayDuration);
 
         // === 퇴장 애니메이션 ===
         yield return StartCoroutine(HideAnimation());

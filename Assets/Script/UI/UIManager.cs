@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
@@ -21,6 +22,10 @@ public class UIManager : MonoBehaviour
     // public Transform ActivePanel;        // 활성화 된 창 생성 위치
     private GameObject ActivePanel = null;       // 활성화된 창
 
+    [SerializeField] private List<GameObject> uiSubObjects = new List<GameObject>(); // Inspector에서 미리 등록
+    private List<GameObject> hiddenUiSubObjects = new List<GameObject>(); //UiSub 레이어 오브젝트들
+    [SerializeField] GameObject _tip;
+
     void Start()
     {
         // 게임 시작시 활성화 등 초기화
@@ -34,7 +39,7 @@ public class UIManager : MonoBehaviour
         isPause = false;                                // 게임 시작시 false로
     }
 
-    
+
 
     // esc 누를 시 불러옴
     internal void Pausing()
@@ -47,12 +52,34 @@ public class UIManager : MonoBehaviour
                 Time.timeScale = 1f;                      // 타임스케일
 
                 PausePanel.SetActive(false);              // 퍼즈 UI 화면 비활성화
+                #region UiSub 재활성화
+                Debug.Log("재활성화 실행.");
+
+                foreach (var obj in hiddenUiSubObjects)
+                {
+                    if (obj != null)
+                    {
+                        ShowUiSubObject(obj);
+                    }
+                }
+                hiddenUiSubObjects.Clear();
+                #endregion
             }
             else
             {
-                Time.timeScale = 0f;                      // 타임스케일
+                hiddenUiSubObjects.Clear();
 
-                PausePanel.SetActive(true);               // 퍼즈 UI 화면 활성화
+                foreach (var obj in uiSubObjects)
+                {
+                    if (obj != null && obj.activeInHierarchy)
+                    {
+                        hiddenUiSubObjects.Add(obj);
+                        HideUiSubObject(obj);
+                    }
+                }
+
+                Time.timeScale = 0f;                      // 타임스케일
+                PausePanel.SetActive(true);
             }
             isPause = !isPause;
         }
@@ -66,6 +93,31 @@ public class UIManager : MonoBehaviour
             {
                 PausePanel.SetActive(true);               // 퍼즈 UI 화면 활성화
             }
+        }
+    }
+
+    private void HideUiSubObject(GameObject obj)
+    {
+        CanvasGroup canvasGroup = obj.GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+        {
+            canvasGroup = obj.AddComponent<CanvasGroup>();
+        }
+
+        canvasGroup.alpha = 0f;
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
+    }
+
+    private void ShowUiSubObject(GameObject obj)
+    {
+        CanvasGroup canvasGroup = obj.GetComponent<CanvasGroup>();
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = 1f;
+            if (_tip != null) _tip.SetActive(false);
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
         }
     }
 
@@ -96,11 +148,9 @@ public class UIManager : MonoBehaviour
     // 현재 활성화된 추가 창을 닫을 시 호출
     public void ExitPanel()
     {
+        Time.timeScale = 1f;
         ActivePanel.SetActive(false);
         CloseButton.SetActive(false);
-
         ActivePanel = null;
-
-        Time.timeScale = 1f;
     }
 }
