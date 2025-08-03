@@ -3,11 +3,11 @@ using UnityEditor;
 using UnityEngine.SceneManagement;
 using UnityEngine.Rendering.Universal;
 
-public class LitToUnlit_Converter : EditorWindow
+public class Material_Converter : EditorWindow
 {
-    [MenuItem("Tools/Convert SpriteRenderer to Unlit")]
+    [MenuItem("Tools/Material Converter")]
     public static void ShowWindow() {
-        GetWindow<LitToUnlit_Converter>("Lit to Unlit Converter");
+        GetWindow<Material_Converter>("Material_Converter");
     }
 
     private void OnGUI() {
@@ -35,8 +35,8 @@ public class LitToUnlit_Converter : EditorWindow
                             return;
                         }
 
-                        Material newMat = new Material(target);
-                        newMat.mainTexture = sr.sprite?.texture;
+                        Material newMat = new(target);
+                        newMat.mainTexture = sr.sprite.texture;
                       
                         Undo.RecordObject(sr, "Convert to target Sprite");
                         sr.sharedMaterial = newMat;

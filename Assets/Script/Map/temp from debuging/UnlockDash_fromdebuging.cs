@@ -13,11 +13,11 @@ public class UnlockDash_fromdebuging : MonoBehaviour
 
     public void Unlock() {
         _manager.Get_Item(1500);
-        diestroygameobject();
+        Destroygameobject();
         _gameDataManager.InteractionObjects[interaction.ID] = false;
     }
 
-    public void diestroygameobject()
+    public void Destroygameobject()
     {
         Destroy(gameObject);
     }
