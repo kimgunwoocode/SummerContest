@@ -26,25 +26,21 @@ public class Material_Converter : EditorWindow
             SpriteRenderer[] renderers = rootObj.GetComponentsInChildren<SpriteRenderer>(true);
 
             foreach (SpriteRenderer sr in renderers) {
-                if (sr.sharedMaterial != null && sr.sharedMaterial.shader != null) {
-                    string shaderName = sr.sharedMaterial.shader.name;
-                    //if (shaderName == "Universal Render Pipeline/2D/Sprite-Lit-Default") {
-                        Shader target = Shader.Find("Universal Render Pipeline/2D/Sprite-Lit-Default");
-                        if (target == null) {
-                            Debug.LogError("Target Shader not found.");
-                            return;
-                        }
-
-                        Material newMat = new(target);
-                        newMat.mainTexture = sr.sprite.texture;
-                      
-                        Undo.RecordObject(sr, "Convert to target Sprite");
-                        sr.sharedMaterial = newMat;
-                        EditorUtility.SetDirty(sr);
-
-                        convertedCount++;
-                    //}
+                Shader target = Shader.Find("Universal Render Pipeline/2D/Sprite-Lit-Default");
+                if (target == null) {
+                    Debug.LogError("Target Shader not found.");
+                    return;
                 }
+
+                Material newMat = new(target);
+                if(sr.sprite == null) Debug.Log(sr.gameObject.name);
+                newMat.mainTexture = sr.sprite.texture;
+                      
+                Undo.RecordObject(sr, "Convert to target Sprite");
+                sr.sharedMaterial = newMat;
+                EditorUtility.SetDirty(sr);
+
+                convertedCount++;
             }
         }
 

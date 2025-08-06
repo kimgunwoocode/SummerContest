@@ -55,13 +55,25 @@ Material:
     m_Ints: []
     m_Floats:
     - PixelSnap: 0
+    - _AlphaFadeStrength: 0.24
+    - _BackgroundAlphaMin: 0
     - _EnableExternalAlpha: 0
-    - _MoveTime: 1
+    - _FlameCount: 3
+    - _GlowIntensity: 1.88
+    - _GlowRange: 4.12
+    - _MoveTime: 0
+    - _MovementRadius: 0.4
+    - _OuterFadeRange: 2
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Radius: 0.083
+    - _Radius: 0.26
+    - _Seed: 2.5
+    - _Smoothness: 0.1
     m_Colors:
     - _BackgroundCol: {r: 0, g: 0, b: 0, a: 0}
+    - _Center: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _Center0: {r: 0.3, g: 0.37, b: 0, a: 0}
+    - _Center1: {r: 0.5, g: 0.58, b: 0, a: 0}
     - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
