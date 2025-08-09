@@ -15,21 +15,21 @@ public class Jaii_ChargeState : ChargeState
     {
         base.LogicUpdate();
 
-        if(performCloseRangeAction)
+        if (performCloseRangeAction)
         {
             stateMachine.ChangeState(jaii.MeleeAttackState);
         }
-        else if(!isLedge)
+        else if (!isLedge)
         {
             jaii.StunState.SetDoStunKnockback(false);
             stateMachine.ChangeState(jaii.StunState);
         }
-        else if(isWall)
+        else if (isWall)
         {
             jaii.StunState.SetDoStunKnockback(true);
             stateMachine.ChangeState(jaii.StunState);
         }
-        else if(isChargeTimeOver)
+        else if (isChargeTimeOver)
         {
             jaii.StunState.SetDoStunKnockback(false);
             stateMachine.ChangeState(jaii.StunState);
