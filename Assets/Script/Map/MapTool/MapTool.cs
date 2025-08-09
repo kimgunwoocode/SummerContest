@@ -309,7 +309,7 @@ public class MapTool : EditorWindow
                     changedObjects.Add($"Interaction → ID {assignedID} [{inter.name}]");
                 }
 
-                finalMapData.InteractionObjects[inter.ID] = inter.isInteracted;
+                finalMapData.InteractionObjects[inter.ID] = inter.Interactable;
 
                 dumpEntries.Add(new DumpEntry
                 {

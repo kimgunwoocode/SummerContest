@@ -44,7 +44,7 @@ public class SavePoint : MonoBehaviour
         {
             GameDataManager.CurrentHP = GameDataManager.MaxHP;
         }
-        if (interaction.isInteracted)// 상호작용 가능할 때
+        if (interaction.Interactable)// 상호작용 가능할 때
         {
             //interaction.isInteracted = false;// 상호작용 했으므로 상호작용 비활성화 시키기
             //GameDataManager.InteractionObjects[ID] = false;// 데이터의 상호작용 오브젝트 값 변경
