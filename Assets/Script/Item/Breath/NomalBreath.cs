@@ -2,14 +2,16 @@
 
 public class NomalBreath : BreathObject
 {
-    public float speed;
     [Header("부딪혀 사라지게 할 레이어")]
-    [SerializeField] private LayerMask hitLayers;
     //디버깅용(+ layer 사용 제안)
     [SerializeField] private LayerMask enemyLayer;
 
     [Space]
     public Rigidbody2D rb;
+
+
+    private int AttackCount;//현재 남은 공격 가능 횟수
+
 
     private void Awake()
     {
@@ -21,7 +23,7 @@ public class NomalBreath : BreathObject
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + shootingDirection * speed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + shootingDirection * BreathItemData_SO.breathSpeed * Time.fixedDeltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

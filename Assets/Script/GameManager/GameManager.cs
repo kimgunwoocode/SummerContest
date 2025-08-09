@@ -137,7 +137,7 @@ public class GameManager : MonoBehaviour
             GameDataManager.GettedItems[ItemID]--;
     }
 
-    public void Unlock_PlayerAbility(int PlayerAbilityID)
+    private void Unlock_PlayerAbility(int PlayerAbilityID)
     {
         //TODO : PlayerAbility 작성하기
         if (GameDataManager.PlayerAbility.Count != 0)

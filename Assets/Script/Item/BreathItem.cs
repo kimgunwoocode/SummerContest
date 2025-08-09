@@ -3,12 +3,18 @@
 [CreateAssetMenu(menuName = "Item/BreathItem")]
 public class BreathItemData : ItemData, IBreathItem
 {
-    [Header("Breath")]
-    public float breathCost;
+    [Space]
     public GameObject BreathPrefab;
+    [Header("Breath")]
+    public int breathDamage;//브레스 피해량 개수 (플레이어 ATK*breathDamage = 최종 피해량)
+    public int breathAttackCount;// 브레스가 공격할 수 있는 적 개수
+    public float breathCoolDown;// 브레스 사용시 다음 브레스 사용까지 걸리는 시간
+    public float breathCost;// 브레스 사용시 소모되는 브레스게이지
+    public float breathRange;// 브레스가 날아갈 수 있는 최대 사거리
+    public float breathSpeed;// 브레스의 이동 속도
+    public bool breathMapPassable;// 맵 통과 가능 여부 (벽, 땅 플랫폼 등...)
+    public bool breathWaterPassable;// 물에서 사용 가능 여부
 
-    //이잉,,,이거 여기에서 필요해잉,,, 에러가 뜬다면 암쏘쏘리 죄송죄송 고멘네데스용
-    public float breathCoolDown;
 
     private BreathObject BreathObject;
 

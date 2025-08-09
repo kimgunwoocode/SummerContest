@@ -6,7 +6,6 @@ public class ShotBreath : BreathObject
     public GameObject bulletPrefab; // NomalBreath 프리팹
     public float spreadAngle = 30f; // 전체 퍼짐 각도
     public int bulletCount = 4;
-    public float shotSpeed = 5f;
 
     public void Fire(Vector2 direction)
     {
@@ -28,7 +27,8 @@ public class ShotBreath : BreathObject
             if (breath != null)
             {
                 breath.ShootingDirection = shotDir;
-                breath.speed = shotSpeed;
+                BreathObject breath_obj = breath;
+                //breath_obj.BreathItemData_SO.breathSpeed = BreathItemData_SO.breathSpeed
             }
         }
 
