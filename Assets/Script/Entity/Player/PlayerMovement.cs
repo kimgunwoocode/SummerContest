@@ -114,7 +114,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     internal void OnDashPerformed(InputAction.CallbackContext context) {
-        if (!_data.PlayerAbility[0] || !_isAbleToDash || _isDashing || !isControllablePlayer) return;
+        if (!_data.PlayerAbility[0] || !_isAbleToDash || _isDashing || !isControllablePlayer || _isClimb[0] || _isClimb[1]) return;
         _isAbleToDash = false;
         _isDashing = true;
         _calculatedVelocity.y = 0;
@@ -126,6 +126,11 @@ public class PlayerMovement : MonoBehaviour {
     private IEnumerator StopDash()
     {
         yield return new WaitForSeconds(_movementStats.DashTime);
+        _isDashing = false;
+        _PM.IsInvincible = false;
+    }
+
+    private void StopDashImmediately() {
         _isDashing = false;
         _PM.IsInvincible = false;
     }
@@ -152,12 +157,14 @@ public class PlayerMovement : MonoBehaviour {
     private void Climb() {
         if(_isClimbable[0]) {
             _isClimb[0] = true;
+            StopDashImmediately();
         } else {
             _isClimb[0] = false;
         }
 
         if (_isClimbable[1]) {
             _isClimb[1] = true;
+            StopDashImmediately();
         } else {
             _isClimb[1] = false;
         }
@@ -558,6 +565,7 @@ public class PlayerMovement : MonoBehaviour {
         Move();
         JumpRequestValidation();
         AnimationState();
+        //FrameBuffer();
         _PM.Anima.flip(_moveDirection.x > 0);
         _rb.linearVelocity = _calculatedVelocity;
     }
