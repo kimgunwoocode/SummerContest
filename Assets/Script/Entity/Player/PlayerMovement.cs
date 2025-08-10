@@ -7,7 +7,7 @@ using System;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class PlayerMovement : MonoBehaviour {
     [Header("Transforms")]
-    [SerializeField] private Transform groundCheckerTransform;
+    [SerializeField] private Transform[] groundCheckerTransform;
     [SerializeField] private Transform ceilingCheckerTransform;
     [SerializeField] private Transform[] wallcheckTransforms;
     [SerializeField] private Transform[] cornerCheckTransforms;
@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private IEnumerator DownPlatform() {
         _isPlatformDownRequestExist = true;
-        BoxCollider2D _platformC = _currentPlatform.GetComponent<BoxCollider2D>();
+        EdgeCollider2D _platformC = _currentPlatform.GetComponent<EdgeCollider2D>();
 
         Physics2D.IgnoreCollision(_playerCollider, _platformC);
         yield return new WaitForSeconds(0.25f);
@@ -386,11 +386,11 @@ public class PlayerMovement : MonoBehaviour {
             _wallLeftTime = Time.time;
         }
 
-        if (platformStuckCheck && !_isPlatformDownRequestExist) {
+        /*if (platformStuckCheck && !_isPlatformDownRequestExist && _calculatedVelocity.y <= 0) {
             transform.position = transform.position + new Vector3(0, 0.1f, 0);
         }else if(platformStuckCheck && _isPlatformDownRequestExist) {
             _isGrounded = false;
-        }
+        }*/
 
         if (cornerCheck[0] && !_isGrounded) {
             _rb.transform.position = _rb.transform.position + new Vector3(0, 0.1f, 0);
@@ -410,14 +410,32 @@ public class PlayerMovement : MonoBehaviour {
         if (!_isPlatformDownRequestExist) {
             checkGround |= _movementStats.PlatformLayers;
         }
+        bool[] castingInfos = new bool[groundCheckerTransform.Length];
+        int i = 0;
+        foreach (Transform ground in groundCheckerTransform) {
+            castingInfos[i] = Physics2D.Raycast(ground.position, Vector2.down, _movementStats.GroundCheckDistance, checkGround);
+            
 
+            i++;
+        }
+        //_currentPlatform = Physics2D.Raycast(groundCheckerTransform[groundCheckerTransform.Length / 2].position, Vector2.down, _movementStats.GroundCheckDistance, checkGround).collider;
+        _currentPlatform = Physics2D.OverlapBox(groundCheckerTransform[groundCheckerTransform.Length / 2].position - new Vector3(0, _movementStats.GroundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _movementStats.GroundCheckDistance / 2), 0f, _movementStats.PlatformLayers);
+        return VaildatingGround(castingInfos);
+    }
 
-        _currentPlatform = Physics2D.OverlapBox(groundCheckerTransform.position - new Vector3(0, _movementStats.GroundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _movementStats.GroundCheckDistance / 2), 0f, _movementStats.PlatformLayers);
+    private bool VaildatingGround(bool[] castingInfos) {
+        int endOfDataIndex = castingInfos.Length;
+        int numberOfEnabledPoints = 0;
 
-        return Physics2D.OverlapBox(groundCheckerTransform.position - new Vector3(0, _movementStats.GroundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _movementStats.GroundCheckDistance / 2), 0f, checkGround);
-        
-        
+        foreach(bool point in castingInfos) {
+            if (point) numberOfEnabledPoints++;
+        }
 
+        if(numberOfEnabledPoints > endOfDataIndex / 2) {
+            return true;
+        } else {
+            return false;
+        }
     }
     private bool[] CheckWall() {
         LayerMask wallLayer = 0;
@@ -464,7 +482,7 @@ public class PlayerMovement : MonoBehaviour {
         LayerMask checkIsPlatform = 0;
         checkIsPlatform |= _movementStats.PlatformLayers;
 
-        return Physics2D.OverlapBox(groundCheckerTransform.position + new Vector3(0, _movementStats.GroundCheckDistance), new Vector2(transform.localScale.x * 0.85f, _movementStats.GroundCheckDistance / 2), 0f, checkIsPlatform);
+        return Physics2D.OverlapBox(groundCheckerTransform[groundCheckerTransform.Length/2].position + new Vector3(0, _movementStats.GroundCheckDistance), new Vector2(transform.localScale.x * 0.85f, _movementStats.GroundCheckDistance / 2), 0f, checkIsPlatform);
     }
 
     private bool[] CheckCorner() {
@@ -472,8 +490,13 @@ public class PlayerMovement : MonoBehaviour {
         int index = 0;
 
         foreach (Transform corner in cornerCheckTransforms) {
+            LayerMask checkGround = 0; //00000000
+
+            foreach (LayerMask groundLayer in _movementStats.GroundLayers)
+                checkGround |= groundLayer;
+
             RaycastHit2D hit;
-            hit = Physics2D.Raycast(corner.position, Vector2.down, _movementStats.GroundCheckDistance/2);
+            hit = Physics2D.Raycast(corner.position, Vector2.down, _movementStats.GroundCheckDistance/2, checkGround);
 
             results[index] = hit;
             
@@ -514,11 +537,11 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (groundCheckerTransform != null)
         {
-            Gizmos.color = _isGrounded ? Color.green : Color.red;
-            Gizmos.DrawWireCube(groundCheckerTransform.position - new Vector3(0, _GizmoStats.GroundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _GizmoStats.GroundCheckDistance / 2));
+            //Gizmos.color = _isGrounded ? Color.green : Color.red;
+            //Gizmos.DrawWireCube(groundCheckerTransform.position - new Vector3(0, _GizmoStats.GroundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _GizmoStats.GroundCheckDistance / 2));
 
             Gizmos.color = _isStuckInPlatform ? Color.green : Color.red;
-            Gizmos.DrawWireCube(groundCheckerTransform.position + new Vector3(0, _GizmoStats.GroundCheckDistance), new Vector2(transform.localScale.x * 0.85f, _GizmoStats.GroundCheckDistance / 2));
+            Gizmos.DrawWireCube(groundCheckerTransform[groundCheckerTransform.Length/2].position + new Vector3(0, _GizmoStats.GroundCheckDistance), new Vector2(transform.localScale.x * 0.85f, _GizmoStats.GroundCheckDistance / 2));
         }
 
         if (wallcheckTransforms[0] != null) {
@@ -557,7 +580,6 @@ public class PlayerMovement : MonoBehaviour {
         _isIdle = _inputSum == 0 ? true : false;
     }
     #endregion
-
 
     private void FixedUpdate() {
         CheckCollisions();

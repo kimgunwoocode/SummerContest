@@ -56,8 +56,11 @@ public class PlayerAttack : MonoBehaviour {
         _currentBreathInfo.UseBreath(direction, transform.position);
     }
 
-
     internal void ChangeBreath(int breathType) {
+
+    }
+
+    internal void FallingAttack() {
 
     }
 
