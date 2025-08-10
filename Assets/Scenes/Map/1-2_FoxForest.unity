@@ -4273,8 +4273,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1490528761
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 2057171431597866725, guid: ed2f4b85c841b1e4aac45668239c3410, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7109,6 +7109,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2500127282153597911, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
+      propertyPath: m_SortingOrder
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2500127282153597911, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -12598,7 +12602,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   ID: 0
-  isInteracted: 1
+  Interactable: 1
   InteractionGuide: {fileID: 1185901703}
 --- !u!21 &845413885
 Material:
@@ -12952,8 +12956,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1490528761
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: -8582368659298479698, guid: 276fb92042b678e4e9ec86927394c53a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -15394,7 +15398,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 99
   m_TargetDisplay: 0
 --- !u!224 &1045054617
 RectTransform:
@@ -19665,7 +19669,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   ID: 1
-  isInteracted: 1
+  Interactable: 1
   InteractionGuide: {fileID: 1633683747}
 --- !u!21 &1388603974
 Material:
