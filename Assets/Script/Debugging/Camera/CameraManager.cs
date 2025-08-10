@@ -42,7 +42,7 @@ public class CameraManager : MonoBehaviour
 
 
         _cam = Camera.main;
-        _offset = new Vector3(0, 0, -5);
+        _offset = new Vector3(0, 0, -10f);
         _targetZoom = _cam.orthographicSize;
         SetStageIndex(_stageIndex);
     }

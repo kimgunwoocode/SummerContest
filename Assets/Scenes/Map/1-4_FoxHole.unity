@@ -4163,12 +4163,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2500127282153597911, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
+      propertyPath: m_SortingOrder
+      value: 99
+      objectReference: {fileID: 0}
+    - target: {fileID: 2500127282153597911, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 1447386831}
     - target: {fileID: 5777702738308349266, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 76.13
+      value: 5.8
       objectReference: {fileID: 0}
     - target: {fileID: 5777702738308349266, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4927,7 +4931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5505560654318433701, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -968.51
+      value: -967.8
       objectReference: {fileID: 0}
     - target: {fileID: 5505560654318433701, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4935,7 +4939,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5505560654318433701, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5505560654318433701, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5127,6 +5131,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7406036366864112762, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 2899876113478186669, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
@@ -5239,7 +5247,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 377353741694687534, guid: b0f044e8c8cd22147b20240935bd6637, type: 3}
       propertyPath: ID
-      value: 4015
+      value: 4013
       objectReference: {fileID: 0}
     - target: {fileID: 524236343976882212, guid: b0f044e8c8cd22147b20240935bd6637, type: 3}
       propertyPath: m_Name
@@ -24425,7 +24433,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: ID
-      value: 4016
+      value: 4014
       objectReference: {fileID: 0}
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractionGuide
@@ -24557,7 +24565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SavePoint_type: 1
-  ID: 1005
+  ID: 1004
   SceneName: 1-4_FoxHole
   SavePointEnabled: 0
   interaction: {fileID: 187333763}

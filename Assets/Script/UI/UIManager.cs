@@ -158,17 +158,20 @@ public class UIManager : MonoBehaviour
     // 현재 활성화된 추가 창을 닫을 시 호출
     public void ExitPanel()
     {
-        Time.timeScale = 1f;
-        ActivePanel.SetActive(false);
-        CloseButton.SetActive(false);
-        ActivePanel = null;
-        foreach (var obj in hiddenUiSubObjects)
+        if (!PausePanel.activeSelf)
         {
-            if (obj != null)
+            Time.timeScale = 1f;
+            ActivePanel.SetActive(false);
+            CloseButton.SetActive(false);
+            ActivePanel = null;
+            foreach (var obj in hiddenUiSubObjects)
             {
-                ShowUiSubObject(obj);
+                if (obj != null)
+                {
+                    ShowUiSubObject(obj);
+                }
             }
+            hiddenUiSubObjects.Clear();
         }
-        hiddenUiSubObjects.Clear();
     }
 }
