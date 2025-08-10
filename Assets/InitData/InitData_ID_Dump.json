@@ -1,5 +1,5 @@
 {
-    "time": "25-08-04-12:43",
+    "time": "25-08-10-19:26",
     "Entries": [
         {
             "ID": 1001,
@@ -81,7 +81,7 @@
         {
             "ID": 4006,
             "Type": "Interaction",
-            "Name": "InterationObject",
+            "Name": "HPplace",
             "Position": {
                 "x": 20.0,
                 "y": -3.0,
@@ -91,6 +91,17 @@
         },
         {
             "ID": 4007,
+            "Type": "Interaction",
+            "Name": "HP",
+            "Position": {
+                "x": 20.0,
+                "y": -3.0,
+                "z": 0.0
+            },
+            "Scene": "1-1_ForgottenNest"
+        },
+        {
+            "ID": 4008,
             "Type": "Interaction",
             "Name": "InterationObject",
             "Position": {
@@ -123,7 +134,7 @@
             "Scene": "1-2_FoxForest"
         },
         {
-            "ID": 4008,
+            "ID": 4009,
             "Type": "Interaction",
             "Name": "BreakableWall",
             "Position": {
@@ -134,7 +145,7 @@
             "Scene": "1-2_FoxForest"
         },
         {
-            "ID": 4009,
+            "ID": 4010,
             "Type": "Interaction",
             "Name": "InterationObject",
             "Position": {
@@ -145,7 +156,7 @@
             "Scene": "1-2_FoxForest"
         },
         {
-            "ID": 4010,
+            "ID": 4011,
             "Type": "Interaction",
             "Name": "InterationObject",
             "Position": {
@@ -182,7 +193,18 @@
             "Type": "SavePoint-Semi",
             "Name": "SavePoint_Semi",
             "Position": {
-                "x": 69.72000122070313,
+                "x": 77.11000061035156,
+                "y": -4.3600006103515629,
+                "z": 5.0
+            },
+            "Scene": "1-3_FoxForest"
+        },
+        {
+            "ID": 4012,
+            "Type": "Interaction",
+            "Name": "InterationObject",
+            "Position": {
+                "x": 77.11000061035156,
                 "y": -4.3600006103515629,
                 "z": 5.0
             },
@@ -193,61 +215,6 @@
             "Type": "SavePoint-Semi",
             "Name": "SavePoint_Semi",
             "Position": {
-                "x": 100.27999877929688,
-                "y": -4.560000419616699,
-                "z": 0.0
-            },
-            "Scene": "1-3_FoxForest"
-        },
-        {
-            "ID": 4011,
-            "Type": "Interaction",
-            "Name": "BurnWall (1)",
-            "Position": {
-                "x": 73.91000366210938,
-                "y": -1.7463998794555665,
-                "z": 0.0
-            },
-            "Scene": "1-3_FoxForest"
-        },
-        {
-            "ID": 4012,
-            "Type": "Interaction",
-            "Name": "BurnWall",
-            "Position": {
-                "x": 97.87000274658203,
-                "y": -1.7463998794555665,
-                "z": 0.0
-            },
-            "Scene": "1-3_FoxForest"
-        },
-        {
-            "ID": 4013,
-            "Type": "Interaction",
-            "Name": "InterationObject",
-            "Position": {
-                "x": 69.72000122070313,
-                "y": -4.3600006103515629,
-                "z": 5.0
-            },
-            "Scene": "1-3_FoxForest"
-        },
-        {
-            "ID": 4014,
-            "Type": "Interaction",
-            "Name": "InterationObject",
-            "Position": {
-                "x": 100.27999877929688,
-                "y": -4.560000419616699,
-                "z": 0.0
-            },
-            "Scene": "1-3_FoxForest"
-        },
-        {
-            "ID": 1005,
-            "Type": "SavePoint-Semi",
-            "Name": "SavePoint_Semi",
-            "Position": {
                 "x": 45.0,
                 "y": -5.559999942779541,
                 "z": 5.0
@@ -255,7 +222,7 @@
             "Scene": "1-4_FoxHole"
         },
         {
-            "ID": 4015,
+            "ID": 4013,
             "Type": "Interaction",
             "Name": "BurnWall",
             "Position": {
@@ -266,7 +233,7 @@
             "Scene": "1-4_FoxHole"
         },
         {
-            "ID": 4016,
+            "ID": 4014,
             "Type": "Interaction",
             "Name": "InterationObject",
             "Position": {
@@ -277,7 +244,7 @@
             "Scene": "1-4_FoxHole"
         },
         {
-            "ID": 1006,
+            "ID": 1005,
             "Type": "SavePoint-Semi",
             "Name": "SavePoint_Semi",
             "Position": {
@@ -288,7 +255,7 @@
             "Scene": "1-5_WorldTree"
         },
         {
-            "ID": 4017,
+            "ID": 4015,
             "Type": "Interaction",
             "Name": "BurnWall",
             "Position": {
@@ -299,7 +266,7 @@
             "Scene": "1-5_WorldTree"
         },
         {
-            "ID": 4018,
+            "ID": 4016,
             "Type": "Interaction",
             "Name": "BreakableWall",
             "Position": {
@@ -310,7 +277,7 @@
             "Scene": "1-5_WorldTree"
         },
         {
-            "ID": 4019,
+            "ID": 4017,
             "Type": "Interaction",
             "Name": "BreakableWall (2)",
             "Position": {
@@ -321,7 +288,7 @@
             "Scene": "1-5_WorldTree"
         },
         {
-            "ID": 4020,
+            "ID": 4018,
             "Type": "Interaction",
             "Name": "BreakableWall (3)",
             "Position": {
@@ -332,7 +299,7 @@
             "Scene": "1-5_WorldTree"
         },
         {
-            "ID": 4021,
+            "ID": 4019,
             "Type": "Interaction",
             "Name": "BreakableWall (5)",
             "Position": {
@@ -343,7 +310,7 @@
             "Scene": "1-5_WorldTree"
         },
         {
-            "ID": 4022,
+            "ID": 4020,
             "Type": "Interaction",
             "Name": "BreakableWall (6)",
             "Position": {
@@ -354,7 +321,7 @@
             "Scene": "1-5_WorldTree"
         },
         {
-            "ID": 4023,
+            "ID": 4021,
             "Type": "Interaction",
             "Name": "BreakableWall (7)",
             "Position": {
@@ -365,7 +332,7 @@
             "Scene": "1-5_WorldTree"
         },
         {
-            "ID": 4024,
+            "ID": 4022,
             "Type": "Interaction",
             "Name": "BreakableWall (4)",
             "Position": {
@@ -376,7 +343,7 @@
             "Scene": "1-5_WorldTree"
         },
         {
-            "ID": 4025,
+            "ID": 4023,
             "Type": "Interaction",
             "Name": "BreakableWall (1)",
             "Position": {
@@ -387,7 +354,7 @@
             "Scene": "1-5_WorldTree"
         },
         {
-            "ID": 4026,
+            "ID": 4024,
             "Type": "Interaction",
             "Name": "BurnWall",
             "Position": {
@@ -398,7 +365,7 @@
             "Scene": "1-5_WorldTree"
         },
         {
-            "ID": 4027,
+            "ID": 4025,
             "Type": "Interaction",
             "Name": "InterationObject",
             "Position": {
@@ -431,44 +398,55 @@
             "Scene": "1-5_WorldTree"
         },
         {
-            "ID": 1007,
+            "ID": 1006,
             "Type": "SavePoint-Semi",
             "Name": "SavePoint_Semi",
             "Position": {
-                "x": 13.137702941894532,
-                "y": -4.046000957489014,
-                "z": 5.0
+                "x": 51.13999938964844,
+                "y": -3.4000000953674318,
+                "z": 0.0
             },
             "Scene": "1-X_Gumiho"
         },
         {
-            "ID": 4028,
+            "ID": 4026,
             "Type": "Interaction",
             "Name": "BurnWall",
             "Position": {
-                "x": 41.28770446777344,
+                "x": 40.380001068115237,
                 "y": -1.4324002265930176,
                 "z": 0.0
             },
             "Scene": "1-X_Gumiho"
         },
         {
-            "ID": 4029,
+            "ID": 4027,
+            "Type": "Interaction",
+            "Name": "BurnWall (1)",
+            "Position": {
+                "x": 17.979999542236329,
+                "y": -1.4324002265930176,
+                "z": 0.0
+            },
+            "Scene": "1-X_Gumiho"
+        },
+        {
+            "ID": 4028,
             "Type": "Interaction",
             "Name": "InterationObject",
             "Position": {
-                "x": 13.137702941894532,
-                "y": -4.046000957489014,
-                "z": 5.0
+                "x": 51.13999938964844,
+                "y": -3.4000000953674318,
+                "z": 0.0
             },
             "Scene": "1-X_Gumiho"
         }
     ],
     "Summary": {
         "TotalMainSavePoints": 2,
-        "TotalSemiSavePoints": 7,
+        "TotalSemiSavePoints": 6,
         "TotalShops": 0,
-        "TotalInteractions": 29,
+        "TotalInteractions": 28,
         "TotalPushObjects": 4
     }
 }

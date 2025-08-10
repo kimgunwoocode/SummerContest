@@ -4,16 +4,19 @@ public class Map_1_3 : MonoBehaviour
 {
     public CameraManager CameraManager;
     GameDataManager GameDataManager;
+    /*
     [Header("Boss Item ID")]
     public int BossItemID;
     [Header("Map Objects")]
     public GameObject BossWall;
+    */
 
     private void Awake()
     {
         GameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();
     }
 
+    /*
     public void SetBossWall(bool active)
     {
         if (active && GameDataManager.GettedItems[BossItemID] == 0) //벽 생성 (보스 클리어시 벽 생성 안하게 하기 위함)
@@ -27,6 +30,7 @@ public class Map_1_3 : MonoBehaviour
             BossWall.SetActive(false);
         }
     }
+    */
 
     public void MoveBound(int index)
     {
