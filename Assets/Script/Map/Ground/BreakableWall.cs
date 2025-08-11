@@ -10,13 +10,13 @@ public class BreakableWall : EnemyEntity
     
     public void init()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
     public override void TakeDamage(int damageAmount, Vector2 attackerPosition)
     {
         // 애니메이션, 사운드 추가
         gameDataManager.InteractionObjects[interaction.ID] = false;
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
 

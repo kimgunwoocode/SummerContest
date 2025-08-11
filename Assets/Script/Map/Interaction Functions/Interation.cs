@@ -15,7 +15,7 @@ public class Interaction : MonoBehaviour
 
     [Header("Interaction 고유 정보")]
     public int ID;
-    public bool Interactable = true; //상호작용 가능 여부
+    public bool InteractionState = true; //상호작용 가능 여부
 
     [Space(30)]
     public GameObject InteractionGuide;
@@ -41,10 +41,10 @@ public class Interaction : MonoBehaviour
 
         SetPlayerInteraction();
 
-        if (_gameDataManager.InteractionObjects.ContainsKey(ID))
-            Interactable = _gameDataManager.InteractionObjects[ID];
-        //Debug.Log(ID + " --> isInteracted : " + isInteracted);
-        if (!Interactable)
+        //if (_gameDataManager.InteractionObjects.ContainsKey(ID))
+            InteractionState = _gameDataManager.InteractionObjects[ID];
+
+        if (!InteractionState)
             InitEvent.Invoke();
     }
 
@@ -53,7 +53,7 @@ public class Interaction : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if (other.CompareTag("Player") && Interactable) {
+        if (other.CompareTag("Player") && InteractionState) {
             isPlayerNearby = true;
             _playerInteraction.AddListener(OnInteractPerformed);
             if (InteractionGuide != null)
@@ -62,7 +62,7 @@ public class Interaction : MonoBehaviour
     }
 
     private void OnTriggerExit2D(Collider2D other) {
-        if (other.CompareTag("Player") && Interactable) {
+        if (other.CompareTag("Player") && InteractionState) {
             isPlayerNearby = false;
             _playerInteraction.RemoveListener(OnInteractPerformed);
             if (InteractionGuide != null)
@@ -78,9 +78,9 @@ public class Interaction : MonoBehaviour
     }
 
 
-    public void Change_isInteracted(bool isInteracte)
+    public void Change_isInteracted(bool interactionState)
     {
-        Interactable = isInteracte;
-        _gameDataManager.InteractionObjects[ID] = isInteracte;
+        InteractionState = interactionState;
+        _gameDataManager.InteractionObjects[ID] = interactionState;
     }
 }
