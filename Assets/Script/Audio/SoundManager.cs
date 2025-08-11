@@ -112,11 +112,13 @@ public class SoundManager : MonoBehaviour
             
             //    Debug.Log("PlayMapBGM: Play" + currentMapBGMSource.clip.name);
         }
+        /*
         else if(sceneName == "Title")
         {
             StopCurrentBGM();
             
         }
+        */
     }
 
 

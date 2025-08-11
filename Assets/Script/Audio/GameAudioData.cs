@@ -22,6 +22,8 @@ namespace GameAudio
         {
             switch (sceneName)
             {
+                case "Title":
+                    return themaBGM.lobbyBGM;
                 case "1-1_ForgottenNest":
                     return themaBGM.MapBGM.forgottenNest;
                 case "1-2_FoxForest":
