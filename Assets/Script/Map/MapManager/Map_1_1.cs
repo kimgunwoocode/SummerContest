@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Map_1_1 : MonoBehaviour
 {
@@ -8,15 +9,28 @@ public class Map_1_1 : MonoBehaviour
     public GameObject Egg_obj;
     public GameObject Player_obj;
 
+    private Vector2 PlayerInBoxPosition = new Vector2(-22.5f, 0.5f);
+    private Vector2 PlayerInitPosition = new Vector2(-5.177f, -0.4f);
+
     private void Awake()
     {
         // 게임을 처음 시작했을 때
         if (Singleton.GameManager_Instance.Get<GameDataManager>().SpawnPoint == -1)
         {
-            Intro_obj.SetActive(false);
+            Debug.Log("게임 첫 시작 애니메이션");
+
+            MoveBound(5);
+            SetZoom(2);
+
+            Intro_obj.SetActive(true);
             Egg_obj.SetActive(false);
-            Player_obj.SetActive(false);
-            SetIntro();
+            Player_obj.transform.position = PlayerInBoxPosition;
+            StartCoroutine(SetIntro_middle());
+        }
+        else
+        {
+            Intro_obj.SetActive(false);
+            Egg_obj.SetActive(true);
         }
     }
 
@@ -24,10 +38,29 @@ public class Map_1_1 : MonoBehaviour
     {
         CameraManager.SetStageIndex(index);
     }
+    public void SetZoom(float size)
+    {
+        CameraManager.SetZoom(size, 4f);
+    }
 
     public void SetIntro()
     {
+        Debug.Log("게임 시작");
+
+        MoveBound(0);
+        SetZoom(4.4f);
+
+        Intro_obj.SetActive(false);
         Egg_obj.SetActive(true);
         Player_obj.SetActive(true);
+        Player_obj.transform.position = PlayerInitPosition;
+    }
+
+    IEnumerator SetIntro_middle()
+    {
+        yield return null;
+        Player_obj.transform.position = PlayerInitPosition;
+        Player_obj.SetActive(false);
+        yield break;
     }
 }
