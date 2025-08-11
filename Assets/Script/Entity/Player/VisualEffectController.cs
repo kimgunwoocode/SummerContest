@@ -32,6 +32,7 @@ public class VisualEffectController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        StartCoroutine(IBossNameAppearance("hyousuck byoung sin"));
     }
 
     public void BossNameAppearance(string name) {
@@ -41,11 +42,35 @@ public class VisualEffectController : MonoBehaviour
     private IEnumerator IBossNameAppearance(string name) {
         string curretentText = null;
         int index = 0;
-        while(curretentText != name) {
+        text.alpha = 1f;
+        while (curretentText != name) {
             curretentText += name[index];
             text.text = curretentText;
             index++;
             yield return new WaitForSeconds(textAppearanceTime);
         }
+        StartCoroutine(ClearScreen());
+    }
+
+    private IEnumerator ClearScreen() {
+        float elapsedTime = 0f;
+        float startX = 0;
+        float endX = 1.5f;
+        float targetTextAlpha = 0;
+        float startTextAlpha = 1;
+
+        blackOutRenderer.material.SetFloat("_Radius", 0);
+        blackOutRenderer.material.SetFloat("_IsReversedAlpha", 1);
+        while (elapsedTime < 0.7f) {
+            float newRadius = Mathf.Lerp(startX, endX, elapsedTime / 0.7f);
+            float newAlpha = Mathf.Lerp(startTextAlpha, targetTextAlpha, elapsedTime / 0.6f);
+            blackOutRenderer.material.SetFloat("_Radius", newRadius);
+            text.alpha = newAlpha;
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        blackOutRenderer.material.SetFloat("_Radius", 0);
+        blackOutRenderer.material.SetFloat("_IsReversedAlpha", 0);
+        text.alpha = 0;
     }
 }
