@@ -129,6 +129,28 @@ public class GameManager : MonoBehaviour
             abilityItem.UnlockAbility();
             Unlock_PlayerAbility(slot);
         }
+        else if (ItemID == 1001) // 최대체력 증가 아이템 획득
+        {
+            // 연출 실행시키기
+
+            int CheckCount = GameDataManager.GettedItems[1001];
+            if (CheckCount%3 == 0)
+            {
+                GameDataManager.MaxHP++;
+
+            }
+        }
+        else if (ItemID == 1002) // 브레스 최대 게이지 증가 아이템 획득
+        {
+            // 연출 실행시키기
+
+            int CheckCount = GameDataManager.GettedItems[1002];
+            if (CheckCount % 3 == 0)
+            {
+                GameDataManager.MaxBreathGauge++;
+
+            }
+        }
     }
 
     public void Lose_Item(int ItemID)
@@ -136,6 +158,13 @@ public class GameManager : MonoBehaviour
         if (GameDataManager.GettedItems[ItemID] > 0)
             GameDataManager.GettedItems[ItemID]--;
     }
+
+
+    public void SetBreath_to_EquipSkill(int slot)
+    {
+
+    }
+
 
     private void Unlock_PlayerAbility(int PlayerAbilityID)
     {
