@@ -8,6 +8,7 @@ public class Map_1_X : MonoBehaviour
     public int BossItemID;
     [Header("Map Objects")]
     public GameObject BossWall;
+    public GameObject BossTrigger;
 
     private void Awake() {
         GameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();
@@ -30,5 +31,9 @@ public class Map_1_X : MonoBehaviour
 
     public void SetZoom(float size) {
         CameraManager.SetZoom(size, 4f);
+    }
+
+    public void DeleteTrigger() {
+        BossTrigger.SetActive(false);
     }
 }

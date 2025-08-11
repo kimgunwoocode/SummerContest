@@ -318,11 +318,7 @@ public class PlayerMovement : MonoBehaviour {
         //check ceiling hit
         bool ceilingCheck = CheckCeiling();
 
-        bool platformStuckCheck = CheckIsStuckInPlatform();
-
         bool[] climbableCheck = CheckClimbable();
-
-        bool[] cornerCheck = CheckCorner();
 
         //landed on ground
         if (groundCheck && !_isGrounded) {
@@ -386,18 +382,6 @@ public class PlayerMovement : MonoBehaviour {
             _wallLeftTime = Time.time;
         }
 
-        /*if (platformStuckCheck && !_isPlatformDownRequestExist && _calculatedVelocity.y <= 0) {
-            transform.position = transform.position + new Vector3(0, 0.1f, 0);
-        }else if(platformStuckCheck && _isPlatformDownRequestExist) {
-            _isGrounded = false;
-        }*/
-
-        if (cornerCheck[0] && !_isGrounded) {
-            _rb.transform.position = _rb.transform.position + new Vector3(0, 0.1f, 0);
-        }else if (cornerCheck[1] && !_isGrounded) {
-            _rb.transform.position = _rb.transform.position - new Vector3(0, 0.1f, 0);
-        }
-
         Physics2D.queriesStartInColliders = _cachedQueryStartInColliders;
     }
 
@@ -414,8 +398,6 @@ public class PlayerMovement : MonoBehaviour {
         int i = 0;
         foreach (Transform ground in groundCheckerTransform) {
             castingInfos[i] = Physics2D.Raycast(ground.position, Vector2.down, _movementStats.GroundCheckDistance, checkGround);
-            
-
             i++;
         }
         //_currentPlatform = Physics2D.Raycast(groundCheckerTransform[groundCheckerTransform.Length / 2].position, Vector2.down, _movementStats.GroundCheckDistance, checkGround).collider;
@@ -431,7 +413,7 @@ public class PlayerMovement : MonoBehaviour {
             if (point) numberOfEnabledPoints++;
         }
 
-        if(numberOfEnabledPoints > endOfDataIndex / 2) {
+        if(numberOfEnabledPoints > 0) {
             return true;
         } else {
             return false;
@@ -478,33 +460,6 @@ public class PlayerMovement : MonoBehaviour {
         return Physics2D.OverlapBox(ceilingCheckerTransform.position + new Vector3(0, _movementStats.CeilingCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _movementStats.CeilingCheckDistance / 2), 0f, checkCeiling);
     }
 
-    private bool CheckIsStuckInPlatform() {
-        LayerMask checkIsPlatform = 0;
-        checkIsPlatform |= _movementStats.PlatformLayers;
-
-        return Physics2D.OverlapBox(groundCheckerTransform[groundCheckerTransform.Length/2].position + new Vector3(0, _movementStats.GroundCheckDistance), new Vector2(transform.localScale.x * 0.85f, _movementStats.GroundCheckDistance / 2), 0f, checkIsPlatform);
-    }
-
-    private bool[] CheckCorner() {
-        bool[] results = new bool[2];
-        int index = 0;
-
-        foreach (Transform corner in cornerCheckTransforms) {
-            LayerMask checkGround = 0; //00000000
-
-            foreach (LayerMask groundLayer in _movementStats.GroundLayers)
-                checkGround |= groundLayer;
-
-            RaycastHit2D hit;
-            hit = Physics2D.Raycast(corner.position, Vector2.down, _movementStats.GroundCheckDistance/2, checkGround);
-
-            results[index] = hit;
-            
-            index++;
-        }
-
-        return results;
-    }
 
     #endregion
 
@@ -537,9 +492,10 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (groundCheckerTransform != null)
         {
-            //Gizmos.color = _isGrounded ? Color.green : Color.red;
-            //Gizmos.DrawWireCube(groundCheckerTransform.position - new Vector3(0, _GizmoStats.GroundCheckDistance / 2), new Vector2(transform.localScale.x * 0.85f, _GizmoStats.GroundCheckDistance / 2));
-
+            foreach(Transform ground in groundCheckerTransform) {
+                Gizmos.color = _isGrounded ? Color.green : Color.red;
+                Gizmos.DrawLine(ground.position, ground.position + Vector3.down * 0.1f);
+            }
             Gizmos.color = _isStuckInPlatform ? Color.green : Color.red;
             Gizmos.DrawWireCube(groundCheckerTransform[groundCheckerTransform.Length/2].position + new Vector3(0, _GizmoStats.GroundCheckDistance), new Vector2(transform.localScale.x * 0.85f, _GizmoStats.GroundCheckDistance / 2));
         }

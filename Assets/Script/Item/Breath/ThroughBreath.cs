@@ -4,8 +4,6 @@ using System.Collections.Generic;
 public class ThroughBreath : BreathObject
 {
     public float speed;
-    [Header("부딪혀 사라지게 할 레이어")]
-    [SerializeField] private LayerMask hitLayers;
 
     [Space]
     public Rigidbody2D rb;

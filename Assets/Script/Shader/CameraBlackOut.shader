@@ -2,16 +2,19 @@ Shader "Custom/CenterCircleMask"
 {
     Properties
     {
-        _MainTex("Texture", 2D) = "white" {} // 화면 텍스처 (포스트 프로세싱용)
+        _MainTex("Texture", 2D) = "white" {}
         _BackgroundColor("BackgroundColor", Color) = (0, 0, 0, 0)
-        _Radius("Radius", Float) = 0.5 // 원의 반경 (0~1 범위, Inspector에서 조절)
-        _Center("Center", Vector) = (0.5, 0.5, 0, 0) // 중앙 위치 (UV 기준)
+        
+        _Radius("Radius", Float) = 0.5 
+        _Center("Center", Vector) = (0.5, 0.5, 0, 0) 
+        _IsReversedAlpha("IsReversedAlpha", Float) = 0
+        _IsReversedColor("IsReversedColor", Float) = 0
     }
         SubShader
         {
             Tags { "RenderType" = "Transparent" "Queue" = "Transparent" }
             LOD 100
-            Blend SrcAlpha OneMinusSrcAlpha // 알파 블렌딩 활성화
+            Blend SrcAlpha OneMinusSrcAlpha
 
             Pass
             {
@@ -37,6 +40,8 @@ Shader "Custom/CenterCircleMask"
                 float _Radius;
                 float4 _Center;
                 float4 _BackgroundColor;
+                float _IsReversedAlpha;
+                float _IsReversedColor;
 
                 v2f vert(appdata v)
                 {
@@ -48,18 +53,22 @@ Shader "Custom/CenterCircleMask"
 
                 fixed4 frag(v2f i) : SV_Target
                 {
-                    fixed4 col = tex2D(_MainTex, i.uv); // 원본 화면 색상
+                    fixed4 col = tex2D(_MainTex, i.uv);
+                    float4 reversedColor = 1.0 - _BackgroundColor;
                     col.xyz = _BackgroundColor.xyz; 
+                    if (_IsReversedColor == 1) {
+                        col.xyz = reversedColor.xyz;
+                    }
 
-                    // 중앙부터 거리 계산 (UV 기준)
                     float2 relative = i.uv - _Center.xy;
-                    // 화면 비율 보정 (optional: 원형 유지, aspect ratio 고려)
                     relative.x *= _ScreenParams.x / _ScreenParams.y;
 
-                    float dist = length(relative); // 중앙부터 거리
+                    float dist = length(relative);
 
-                    // 거리가 Radius 초과하면 알파 0 (투명)
                     col.a = 1 - smoothstep(_Radius , _Radius * 1.3, dist);
+                    if (_IsReversedAlpha == 1) {
+                        col.a = 1 - col.a;
+                    }
 
                     return col;
                 }

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using GameAudio;
+using UnityEngine.UI;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 
@@ -14,6 +16,16 @@ public class SoundManager : MonoBehaviour
     public static SoundManager instance { get; private set; }
     [SerializeField] private GameAudioData gameAudioData;       // 음원 데이터셋
     private AudioSource currentBGMSource;
+    public AudioMixer mainMixer;
+    public Slider bgmSlider;
+
+    public void SetBGMVolume(float volume) {
+        if (volume == 0) {
+            mainMixer.SetFloat("BGM_Volume", -80f);
+        } else {
+            mainMixer.SetFloat("BGM_Volume", Mathf.Log10(volume) * 20);
+        }
+    }
 
     void Awake()
     {
