@@ -25,14 +25,14 @@ public class CameraManager : MonoBehaviour
 
     private GameManager GameManager;
 
-    private Camera _cam;
+    [HideInInspector] public Camera _cam;
     private Vector3 _offset;
     private Collider2D _currentBounds;
     private Vector3 _smoothedFollowPos;
     private Vector3 _currentMouseOffset;
     private bool _transitioning = false;
 
-    private float _targetZoom;
+    [HideInInspector] public float _targetZoom;
     private float _zoomSpeed = 5f;
 
     private void Awake()

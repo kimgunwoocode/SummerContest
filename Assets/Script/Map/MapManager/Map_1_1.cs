@@ -19,9 +19,6 @@ public class Map_1_1 : MonoBehaviour
         {
             Debug.Log("게임 첫 시작 애니메이션");
 
-            MoveBound(5);
-            SetZoom(2);
-
             Intro_obj.SetActive(true);
             Egg_obj.SetActive(false);
             Player_obj.transform.position = PlayerInBoxPosition;
@@ -59,6 +56,10 @@ public class Map_1_1 : MonoBehaviour
     IEnumerator SetIntro_middle()
     {
         yield return null;
+        MoveBound(5);
+        CameraManager._cam.orthographicSize = 2;
+        CameraManager._targetZoom = 2;
+
         Player_obj.transform.position = PlayerInitPosition;
         Player_obj.SetActive(false);
         yield break;
