@@ -6,11 +6,11 @@ public class AnimationToStatemachine : MonoBehaviour
 
    void TriggerAttack()
    {
-        attackState.TriggerAttack();
+          attackState.TriggerAttack();
    }
 
    void FinishAttack()
    {
-        attackState.FinishAttack();
+          attackState.FinishAttack();
    }
 }

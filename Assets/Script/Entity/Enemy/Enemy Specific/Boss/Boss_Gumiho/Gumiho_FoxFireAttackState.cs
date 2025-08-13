@@ -29,6 +29,8 @@ public class Gumiho_FoxFireAttackState : AttackState
 
         animBoolName = "foxFireAttack";
         gumiho = enemy as Boss_Gumiho;
+
+        gumiho.DieEvent.AddListener(DestroyFoxFire);
     }
 
     public override void Enter()
@@ -43,10 +45,11 @@ public class Gumiho_FoxFireAttackState : AttackState
     {
         base.LogicUpdate();
 
+        gumiho.IdleState.SetIdleTime(attackCooldown);
+
         // 공격 끝났으면 상태 전환
         if (isAnimationFinished)
         {
-            gumiho.IdleState.SetIdleTime(attackCooldown);
             stateMachine.ChangeState(gumiho.IdleState);
         }
     }
@@ -79,11 +82,7 @@ public class Gumiho_FoxFireAttackState : AttackState
 
     public override void FinishAttack()
     {
-        for (int i = 0; i < foxFires.Count; i++)
-        {
-            //foxFires[i].SetActive(false);
-            Destroy(foxFires[i]);
-        }
+        DestroyFoxFire();
 
         base.FinishAttack();
     }
@@ -122,5 +121,14 @@ public class Gumiho_FoxFireAttackState : AttackState
 
         // 최대 반경에 도달하면 여우불의 이동을 멈추고 공격 종료
         FinishAttack();
+    }
+
+    private void DestroyFoxFire()
+    {
+        for (int i = 0; i < foxFires.Count; i++)
+        {
+            //foxFires[i].SetActive(false);
+            if (foxFires[i] != null) Destroy(foxFires[i]);
+        }
     }
 }

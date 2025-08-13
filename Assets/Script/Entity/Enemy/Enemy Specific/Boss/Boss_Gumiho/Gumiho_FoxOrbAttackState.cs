@@ -14,6 +14,7 @@ public class Gumiho_FoxOrbAttackState : AttackState
     private float foxOrbThrowTime = 1f;
 
     private Boss_Gumiho gumiho;
+    private Gumiho_FoxOrb newOrb;
     private float totalFoxOrbLifetime;
 
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
@@ -22,6 +23,8 @@ public class Gumiho_FoxOrbAttackState : AttackState
 
         animBoolName = "foxOrbAttack";
         gumiho = enemy as Boss_Gumiho;
+
+        gumiho.DieEvent.AddListener(DestroyOrb);
     }
 
     public override void Enter()
@@ -37,6 +40,8 @@ public class Gumiho_FoxOrbAttackState : AttackState
     {
         base.LogicUpdate();
 
+        gumiho.IdleState.SetIdleTime(attackCooldown);
+
         if (Time.time >= startTime + totalFoxOrbLifetime && !isAnimationFinished)
         {
             FinishAttack();
@@ -44,7 +49,6 @@ public class Gumiho_FoxOrbAttackState : AttackState
 
         if (isAnimationFinished)
         {
-            gumiho.IdleState.SetIdleTime(attackCooldown);
             stateMachine.ChangeState(gumiho.IdleState);
         }
     }
@@ -61,13 +65,18 @@ public class Gumiho_FoxOrbAttackState : AttackState
     public void FoxOrbAttack()
     {
         // FoxOrb 인스턴스 생성
-        Gumiho_FoxOrb newOrb = Instantiate(foxOrbPrefab, attackPosition.position, Quaternion.identity, enemy.transform);
+        newOrb = Instantiate(foxOrbPrefab, attackPosition.position, Quaternion.identity, enemy.transform);
 
         // 구슬 초기 속도 설정, 초기화
         Vector2 foxOrbVelocity = new Vector2(foxOrbSpeed, 0);
         newOrb.Initialize(foxOrbVelocity * enemy.facingDir, foxOrbThrowTime, foxOrbReturnDelay);
 
         // 구슬의 Total Lifetime 후 삭제되도록 설정
-        Destroy(newOrb.gameObject, totalFoxOrbLifetime);
+        Invoke(nameof(DestroyOrb), totalFoxOrbLifetime);
+    }
+
+    private void DestroyOrb()
+    {
+        if(newOrb != null) Destroy(newOrb.gameObject);
     }
 }

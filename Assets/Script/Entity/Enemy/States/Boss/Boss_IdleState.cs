@@ -7,7 +7,7 @@ public class Boss_IdleState : State
 
     protected bool isIdleTimeOver;
 
-    private float idleTime = 0f;
+    public float idleTime = 0f;
     private bool hasPlayerEnteredBossRoom = false;
     private bool isPlayerMaxRange;
 
@@ -36,6 +36,8 @@ public class Boss_IdleState : State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        idleTime -= Time.deltaTime;
         
         if (!hasPlayerEnteredBossRoom)
         {
@@ -51,7 +53,7 @@ public class Boss_IdleState : State
             }
         }
 
-        if (Time.time >= startTime + idleTime)
+        if (idleTime <= 0)
         {
             isIdleTimeOver = true;
         }
@@ -60,5 +62,12 @@ public class Boss_IdleState : State
     public void SetIdleTime(float idleTime)
     {
         this.idleTime = idleTime;
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        if(isIdleTimeOver) idleTime = 0f;
     }
 }

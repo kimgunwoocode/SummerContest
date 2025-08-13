@@ -1,5 +1,6 @@
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Boss_Gumiho : EnemyEntity
 {
@@ -39,7 +40,10 @@ public class Boss_Gumiho : EnemyEntity
     public Gumiho_DeadState DeadState => deadState;
     public Gumiho_Phase2State Phase2State => phase2State;
 
-    public Transform player { get; private set; }
+    public Transform player;
+    
+    public UnityEvent DieEvent;
+
 
     protected override void Start()
     {
@@ -47,6 +51,7 @@ public class Boss_Gumiho : EnemyEntity
 
         stateMachine.Initialize(idleState);
         player = Singleton.GameManager_Instance.Get<GameManager>().Player.transform;
+        
         canBeKnockedBack = true;
     }
 
@@ -66,6 +71,7 @@ public class Boss_Gumiho : EnemyEntity
 
         if (isDead && stateMachine.currentState != deadState)
         {
+            DieEvent?.Invoke();
             stateMachine.ChangeState(deadState);
         }
         else if (stateMachine.currentState != knockbackState)

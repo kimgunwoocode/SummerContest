@@ -29,6 +29,8 @@ public class Gumiho_SpiritLeapAttackState : AttackState
 
         animBoolName = "spiritLeapAttack";
         gumiho = enemy as Boss_Gumiho;
+
+        gumiho.DieEvent.AddListener(DestroyFoxFire);
     }
 
     public override void DoCheck()
@@ -64,10 +66,11 @@ public class Gumiho_SpiritLeapAttackState : AttackState
     {
         base.LogicUpdate();
 
+        gumiho.IdleState.SetIdleTime(attackCooldown);
+
         // 공격 끝났으면 상태 전환
         if (isAnimationFinished && isGrounded)
         {
-            gumiho.IdleState.SetIdleTime(attackCooldown);
             stateMachine.ChangeState(gumiho.IdleState);
         }
     }
@@ -120,11 +123,7 @@ public class Gumiho_SpiritLeapAttackState : AttackState
 
     public override void FinishAttack()
     {
-        for (int i = 0; i < foxFires.Count; i++)
-        {
-            //if (foxFires[i] != null) foxFires[i].SetActive(false);
-            if (foxFires[i] != null) Destroy(foxFires[i]);
-        }
+        DestroyFoxFire();
 
         base.FinishAttack();
     }
@@ -139,5 +138,14 @@ public class Gumiho_SpiritLeapAttackState : AttackState
     {
         yield return new WaitForSeconds(foxOrbLifeTime);
         FinishAttack();
+    }
+
+    private void DestroyFoxFire()
+    {
+        for (int i = 0; i < foxFires.Count; i++)
+        {
+            //if (foxFires[i] != null) foxFires[i].SetActive(false);
+            if (foxFires[i] != null) Destroy(foxFires[i]);
+        }
     }
 }

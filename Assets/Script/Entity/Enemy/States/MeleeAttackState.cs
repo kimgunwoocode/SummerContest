@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MeleeAttackState : AttackState
 {
-    [SerializeField] float attackRadius = .5f;
+    [SerializeField] protected float attackRadius = .5f;
     
     [SerializeField] protected int attackDamage = 1;
     [SerializeField] protected LayerMask playerLayer;

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Gumiho_KnockbackState : KnockbackState
@@ -17,7 +18,16 @@ public class Gumiho_KnockbackState : KnockbackState
 
         if(isKnockbackOver)
         {
-            stateMachine.ChangeState(gumiho.MoveState);
+            // 발톱 할퀴기가 경직으로 캔슬됐을 경우
+            if (gumiho.MoveState.isClawAttackCancelled)
+            {
+                gumiho.IdleState.SetIdleTime(0f);
+                stateMachine.ChangeState(gumiho.MoveState);
+            }
+            else
+            {
+                stateMachine.ChangeState(gumiho.IdleState);
+            }
         }
     }
 }

@@ -4,6 +4,8 @@ public class Gumiho_Phase2State : Boss_PhaseChangeState
 {
     Boss_Gumiho gumiho;
 
+    [SerializeField] private ParticleSystem phase2Particle;
+
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
         base.Initialize(enemy, stateMachine);
@@ -16,9 +18,11 @@ public class Gumiho_Phase2State : Boss_PhaseChangeState
     {
         base.Enter();
 
+        gumiho.CanBeKnockedBack = false;
+
         // 페이즈 전환 효과
-        // 플레이어 밀치기
-        // 파워 업 파티클 재생
+        phase2Particle.Play();
+        PlayerPush();
     }
 
     public override void LogicUpdate()
@@ -31,5 +35,18 @@ public class Gumiho_Phase2State : Boss_PhaseChangeState
         {
             stateMachine.ChangeState(gumiho.MoveState);
         }
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        gumiho.CanBeKnockedBack = true;
+    }
+
+    private void PlayerPush()
+    {
+        // Singleton.GameManager_Instance.Get<PlayerManager>();
+        gumiho.player.GetComponent<PlayerManager>().Knockback(enemy.aliveGO.transform.position, 4, 1);
     }
 }
