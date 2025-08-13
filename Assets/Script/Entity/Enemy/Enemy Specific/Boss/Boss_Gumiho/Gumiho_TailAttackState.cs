@@ -20,10 +20,11 @@ public class Gumiho_TailAttackState : MeleeAttackState
     {
         base.Enter();
 
-        //playerManager = Singleton.GameManager_Instance.Get<PlayerManager>();
+        // TODO: playerManager = Singleton.GameManager_Instance.Get<PlayerManager>();
         playerManager = gumiho.player.GetComponent<PlayerManager>();
 
         gumiho.CanBeKnockedBack = false;
+        gumiho.MoveState.isClawAttackCancelled = false;
 
         enemy.SetVelocity(0f);
     }

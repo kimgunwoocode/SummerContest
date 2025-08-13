@@ -79,7 +79,6 @@ public class Gumiho_MoveState : Boss_MoveState
         // 발톱 할퀴기가 경직으로 캔슬됐을 경우 꼬리치기 발동
         if (isClawAttackCancelled)
         {
-            isClawAttackCancelled = false;
             lastAttack = gumiho.TailAttackState;
             stateMachine.ChangeState(gumiho.TailAttackState); // 꼬리치기 실행
         }

@@ -58,7 +58,7 @@ public class Boss_Gumiho : EnemyEntity
     public override void TakeDamage(int damageAmount, Vector2 attackerPosition)
     {
         // 꼬리치기, 원거리 공격 시 캔슬 불가
-        if (!canBeKnockedBack && stateMachine.currentState == phase2State) return;
+        if (!canBeKnockedBack) return;
 
         base.TakeDamage(damageAmount, attackerPosition);
 
@@ -77,12 +77,6 @@ public class Boss_Gumiho : EnemyEntity
         else if (stateMachine.currentState != knockbackState)
         {
             stateMachine.ChangeState(knockbackState);
-        }
-
-        // phase 2 전환
-        if (currentHP == phase2HP)
-        {
-            stateMachine.ChangeState(phase2State);
         }
     }
 

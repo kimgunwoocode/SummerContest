@@ -13,7 +13,7 @@ public class KnockbackState : State
     protected bool performCloseRangeAction;
     protected bool isPlayerMinRange;
 
-    protected float knockbackTime = 0.2f;
+    protected float knockbackTime = 0.5f;
 
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {

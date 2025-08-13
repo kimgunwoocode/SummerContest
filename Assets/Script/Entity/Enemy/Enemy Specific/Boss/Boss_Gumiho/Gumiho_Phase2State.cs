@@ -19,6 +19,7 @@ public class Gumiho_Phase2State : Boss_PhaseChangeState
         base.Enter();
 
         gumiho.CanBeKnockedBack = false;
+        gumiho.MoveState.isClawAttackCancelled = false;
 
         // 페이즈 전환 효과
         phase2Particle.Play();
@@ -33,7 +34,7 @@ public class Gumiho_Phase2State : Boss_PhaseChangeState
 
         if (isPhaseChangeTimeOver)
         {
-            stateMachine.ChangeState(gumiho.MoveState);
+            stateMachine.ChangeState(gumiho.IdleState);
         }
     }
 
@@ -46,7 +47,7 @@ public class Gumiho_Phase2State : Boss_PhaseChangeState
 
     private void PlayerPush()
     {
-        // Singleton.GameManager_Instance.Get<PlayerManager>();
+        // TODO: Singleton.GameManager_Instance.Get<PlayerManager>();
         gumiho.player.GetComponent<PlayerManager>().Knockback(enemy.aliveGO.transform.position, 4, 1);
     }
 }
