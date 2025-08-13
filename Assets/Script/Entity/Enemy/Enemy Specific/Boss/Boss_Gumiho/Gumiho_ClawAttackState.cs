@@ -11,7 +11,7 @@ public class Gumiho_ClawAttackState : MeleeAttackState
         base.Initialize(enemy, stateMachine);
 
         animBoolName = "clawAttack";
-        gumiho = enemy as Boss_Gumiho;
+        gumiho = enemy as Boss_Gumiho;   
     }
 
     public override void Enter()
@@ -25,9 +25,10 @@ public class Gumiho_ClawAttackState : MeleeAttackState
     {
         base.LogicUpdate();
 
+        gumiho.IdleState.SetIdleTime(attackCooldown);
+
         if (isAnimationFinished)
         {
-            gumiho.IdleState.SetIdleTime(attackCooldown);
             stateMachine.ChangeState(gumiho.IdleState);
         }
     }
