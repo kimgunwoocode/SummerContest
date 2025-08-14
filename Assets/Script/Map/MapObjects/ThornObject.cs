@@ -9,6 +9,8 @@ public class ThornObject : MonoBehaviour
     public List<GameObject> ThornSpawnPoints;// 스폰할 위치 목록
     public Vector2 SpawnPoint;// 플레이어가 함정에 걸린 후 되돌아갈 위치
 
+    public BoxCollider2D BoxCollider2D;
+
     private void Start()
     {
         GameManager = Singleton.GameManager_Instance.Get<GameManager>();
@@ -22,7 +24,8 @@ public class ThornObject : MonoBehaviour
         {
             Attack(collision);
             //애니메이션 및 효과
-            SpawnPlayer_to_SpawnPoint(collision.gameObject);
+            BoxCollider2D.enabled = false;
+            StartCoroutine(MoveSpawnPoint(collision.gameObject));
         }
     }
 
@@ -72,4 +75,12 @@ public class ThornObject : MonoBehaviour
         Player.transform.position = nearest.transform.position;
     }
 
+
+    IEnumerator MoveSpawnPoint(GameObject Player)
+    {
+        yield return new WaitForSeconds(0.2f);
+        SpawnPlayer_to_SpawnPoint(Player);
+        BoxCollider2D.enabled = true;
+        yield break;
+    }
 }

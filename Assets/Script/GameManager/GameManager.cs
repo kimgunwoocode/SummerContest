@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,6 +9,8 @@ public class GameManager : MonoBehaviour
     public GameDataManager GameDataManager;
     public TextAsset InitData;
     public GameObject Player;
+
+    PlayerMovement PlayerMovement;
 
     [Header("씬 이동 시 가져가야할 정보들")]
     //public string CurrentSceneName;
@@ -40,6 +43,7 @@ public class GameManager : MonoBehaviour
         if (Player == null || Player.activeSelf == false)
         {
             Player = GameObject.FindGameObjectWithTag("Player");
+            PlayerMovement = Player.GetComponent<PlayerMovement>();
         }
     }
 
@@ -90,21 +94,46 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDie()//플레이어 사망시 호출해야할 함수
     {
-        LoadData__SavePoint();//이전 세이브 포인트로 시점 되돌리기
-
 
         //이전 세이브 포인트로 위치 이동시키기
-        if (GameDataManager.SpawnPoint == -1)
+        string SavedSceneName = "None Scene";
+
+        if (GameDataManager.SpawnPoint == -1)// 게임 시작 후 세이브를 안했을 때, 초기화시키기
         {
             SaveFileManager.Load_forNewGame(InitData.text, GameDataManager.GameData.Slot);
             CurrentScenePointID = -1;
-            SceneManager.LoadScene("1-1_ForgottenNest");
-            return;
+            SavedSceneName = "1-1_ForgottenNest";
         }
-        string SavedSceneName = SavePointID_list[GameDataManager.SpawnPoint];
-        CurrentScenePointID = -GameDataManager.SpawnPoint;
-        SceneManager.LoadScene(SavedSceneName);
+        else
+        {
+            LoadData__SavePoint();//이전 세이브 포인트로 시점 되돌리기
+            CurrentScenePointID = -GameDataManager.SpawnPoint;
+            SavedSceneName = SavePointID_list[GameDataManager.SpawnPoint];
+        }
+
+        StartCoroutine(MoveSavedPointScene(SavedSceneName));
     }
+
+    IEnumerator MoveSavedPointScene(string SceneName)
+    {
+        PlayerMovement.SetControllable(false);
+        VisualEffectController.Instance.BlackOut(1);
+        VisualEffectController.Instance.BossNameAppearance("Game Over", "");
+
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(SceneName);
+
+        VisualEffectController.Instance.BlackIn(1);
+
+        yield return new WaitForSeconds(1f);
+
+        VisualEffectController.Instance.ClearScreen();
+        PlayerMovement.SetControllable(true);
+        Destroy(gameObject);
+        yield break;
+    }
+
+
 
     public void Get_Money(int min, int max)
     {
