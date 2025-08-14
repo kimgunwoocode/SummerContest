@@ -1868,6 +1868,8 @@ MonoBehaviour:
   - {fileID: 2010453787}
   - {fileID: 1002028375}
   _stageIndex: 0
+  _cam: {fileID: 0}
+  _targetZoom: 0
 --- !u!114 &155344738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2036,6 +2038,10 @@ PrefabInstance:
       propertyPath: InteractionGuide
       value: 
       objectReference: {fileID: 482286647}
+    - target: {fileID: 9208665218476391066, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
+      propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 140315538197071375, guid: 0b5039bf70008eb49bf9ba5ba156b078, type: 3}
