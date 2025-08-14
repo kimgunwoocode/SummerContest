@@ -114,6 +114,7 @@ public class GameManager : MonoBehaviour
     public void Get_Item(int ItemID)
     {
         GameDataManager.GettedItems[ItemID]++;
+        Debug.Log($"{ItemID} 획득. 현재 개수 {GameDataManager.GettedItems[ItemID]}");
 
         ItemData item = GameDataManager.allitems[ItemID];
         if (item == null)
