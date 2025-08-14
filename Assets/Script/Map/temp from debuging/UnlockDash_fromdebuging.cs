@@ -19,6 +19,7 @@ public class UnlockDash_fromdebuging : MonoBehaviour
 
     public void Destroygameobject()
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
