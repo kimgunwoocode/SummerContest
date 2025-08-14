@@ -3,7 +3,6 @@
 public class NomalBreath : BreathObject
 {
     [Header("부딪혀 사라지게 할 레이어")]
-    //디버깅용(+ layer 사용 제안)
     [SerializeField] private LayerMask enemyLayer;
 
     [Space]
@@ -28,8 +27,8 @@ public class NomalBreath : BreathObject
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //디버깅을 위한 잠깐의 코드 수정.
-        if (collision.gameObject.layer == enemyLayer)//CompareTag("Enemy"))
+        
+        if (collision.gameObject.layer == enemyLayer)
         {
             collision.GetComponent<EnemyEntity>()?.TakeDamage(Singleton.GameManager_Instance.Get<GameDataManager>().ATK, transform.position);
             Destroy(gameObject);

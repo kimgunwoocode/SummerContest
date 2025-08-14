@@ -145,7 +145,7 @@ public class Gumiho_SpiritLeapAttackState : AttackState
         for (int i = 0; i < foxFires.Count; i++)
         {
             //if (foxFires[i] != null) foxFires[i].SetActive(false);
-            if (foxFires[i] != null) Destroy(foxFires[i]);
+            if (foxFires[i] != null) Destroy(foxFires[i].gameObject);
         }
     }
 }
