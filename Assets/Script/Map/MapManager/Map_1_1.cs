@@ -20,7 +20,7 @@ public class Map_1_1 : MonoBehaviour
         // 게임을 처음 시작했을 때
         if (GameDataManager.SpawnPoint == -1)
         {
-            Debug.Log("게임 첫 시작 애니메이션");
+            //Debug.Log("게임 첫 시작 애니메이션");
 
             GameDataManager.SpawnPoint = 1001;
             
@@ -48,7 +48,7 @@ public class Map_1_1 : MonoBehaviour
 
     public void SetIntro()
     {
-        Debug.Log("게임 시작");
+        //Debug.Log("게임 시작");
 
         MoveBound(0);
         SetZoom(4.4f);
