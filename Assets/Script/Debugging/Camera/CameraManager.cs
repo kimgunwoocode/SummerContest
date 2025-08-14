@@ -25,7 +25,7 @@ public class CameraManager : MonoBehaviour
 
     private GameManager GameManager;
 
-    [HideInInspector] public Camera _cam;
+    public Camera _cam;
     private Vector3 _offset;
     private Collider2D _currentBounds;
     private Vector3 _smoothedFollowPos;
@@ -33,15 +33,15 @@ public class CameraManager : MonoBehaviour
     private bool _transitioning = false;
 
     [HideInInspector] public float _targetZoom;
-    private float _zoomSpeed = 5f;
+    private float _zoomSpeed = 10f;
 
     private void Awake()
     {
         GameManager = Singleton.GameManager_Instance.Get<GameManager>();
         _stageIndex = GameManager.CurrentStartSceneCameraArea;
 
-
-        _cam = Camera.main;
+        if (_cam == null)
+            _cam = Camera.main;
         _offset = new Vector3(0, 0, -10f);
         _targetZoom = _cam.orthographicSize;
         SetStageIndex(_stageIndex);

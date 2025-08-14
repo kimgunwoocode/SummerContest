@@ -12,13 +12,19 @@ public class Map_1_1 : MonoBehaviour
     private Vector2 PlayerInBoxPosition = new Vector2(-22.5f, 0.5f);
     private Vector2 PlayerInitPosition = new Vector2(-5.177f, -0.4f);
 
+    GameDataManager GameDataManager;
+
     private void Awake()
     {
+        GameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();
         // 게임을 처음 시작했을 때
-        if (Singleton.GameManager_Instance.Get<GameDataManager>().SpawnPoint == -1)
+        if (GameDataManager.SpawnPoint == -1)
         {
             Debug.Log("게임 첫 시작 애니메이션");
 
+            GameDataManager.SpawnPoint = 1001;
+            
+            MoveBound(5);
             Intro_obj.SetActive(true);
             Egg_obj.SetActive(false);
             Player_obj.transform.position = PlayerInBoxPosition;
@@ -37,7 +43,7 @@ public class Map_1_1 : MonoBehaviour
     }
     public void SetZoom(float size)
     {
-        CameraManager.SetZoom(size, 4f);
+        CameraManager.SetZoom(size, 3f);
     }
 
     public void SetIntro()
