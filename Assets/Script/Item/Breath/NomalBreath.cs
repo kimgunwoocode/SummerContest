@@ -48,6 +48,8 @@ public class NomalBreath : BreathObject
         {
             Debug.Log("enemy layer 충돌");
             collision.transform.parent.GetComponent<EnemyEntity>()?.TakeDamage(Singleton.GameManager_Instance.Get<GameDataManager>().ATK * BreathItemData_SO.breathDamage, transform.position);
+            // 솔직히 코드 너무 더러움... 유연성도 없음!! Enemy와 로직 상의해보기!!!
+            
             Destroy(gameObject);
         }
         else if (((1 << collision.gameObject.layer) & hitLayers) != 0)
