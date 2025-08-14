@@ -55,6 +55,11 @@ public class GameDataManager : MonoBehaviour
     {
         GameData = Data;
     }
+
+    public void NowInvisible(int ID){
+        InteractionObjects[ID] = false;
+    }
+
     public void Apply_allitems()
     {
         foreach (var kv in allitems_SO.allitems)
