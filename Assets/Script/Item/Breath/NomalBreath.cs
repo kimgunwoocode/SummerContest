@@ -41,10 +41,13 @@ public class NomalBreath : BreathObject
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Debug.Log("Bullet 충돌 : " + collision.gameObject.layer);
+
         //디버깅을 위한 잠깐의 코드 수정.
-        if (collision.gameObject.layer == enemyLayer)//CompareTag("Enemy"))
+        if (((1 << collision.gameObject.layer) & enemyLayer) != 0)//CompareTag("Enemy"))
         {
-            collision.GetComponent<EnemyEntity>()?.TakeDamage(Singleton.GameManager_Instance.Get<GameDataManager>().ATK * BreathItemData_SO.breathDamage, transform.position);
+            Debug.Log("enemy layer 충돌");
+            collision.transform.parent.GetComponent<EnemyEntity>()?.TakeDamage(Singleton.GameManager_Instance.Get<GameDataManager>().ATK * BreathItemData_SO.breathDamage, transform.position);
             Destroy(gameObject);
         }
         else if (((1 << collision.gameObject.layer) & hitLayers) != 0)
