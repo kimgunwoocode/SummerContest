@@ -86,6 +86,10 @@ public class PlayerMovement : MonoBehaviour {
         _isPlatformDownRequestExist = false;
     }
 
+    internal void SetControllable(bool value) {
+        isControllablePlayer = value;
+    }
+
     internal void OnMovePerformed(InputAction.CallbackContext context) {
         if (!isControllablePlayer) return;
         _currentInput = context.ReadValue<Vector2>();
