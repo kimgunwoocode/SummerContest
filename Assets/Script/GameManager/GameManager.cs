@@ -94,18 +94,22 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDie()//플레이어 사망시 호출해야할 함수
     {
-        LoadData__SavePoint();//이전 세이브 포인트로 시점 되돌리기
 
         //이전 세이브 포인트로 위치 이동시키기
-        if (GameDataManager.SpawnPoint == -1)
+        string SavedSceneName = "None Scene";
+
+        if (GameDataManager.SpawnPoint == -1)// 게임 시작 후 세이브를 안했을 때, 초기화시키기
         {
             SaveFileManager.Load_forNewGame(InitData.text, GameDataManager.GameData.Slot);
             CurrentScenePointID = -1;
-            StartCoroutine(MoveSavedPointScene("1-1_ForgottenNest"));
-            return;
+            SavedSceneName = "1-1_ForgottenNest";
         }
-        string SavedSceneName = SavePointID_list[GameDataManager.SpawnPoint];
-        CurrentScenePointID = -GameDataManager.SpawnPoint;
+        else
+        {
+            LoadData__SavePoint();//이전 세이브 포인트로 시점 되돌리기
+            CurrentScenePointID = -GameDataManager.SpawnPoint;
+            SavedSceneName = SavePointID_list[GameDataManager.SpawnPoint];
+        }
 
         StartCoroutine(MoveSavedPointScene(SavedSceneName));
     }
