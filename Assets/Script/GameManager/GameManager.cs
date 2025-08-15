@@ -117,13 +117,17 @@ public class GameManager : MonoBehaviour
     IEnumerator MoveSavedPointScene(string SceneName)
     {
         PlayerMovement.SetControllable(false);
-        VisualEffectController.Instance.BlackOut(1);
-        VisualEffectController.Instance.BossNameAppearance("Game Over", "");
+        VFXSequence sequence = new VFXBuilder()
+            .AppendBlackOut(1f)
+            .AppendBossNameAppearance(1f, "Game Over", "", 0f)
+            .Build();
+        //VisualEffectController.Instance.BlackOut(1);
+        //VisualEffectController.Instance.BossNameAppearance("Game Over", "");
 
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(SceneName);
 
-        VisualEffectController.Instance.BlackIn(1);
+        sequence = new VFXBuilder().AppendBlackIn(1f).Build();
 
         yield return new WaitForSeconds(1f);
 
