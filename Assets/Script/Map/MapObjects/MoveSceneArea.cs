@@ -19,7 +19,7 @@ public class MoveSceneArea : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == PlayerLayer)
+        if (((1 << collision.gameObject.layer) & PlayerLayer) != 0)
             MoveScene();
     }
 
