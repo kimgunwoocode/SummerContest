@@ -10,7 +10,7 @@ public class BreathItemData : ItemData, IBreathItem
     public int breathAttackCount;// 브레스가 공격할 수 있는 적 개수
     public float breathCoolDown;// 브레스 사용시 다음 브레스 사용까지 걸리는 시간
     public float breathCost;// 브레스 사용시 소모되는 브레스게이지
-    public float breathRange;// 브레스가 날아갈 수 있는 최대 사거리
+    public float breathRange;// 브레스가 날아갈 수 있는 최대 사거리 (0 이면 무제한)
     public float breathSpeed;// 브레스의 이동 속도
     public bool breathMapPassable;// 맵 통과 가능 여부 (벽, 땅 플랫폼 등...)
     public bool breathWaterPassable;// 물에서 사용 가능 여부

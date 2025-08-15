@@ -8,6 +8,8 @@ public class MoveSceneArea : MonoBehaviour
     [Tooltip("다음 씬으로 넘어갔을 때 어느 지점으로 플레이어를 소환할지를 ID로 정함.\n ID가 알맞는지는 알아서 확인해주세요... 수동임.")]
     public int NextPointID;
     public int NextCameraArea;
+    [Space]
+    public LayerMask PlayerLayer;
     GameManager gamemanager;
 
     private void Start()
@@ -17,7 +19,8 @@ public class MoveSceneArea : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        MoveScene();
+        if (((1 << collision.gameObject.layer) & PlayerLayer) != 0)
+            MoveScene();
     }
 
     void MoveScene()

@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        VisualEffectController.Instance.ClearScreen();
+        //VisualEffectController.Instance.ClearScreen();
         PlayerMovement.SetControllable(true);
         Destroy(gameObject);
         yield break;

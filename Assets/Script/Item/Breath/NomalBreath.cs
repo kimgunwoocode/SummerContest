@@ -3,13 +3,16 @@
 public class NomalBreath : BreathObject
 {
     [Header("부딪혀 사라지게 할 레이어")]
+    //디버깅용(+ layer 사용 제안)
     [SerializeField] private LayerMask enemyLayer;
 
     [Space]
     public Rigidbody2D rb;
 
 
-    private int AttackCount;//현재 남은 공격 가능 횟수
+    //private int AttackCount;//현재 남은 공격 가능 횟수 --> 이거 누가 만든거임??? 일단 지워둠 (김건우가)
+
+    private float BreathRange = 0;// 현재 나아간 거리
 
 
     private void Awake()
@@ -22,15 +25,31 @@ public class NomalBreath : BreathObject
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + shootingDirection * BreathItemData_SO.breathSpeed * Time.fixedDeltaTime);
+        Vector2 Move = shootingDirection * BreathItemData_SO.breathSpeed * Time.fixedDeltaTime;
+
+        rb.MovePosition(rb.position + Move);
+
+        if (BreathItemData_SO.breathRange != 0)
+        {
+            BreathRange += Move.magnitude;
+            if (BreathRange > BreathItemData_SO.breathRange)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-        if (collision.gameObject.layer == enemyLayer)
+        //Debug.Log("Bullet 충돌 : " + collision.gameObject.layer);
+
+        //디버깅을 위한 잠깐의 코드 수정.
+        if (((1 << collision.gameObject.layer) & enemyLayer) != 0)//CompareTag("Enemy"))
         {
-            collision.GetComponent<EnemyEntity>()?.TakeDamage(Singleton.GameManager_Instance.Get<GameDataManager>().ATK, transform.position);
+            Debug.Log("enemy layer 충돌");
+            collision.transform.parent.GetComponent<EnemyEntity>()?.TakeDamage(Singleton.GameManager_Instance.Get<GameDataManager>().ATK * BreathItemData_SO.breathDamage, transform.position);
+            // 솔직히 코드 너무 더러움... 유연성도 없음!! Enemy와 로직 상의해보기!!!
+            
             Destroy(gameObject);
         }
         else if (((1 << collision.gameObject.layer) & hitLayers) != 0)
@@ -39,6 +58,7 @@ public class NomalBreath : BreathObject
         }
     }
 
+    /*
     //enemy가 collider를 갖고있지 않아 Trigger이벤트에 잡히지 않음.
     //이에따라 일시적으로 만든 코드이므로 삭제 권고
     private void EnemyCheck() {
@@ -53,4 +73,5 @@ public class NomalBreath : BreathObject
     private void Update() {
         EnemyCheck();
     }
+    */
 }

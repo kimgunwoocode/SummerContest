@@ -78,7 +78,7 @@ public class ThornObject : MonoBehaviour
 
     IEnumerator MoveSpawnPoint(GameObject Player)
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
         SpawnPlayer_to_SpawnPoint(Player);
         BoxCollider2D.enabled = true;
         yield break;
