@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class CameraManager : MonoBehaviour
 {
     [Header("카메라 타겟")]
+    [SerializeField] GameObject Player;
     [SerializeField] private Transform _target;
     [SerializeField] private Rigidbody2D _targetRigidbody;
 
@@ -27,10 +28,12 @@ public class CameraManager : MonoBehaviour
 
     public Camera _cam;
     private Vector3 _offset;
-    private Collider2D _currentBounds;
+    private Bounds _currentBounds;
     private Vector3 _smoothedFollowPos;
     private Vector3 _currentMouseOffset;
     private bool _transitioning = false;
+
+    private Vector2 screenCenter;
 
     [HideInInspector] public float _targetZoom;
     private float _zoomSpeed = 10f;
@@ -40,40 +43,59 @@ public class CameraManager : MonoBehaviour
         GameManager = Singleton.GameManager_Instance.Get<GameManager>();
         _stageIndex = GameManager.CurrentStartSceneCameraArea;
 
+        if (Player == null)
+            Player = GameObject.FindWithTag("Player");
+        if (_target == null)
+            _target = Player?.transform;
+        if (_targetRigidbody == null)
+            _targetRigidbody = Player?.GetComponent<Rigidbody2D>();
+        
+
         if (_cam == null)
             _cam = Camera.main;
+
         _offset = new Vector3(0, 0, -10f);
+
         _targetZoom = _cam.orthographicSize;
+
         SetStageIndex(_stageIndex);
+        SetScreenCenter();
+
     }
     private void Start()
     {
         if (_target != null)
         {
             _smoothedFollowPos = _target.position;
-            Vector3 startCamPos = CalculateClampedCameraPosition(_smoothedFollowPos);
-            transform.position = startCamPos;
+            transform.position = _target.position;
         }
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
+    {
+
+        MoveCamera_InLateUpdate();
+        ZoomInOut_InLateUpdate();
+    }
+
+    #region LateUpdate 관련
+    private Vector3 Set_smoothedFollowPos()
     {
         Vector3 playerPos = _target.position;
         float dx = Mathf.Abs(playerPos.x - _smoothedFollowPos.x);
         float dy = Mathf.Abs(playerPos.y - _smoothedFollowPos.y);
 
-        float followSpeed = _baseFollowSpeed;
-        if (_targetRigidbody != null)
-        {
-            followSpeed += _targetRigidbody.linearVelocity.magnitude * _speedMultiplier;
-        }
+        float followSpeed = _baseFollowSpeed + _targetRigidbody.linearVelocity.magnitude * _speedMultiplier;
 
         if (dx > _deadZoneSize.x || dy > _deadZoneSize.y)
         {
-            _smoothedFollowPos = Vector3.Lerp(_smoothedFollowPos, playerPos, followSpeed * Time.fixedDeltaTime);
+            _smoothedFollowPos = Vector3.Lerp(_smoothedFollowPos, playerPos, followSpeed * Time.deltaTime);
         }
 
-        Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        return _smoothedFollowPos;
+    }
+    private Vector3 Set_currentMouseOffset()
+    {
         Vector2 mouseScreen = Mouse.current.position.ReadValue();
         Vector2 offsetFromCenter = (mouseScreen - screenCenter) / screenCenter;
         Vector3 targetMouseOffset = new Vector3(offsetFromCenter.x, offsetFromCenter.y, 0f) * _maxMouseOffset;
@@ -85,29 +107,35 @@ public class CameraManager : MonoBehaviour
         }
         else
         {
-            _currentMouseOffset = Vector3.Lerp(_currentMouseOffset, targetMouseOffset, _mouseFollowSpeed * Time.fixedDeltaTime);
+            _currentMouseOffset = Vector3.Lerp(_currentMouseOffset, targetMouseOffset, _mouseFollowSpeed * Time.deltaTime);
         }
+
+        return _currentMouseOffset;
+    }
+    private void MoveCamera_InLateUpdate()
+    {
+        _smoothedFollowPos = Set_smoothedFollowPos();
+        _currentMouseOffset = Set_currentMouseOffset();
 
         Vector3 targetCamPos = _smoothedFollowPos + _currentMouseOffset;
         targetCamPos.z = _offset.z;
 
         Vector2 camSize = GetCameraWorldSize();
-        Bounds bounds = _currentBounds.bounds;
-        Vector3 boundsCenter = bounds.center;
+        Vector3 boundsCenter = _currentBounds.center;
         Vector3 newCamPos = targetCamPos;
 
-        bool lockX = camSize.x >= bounds.size.x;
-        bool lockY = camSize.y >= bounds.size.y;
+        bool lockX = camSize.x >= _currentBounds.size.x;
+        bool lockY = camSize.y >= _currentBounds.size.y;
 
         if (lockX) newCamPos.x = boundsCenter.x;
-        else newCamPos.x = Mathf.Clamp(targetCamPos.x, bounds.min.x + camSize.x / 2f, bounds.max.x - camSize.x / 2f);
+        else newCamPos.x = Mathf.Clamp(targetCamPos.x, _currentBounds.min.x + camSize.x / 2f, _currentBounds.max.x - camSize.x / 2f);
 
         if (lockY) newCamPos.y = boundsCenter.y;
-        else newCamPos.y = Mathf.Clamp(targetCamPos.y, bounds.min.y + camSize.y / 2f, bounds.max.y - camSize.y / 2f);
+        else newCamPos.y = Mathf.Clamp(targetCamPos.y, _currentBounds.min.y + camSize.y / 2f, _currentBounds.max.y - camSize.y / 2f);
 
         if (_transitioning)
         {
-            transform.position = Vector3.Lerp(transform.position, newCamPos, 8f * Time.fixedDeltaTime);
+            transform.position = Vector3.Lerp(transform.position, newCamPos, 8f * Time.deltaTime);
             if (Vector3.Distance(transform.position, newCamPos) < 0.01f)
             {
                 _transitioning = false;
@@ -117,33 +145,38 @@ public class CameraManager : MonoBehaviour
         {
             transform.position = newCamPos;
         }
+    }
 
-        // 줌 인아웃 관련
+    private void ZoomInOut_InLateUpdate()
+    {
         if (_cam.orthographicSize != _targetZoom)
         {
-            _cam.orthographicSize = Mathf.Lerp(_cam.orthographicSize, _targetZoom, _zoomSpeed * Time.fixedDeltaTime);
+            _cam.orthographicSize = Mathf.Lerp(_cam.orthographicSize, _targetZoom, _zoomSpeed * Time.deltaTime);
         }
     }
-    private Vector3 CalculateClampedCameraPosition(Vector3 desiredPos)
+
+    /*
+     * 카메라 바로 이동... 인데 이제 안씀
+    public Vector3 CalculateClampedCameraPosition(Vector3 desiredPos)
     {
         Vector2 camSize = GetCameraWorldSize();
-        Bounds bounds = _currentBounds.bounds;
-        Vector3 boundsCenter = bounds.center;
+        Vector3 boundsCenter = _currentBounds.center;
 
-        bool lockX = camSize.x >= bounds.size.x;
-        bool lockY = camSize.y >= bounds.size.y;
+        bool lockX = camSize.x >= _currentBounds.size.x;
+        bool lockY = camSize.y >= _currentBounds.size.y;
 
         Vector3 newCamPos = desiredPos;
 
         if (lockX) newCamPos.x = boundsCenter.x;
-        else newCamPos.x = Mathf.Clamp(desiredPos.x, bounds.min.x + camSize.x / 2f, bounds.max.x - camSize.x / 2f);
+        else newCamPos.x = Mathf.Clamp(desiredPos.x, _currentBounds.min.x + camSize.x / 2f, _currentBounds.max.x - camSize.x / 2f);
 
         if (lockY) newCamPos.y = boundsCenter.y;
-        else newCamPos.y = Mathf.Clamp(desiredPos.y, bounds.min.y + camSize.y / 2f, bounds.max.y - camSize.y / 2f);
+        else newCamPos.y = Mathf.Clamp(desiredPos.y, _currentBounds.min.y + camSize.y / 2f, _currentBounds.max.y - camSize.y / 2f);
 
         newCamPos.z = _offset.z;
         return newCamPos;
     }
+    */
 
     private Vector2 GetCameraWorldSize()
     {
@@ -151,35 +184,52 @@ public class CameraManager : MonoBehaviour
         float width = height * _cam.aspect;
         return new Vector2(width, height);
     }
+    public void SetScreenCenter() // 화면 비율 적용시키기 (화면비율 변경시 호출하기)
+    {
+        screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
+    }
+#endregion
 
     public void SetStageIndex(int index)
     {
         if (index < 0 || index >= _cameraBoundsList.Length) return;
         _stageIndex = index;
-        _currentBounds = _cameraBoundsList[index];
+        _currentBounds = _cameraBoundsList[index].bounds;
         _transitioning = true;
-    }
-
-    public void SetTarget(Transform newTarget, Rigidbody2D rb = null)
-    {
-        _target = newTarget;
-        _targetRigidbody = rb;
-        _smoothedFollowPos = newTarget.position;
     }
 
     public void SetBias(Vector2 newBias)
     {
         _biasOffset = newBias;
     }
-
     public void ClearBias()
     {
         _biasOffset = Vector2.zero;
     }
 
-    public void SetZoom(float newSize, float zoomSpeed = -1f)
+    /// <summary>
+    /// 카메라 사이즈 변경
+    /// 즉각 적용 X, 줌인아웃 효과
+    /// </summary>
+    /// <param name="newSize">
+    /// 양수만 적용됨</param>
+    /// <param name="zoomSpeed">
+    /// 양수만 적용됨</param>
+    public void SetZoom(float newSize, float zoomSpeed)
     {
+        if (newSize > 0f) _targetZoom = newSize;
+        if (zoomSpeed > 0f) _zoomSpeed = zoomSpeed;
+    }
+    /// <summary>
+    /// 카메라 사이즈 변경
+    /// 사이즈 즉각 적용
+    /// </summary>
+    /// <param name="newSize">
+    /// 양수만 적용됨</param>
+    public void SetZoom(float newSize)
+    {
+        if (newSize <= 0f) return;
         _targetZoom = newSize;
-        if (zoomSpeed >= 0f) _zoomSpeed = zoomSpeed;
+        _cam.orthographicSize = newSize;
     }
 }
