@@ -3,11 +3,11 @@ using UnityEngine;
 public class BossFightMaterialController : MonoBehaviour
 {
     private Material bossFightMat;
-    private SpriteRenderer renderer;
+    private SpriteRenderer Sprite;
 
     private void Awake() {
-        renderer = GetComponent<SpriteRenderer>();
-        bossFightMat = renderer.material;
+        Sprite = GetComponent<SpriteRenderer>();
+        bossFightMat = Sprite.material;
     }
 
     private void Start() {
