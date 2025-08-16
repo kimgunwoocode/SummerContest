@@ -24,7 +24,6 @@ public class PlayerMovement : MonoBehaviour {
     private ScriptablePlayerMovementStats _movementStats;
     private PlayerManager _PM;
     private GameDataManager _data;
-    private bool isControllablePlayer = true;
 
 
     private void Awake()
@@ -86,12 +85,8 @@ public class PlayerMovement : MonoBehaviour {
         _isPlatformDownRequestExist = false;
     }
 
-    internal void SetControllable(bool value) {
-        isControllablePlayer = value;
-    }
-
     internal void OnMovePerformed(InputAction.CallbackContext context) {
-        if (!isControllablePlayer) return;
+        if (!_PM.GetControllable()) return;
         _currentInput = context.ReadValue<Vector2>();
     }
 
@@ -118,7 +113,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     internal void OnDashPerformed(InputAction.CallbackContext context) {
-        if (!_data.PlayerAbility[0] || !_isAbleToDash || _isDashing || !isControllablePlayer || _isClimb[0] || _isClimb[1]) return;
+        if (!_data.PlayerAbility[0] || !_isAbleToDash || _isDashing || !_PM.GetControllable() || _isClimb[0] || _isClimb[1]) return;
         _isAbleToDash = false;
         _isDashing = true;
         _calculatedVelocity.y = 0;
@@ -181,7 +176,7 @@ public class PlayerMovement : MonoBehaviour {
         if((_isClimb[0] && _currentInput.x <= 0 && !_isWallJumping) || _isClimb[1] && _currentInput.x >= 0 && !_isWallJumping) {
             _calculatedVelocity.y = 0;
         }
-        if (!isControllablePlayer) return;
+        if (!_PM.GetControllable()) return;
         _calculatedVelocity.x = _isWallJumping ? _calculatedVelocity.x : (_isTouchingWall[0] && _moveDirection.x < 0) || (_isTouchingWall[1] && _moveDirection.x > 0) || (_isClimb[0] && _currentInput.x <= 0) || (_isClimb[1] && _currentInput.x >= 0) ? 0f : _isDashing ? (_movementStats.DashSpeed * _moveDirection.x * Time.fixedDeltaTime) : _isCrouch ? ((_isGrounded ? _movementStats.CrounchSpeed : _movementStats.WalkSpeed) * Time.fixedDeltaTime * _currentInput.x) : (_movementStats.WalkSpeed * Time.fixedDeltaTime * _currentInput.x);
     }
 
@@ -192,10 +187,10 @@ public class PlayerMovement : MonoBehaviour {
     private IEnumerator RunKnockback(Vector3 attackerPos, int power, float stunTime) {
         int direction = attackerPos.x - transform.position.x > 0 ? -1 : 1;
         _calculatedVelocity = new Vector2(power * 2 * direction, power * 3);
-        isControllablePlayer = false;
+        _PM.SetControllable(false);
         _isStun = true;
         yield return new WaitForSeconds(stunTime);
-        isControllablePlayer = true;
+        _PM.SetControllable(true);
         _isStun = false;
     }
 
@@ -282,7 +277,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private void JumpRequestValidation()
     {
-        if (_isDashing || !isControllablePlayer || _isStun) return;
+        if (_isDashing || !_PM.GetControllable() || _isStun) return;
         _isJumpEndedEarly = CheckJumpEndedBeforeApex();
 
         bool jumpBufferValidation = ((_groundedTime - _jumpPressTime) < _movementStats.JumpBufferTime) && _isGrounded;

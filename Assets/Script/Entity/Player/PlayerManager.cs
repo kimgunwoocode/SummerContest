@@ -10,10 +10,12 @@ public class PlayerManager : MonoBehaviour {
     private PlayerInput_Action _inputActions;
     private Rigidbody2D _rb;
     internal bool IsInvincible;
+    private bool isControllablePlayer = true;
 
     [Header("Stats")]
     [SerializeField] internal ScriptablePlayerMovementStats playerMovementStats;
     [SerializeField] internal ScriptablePlayerAttackStats playerAttackStats;
+    [SerializeField] private float invinsibleTime = 0.1f;
     
     [Space(30)]
     [Header("camera")]
@@ -139,12 +141,20 @@ public class PlayerManager : MonoBehaviour {
     }
     #endregion
 
+    internal void SetControllable(bool value) {
+        isControllablePlayer = value;
+    }
+
+    internal bool GetControllable() {
+        return isControllablePlayer;
+    }
+
     private void OnPause(InputAction.CallbackContext context) {
-        //bool currentPauseState = _manager.RequestTogglePause();
         _ui.Pausing();
     }
 
     private void Attack(InputAction.CallbackContext context) {
+        if (!isControllablePlayer) return;
         if (context.action.name == "Attack")
             _attack.MeleeAttack((_mousePosition - transform.position).normalized);
         else if (context.action.name == "Breath") {
@@ -155,6 +165,7 @@ public class PlayerManager : MonoBehaviour {
 
     public bool TakeDamage(int damage, Vector3 attackerPosition) {
         if (IsInvincible) return false;
+        StartCoroutine(Invinsible());
         _data.CurrentHP -= damage;
         if (_data.CurrentHP <= 0) {
             Die();
@@ -162,6 +173,12 @@ public class PlayerManager : MonoBehaviour {
         }
         _movement.Knockback(attackerPosition);
         return true;
+    }
+
+    private IEnumerator Invinsible() {
+        IsInvincible = true;
+        yield return new WaitForSeconds(invinsibleTime);
+        IsInvincible = false;
     }
 
     public void Knockback(Vector3 attackerPosition, int power = 4, float stunTime = 1f) {

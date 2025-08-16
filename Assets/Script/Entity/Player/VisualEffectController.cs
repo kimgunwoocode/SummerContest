@@ -24,7 +24,7 @@ public enum VFX_Type {
 }
 
 public class VFX_Info {
-    public VFX_Info(VFX_Type _type, string _title = null, string _name = null, float _nameAppearanceDelay = 0.1f, float _duration = 1.0f, float _startDelay = 0, float _vibrato = 10f, Ease _ease = Ease.Linear, Action _callback = null) {
+    public VFX_Info(VFX_Type _type, string _title = null, string _name = null, float _nameAppearanceDelay = 0.1f, float _duration = 1.0f, float _startDelay = 0, float _vibrato = 10f, Ease _ease = Ease.Linear, Action _callback = null, bool _isRealTime = false) {
         type = _type;
         title = _title;
         name = _name;
@@ -34,6 +34,7 @@ public class VFX_Info {
         vibrato = _vibrato;
         ease = _ease;
         callback = _callback;
+        isRealTime = _isRealTime;
     }
     public VFX_Type type;
     public string title;
@@ -44,6 +45,7 @@ public class VFX_Info {
     public float vibrato;
     public Ease ease;
     public Action callback;
+    public bool isRealTime;
 }
 
 public class VFXBuilder {
@@ -99,14 +101,14 @@ public class VFXBuilder {
         return this;
     }
 
-    public VFXBuilder JoinBlackOut(float duration) {
-        VFX_Info info = new VFX_Info(VFX_Type.BlackOut, _duration: duration);
+    public VFXBuilder JoinBlackOut(float duration, bool isRealTime = false) {
+        VFX_Info info = new VFX_Info(VFX_Type.BlackOut, _duration: duration, _isRealTime : isRealTime);
         infos[infos.Count - 1].Add(info);
         return this;
     }
 
-    public VFXBuilder AppendBlackIn(float duration) {
-        VFX_Info blackIn = new VFX_Info(VFX_Type.BlackIn, _duration: duration);
+    public VFXBuilder AppendBlackIn(float duration, bool isRealTime = false) {
+        VFX_Info blackIn = new VFX_Info(VFX_Type.BlackIn, _duration: duration, _isRealTime: isRealTime);
         List<VFX_Info> sequence = new List<VFX_Info>();
         sequence.Add(blackIn);
         infos.Add(sequence);
@@ -400,9 +402,9 @@ public class VisualEffectController : MonoBehaviour
     }
 
     public Coroutine BlackOut(VFX_Info info) {
-        return StartCoroutine(IBlackOut(info.duration));
+        return StartCoroutine(IBlackOut(info.duration, info.isRealTime));
     }
-    private IEnumerator IBlackOut(float duration) {
+    private IEnumerator IBlackOut(float duration, bool isRealTime) {
         isRunningVFX = true;
         float elapsedTime = 0f;
         float startX = 0;
@@ -413,7 +415,7 @@ public class VisualEffectController : MonoBehaviour
         while (elapsedTime < duration) {
             float newRadius = Mathf.Lerp(startX, endX, elapsedTime / duration);
             blackOutRenderer.material.SetFloat("_Radius", newRadius);
-            elapsedTime += Time.deltaTime;
+            elapsedTime += isRealTime ? Time.unscaledDeltaTime : Time.deltaTime;
             yield return null;
         }
         blackOutRenderer.material.SetFloat("_Radius", endX);
@@ -421,9 +423,9 @@ public class VisualEffectController : MonoBehaviour
     }
 
     public Coroutine BlackIn(VFX_Info info) {
-        return StartCoroutine(IBlackIn(info.duration));
+        return StartCoroutine(IBlackIn(info.duration, info.isRealTime));
     }
-    private IEnumerator IBlackIn(float duration) {
+    private IEnumerator IBlackIn(float duration, bool isRealTime) {
         isRunningVFX = true;
         float elapsedTime = 0f;
         float startX = 1.5f;
@@ -435,7 +437,7 @@ public class VisualEffectController : MonoBehaviour
         while (elapsedTime < duration) {
             float newRadius = Mathf.Lerp(startX, endX, elapsedTime / duration);
             blackOutRenderer.material.SetFloat("_Radius", newRadius);
-            elapsedTime += Time.deltaTime;
+            elapsedTime += isRealTime ? Time.unscaledDeltaTime : Time.deltaTime;
             yield return null;
         }
         blackOutRenderer.material.SetFloat("_Radius", endX);
