@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour {
     private PlayerManager _PM;
     private GameDataManager _data;
 
+    internal Vector2 previousPostion;
+
 
     private void Awake()
     {
@@ -170,7 +172,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void Move() {
-        UpdateMoveDir();
+        //UpdateMoveDir();
         Climb();
 
         if((_isClimb[0] && _currentInput.x <= 0 && !_isWallJumping) || _isClimb[1] && _currentInput.x >= 0 && !_isWallJumping) {
@@ -523,6 +525,9 @@ public class PlayerMovement : MonoBehaviour {
     private bool _isIdle;
 
     private void Update() {
+        UpdateMoveDir();
+        _PM.Anima.flip(_moveDirection.x > 0);
+
         _prevInputInfo[_frameIndex] = _currentInput.x;
         _frameIndex = (_frameIndex + 1) % FRAME_BUFFER_SIZE;
 
@@ -538,12 +543,11 @@ public class PlayerMovement : MonoBehaviour {
 
     private void FixedUpdate() {
         CheckCollisions();
-        Gravity();
         Move();
-        JumpRequestValidation();
         AnimationState();
-        //FrameBuffer();
-        _PM.Anima.flip(_moveDirection.x > 0);
+        Gravity();
+        JumpRequestValidation();
         _rb.linearVelocity = _calculatedVelocity;
+        previousPostion = transform.position;
     }
 }

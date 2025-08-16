@@ -24,7 +24,12 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private Collider2D[] _cameraBoundsList;
     [SerializeField] private int _stageIndex = 0;
 
+    [Header("Background Sprites")]
+    [SerializeField] private GameObject[] _backgrounds;
+    private GameObject _currentBG;
+
     private GameManager GameManager;
+    private PlayerManager playerManager;
 
     public Camera _cam;
     private Vector3 _offset;
@@ -38,10 +43,13 @@ public class CameraManager : MonoBehaviour
     [HideInInspector] public float _targetZoom;
     private float _zoomSpeed = 10f;
 
+    private Transform _backgroundTarget;
+
     private void Awake()
     {
         GameManager = Singleton.GameManager_Instance.Get<GameManager>();
         _stageIndex = GameManager.CurrentStartSceneCameraArea;
+        _currentBG = _backgrounds[0];
 
         if (Player == null)
             Player = GameObject.FindWithTag("Player");
@@ -49,7 +57,8 @@ public class CameraManager : MonoBehaviour
             _target = Player?.transform;
         if (_targetRigidbody == null)
             _targetRigidbody = Player?.GetComponent<Rigidbody2D>();
-        
+
+        playerManager = Player.GetComponent<PlayerManager>();
 
         if (_cam == null)
             _cam = Camera.main;
@@ -60,6 +69,7 @@ public class CameraManager : MonoBehaviour
 
         SetStageIndex(_stageIndex);
         SetScreenCenter();
+        SetBackgroundTarget(_cam.transform);
 
     }
     private void Start()
@@ -73,9 +83,10 @@ public class CameraManager : MonoBehaviour
 
     private void LateUpdate()
     {
-
         MoveCamera_InLateUpdate();
         ZoomInOut_InLateUpdate();
+        BackgroundMove_InLateUpdate();
+        SetBackgroundSize();
     }
 
     #region LateUpdate 관련
@@ -133,7 +144,6 @@ public class CameraManager : MonoBehaviour
         if (lockY) newCamPos.y = boundsCenter.y;
         else newCamPos.y = Mathf.Clamp(targetCamPos.y, _currentBounds.min.y + camSize.y / 2f, _currentBounds.max.y - camSize.y / 2f);
 
-        Vector3 newCamPos = CalculateClampedCameraPosition(targetCamPos);
         if (_transitioning)
         {
             transform.position = Vector3.Lerp(transform.position, newCamPos, 8f * Time.deltaTime);
@@ -154,6 +164,10 @@ public class CameraManager : MonoBehaviour
         {
             _cam.orthographicSize = Mathf.Lerp(_cam.orthographicSize, _targetZoom, _zoomSpeed * Time.deltaTime);
         }
+    }
+
+    private void BackgroundMove_InLateUpdate() {
+        _currentBG.transform.position = new Vector3(_backgroundTarget.position.x, _backgroundTarget.position.y, 0);
     }
 
     /*
@@ -232,5 +246,31 @@ public class CameraManager : MonoBehaviour
         if (newSize <= 0f) return;
         _targetZoom = newSize;
         _cam.orthographicSize = newSize;
+    }
+
+    public void SetBackgroundTarget(Transform target) {
+        _backgroundTarget = target;
+    }
+
+    public void SetBackgroundSize() {
+
+        float cameraHeight = _cam.orthographicSize * 2;
+
+        float cameraWidth = cameraHeight * _cam.aspect;
+
+        SpriteRenderer spriteRenderer = _currentBG.GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer != null) {
+            float spriteWidth = spriteRenderer.sprite.bounds.size.x;
+            float spriteHeight = spriteRenderer.sprite.bounds.size.y;
+
+            float scaleX = cameraWidth / spriteWidth;
+            float scaleY = cameraHeight / spriteHeight;
+
+            float scale = Mathf.Max(scaleX, scaleY);
+            _currentBG.transform.localScale = new Vector3(scale * 1f, scale * 1f, 1);
+        } else {
+            Debug.LogError("SpriteRenderer didn't found");
+        }
     }
 }

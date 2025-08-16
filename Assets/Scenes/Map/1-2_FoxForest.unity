@@ -177,8 +177,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3714638}
   - component: {fileID: 3714640}
-  - component: {fileID: 3714639}
-  - component: {fileID: 3714641}
   m_Layer: 0
   m_Name: FFBg_0
   m_TagString: Untagged
@@ -201,19 +199,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1999200097}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3714639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3714637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 805d5fee0b7de28439900552ac8bf3fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxEffectMultiplier: 1
 --- !u!212 &3714640
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -269,18 +254,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3714641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3714637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df23a6efb9ca7534ca84a42578d46eef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4596154 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 524236343976882212, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
@@ -3416,6 +3389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e75bb0ff3b59d74181c108c2de6e602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 0}
   _target: {fileID: 1294410822}
   _targetRigidbody: {fileID: 1294410819}
   _baseFollowSpeed: 5
@@ -3431,6 +3405,8 @@ MonoBehaviour:
   - {fileID: 628529769}
   - {fileID: 1487421322}
   _stageIndex: 0
+  _backgrounds:
+  - {fileID: 3714637}
   _cam: {fileID: 0}
   _targetZoom: 0
 --- !u!114 &155344738
@@ -7773,10 +7749,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7895376963560531384, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8420885227792175148, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 155344735}
+    - target: {fileID: 8420885227792175148, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
+      propertyPath: invinsibleTime
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -34414,7 +34398,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1999200096}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

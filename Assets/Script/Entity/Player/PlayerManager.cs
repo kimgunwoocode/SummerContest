@@ -223,7 +223,9 @@ public class PlayerManager : MonoBehaviour {
 
     }
 
-
+    public Vector2 GetPreviousPosition() {
+        return _movement.previousPostion;
+    }
 
 
     private void Update() {
