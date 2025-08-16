@@ -5,11 +5,6 @@ public class Background : MonoBehaviour
     void Start() {
         Camera mainCamera = Camera.main;
 
-        if (mainCamera == null || !mainCamera.orthographic) {
-            Debug.LogError("메인 카메라가 Orthographic 모드가 아닙니다. 2D 게임에서는 Orthographic 모드를 사용해야 합니다.");
-            return;
-        }
-
         float cameraHeight = mainCamera.orthographicSize * 2;
 
         float cameraWidth = cameraHeight * mainCamera.aspect;
