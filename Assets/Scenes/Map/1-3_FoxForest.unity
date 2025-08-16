@@ -997,7 +997,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e75bb0ff3b59d74181c108c2de6e602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
   _target: {fileID: 1294410822}
   _targetRigidbody: {fileID: 1294410819}
   _baseFollowSpeed: 5
@@ -1009,8 +1008,6 @@ MonoBehaviour:
   _cameraBoundsList:
   - {fileID: 2091378938}
   _stageIndex: 0
-  _backgrounds:
-  - {fileID: 0}
   _cam: {fileID: 0}
   _targetZoom: 0
 --- !u!114 &155344738
@@ -1618,37 +1615,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5505560654318433701, guid: 7b92e9a9a810863499b193cfe66773f0, type: 3}
   m_PrefabInstance: {fileID: 327938130}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &332337227
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 332337228}
-  m_Layer: 0
-  m_Name: Sensar
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &332337228
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 332337227}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.4694, y: 0.82402, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!21 &332361925
 Material:
   serializedVersion: 8
@@ -8091,4 +8057,3 @@ SceneRoots:
   - {fileID: 7347787580741024020}
   - {fileID: 732326289}
   - {fileID: 1550306340}
-  - {fileID: 332337228}
