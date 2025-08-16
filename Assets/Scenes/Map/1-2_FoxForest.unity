@@ -1630,9 +1630,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1536570681
+  m_SortingLayer: 5
+  m_SortingOrder: 101
   m_Sprite: {fileID: -3402816046540829602, guid: 838b21d95576b3d47ba9587b83892802, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -14614,15 +14614,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5325527500429782734, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: m_Size.y
-      value: 1.9298447
+      value: 2.635006
       objectReference: {fileID: 0}
     - target: {fileID: 5325527500429782734, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: m_Offset.x
-      value: 0.1585252
+      value: 0.15852523
       objectReference: {fileID: 0}
     - target: {fileID: 5325527500429782734, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: m_Offset.y
-      value: -0.25165564
+      value: 0.10092503
       objectReference: {fileID: 0}
     - target: {fileID: 5325527500429782734, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -14748,7 +14748,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
     m_RemovedGameObjects:
     - {fileID: 2899876113478186669, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
     m_AddedGameObjects:
