@@ -2,15 +2,21 @@ using UnityEngine;
 
 public class ToGetItem : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    GameManager GameManager;
+    GameDataManager GameDataManager;
+
+    private void Awake()
     {
-        
+        GameManager = Singleton.GameManager_Instance.Get<GameManager>();
+        GameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CallGetItem(int ID) {
+        GameManager.Get_Item(ID);
+    }
+
+    public void CallNowInvisible(int ID)
     {
-        
+        GameDataManager.NowInvisible(ID);
     }
 }
