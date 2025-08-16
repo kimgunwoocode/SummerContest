@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
     public GameObject MainGamePanel;     // 메인게임 UI 화면
     public GameObject SavePointPanel;    // 세이브 포인트 UI 화면
     public GameObject ShopPanel;         // 상점 UI 화면
+    public GameObject GetHeartPanel;     // 드래곤심장 획득 화면
+    public GetHeartPanel _GetHeartPanel_script;
     public GameObject CloseButton;         // 창 닫기 제어하는 버튼
 
     /*
@@ -153,6 +155,16 @@ public class UIManager : MonoBehaviour
 
         ActivePanel = ShopPanel;
         // ActivePanelPrefab = Instantiate(ShopPrefab, ActivePanel); // 상점 창 생성
+    }
+
+    public void GetHeartItem(int step)
+    {
+        Time.timeScale = 0f;
+
+        GetHeartPanel.SetActive(true);
+        _GetHeartPanel_script.GetHeart(step);
+
+        ActivePanel = GetHeartPanel;
     }
 
     // 현재 활성화된 추가 창을 닫을 시 호출

@@ -28,12 +28,13 @@ public class MainGameUI : MonoBehaviour
     */
 
     public Sprite fullHeart;        // 채워진 하트 스프라이트
+    public Sprite halfHeart;        // 반만 채워진 하트 스프라이트
     public Sprite emptyHeart;       // 빈 하트 스프라이트
 
     // UI에서 따로 카운팅하는 체력 관련, 삭제가능
     private int UICurrentHP;
     private int UIMaxHP;
-    public List<Image> heartImages = new(); // 하트 이미지 리스트
+    public List<Image> heart_image = new(); // 하트 이미지 리스트
 
     void Awake()
     {
@@ -102,12 +103,13 @@ public class MainGameUI : MonoBehaviour
     public void InitializeHP(int maxHP)
     {
         // 전체 비활성
-        foreach (Image child in heartImages)
+        foreach (Image child in heart_image)
         { child.gameObject.SetActive(false); }
         // 최대체력만큼 활성
         for (int i = 0; i < maxHP; i++)
         {
-            heartImages[i].gameObject.SetActive(true);
+            if (i%2 == 1)
+               heart_image[i/2].gameObject.SetActive(true);
         }
 
         // 스프라이트 초기화
@@ -141,25 +143,49 @@ public class MainGameUI : MonoBehaviour
             InitializeHP(data.MaxHP);
         }
 
+        
         // currentHP가 0이면 모든 하트를 빈 스프라이트로 바꾼 후 리턴
         if (currentHP == 0)
         {
             for (int i = 0; i < data.MaxHP; i++)
             {
-                heartImages[i].sprite = emptyHeart;
+                heart_image[i].sprite = emptyHeart;
             }
             return;
         }
         // 체력 증감
-        for (int i = 0; i < data.MaxHP; i++) // i = 인덱스번호
+        int halfheart_index = currentHP % 2 == 1 ? currentHP / 2 : currentHP / 2 - 1;
+
+        if (currentHP % 2 == 1)
         {
-            if (i > currentHP - 1)
+            for (int i = 0; i < data.MaxHP/2; i++)
             {
-                heartImages[i].sprite = emptyHeart; // 체력 없음 스프라이트
+                if (i < currentHP / 2)
+                {
+                    heart_image[i].sprite = fullHeart;
+                }
+                else if (i == currentHP / 2)
+                {
+                    heart_image[i].sprite = halfHeart;
+                }
+                else
+                {
+                    heart_image[i].sprite = emptyHeart;
+                }
             }
-            else
+        }
+        else
+        {
+            for (int i = 0; i < data.MaxHP / 2; i++)
             {
-                heartImages[i].sprite = fullHeart;  // 체력 있음 스프라이트
+                if (i < currentHP / 2)
+                {
+                    heart_image[i].sprite = fullHeart;
+                }
+                else
+                {
+                    heart_image[i].sprite = emptyHeart;
+                }
             }
         }
     }

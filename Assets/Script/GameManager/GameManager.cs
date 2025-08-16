@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameDataManager GameDataManager;
     public TextAsset InitData;
     public GameObject Player;
+    UIManager UIManager;
 
     PlayerMovement PlayerMovement;
 
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
             Player = GameObject.FindGameObjectWithTag("Player");
             PlayerMovement = Player.GetComponent<PlayerMovement>();
         }
+        UIManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
     }
 
 
@@ -171,13 +173,15 @@ public class GameManager : MonoBehaviour
         }
         else if (ItemID == 1001) // 최대체력 증가 아이템 획득
         {
-            // 연출 실행시키기
-
             int CheckCount = GameDataManager.GettedItems[1001];
+
+            // 연출 실행시키기
+            UIManager.GetHeartItem(CheckCount%3 + ((CheckCount % 3)==0 ? 3 : 0)); // 단계 : 1, 2, 3
+
             if (CheckCount%3 == 0)
             {
                 Debug.Log("Execute MaxHP Increasement");
-                GameDataManager.MaxHP++;
+                GameDataManager.MaxHP += 2;
 
             }
         }
@@ -188,7 +192,7 @@ public class GameManager : MonoBehaviour
             int CheckCount = GameDataManager.GettedItems[1002];
             if (CheckCount % 3 == 0)
             {
-                GameDataManager.MaxBreathGauge++;
+                GameDataManager.MaxBreathGauge += 20;
 
             }
         }

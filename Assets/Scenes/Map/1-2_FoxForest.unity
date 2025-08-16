@@ -20044,7 +20044,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
@@ -20069,7 +20069,7 @@ PrefabInstance:
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 1045054618}
+      objectReference: {fileID: 1229836502}
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
@@ -20100,7 +20100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: CallNowInvisible
+      value: Change_isInteracted
       objectReference: {fileID: 0}
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
@@ -20120,7 +20120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: ToGetItem, Assembly-CSharp
+      value: Interaction, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
@@ -20250,6 +20250,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floatHeight: 0.2
   duration: 1.2
+--- !u!114 &1229836502 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6198973925560551992, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
+  m_PrefabInstance: {fileID: 1229836498}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229836500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef30d09af36b24846ad595ae5b7ac2a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1231180175
 PrefabInstance:
   m_ObjectHideFlags: 0

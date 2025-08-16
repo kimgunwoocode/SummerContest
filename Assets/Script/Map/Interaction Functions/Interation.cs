@@ -78,7 +78,7 @@ public class Interaction : MonoBehaviour
     }
 
 
-    public void Change_isInteracted(bool interactionState)
+    public void Change_State(bool interactionState)
     {
         State = interactionState;
         _gameDataManager.InteractionObjects[ID] = interactionState;

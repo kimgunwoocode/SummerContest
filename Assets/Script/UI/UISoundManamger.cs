@@ -8,9 +8,9 @@ public class UISoundManamger : MonoBehaviour
     SoundManager _SoundManager;
     SystemDataManager _SystemDataManager;
 
+    public Slider MasterVolume_Slider;
     public Slider BGMVolume_Slider;
     public Slider SFXVolume_Slider;
-    public Slider MasterVolume_Slider;
 
 
     private void Start()
@@ -22,14 +22,20 @@ public class UISoundManamger : MonoBehaviour
 
     public void SetSliderValue()
     {
+        MasterVolume_Slider.value = _SystemDataManager.SystemData.MasterVolume;
         BGMVolume_Slider.value = _SystemDataManager.SystemData.BGMVolume;
         SFXVolume_Slider.value = _SystemDataManager.SystemData.SFXVolume;
-        MasterVolume_Slider.value = _SystemDataManager.SystemData.MasterVolume;
+        SetVolume(VolumeName.Master_Volume, _SystemDataManager.SystemData.MasterVolume);
         SetVolume(VolumeName.BGM_Volume, _SystemDataManager.SystemData.BGMVolume);
         SetVolume(VolumeName.SFX_Volume, _SystemDataManager.SystemData.SFXVolume);
-        SetVolume(VolumeName.Master_Volume, _SystemDataManager.SystemData.MasterVolume);
     }
 
+    public void SetMasterVolume(float volume)
+    {
+        //MasterVolume_Slider.value = _SystemDataManager.SystemData.MasterVolume;
+        SetVolume(VolumeName.Master_Volume, volume);
+        _SystemDataManager.SystemData.MasterVolume = volume;
+    }
     public void SetBGMVolume(float volume)
     {
         //BGMVolume_Slider.value = _SystemDataManager.SystemData.BGMVolume;
@@ -41,12 +47,6 @@ public class UISoundManamger : MonoBehaviour
         //SFXVolume_Slider.value = _SystemDataManager.SystemData.SFXVolume;
         SetVolume(VolumeName.SFX_Volume, volume);
         _SystemDataManager.SystemData.SFXVolume = volume;
-    }
-    public void SetMasterVolume(float volume)
-    {
-        //MasterVolume_Slider.value = _SystemDataManager.SystemData.MasterVolume;
-        SetVolume(VolumeName.Master_Volume, volume);
-        _SystemDataManager.SystemData.MasterVolume = volume;
     }
 
     private void SetVolume(VolumeName VolumeName, float Volume)

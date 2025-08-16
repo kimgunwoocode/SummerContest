@@ -7,7 +7,7 @@ public class SettingPanel : MonoBehaviour
 
     private void OnEnable()
     {
-        UISoundManamger.SetSliderValue();
+        //UISoundManamger.SetSliderValue();
     }
 
     public void TitleButton()
