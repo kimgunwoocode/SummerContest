@@ -170,6 +170,7 @@ public class GameManager : MonoBehaviour
             int CheckCount = GameDataManager.GettedItems[1001];
             if (CheckCount%3 == 0)
             {
+                Debug.Log("Execute MaxHP Increasement");
                 GameDataManager.MaxHP++;
 
             }
