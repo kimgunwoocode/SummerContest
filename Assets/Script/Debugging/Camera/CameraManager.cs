@@ -56,7 +56,7 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         Vector3 playerPos = _target.position;
         float dx = Mathf.Abs(playerPos.x - _smoothedFollowPos.x);
@@ -91,7 +91,7 @@ public class CameraManager : MonoBehaviour
         Vector3 targetCamPos = _smoothedFollowPos + _currentMouseOffset;
         targetCamPos.z = _offset.z;
 
-        Vector2 camSize = GetCameraWorldSize();
+        /*Vector2 camSize = GetCameraWorldSize();
         Bounds bounds = _currentBounds.bounds;
         Vector3 boundsCenter = bounds.center;
         Vector3 newCamPos = targetCamPos;
@@ -103,8 +103,9 @@ public class CameraManager : MonoBehaviour
         else newCamPos.x = Mathf.Clamp(targetCamPos.x, bounds.min.x + camSize.x / 2f, bounds.max.x - camSize.x / 2f);
 
         if (lockY) newCamPos.y = boundsCenter.y;
-        else newCamPos.y = Mathf.Clamp(targetCamPos.y, bounds.min.y + camSize.y / 2f, bounds.max.y - camSize.y / 2f);
+        else newCamPos.y = Mathf.Clamp(targetCamPos.y, bounds.min.y + camSize.y / 2f, bounds.max.y - camSize.y / 2f);*/
 
+        Vector3 newCamPos = CalculateClampedCameraPosition(targetCamPos);
         if (_transitioning)
         {
             transform.position = Vector3.Lerp(transform.position, newCamPos, 8f * Time.fixedDeltaTime);
