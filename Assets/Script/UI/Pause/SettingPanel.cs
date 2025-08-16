@@ -1,14 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class SettingPanel : MonoBehaviour
 {
-    void Start()
-    {
+    public UISoundManamger UISoundManamger;
 
-    }
-    void Update()
+    private void OnEnable()
     {
-
+        UISoundManamger.SetSliderValue();
     }
 
     public void TitleButton()

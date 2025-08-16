@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1672343321082536275}
   - component: {fileID: 7945981874679585505}
   - component: {fileID: -5831135886237357416}
+  - component: {fileID: 1968946467523989518}
   - component: {fileID: 7258978633776394569}
   m_Layer: 0
   m_Name: GameManager
@@ -94,6 +95,23 @@ MonoBehaviour:
   defaultKeyBindings: {fileID: 11400000, guid: 2e5f571b29f0d024c885f607b5a1e32e, type: 2}
   defaultMouse: 0
   userMouse: 0
+--- !u!114 &1968946467523989518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5181389065074105569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed85143f321882744b0955a61c04db56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SystemData:
+    MouseSensitivity: 1
+    MasterVolume: 1
+    BGMVolume: 1
+    SFXVolume: 1
 --- !u!114 &7258978633776394569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,3 +129,4 @@ MonoBehaviour:
   - {fileID: 1672343321082536275}
   - {fileID: 7945981874679585505}
   - {fileID: -5831135886237357416}
+  - {fileID: 1968946467523989518}

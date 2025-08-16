@@ -19,11 +19,13 @@ public class SoundManager : MonoBehaviour
     public AudioMixer mainMixer;
     public Slider bgmSlider;
 
-    public void SetBGMVolume(float volume) {
+    public enum VolumeName { BGM_Volume, SFX_Volume, Master_Volume }
+
+    public void SetVolume(VolumeName VolumeName, float volume) {
         if (volume == 0) {
-            mainMixer.SetFloat("BGM_Volume", -80f);
+            mainMixer.SetFloat(VolumeName.ToString(), -80f);
         } else {
-            mainMixer.SetFloat("BGM_Volume", Mathf.Log10(volume) * 20);
+            mainMixer.SetFloat(VolumeName.ToString(), Mathf.Log10(volume) * 20);
         }
     }
 
