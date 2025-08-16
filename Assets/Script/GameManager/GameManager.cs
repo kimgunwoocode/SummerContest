@@ -116,24 +116,30 @@ public class GameManager : MonoBehaviour
 
     IEnumerator MoveSavedPointScene(string SceneName)
     {
-        PlayerMovement.SetControllable(false);
+        //PlayerMovement.SetControllable(false);
+        RequestTogglePause(); // 이거 써도 됨??? 뭔가 함수가 이상하게 생겼는데...
+
         VFXSequence sequence = new VFXBuilder()
             .AppendBlackOut(1f)
             .AppendBossNameAppearance(1f, "Game Over", "", 0f)
             .Build();
-        //VisualEffectController.Instance.BlackOut(1);
-        //VisualEffectController.Instance.BossNameAppearance("Game Over", "");
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadScene(SceneName);
+        sequence = new VFXBuilder()
+            .AppendBlackOut(0f)
+            .AppendBossNameAppearance(1f, "Game Over", "", 0f)
+            .Build();
 
-        sequence = new VFXBuilder().AppendBlackIn(1f).Build();
+        sequence = new VFXBuilder()
+            .AppendBlackIn(1f)
+            .Build();
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
-        //VisualEffectController.Instance.ClearScreen();
-        PlayerMovement.SetControllable(true);
-        Destroy(gameObject);
+        //PlayerMovement.SetControllable(true);
+        RequestTogglePause(); // 이거 써도 됨??? 뭔가 함수가 이상하게 생겼는데...
+
         yield break;
     }
 

@@ -30,8 +30,6 @@ public class PlayerManager : MonoBehaviour {
     private GameDataManager _data;
     private GameManager _manager;
 
-    private int _maxHealth;
-    private int _currentHealth;
 
     internal List<bool> Abilitis;
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
@@ -72,8 +70,6 @@ public class PlayerManager : MonoBehaviour {
         LoadData();
         _attack.InitiateBreath();
 
-        _maxHealth = _data.MaxHP;
-        _currentHealth = _data.CurrentHP;
         Abilitis = _data.PlayerAbility;
     }
 
@@ -159,9 +155,8 @@ public class PlayerManager : MonoBehaviour {
 
     public bool TakeDamage(int damage, Vector3 attackerPosition) {
         if (IsInvincible) return false;
-        _currentHealth -= damage;
-        _data.CurrentHP = _currentHealth;
-        if (_currentHealth <= 0) {
+        _data.CurrentHP -= damage;
+        if (_data.CurrentHP <= 0) {
             Die();
             return true;
         }

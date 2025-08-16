@@ -72,4 +72,10 @@ public class Singleton : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
+    private void OnDestroy()
+    {
+        Debug.Log("GameManager ¿ÀºêÁ§Æ® ÆÄ±«µÊ");
+    }
+#endif
 }
