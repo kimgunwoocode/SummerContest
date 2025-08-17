@@ -68,7 +68,7 @@ namespace GameAudio
                 case "enemy_death":
                     return effectSound.enemySound.death;
                 /* UI */
-                case "UI_click":
+                case "ui_click":
                     return effectSound.uiSound.click;
                 /* map */
                 case "map_save":
