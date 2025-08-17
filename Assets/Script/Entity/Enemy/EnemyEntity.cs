@@ -15,7 +15,7 @@ public class EnemyEntity : MonoBehaviour
     public int lastDamageDirection {get; private set;}
     public int currentHP {get; private set;}
 
-    [SerializeField] SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     
     [Header("Check")]
     [SerializeField] protected Transform wallCheck;
