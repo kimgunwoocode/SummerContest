@@ -136,7 +136,7 @@ public class GameManager : MonoBehaviour
         VFXSequence sequence2 = new VFXBuilder()
             .AppendBlackIn(2f, true)
             .AppendCallBacks(() => {
-                Debug.Log("fuck damm it");
+                Debug.Log("fuck damm it");// <-- 이거 왜 안됨???
                 sequenceExcuting = false;
             })
             .Build();
@@ -144,8 +144,9 @@ public class GameManager : MonoBehaviour
 
         while (sequenceExcuting)
             yield return null;
+        Debug.Log("Yes2");
 
-        RequestTogglePause(true);
+        RequestTogglePause(true);// <-- 이것도 안됨!!!
 
 
         yield break;

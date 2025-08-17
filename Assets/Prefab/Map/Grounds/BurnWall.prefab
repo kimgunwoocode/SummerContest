@@ -103,6 +103,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ac9c74d61c2fb4b8369bcba1c63aea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyData: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  wallCheck: {fileID: 0}
+  ledgeCheck: {fileID: 0}
+  groundCheck: {fileID: 0}
+  playerCheck: {fileID: 0}
 --- !u!114 &377353741694687534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,8 +234,12 @@ PrefabInstance:
       value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 5505560654318433701, guid: 7eb68ae127351484da9259d8d266b355, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 5505560654318433701, guid: 7eb68ae127351484da9259d8d266b355, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.08665511
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5505560654318433701, guid: 7eb68ae127351484da9259d8d266b355, type: 3}
       propertyPath: m_LocalPosition.x
@@ -237,7 +247,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5505560654318433701, guid: 7eb68ae127351484da9259d8d266b355, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4567
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5505560654318433701, guid: 7eb68ae127351484da9259d8d266b355, type: 3}
       propertyPath: m_LocalPosition.z

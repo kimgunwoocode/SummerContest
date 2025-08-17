@@ -93,7 +93,11 @@ public class EnemyEntity : MonoBehaviour
         velocityWorkspace.Set(velocityX * facingDir, velocityY);
         rb.linearVelocity = velocityWorkspace;
     }
-
+    public enum AttackType { Basic, Breath }
+    public virtual void TakeDamage(int damageAmount, Vector2 attackerPosition, AttackType attackType)
+    {
+        TakeDamage(damageAmount, attackerPosition);
+    }
     public virtual void TakeDamage(int damageAmount, Vector2 attackerPosition)
     {
         if (currentHP == 0) return;

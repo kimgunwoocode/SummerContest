@@ -1,15 +1,18 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class BurnWall : EnemyEntity
 {
     GameDataManager gameDataManager;
     Interaction interaction;
 
-    public override void TakeDamage(int damageAmount, Vector2 attackerPosition)
+    public override void TakeDamage(int damageAmount, Vector2 attackerPosition, AttackType attackType)
     {
-        // ¾Ö´Ï¸ŞÀÌ¼Ç, »ç¿îµå Ãß°¡
-        gameDataManager.InteractionObjects[interaction.ID] = false;
-        gameObject.SetActive(false);
+        if (attackType == AttackType.Breath)
+        {
+            // ì• ë‹ˆë©”ì´ì…˜, ì‚¬ìš´ë“œ ì¶”ê°€
+            gameDataManager.InteractionObjects[interaction.ID] = false;
+            gameObject.SetActive(false);
+        }
     }
 
 
