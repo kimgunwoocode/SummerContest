@@ -8,6 +8,8 @@ public class GetHeartPanel : MonoBehaviour
     public EventTrigger clossTrigger;
     public Image[] Heart;
 
+    private float duration = 2f;
+
     Color emptyColor = new Color(1, 1, 1, 0);
     Color fullColor = new Color(1, 1, 1, 1);
 
@@ -35,10 +37,10 @@ public class GetHeartPanel : MonoBehaviour
 
         while (elapsedTime < 3f)
         {
-            newAlpha.a = Mathf.Lerp(startX, endX, elapsedTime / 3f);
+            newAlpha.a = Mathf.Lerp(startX, endX, elapsedTime / duration);
             Heart[step-1].color = newAlpha;
             elapsedTime += Time.unscaledDeltaTime;
-            Debug.Log(elapsedTime);
+
             yield return null;
         }
         Heart[step-1].color = fullColor;

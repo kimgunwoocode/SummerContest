@@ -96,19 +96,15 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDie()//플레이어 사망시 호출해야할 함수
     {
-
-        //이전 세이브 포인트로 위치 이동시키기
         string SavedSceneName = "None Scene";
 
         if (GameDataManager.SpawnPoint == -1)// 게임 시작 후 세이브를 안했을 때, 초기화시키기
         {
-            SaveFileManager.Load_forNewGame(InitData.text, GameDataManager.GameData.Slot);
             CurrentScenePointID = -1;
             SavedSceneName = "1-1_ForgottenNest";
         }
-        else
+        else //이전 세이브 포인트로 시점 되돌리기
         {
-            LoadData__SavePoint();//이전 세이브 포인트로 시점 되돌리기
             CurrentScenePointID = -GameDataManager.SpawnPoint;
             SavedSceneName = SavePointID_list[GameDataManager.SpawnPoint];
         }
@@ -119,7 +115,7 @@ public class GameManager : MonoBehaviour
     IEnumerator MoveSavedPointScene(string SceneName)
     {
         //PlayerMovement.SetControllable(false);
-        RequestTogglePause(); // 이거 써도 됨??? 뭔가 함수가 이상하게 생겼는데...
+        //RequestTogglePause();
 
         VFXSequence sequence = new VFXBuilder()
             .AppendBlackOut(1f)
@@ -127,7 +123,14 @@ public class GameManager : MonoBehaviour
             .Build();
 
         yield return new WaitForSecondsRealtime(1f);
+
+        if (GameDataManager.SpawnPoint == -1)// 게임 시작 후 세이브를 안했을 때, 초기화시키기
+            SaveFileManager.Load_forNewGame(InitData.text, GameDataManager.GameData.Slot);
+        else
+            LoadData__SavePoint();
+
         SceneManager.LoadScene(SceneName);
+
         sequence = new VFXBuilder()
             .AppendBlackOut(0f)
             .AppendBossNameAppearance(1f, "Game Over", "", 0f)
@@ -140,7 +143,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
 
         //PlayerMovement.SetControllable(true);
-        RequestTogglePause(); // 이거 써도 됨??? 뭔가 함수가 이상하게 생겼는데...
+        //RequestTogglePause();
 
         yield break;
     }
