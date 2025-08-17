@@ -348,6 +348,10 @@ public class VisualEffectController : MonoBehaviour
     private void Awake() {
         if (instance == null) {
             instance = this;
+            //DontDestroyOnLoad(gameObject);
+        }
+        else {
+            //Destroy(gameObject);
         }
 
         blackOutRenderer = blackOut.GetComponent<Image>();
@@ -441,7 +445,6 @@ public class VisualEffectController : MonoBehaviour
         blackOutRenderer.material.SetFloat("_IsReversedAlpha", 0);
         blackOutRenderer.material.SetFloat("_IsReversedColor", 0);
         blackOutRenderer.material.SetFloat("_Radius", startX);
-        Debug.Log("효석이는 병신인가요???? : " + blackOutRenderer.material);
 
         if (isRealTime) {
             float startTime = Time.realtimeSinceStartup;

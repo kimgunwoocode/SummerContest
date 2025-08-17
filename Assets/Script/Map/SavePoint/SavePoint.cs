@@ -55,6 +55,7 @@ public class SavePoint : MonoBehaviour
         Singleton.GameManager_Instance.Get<GameManager>().SaveData__SavePoint();
         if (SavePoint_type == SP_type.Main)
             UImanager.EnterSavePoint();
+        SoundManager.instance.PlaySFX("map_save");
     }
 
     // 한 번 상호작용했으면 활성화 시키기
