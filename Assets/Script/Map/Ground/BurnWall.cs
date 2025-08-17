@@ -1,22 +1,29 @@
 using UnityEngine;
 
-public class BurnWall : MonoBehaviour
+public class BurnWall : EnemyEntity
 {
-    LayerMask mask;
+    GameDataManager gameDataManager;
+    Interaction interaction;
 
-    private void Awake()
+    public override void TakeDamage(int damageAmount, Vector2 attackerPosition)
     {
-        mask = LayerMask.NameToLayer("Breath");
+        // 애니메이션, 사운드 추가
+        gameDataManager.InteractionObjects[interaction.ID] = false;
+        gameObject.SetActive(false);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == mask)
-        {
-            Destroy(gameObject);
-        }
-    }
 
+    #region overide
+    protected override void Awake()
+    {
+        gameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();
+        interaction = gameObject.GetComponent<Interaction>();
+    }
+    protected override void Start() { }
+    protected override void Update() { }
+    protected override void FixedUpdate() { }
+    public override void OnDrawGizmos() { }
+    #endregion
     public void init()
     {
         Destroy(gameObject);

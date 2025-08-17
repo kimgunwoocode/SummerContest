@@ -2,7 +2,6 @@
 
 public class NomalBreath : BreathObject
 {
-    [Header("부딪혀 사라지게 할 레이어")]
     //디버깅용(+ layer 사용 제안)
     [SerializeField] private LayerMask enemyLayer;
 
@@ -54,6 +53,7 @@ public class NomalBreath : BreathObject
         }
         else if (((1 << collision.gameObject.layer) & hitLayers) != 0)
         {
+            Debug.Log(collision.gameObject.layer + " layer 충돌");
             Destroy(gameObject);
         }
     }
