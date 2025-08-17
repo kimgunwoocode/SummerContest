@@ -40,7 +40,7 @@ public class Jaii_StunState : StunState
             }
             else if(isPlayerMinRange)
             {
-                stateMachine.ChangeState(jaii.ChargeState);
+                stateMachine.ChangeState(jaii.PlayerDetectedState);
             }
             else
             {
