@@ -81,7 +81,7 @@ public class ChracterPanel : MonoBehaviour
         foreach (GameObject child in heartImages)
         { child.gameObject.SetActive(false); }
         // 최대체력만큼 활성
-        for (int i = 0; i < data.MaxHP; i++)
+        for (int i = 0; i < data.MaxHP/2; i++)
         {
             heartImages[i].gameObject.SetActive(true);
         }
