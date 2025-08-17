@@ -3,10 +3,12 @@ using UnityEngine;
 public class Enemy_Bullet : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private SpriteRenderer sp;
 
-    private void Awake() 
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        sp = GetComponent<SpriteRenderer>();
     }
 
     public void SetVelocity(Vector2 velocity)
@@ -14,7 +16,12 @@ public class Enemy_Bullet : MonoBehaviour
         rb.linearVelocity = velocity;
     }
 
-    private void OnTriggerEnter2D(Collider2D other) 
+    public void SetFlipX()
+    {
+        sp.flipX = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         // 플레이어와 충돌 시 공격 처리
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
@@ -28,10 +35,10 @@ public class Enemy_Bullet : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        else if(other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             //gameObject.SetActive(false);
             Destroy(gameObject);
-        }    
+        }
     }
 }
