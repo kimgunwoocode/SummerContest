@@ -65,36 +65,36 @@ public class VFXBuilder {
         return this;
     }
 
-    public VFXBuilder AppendBossNameAppearance(float duration, string title, string name, float nameAppearanceDelay) {
-        VFX_Info bossNameAppearance = new VFX_Info(VFX_Type.BossNameAppearance, title, name, nameAppearanceDelay, duration);
+    public VFXBuilder AppendBossNameAppearance(float duration, string title, string name, float nameAppearanceDelay, bool isRealTime = false) {
+        VFX_Info bossNameAppearance = new VFX_Info(VFX_Type.BossNameAppearance, title, name, nameAppearanceDelay, duration, _isRealTime: isRealTime);
         List<VFX_Info> sequence = new List<VFX_Info>();
         sequence.Add(bossNameAppearance);
         infos.Add(sequence);
         return this;
     }
 
-    public VFXBuilder JoinBossNameAppearance(float duration, string title, string name, float nameAppearanceDelay) {
-        VFX_Info bossNameAppearance = new VFX_Info(VFX_Type.BossNameAppearance, title, name, nameAppearanceDelay, duration);
+    public VFXBuilder JoinBossNameAppearance(float duration, string title, string name, float nameAppearanceDelay, bool isRealTime = false) {
+        VFX_Info bossNameAppearance = new VFX_Info(VFX_Type.BossNameAppearance, title, name, nameAppearanceDelay, duration, _isRealTime: isRealTime);
         infos[infos.Count - 1].Add(bossNameAppearance);
         return this;
     }
 
-    public VFXBuilder AppendBossNameFadeOut(float duration) {
-        VFX_Info bossNameFadeOut = new VFX_Info(VFX_Type.BossNameFadeOut, _duration: duration);
+    public VFXBuilder AppendBossNameFadeOut(float duration, bool isRealTime = false) {
+        VFX_Info bossNameFadeOut = new VFX_Info(VFX_Type.BossNameFadeOut, _duration: duration, _isRealTime: isRealTime);
         List<VFX_Info> sequence = new List<VFX_Info>();
         sequence.Add(bossNameFadeOut);
         infos.Add(sequence);
         return this;
     }
 
-    public VFXBuilder JoinBossNameFadeOut(float duration) {
-        VFX_Info info = new VFX_Info(VFX_Type.BossNameFadeOut, _duration : duration);
+    public VFXBuilder JoinBossNameFadeOut(float duration, bool isRealTime = false) {
+        VFX_Info info = new VFX_Info(VFX_Type.BossNameFadeOut, _duration : duration, _isRealTime: isRealTime);
         infos[infos.Count - 1].Add(info);
         return this;
     }
 
-    public VFXBuilder AppendBlackOut(float duration) {
-        VFX_Info blackOut = new VFX_Info(VFX_Type.BlackOut, _duration: duration);
+    public VFXBuilder AppendBlackOut(float duration, bool isRealTime = false) {
+        VFX_Info blackOut = new VFX_Info(VFX_Type.BlackOut, _duration: duration, _isRealTime: isRealTime);
         List<VFX_Info> sequence = new List<VFX_Info>();
         sequence.Add(blackOut);
         infos.Add(sequence);
@@ -115,8 +115,8 @@ public class VFXBuilder {
         return this;
     }
 
-    public VFXBuilder JoinBlackIn(float duration) {
-        VFX_Info info = new VFX_Info(VFX_Type.BlackIn, _duration: duration);
+    public VFXBuilder JoinBlackIn(float duration, bool isRealTime = false) {
+        VFX_Info info = new VFX_Info(VFX_Type.BlackIn, _duration: duration, _isRealTime: isRealTime);
         infos[infos.Count - 1].Add(info);
         return this;
     }
@@ -360,9 +360,9 @@ public class VisualEffectController : MonoBehaviour
     private bool isRunningVFX = false;
 
     public Coroutine BossNameAppearance(VFX_Info info) {
-        return StartCoroutine(IBossNameAppearance(info.title, info.name, info.nameAppearanceDelay, info.duration));
+        return StartCoroutine(IBossNameAppearance(info.title, info.name, info.nameAppearanceDelay, info.duration, info.isRealTime));
     }
-    private IEnumerator IBossNameAppearance(string _title ,string _name, float nameAppearanceDelay ,float duration) {
+    private IEnumerator IBossNameAppearance(string _title ,string _name, float nameAppearanceDelay ,float duration, bool isRealTime) {
         isRunningVFX = true;
         string curretentText = null;
         int index = 0;
@@ -374,17 +374,25 @@ public class VisualEffectController : MonoBehaviour
             curretentText += _title[index];
             title.text = curretentText;
             index++;
-            yield return new WaitForSeconds(textAppearanceTime);
+            if (isRealTime) {
+                yield return new WaitForSecondsRealtime(textAppearanceTime);
+            } else { 
+                yield return new WaitForSeconds(textAppearanceTime);
+            }
         }
-        yield return new WaitForSeconds(nameAppearanceDelay);
+        if (isRealTime) {
+            yield return new WaitForSecondsRealtime(nameAppearanceDelay);
+        } else {
+            yield return new WaitForSeconds(nameAppearanceDelay);
+        }
         bossName.text = _name;
         isRunningVFX = false;
     }
 
     public Coroutine BossNameFadeOut(VFX_Info info) {
-        return StartCoroutine(IBossNameFadeOut(info.duration));
+        return StartCoroutine(IBossNameFadeOut(info.duration, info.isRealTime));
     }
-    private IEnumerator IBossNameFadeOut(float duration) {
+    private IEnumerator IBossNameFadeOut(float duration, bool isRealTime) {
         isRunningVFX = true;
         float startX = 1f;
         float endX = 0;
@@ -393,7 +401,7 @@ public class VisualEffectController : MonoBehaviour
             float newAlpha = Mathf.Lerp(startX, endX, elapsedTime/duration);
             title.alpha = newAlpha;
             bossName.alpha = newAlpha;
-            elapsedTime += Time.deltaTime;
+            elapsedTime += isRealTime ? Time.unscaledTime : Time.deltaTime;
             yield return null;
         }
         title.alpha = 0f;
