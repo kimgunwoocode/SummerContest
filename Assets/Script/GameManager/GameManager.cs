@@ -114,8 +114,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator MoveSavedPointScene(string SceneName)
     {
-        //PlayerMovement.SetControllable(false);
-        //RequestTogglePause();
+        bool sequenceExcuting = true;
 
         VFXSequence sequence = new VFXBuilder()
             .AppendBlackOut(1f)
