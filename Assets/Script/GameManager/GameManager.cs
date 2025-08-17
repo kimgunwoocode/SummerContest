@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
     {
         //PlayerMovement.SetControllable(false);
         //RequestTogglePause();
-
+        bool sequenceExcuting = true;
         VFXSequence sequence = new VFXBuilder()
             .AppendBlackOut(1f)
             .AppendBossNameAppearance(1f, "Game Over", "", 0f)
