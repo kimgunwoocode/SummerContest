@@ -116,26 +116,43 @@ public class GameManager : MonoBehaviour
     {
         bool sequenceExcuting = true;
 
+        RequestTogglePause(false);
+
+
         VFXSequence sequence = new VFXBuilder()
-            .AppendBlackOut(1f)
-            .AppendBossNameAppearance(1f, "Game Over", "", 0f)
+            .AppendBlackOut(1f,true)
+            .AppendBossNameAppearance(0.5f, "Game Over", "", 0f, true)
             .AppendCallBacks(()=> {
                 sequenceExcuting = false;
             })
             .Build();
+
         while(sequenceExcuting)
             yield return null;
+
+        if (GameDataManager.SpawnPoint == -1)// 게임 시작 후 세이브를 안했을 때, 초기화시키기
+            SaveFileManager.Load_forNewGame(InitData.text, GameDataManager.GameData.Slot);
+        else
+            LoadData__SavePoint();
+
         SceneManager.LoadScene(SceneName);
-        /*sequence = new VFXBuilder()
-            .AppendBlackOut(0f)
-            .AppendBossNameAppearance(1f, "Game Over", "", 0f)
-            .Build();*/
+
+        sequenceExcuting = true;
 
         sequence = new VFXBuilder()
-            .AppendBlackIn(1f)
+            //.AppendBlackOut(0f, true)
+            //.AppendBossNameAppearance(0f, "Game Over", "", 0f, true)
+            .AppendBlackIn(1f, true)
+            .AppendCallBacks(() => {
+                Debug.Log("VFX collbacks");
+                sequenceExcuting = false;
+            })
             .Build();
 
-        yield return new WaitForSecondsRealtime(1f);
+        while (sequenceExcuting)
+            yield return null;
+
+        RequestTogglePause(true);
 
 
         yield break;
@@ -320,6 +337,21 @@ public class GameManager : MonoBehaviour
             IsPause = true;
             return true;
         } else {
+            Time.timeScale = 1;
+            IsPause = false;
+            return false;
+        }
+    }
+    public bool RequestTogglePause(bool timeScale)
+    {
+        if (!timeScale)
+        {
+            Time.timeScale = 0;
+            IsPause = true;
+            return true;
+        }
+        else
+        {
             Time.timeScale = 1;
             IsPause = false;
             return false;

@@ -11,27 +11,41 @@ public class Jaii_PlayerDetectedState : PlayerDetectedState
 
         jaii = enemy as Jaii;
     }
-    
+
+    public override void Enter()
+    {
+        base.Enter();
+
+        enemy.spriteRenderer.flipX = !enemy.spriteRenderer.flipX;
+    }
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        if(performCloseRangeAction)
+        if (performCloseRangeAction)
         {
             stateMachine.ChangeState(jaii.MeleeAttackState);
         }
-        else if(performLongRangeAction)
+        else if (performLongRangeAction)
         {
             stateMachine.ChangeState(jaii.ChargeState);
         }
-        else if(!isPlayerMaxRange)
+        else if (!isPlayerMaxRange)
         {
             stateMachine.ChangeState(jaii.LookForPlayerState);
         }
-        else if(!isLedge)
+        else if (!isLedge)
         {
             enemy.Flip();
             stateMachine.ChangeState(jaii.MoveState);
         }
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        enemy.spriteRenderer.flipX = !enemy.spriteRenderer.flipX;
     }
 }

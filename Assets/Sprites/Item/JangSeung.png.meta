@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 7ede2d08bf91c44d9952ee4235e4316b
+guid: 62b64af284dca4a59813ca03d12ac715
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 4760180264879323255
     second: JangSeung_0
+  - first:
+      213: -8024926731072008080
+    second: JangSeung_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,10 +106,10 @@ TextureImporter:
       name: JangSeung_0
       rect:
         serializedVersion: 2
-        x: 28
-        y: 43
-        width: 1730
-        height: 1158
+        x: 0
+        y: 0
+        width: 1330
+        height: 1250
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,11 +124,33 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: JangSeung_1
+      rect:
+        serializedVersion: 2
+        x: 1330
+        y: 0
+        width: 1330
+        height: 1250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0709aede7abb1a090800000000000000
+      internalID: -8024926731072008080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 85076774378b444198cee0577273a4f6
     internalID: 0
     vertices: []
     indices: 
@@ -133,9 +158,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1330.0,"y":1250.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       JangSeung_0: 4760180264879323255
+      JangSeung_1: -8024926731072008080
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
