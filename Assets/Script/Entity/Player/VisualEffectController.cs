@@ -441,12 +441,26 @@ public class VisualEffectController : MonoBehaviour
         blackOutRenderer.material.SetFloat("_IsReversedAlpha", 0);
         blackOutRenderer.material.SetFloat("_IsReversedColor", 0);
         blackOutRenderer.material.SetFloat("_Radius", startX);
+        Debug.Log("효석이는 병신인가요???? : " + blackOutRenderer.material);
 
-        while (elapsedTime < duration) {
-            float newRadius = Mathf.Lerp(startX, endX, elapsedTime / duration);
-            blackOutRenderer.material.SetFloat("_Radius", newRadius);
-            elapsedTime += isRealTime ? Time.unscaledDeltaTime : Time.deltaTime;
-            yield return null;
+        if (isRealTime) {
+            float startTime = Time.realtimeSinceStartup;
+            while (elapsedTime < duration) {
+                float newRadius = Mathf.Lerp(startX, endX, elapsedTime / duration);
+                blackOutRenderer.material.SetFloat("_Radius", newRadius);
+
+                elapsedTime = Time.realtimeSinceStartup - startTime;
+                yield return null;
+            }
+        }
+        else {
+            while (elapsedTime < duration) {
+                float newRadius = Mathf.Lerp(startX, endX, elapsedTime / duration);
+                blackOutRenderer.material.SetFloat("_Radius", newRadius);
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
         }
         blackOutRenderer.material.SetFloat("_Radius", endX);
         isRunningVFX = false;
