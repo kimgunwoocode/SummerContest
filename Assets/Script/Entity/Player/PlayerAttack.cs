@@ -39,7 +39,8 @@ public class PlayerAttack : MonoBehaviour {
         Vector3 attackPos = transform.position + direction.normalized * _attackStats.MeleeAttackRange * 2f;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Instantiate(MeleeEffect, attackPos, Quaternion.Euler(0, 0, angle - 90));
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, _attackStats.MeleeAttackRange, _attackStats.EnemyLayer); 
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, _attackStats.MeleeAttackRange, _attackStats.EnemyLayer);
+        SoundManager.instance.PlaySFX("player_attack");
         foreach (var hit in hits) {
             hit.GetComponentInParent<EnemyEntity>()?.TakeDamage(_data.ATK, transform.position);
             _data.CurrentBreathGauge += 1;
