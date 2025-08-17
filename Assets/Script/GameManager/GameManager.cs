@@ -199,7 +199,7 @@ public class GameManager : MonoBehaviour
             if (CheckCount % 3 == 0)
             {
                 GameDataManager.MaxBreathGauge += 20;
-
+                UIManager.MainGameUI.InitializeBreathGauge();
             }
         }
     }
@@ -213,7 +213,7 @@ public class GameManager : MonoBehaviour
 
     public void SetBreath_to_EquipSkill(int slot)
     {
-
+        UIManager.MainGameUI.BreathIconFix();
     }
 
 
