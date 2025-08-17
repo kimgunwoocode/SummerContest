@@ -4,6 +4,9 @@ public class Jaii_ChargeState : ChargeState
 {
     Jaii jaii;
 
+    [SerializeField] Transform chargeJaii;
+    [SerializeField] float rollingSpeed = 5f;
+
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
         base.Initialize(enemy, stateMachine);
@@ -34,5 +37,20 @@ public class Jaii_ChargeState : ChargeState
             jaii.StunState.SetDoStunKnockback(false);
             stateMachine.ChangeState(jaii.StunState);
         }
+    }
+
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
+
+        // 자이 굴러가기
+        chargeJaii.Rotate(0, 0, rollingSpeed * Time.fixedDeltaTime * enemy.facingDir);
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        chargeJaii.rotation = Quaternion.identity;
     }
 }
