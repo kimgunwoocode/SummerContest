@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using UnityEngine.Rendering.Universal;
 
 public class Map_1_X : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class Map_1_X : MonoBehaviour
     [Header("Map Objects")]
     public GameObject BossWall;
     public GameObject BossTrigger;
+    [SerializeField] GameObject[] lightnings;
 
     private void Awake() {
         GameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();
@@ -36,4 +39,5 @@ public class Map_1_X : MonoBehaviour
     public void DeleteTrigger() {
         BossTrigger.SetActive(false);
     }
+
 }

@@ -132,7 +132,6 @@ public class GameManager : MonoBehaviour
         RequestTogglePause(false);
         sequenceExcuting = true;
 
-        Debug.Log("is it work?");
         VFXSequence sequence2 = new VFXBuilder()
             .AppendBlackIn(2f, true)
             .AppendCallBacks(() => {

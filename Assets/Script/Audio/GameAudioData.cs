@@ -34,6 +34,8 @@ namespace GameAudio
                     return themaBGM.MapBGM.foxHole;
                 case "1-5_ThousandTree":
                     return themaBGM.MapBGM.thousandTree;
+                case "1-X_Gumiho":
+                    return themaBGM.MapBGM.heavyRain;
                 default:
                     return null;
             }
@@ -73,6 +75,12 @@ namespace GameAudio
                 /* map */
                 case "map_save":
                     return effectSound.mapSound.save;
+                case "map_Thunder1":
+                    return effectSound.mapSound.Lightning1;
+                case "map_Thunder2":
+                    return effectSound.mapSound.Lightning2;
+                case "map_Thunder3":
+                    return effectSound.mapSound.Lightning3;
                 default:
                     return null;
             }
@@ -97,6 +105,7 @@ namespace GameAudio
         public AudioClip burnedFoxForest;
         public AudioClip foxHole;
         public AudioClip thousandTree;
+        public AudioClip heavyRain;
     }
 
     /* Boss Stage BGMs */
@@ -149,5 +158,8 @@ namespace GameAudio
     public class MapSoundGroup
     {
         public AudioClip save;
+        public AudioClip Lightning1;
+        public AudioClip Lightning2;
+        public AudioClip Lightning3;
     }
 }

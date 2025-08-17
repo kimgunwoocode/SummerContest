@@ -348,6 +348,9 @@ public class VisualEffectController : MonoBehaviour
     private void Awake() {
         if (instance == null) {
             instance = this;
+        } else {
+            Destroy(gameObject);
+            Debug.Log("d");
         }
 
         blackOutRenderer = blackOut.GetComponent<Image>();
