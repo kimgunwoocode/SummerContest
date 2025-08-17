@@ -50,7 +50,7 @@ public class MeleeAttackState : AttackState
         {
             // 플레이어 공격
             col.GetComponent<PlayerManager>()?.TakeDamage(1, enemy.aliveGO.transform.position);
-            Debug.Log($"{enemy.gameObject.name}가 플레이어를 공격 함");
+            //Debug.Log($"{enemy.gameObject.name}가 플레이어를 공격 함");
         }
     }
 
