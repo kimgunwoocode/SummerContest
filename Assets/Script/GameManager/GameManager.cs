@@ -113,8 +113,8 @@ public class GameManager : MonoBehaviour
 
         bool sequenceExcuting = true;
         VFXSequence sequence = new VFXBuilder()
-            .AppendBlackOut(1f,true)
-            .AppendBossNameAppearance(0.5f, "Game Over", "", 0f, true)
+            .AppendBlackOut(1.5f,true)
+            .AppendBossNameAppearance(0.8f, "Game Over", "       ", 0f, true)
             .AppendCallBacks(()=> {
                 sequenceExcuting = false;
             })
@@ -129,17 +129,18 @@ public class GameManager : MonoBehaviour
             LoadData__SavePoint();
 
         SceneManager.LoadScene(SceneName);
+
+        yield return null;
+
         RequestTogglePause(false);
         sequenceExcuting = true;
 
-        VFXSequence sequence2 = new VFXBuilder()
-            .AppendBlackIn(2f, true)
+        sequence = new VFXBuilder()
+            .AppendBlackIn(0.8f, true)
             .AppendCallBacks(() => {
-                Debug.Log("fuck damm it");
                 sequenceExcuting = false;
             })
             .Build();
-        Debug.Log("Yes");
 
         while (sequenceExcuting)
             yield return null;

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FenFire_AttackState : AttackState
@@ -39,6 +40,7 @@ public class FenFire_AttackState : AttackState
     {
         //bullet = PoolManager.instance.Get(0);
         Enemy_Bullet newBullet = Instantiate(bulletPrefab, attackPosition.position, Quaternion.identity);
+        if (enemy.facingDir == 1) newBullet.SetFlipX();
 
         bulletVelocity = new Vector2(bulletSpeed, 0);
         newBullet.SetVelocity(bulletVelocity * enemy.facingDir);

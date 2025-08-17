@@ -444,7 +444,6 @@ public class VisualEffectController : MonoBehaviour
         blackOutRenderer.material.SetFloat("_IsReversedAlpha", 0);
         blackOutRenderer.material.SetFloat("_IsReversedColor", 0);
         blackOutRenderer.material.SetFloat("_Radius", startX);
-        Debug.Log("효석이는 병신인가요???? : " + blackOutRenderer.material);
 
         if (isRealTime) {
             float startTime = Time.realtimeSinceStartup;

@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.IO;
@@ -32,16 +32,16 @@ public class SystemDataManager : MonoBehaviour
         File.WriteAllText(GetPath(), json);
 
 #if UNITY_EDITOR
-        // Assets ³»ºÎ °æ·Î (Unity°¡ ÀÎ½Ä °¡´É)
+        // Assets ë‚´ë¶€ ê²½ë¡œ (Unityê°€ ì¸ì‹ ê°€ëŠ¥)
         string relativePath = "Assets/InitData/EditorSaveData";
 
-        // ½ÇÁ¦ OS»óÀÇ °æ·Î·Î º¯È¯
+        // ì‹¤ì œ OSìƒì˜ ê²½ë¡œë¡œ ë³€í™˜
         string fullPath = Path.Combine(Application.dataPath.Replace("/Assets", ""), relativePath);
 
         if (!Directory.Exists(fullPath))
             Directory.CreateDirectory(fullPath);
 
-        // Unity°¡ ÆÄÀÏÀ» ÀÎ½ÄÇÒ ¼ö ÀÖµµ·Ï °­Á¦ »õ·Î°íÄ§
+        // Unityê°€ íŒŒì¼ì„ ì¸ì‹í•  ìˆ˜ ìˆë„ë¡ ê°•ì œ ìƒˆë¡œê³ ì¹¨
         AssetDatabase.Refresh();
 
         string path = Path.Combine(fullPath, $"SystemData.json");
@@ -54,7 +54,7 @@ public class SystemDataManager : MonoBehaviour
     {
         if (!File.Exists(GetPath()))
         {
-            Debug.LogWarning($"SystemData.json ÆÄÀÏÀÌ ¾ø½À´Ï´Ù.");
+            Debug.LogWarning($"SystemData.json íŒŒì¼ì´ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
         string json = File.ReadAllText(GetPath());

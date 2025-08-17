@@ -6,6 +6,7 @@ public abstract class BreathObject : MonoBehaviour
     public BreathLayerOption BreathLayerOption_SO;
     protected Vector2 shootingDirection;  // 내부 사용 전용
 
+    [Header("부딪혀 사라지게 할 레이어")]
     [SerializeField] protected LayerMask hitLayers;
 
     public Vector2 ShootingDirection      // 외부에서 방향 설정용

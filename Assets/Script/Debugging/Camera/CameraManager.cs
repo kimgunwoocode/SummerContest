@@ -146,7 +146,7 @@ public class CameraManager : MonoBehaviour
 
         if (_transitioning)
         {
-            transform.position = Vector3.Lerp(transform.position, newCamPos, 8f * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, newCamPos, 8f * Time.unscaledDeltaTime);
             if (Vector3.Distance(transform.position, newCamPos) < 0.01f)
             {
                 _transitioning = false;

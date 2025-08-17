@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
+using static EnemyEntity;
 
 public class NomalBreath : BreathObject
 {
-    [Header("부딪혀 사라지게 할 레이어")]
     //디버깅용(+ layer 사용 제안)
     [SerializeField] private LayerMask enemyLayer;
 
@@ -47,13 +47,14 @@ public class NomalBreath : BreathObject
         if (((1 << collision.gameObject.layer) & enemyLayer) != 0)//CompareTag("Enemy"))
         {
             Debug.Log("enemy layer 충돌");
-            collision.transform.parent.GetComponent<EnemyEntity>()?.TakeDamage(Singleton.GameManager_Instance.Get<GameDataManager>().ATK * BreathItemData_SO.breathDamage, transform.position);
+            collision.transform.parent.GetComponent<EnemyEntity>()?.TakeDamage(Singleton.GameManager_Instance.Get<GameDataManager>().ATK * BreathItemData_SO.breathDamage, transform.position, AttackType.Breath);
             // 솔직히 코드 너무 더러움... 유연성도 없음!! Enemy와 로직 상의해보기!!!
             
             Destroy(gameObject);
         }
         else if (((1 << collision.gameObject.layer) & hitLayers) != 0)
         {
+            Debug.Log(collision.gameObject.layer + " layer 충돌");
             Destroy(gameObject);
         }
     }
