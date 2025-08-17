@@ -14,9 +14,4 @@ public class ItemHandler : MonoBehaviour
     public void CallGetItem(int id) {
         _gameManager.Get_Item(id);
     }
-
-    public void CallNowInvisible(int id)
-    {
-        _gameDataManager.NowInvisible(id);
-    }
 }
