@@ -48,6 +48,35 @@ namespace GameAudio
                     return null;
             }
         }
+
+        public AudioClip GetSfxClip(string sfxName)
+        {
+            switch (sfxName)
+            {
+                /* player */
+                case "player_attack":
+                    return effectSound.characterSound.attack;
+                case "player_jump":
+                    return effectSound.characterSound.jump;
+                case "player_dash":
+                    return effectSound.characterSound.dash;
+                case "player_damage":
+                    return effectSound.characterSound.damage;
+                /* enemy */
+                case "enemy_damage":
+                    return effectSound.enemySound.damage;
+                case "enemy_death":
+                    return effectSound.enemySound.death;
+                /* UI */
+                case "UI_click":
+                    return effectSound.uiSound.click;
+                /* map */
+                case "map_save":
+                    return effectSound.mapSound.save;
+                default:
+                    return null;
+            }
+        }
     }
 
     /* All BGMs */
@@ -84,6 +113,7 @@ namespace GameAudio
         public CharacterSoundGroup characterSound;
         public EnemySoundGroup enemySound;
         public UISoundGroup uiSound;
+        public MapSoundGroup mapSound;
     }
 
     /* Character Effect Sounds */
@@ -92,14 +122,16 @@ namespace GameAudio
     {
         public AudioClip attack;
         public AudioClip jump;
+        public AudioClip dash;
         public AudioClip breath;
+        public AudioClip damage;
     }
 
     /* Enemy Effect Sounds */
     [System.Serializable]
     public class EnemySoundGroup
     {
-        public AudioClip attack;
+        public AudioClip damage;
         public AudioClip death;
     }
 
@@ -110,5 +142,12 @@ namespace GameAudio
         public AudioClip click;
         public AudioClip confirm;
         public AudioClip cancel;
+    }
+
+    /* Map Effect Sounds */
+    [System.Serializable]
+    public class MapSoundGroup
+    {
+        public AudioClip save;
     }
 }

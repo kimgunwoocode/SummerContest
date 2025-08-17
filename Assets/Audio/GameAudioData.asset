@@ -24,13 +24,17 @@ MonoBehaviour:
       Gumiho: {fileID: 8300000, guid: 2724a08a39ceacc4bba24aad22e0fd9d, type: 3}
   effectSound:
     characterSound:
-      attack: {fileID: 0}
-      jump: {fileID: 0}
+      attack: {fileID: 8300000, guid: a75f714fef5e07f4685359739218f02f, type: 3}
+      jump: {fileID: 8300000, guid: 962889a6b6eaf01498bdbdbfcbe42ec0, type: 3}
+      dash: {fileID: 8300000, guid: 9a534c83cd9d2744ba0fd8d83ec52133, type: 3}
       breath: {fileID: 0}
+      damage: {fileID: 8300000, guid: 51a508451afe6414c938e1acfd549fba, type: 3}
     enemySound:
-      attack: {fileID: 0}
-      death: {fileID: 0}
+      damage: {fileID: 8300000, guid: 51a508451afe6414c938e1acfd549fba, type: 3}
+      death: {fileID: 8300000, guid: 0402772f5b67afe418dea0d957473f21, type: 3}
     uiSound:
-      click: {fileID: 0}
+      click: {fileID: 8300000, guid: 7e5512254f1400a439555a1a1268c0ec, type: 3}
       confirm: {fileID: 0}
       cancel: {fileID: 0}
+    mapSound:
+      save: {fileID: 8300000, guid: 401573f1fd9109e48be12a27d828fe9a, type: 3}

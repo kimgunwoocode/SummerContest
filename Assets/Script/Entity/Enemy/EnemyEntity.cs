@@ -97,7 +97,7 @@ public class EnemyEntity : MonoBehaviour
     public virtual void TakeDamage(int damageAmount, Vector2 attackerPosition)
     {
         if (currentHP == 0) return;
-        
+
         lastDamageTime = Time.time;
 
         currentHP -= damageAmount;
@@ -122,9 +122,14 @@ public class EnemyEntity : MonoBehaviour
             lastDamageDirection = 1;
         }
 
-        if(currentHP <= 0)
+        if (currentHP <= 0)
         {
             isDead = true;
+            SoundManager.instance.PlaySFX("enemy_death");
+        }
+        else
+        {
+            SoundManager.instance.PlaySFX("enemy_damage");
         }
     }
     public virtual void Flip()

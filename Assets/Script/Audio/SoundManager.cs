@@ -16,15 +16,20 @@ public class SoundManager : MonoBehaviour
     public static SoundManager instance { get; private set; }
     [SerializeField] private GameAudioData gameAudioData;       // 음원 데이터셋
     private AudioSource currentBGMSource;
+    [SerializeField] private AudioSource[] currentSfxSource;
     public AudioMixer mainMixer;
     public Slider bgmSlider;
 
     public enum VolumeName { BGM_Volume, SFX_Volume, Master_Volume }
 
-    public void SetVolume(VolumeName VolumeName, float volume) {
-        if (volume == 0) {
+    public void SetVolume(VolumeName VolumeName, float volume)
+    {
+        if (volume == 0)
+        {
             mainMixer.SetFloat(VolumeName.ToString(), -80f);
-        } else {
+        }
+        else
+        {
             mainMixer.SetFloat(VolumeName.ToString(), Mathf.Log10(volume) * 20);
         }
     }
@@ -34,7 +39,7 @@ public class SoundManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); 
+            DontDestroyOnLoad(gameObject);
             SetAudioSource();
             string sceneName = SceneManager.GetActiveScene().name;
             PlayMapBGM(sceneName);
@@ -102,16 +107,19 @@ public class SoundManager : MonoBehaviour
             return;
         AudioClip clip = gameAudioData.GetMapBGMClip(sceneName);
 
-        if (clip != null) {   
-            if (currentBGMSource.clip != null) {
-                if (currentBGMSource.clip != clip) {
+        if (clip != null)
+        {
+            if (currentBGMSource.clip != null)
+            {
+                if (currentBGMSource.clip != clip)
+                {
                     currentBGMSource.Stop();
                 }
             }
             currentBGMSource.clip = clip;
             currentBGMSource.Play();
-            currentBGMSource.loop = true; 
-            
+            currentBGMSource.loop = true;
+
             //    Debug.Log("PlayMapBGM: Play" + currentMapBGMSource.clip.name);
         }
         /*
@@ -129,7 +137,7 @@ public class SoundManager : MonoBehaviour
         if (!HasAudioSource()) return;
 
         currentBGMSource.clip = gameAudioData.GetBossBGMClip(bossName);
-        Debug.Log("PlayBossBGM: bossName -" +  currentBGMSource.clip);
+        Debug.Log("PlayBossBGM: bossName -" + currentBGMSource.clip);
         if (currentBGMSource.clip != null)
         {
             currentBGMSource.Play();
@@ -141,5 +149,29 @@ public class SoundManager : MonoBehaviour
             Debug.LogWarning("PlayBossBGM: Boss BGM is null");
         }
 
+    }
+
+    public void PlaySFX(string sfxName)
+    {
+        for (int i = 0; i < currentSfxSource.Length; i++)
+        {
+            // SFXPlayer에서 재생 중이지 않은 Audio Source를 발견했다면 
+            if (!currentSfxSource[i].isPlaying)
+            {
+                currentSfxSource[i].clip = gameAudioData.GetSfxClip(sfxName);
+
+                if (currentSfxSource[i].clip == null)
+                {
+                    Debug.Log(sfxName + " 이름의 효과음이 없습니다.");
+                    return;
+                }
+
+                currentSfxSource[i].Play();
+                currentSfxSource[i].loop = false;
+                return;
+            }
+        }
+        Debug.Log("모든 오디오 플레이어가 재생중입니다.");
+        return;
     }
 }
