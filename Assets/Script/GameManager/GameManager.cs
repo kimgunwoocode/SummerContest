@@ -18,9 +18,6 @@ public class GameManager : MonoBehaviour
     public int CurrentScenePointID = -1;
     public int CurrentStartSceneCameraArea = 0;
 
-
-
-
     public TextAsset SavePointID_json;
     Dictionary<int, string> SavePointID_list = new();
 
@@ -51,10 +48,8 @@ public class GameManager : MonoBehaviour
 
 
 
-    private void Awake()
-    {
-        if (Player == null)
-        {
+    private void Awake() {
+        if (Player == null) {
             Player = GameObject.FindGameObjectWithTag("Player");
         }
         /*
@@ -114,11 +109,9 @@ public class GameManager : MonoBehaviour
 
     IEnumerator MoveSavedPointScene(string SceneName)
     {
-        bool sequenceExcuting = true;
-
         RequestTogglePause(false);
 
-
+        bool sequenceExcuting = true;
         VFXSequence sequence = new VFXBuilder()
             .AppendBlackOut(1f,true)
             .AppendBossNameAppearance(0.5f, "Game Over", "", 0f, true)
@@ -136,18 +129,18 @@ public class GameManager : MonoBehaviour
             LoadData__SavePoint();
 
         SceneManager.LoadScene(SceneName);
-
+        RequestTogglePause(false);
         sequenceExcuting = true;
 
-        sequence = new VFXBuilder()
-            //.AppendBlackOut(0f, true)
-            //.AppendBossNameAppearance(0f, "Game Over", "", 0f, true)
-            .AppendBlackIn(1f, true)
+        Debug.Log("is it work?");
+        VFXSequence sequence2 = new VFXBuilder()
+            .AppendBlackIn(2f, true)
             .AppendCallBacks(() => {
-                Debug.Log("VFX collbacks");
+                Debug.Log("fuck damm it");
                 sequenceExcuting = false;
             })
             .Build();
+        Debug.Log("Yes");
 
         while (sequenceExcuting)
             yield return null;
