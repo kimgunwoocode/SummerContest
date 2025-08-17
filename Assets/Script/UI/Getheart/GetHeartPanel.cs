@@ -8,7 +8,7 @@ public class GetHeartPanel : MonoBehaviour
     public EventTrigger clossTrigger;
     public Image[] Heart;
 
-    private float duration = 2f;
+    private float duration = 1.5f;
 
     Color emptyColor = new Color(1, 1, 1, 0);
     Color fullColor = new Color(1, 1, 1, 1);
