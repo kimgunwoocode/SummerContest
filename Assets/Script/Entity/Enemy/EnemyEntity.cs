@@ -129,7 +129,7 @@ public class EnemyEntity : MonoBehaviour
         }
         else
         {
-            SoundManager.instance.PlaySFX("enemy_damage");
+            // SoundManager.instance.PlaySFX("enemy_damage");
         }
     }
     public virtual void Flip()

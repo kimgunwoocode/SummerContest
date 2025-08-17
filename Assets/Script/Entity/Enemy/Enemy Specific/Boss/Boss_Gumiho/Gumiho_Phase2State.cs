@@ -22,7 +22,7 @@ public class Gumiho_Phase2State : Boss_PhaseChangeState
         gumiho.MoveState.isClawAttackCancelled = false;
 
         // 페이즈 전환 효과
-        phase2Particle.Play();
+        SpawnPhase2Fx();
         PlayerPush();
     }
 
@@ -43,6 +43,28 @@ public class Gumiho_Phase2State : Boss_PhaseChangeState
         base.Exit();
 
         gumiho.CanBeKnockedBack = true;
+    }
+
+    private void SpawnPhase2Fx()
+    {
+        if (!phase2Particle)
+        {
+            Debug.Log("Gumiho phase2Particle is null");
+            return;
+        }
+
+        // 보스 위치에 FX 생성
+        ParticleSystem fx = Instantiate(
+            phase2Particle, 
+            enemy.aliveGO.transform.position, 
+            Quaternion.identity);
+
+        // 원샷 파티클 자동 삭제 세팅
+        var main = fx.main;
+        main.loop = false;
+        main.stopAction = ParticleSystemStopAction.Destroy;
+
+        fx.Play();
     }
 
     private void PlayerPush()
