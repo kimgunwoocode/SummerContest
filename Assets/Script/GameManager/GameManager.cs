@@ -124,12 +124,12 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(1f);
 
+        SceneManager.LoadScene(SceneName);
+
         if (GameDataManager.SpawnPoint == -1)// 게임 시작 후 세이브를 안했을 때, 초기화시키기
             SaveFileManager.Load_forNewGame(InitData.text, GameDataManager.GameData.Slot);
         else
             LoadData__SavePoint();
-
-        SceneManager.LoadScene(SceneName);
 
         sequence = new VFXBuilder()
             .AppendBlackOut(0f)
