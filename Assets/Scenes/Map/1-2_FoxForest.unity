@@ -558,6 +558,7 @@ GameObject:
   m_Component:
   - component: {fileID: 22927265}
   - component: {fileID: 22927266}
+  - component: {fileID: 22927267}
   m_Layer: 0
   m_Name: Grass
   m_TagString: Untagged
@@ -603,7 +604,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -635,6 +636,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &22927267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22927264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!1 &26272110
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,6 +659,7 @@ GameObject:
   m_Component:
   - component: {fileID: 26272112}
   - component: {fileID: 26272111}
+  - component: {fileID: 26272113}
   m_Layer: 0
   m_Name: "\uB098\uBB343_0 (1)"
   m_TagString: Untagged
@@ -675,7 +690,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -722,6 +737,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2101979315}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 180}
+--- !u!114 &26272113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26272110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!1001 &27473281
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -988,10 +1016,7 @@ PrefabInstance:
     - {fileID: 5325527500429782734, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 524236343976882212, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1177372192}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
 --- !u!4 &30821805 stripped
 Transform:
@@ -3129,6 +3154,7 @@ GameObject:
   - component: {fileID: 149897009}
   - component: {fileID: 149897010}
   - component: {fileID: 149897011}
+  - component: {fileID: 149897012}
   m_Layer: 0
   m_Name: "\uB098\uBB343_0"
   m_TagString: Untagged
@@ -3174,7 +3200,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3219,6 +3245,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parallaxEffectMultiplier: 0.01
+--- !u!114 &149897012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149897008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!1001 &154382586
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3806,6 +3845,7 @@ GameObject:
   - component: {fileID: 182956136}
   - component: {fileID: 182956138}
   - component: {fileID: 182956137}
+  - component: {fileID: 182956139}
   m_Layer: 0
   m_Name: "\uB098\uBB343_0 (2)"
   m_TagString: Untagged
@@ -3864,7 +3904,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3896,6 +3936,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &182956139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182956135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!21 &184280971
 Material:
   serializedVersion: 8
@@ -4678,11 +4731,6 @@ Material:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 524236343976882212, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
   m_PrefabInstance: {fileID: 381609123}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &238734851 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 524236343976882212, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
-  m_PrefabInstance: {fileID: 825056530}
   m_PrefabAsset: {fileID: 0}
 --- !u!21 &239865296
 Material:
@@ -5570,10 +5618,7 @@ PrefabInstance:
     - {fileID: 5325527500429782734, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 524236343976882212, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1674780181}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
 --- !u!4 &290367893 stripped
 Transform:
@@ -6689,10 +6734,7 @@ PrefabInstance:
     - {fileID: 5325527500429782734, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 524236343976882212, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2034355048}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
 --- !u!4 &326120917 stripped
 Transform:
@@ -7615,6 +7657,7 @@ GameObject:
   m_Component:
   - component: {fileID: 394604484}
   - component: {fileID: 394604485}
+  - component: {fileID: 394604486}
   m_Layer: 0
   m_Name: "\uB098\uBB343_1 (3)"
   m_TagString: Untagged
@@ -7660,7 +7703,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7692,6 +7735,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &394604486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394604483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!21 &398512022
 Material:
   serializedVersion: 8
@@ -8635,6 +8691,7 @@ GameObject:
   m_Component:
   - component: {fileID: 441095382}
   - component: {fileID: 441095383}
+  - component: {fileID: 441095384}
   m_Layer: 0
   m_Name: GrassAtTree3 (7)
   m_TagString: Untagged
@@ -8680,7 +8737,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8712,6 +8769,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &441095384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441095381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!1 &447680658
 GameObject:
   m_ObjectHideFlags: 0
@@ -9645,6 +9715,7 @@ GameObject:
   m_Component:
   - component: {fileID: 491618994}
   - component: {fileID: 491618993}
+  - component: {fileID: 491618995}
   m_Layer: 0
   m_Name: "\uB098\uBB342_0 (1)"
   m_TagString: Untagged
@@ -9675,7 +9746,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9722,6 +9793,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2101979315}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &491618995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491618992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!21 &492499768
 Material:
   serializedVersion: 8
@@ -11636,6 +11720,7 @@ GameObject:
   m_Component:
   - component: {fileID: 665137511}
   - component: {fileID: 665137512}
+  - component: {fileID: 665137513}
   m_Layer: 0
   m_Name: GrassAtTree3 (5)
   m_TagString: Untagged
@@ -11681,7 +11766,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11713,6 +11798,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &665137513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665137510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!1 &665180431
 GameObject:
   m_ObjectHideFlags: 0
@@ -11723,6 +11821,7 @@ GameObject:
   m_Component:
   - component: {fileID: 665180432}
   - component: {fileID: 665180433}
+  - component: {fileID: 665180434}
   m_Layer: 0
   m_Name: GrassAtTree3 (1)
   m_TagString: Untagged
@@ -11768,7 +11867,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11800,6 +11899,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &665180434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665180431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!21 &672395605
 Material:
   serializedVersion: 8
@@ -14219,59 +14331,13 @@ PrefabInstance:
     - {fileID: 5325527500429782734, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 524236343976882212, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 825056535}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
 --- !u!4 &825056531 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5505560654318433701, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
   m_PrefabInstance: {fileID: 825056530}
   m_PrefabAsset: {fileID: 0}
---- !u!68 &825056535
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 238734851}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 1
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.5}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.5, y: 0}
-  - {x: 0.5, y: 0}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!21 &832262648
 Material:
   serializedVersion: 8
@@ -14749,6 +14815,7 @@ GameObject:
   - component: {fileID: 847178680}
   - component: {fileID: 847178681}
   - component: {fileID: 847178682}
+  - component: {fileID: 847178683}
   m_Layer: 0
   m_Name: "\uB098\uBB341_0"
   m_TagString: Untagged
@@ -14794,7 +14861,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14839,6 +14906,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parallaxEffectMultiplier: 0.01
+--- !u!114 &847178683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847178679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!1 &864396824
 GameObject:
   m_ObjectHideFlags: 0
@@ -14849,6 +14929,7 @@ GameObject:
   m_Component:
   - component: {fileID: 864396825}
   - component: {fileID: 864396826}
+  - component: {fileID: 864396827}
   m_Layer: 0
   m_Name: Grass
   m_TagString: Untagged
@@ -14894,7 +14975,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14926,6 +15007,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &864396827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864396824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!21 &876894026
 Material:
   serializedVersion: 8
@@ -15862,6 +15956,7 @@ GameObject:
   - component: {fileID: 928823038}
   - component: {fileID: 928823039}
   - component: {fileID: 928823040}
+  - component: {fileID: 928823041}
   m_Layer: 0
   m_Name: "\uB098\uBB343_0"
   m_TagString: Untagged
@@ -15907,7 +16002,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15952,6 +16047,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parallaxEffectMultiplier: 0.01
+--- !u!114 &928823041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928823037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!1001 &933414553
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16198,10 +16306,7 @@ PrefabInstance:
     - {fileID: 5325527500429782734, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 524236343976882212, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1780291346}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
 --- !u!4 &938715310 stripped
 Transform:
@@ -16776,10 +16881,7 @@ PrefabInstance:
     - {fileID: 5325527500429782734, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 524236343976882212, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1892737007}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
 --- !u!4 &1002847658 stripped
 Transform:
@@ -17168,6 +17270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1025871580}
   - component: {fileID: 1025871581}
+  - component: {fileID: 1025871582}
   m_Layer: 0
   m_Name: GrassAtTree3 (2)
   m_TagString: Untagged
@@ -17213,7 +17316,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -17245,6 +17348,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1025871582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025871579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!1 &1033398884
 GameObject:
   m_ObjectHideFlags: 0
@@ -18066,6 +18182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1063537382}
   - component: {fileID: 1063537383}
+  - component: {fileID: 1063537384}
   m_Layer: 0
   m_Name: "\uB098\uBB343_1 (2)"
   m_TagString: Untagged
@@ -18111,7 +18228,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -18143,6 +18260,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1063537384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1063537381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!21 &1065223787
 Material:
   serializedVersion: 8
@@ -19389,54 +19519,6 @@ Material:
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!1 &1177372188 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 524236343976882212, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
-  m_PrefabInstance: {fileID: 30821804}
-  m_PrefabAsset: {fileID: 0}
---- !u!68 &1177372192
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1177372188}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 1
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.5}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.5, y: 0}
-  - {x: 0.5, y: 0}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!1 &1179317747
 GameObject:
   m_ObjectHideFlags: 0
@@ -20116,6 +20198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1218755218}
   - component: {fileID: 1218755217}
+  - component: {fileID: 1218755219}
   m_Layer: 0
   m_Name: "\uB098\uBB343_0"
   m_TagString: Untagged
@@ -20146,7 +20229,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20193,6 +20276,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2101979315}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1218755219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218755216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!1001 &1229836498
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20974,6 +21070,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1256783626}
   - component: {fileID: 1256783627}
+  - component: {fileID: 1256783628}
   m_Layer: 0
   m_Name: GrassAtTree3
   m_TagString: Untagged
@@ -21019,7 +21116,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -21051,6 +21148,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1256783628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256783625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!21 &1258438633
 Material:
   serializedVersion: 8
@@ -21162,6 +21272,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1289491434}
   - component: {fileID: 1289491435}
+  - component: {fileID: 1289491436}
   m_Layer: 0
   m_Name: "\uB098\uBB343_1 (1)"
   m_TagString: Untagged
@@ -21207,7 +21318,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -21239,6 +21350,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1289491436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1289491433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!21 &1289963801
 Material:
   serializedVersion: 8
@@ -25527,6 +25651,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1557728699}
   - component: {fileID: 1557728700}
+  - component: {fileID: 1557728701}
   m_Layer: 0
   m_Name: GrassAtTree3 (4)
   m_TagString: Untagged
@@ -25572,7 +25697,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -25604,6 +25729,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1557728701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557728698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!1 &1557786669
 GameObject:
   m_ObjectHideFlags: 0
@@ -26415,6 +26553,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1635798051}
   - component: {fileID: 1635798052}
+  - component: {fileID: 1635798053}
   m_Layer: 0
   m_Name: GrassAtTree3 (1)
   m_TagString: Untagged
@@ -26460,7 +26599,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -26492,6 +26631,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1635798053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635798050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!1001 &1642877508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27081,54 +27233,6 @@ EdgeCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1277062126}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 1
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.5}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.5, y: 0}
-  - {x: 0.5, y: 0}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
---- !u!1 &1674780177 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 524236343976882212, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
-  m_PrefabInstance: {fileID: 290367892}
-  m_PrefabAsset: {fileID: 0}
---- !u!68 &1674780181
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1674780177}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -33167,6 +33271,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1759812797}
   - component: {fileID: 1759812798}
+  - component: {fileID: 1759812799}
   m_Layer: 0
   m_Name: GrassAtTree3_0 (1)
   m_TagString: Untagged
@@ -33212,7 +33317,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -33244,6 +33349,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1759812799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759812796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!1 &1762985227
 GameObject:
   m_ObjectHideFlags: 0
@@ -33526,6 +33644,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1776619558}
   - component: {fileID: 1776619559}
+  - component: {fileID: 1776619560}
   m_Layer: 0
   m_Name: GrassAtTree3_0
   m_TagString: Untagged
@@ -33571,7 +33690,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -33603,6 +33722,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1776619560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776619557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!21 &1776745935
 Material:
   serializedVersion: 8
@@ -33735,54 +33867,6 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!1 &1780291342 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 524236343976882212, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
-  m_PrefabInstance: {fileID: 938715309}
-  m_PrefabAsset: {fileID: 0}
---- !u!68 &1780291346
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1780291342}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 1
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.5}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.50000006, y: 0}
-  - {x: 0.50000006, y: 0}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!21 &1785783898
 Material:
   serializedVersion: 8
@@ -34391,6 +34475,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1860802810}
   - component: {fileID: 1860802811}
+  - component: {fileID: 1860802812}
   m_Layer: 0
   m_Name: GrassAtTree3
   m_TagString: Untagged
@@ -34436,7 +34521,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -34468,6 +34553,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1860802812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860802809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!1 &1860998571
 GameObject:
   m_ObjectHideFlags: 0
@@ -34478,6 +34576,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1860998573}
   - component: {fileID: 1860998572}
+  - component: {fileID: 1860998574}
   m_Layer: 0
   m_Name: Grass
   m_TagString: Untagged
@@ -34508,7 +34607,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -34555,6 +34654,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2101979315}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1860998574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860998571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!4 &1872589380 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5505560654318433701, guid: 25f47dc63f5cce94e870b6c2ae0b4c71, type: 3}
@@ -35002,54 +35114,6 @@ Material:
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!1 &1892737003 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 524236343976882212, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
-  m_PrefabInstance: {fileID: 1002847657}
-  m_PrefabAsset: {fileID: 0}
---- !u!68 &1892737007
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1892737003}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 1
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.5}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.5, y: 0}
-  - {x: 0.5, y: 0}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!21 &1900569324
 Material:
   serializedVersion: 8
@@ -35497,6 +35561,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1914295943}
   - component: {fileID: 1914295944}
+  - component: {fileID: 1914295945}
   m_Layer: 0
   m_Name: "\uB098\uBB343_1"
   m_TagString: Untagged
@@ -35542,7 +35607,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -35574,6 +35639,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1914295945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914295942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!1 &1932803819
 GameObject:
   m_ObjectHideFlags: 0
@@ -35584,6 +35662,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1932803821}
   - component: {fileID: 1932803820}
+  - component: {fileID: 1932803822}
   m_Layer: 0
   m_Name: Grass (2)
   m_TagString: Untagged
@@ -35614,7 +35693,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -35661,6 +35740,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2101979315}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1932803822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932803819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!1 &1938247746
 GameObject:
   m_ObjectHideFlags: 0
@@ -35671,6 +35763,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1938247747}
   - component: {fileID: 1938247748}
+  - component: {fileID: 1938247749}
   m_Layer: 0
   m_Name: GrassAtTree3 (3)
   m_TagString: Untagged
@@ -35716,7 +35809,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -35748,6 +35841,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1938247749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938247746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!21 &1940732168
 Material:
   serializedVersion: 8
@@ -36107,6 +36213,7 @@ GameObject:
   - component: {fileID: 1981035758}
   - component: {fileID: 1981035759}
   - component: {fileID: 1981035760}
+  - component: {fileID: 1981035761}
   m_Layer: 0
   m_Name: "\uB098\uBB341_0"
   m_TagString: Untagged
@@ -36152,7 +36259,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -36197,6 +36304,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parallaxEffectMultiplier: 0.01
+--- !u!114 &1981035761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981035757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!21 &1981523550
 Material:
   serializedVersion: 8
@@ -36255,6 +36375,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1986796659}
   - component: {fileID: 1986796658}
+  - component: {fileID: 1986796660}
   m_Layer: 0
   m_Name: "\uB098\uBB342_0"
   m_TagString: Untagged
@@ -36285,7 +36406,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -36332,6 +36453,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2101979315}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1986796660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986796657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!21 &1987936066
 Material:
   serializedVersion: 8
@@ -36689,54 +36823,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2034355044 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 524236343976882212, guid: 18b601ec1e7c57749928057c90b792b9, type: 3}
-  m_PrefabInstance: {fileID: 326120916}
-  m_PrefabAsset: {fileID: 0}
---- !u!68 &2034355048
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2034355044}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 1
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.5}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.49999624, y: 0}
-  - {x: 0.5000039, y: 0}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!21 &2040320922
 Material:
   serializedVersion: 8
@@ -37024,6 +37110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2060500591}
   - component: {fileID: 2060500590}
+  - component: {fileID: 2060500592}
   m_Layer: 0
   m_Name: Grass (1)
   m_TagString: Untagged
@@ -37054,7 +37141,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -37101,6 +37188,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2101979315}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2060500592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060500589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!21 &2061313838
 Material:
   serializedVersion: 8
@@ -38054,6 +38154,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2141950122}
   - component: {fileID: 2141950123}
+  - component: {fileID: 2141950124}
   m_Layer: 0
   m_Name: GrassAtTree3_0
   m_TagString: Untagged
@@ -38099,7 +38200,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9ca2db413d615f34a8f8951bb1027caa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -38131,6 +38232,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2141950124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141950121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957fe43a3d6408644810bf20657bba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1294410822}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
