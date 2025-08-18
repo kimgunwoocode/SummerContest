@@ -33,9 +33,11 @@ public class Material_Converter : EditorWindow
                 }
 
                 Material newMat = new(target);
-                if(sr.sprite == null) Debug.Log(sr.gameObject.name);
-                newMat.mainTexture = sr.sprite.texture;
-                      
+                if(sr.sprite != null) 
+                    newMat.mainTexture = sr.sprite.texture;
+                else
+                    Debug.Log(sr.gameObject.name);
+
                 Undo.RecordObject(sr, "Convert to target Sprite");
                 sr.sharedMaterial = newMat;
                 EditorUtility.SetDirty(sr);

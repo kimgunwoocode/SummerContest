@@ -2,15 +2,11 @@ using UnityEngine;
 
 public class ChadVision : MonoBehaviour
 {
-    public Transform player;
-    private Material fadeMaterial;
+    public static Transform player;
+    [SerializeField] Transform _player;
 
     private void Awake() {
-        fadeMaterial = GetComponent<SpriteRenderer>().material;
+        player = _player;
     }
 
-    void Update() {
-        fadeMaterial.SetVector("_PlayerPos", player.position);
-        Debug.Log(fadeMaterial.GetVector("_PlayerPos"));
-    }
 }
