@@ -5,7 +5,7 @@ public class CollectionButton : MonoBehaviour
 {
     GameDataManager data;
     [Header("해당 버튼의 정보")]
-    private int myId;
+    [SerializeField] private int myId;
     public bool isAwakeActivated = false;
     public int MyId
     {
@@ -31,12 +31,19 @@ public class CollectionButton : MonoBehaviour
         data = Singleton.GameManager_Instance.Get<GameDataManager>();
     }
 
+    private void OnEnable()
+    {
+        //Debug.Log("CollectionButton OnEnable");
+        UpdateButtonUI();
+    }
+
     // 버튼 내부 텍스트 초기화
     public void UpdateButtonUI()
     {
         //if (data == null) return;
-        if (data.PlayerSkill.TryGetValue(MyId, out bool isUnlocked) && isUnlocked)
+        if (data.GettedItems.TryGetValue(MyId, out int isUnlocked) && isUnlocked != 0)
         {
+            Debug.Log("(init) item 존재 " + MyId);
             // 획득
             L_ItemName.text = data.allitems[MyId].itemName;
         }
@@ -51,6 +58,7 @@ public class CollectionButton : MonoBehaviour
 
         if (data.GettedItems.TryGetValue(MyId, out int isUnlocked) && isUnlocked != 0)
         {
+            Debug.Log("item 존재 " + MyId);
             // 획득
             ItemName.text = data.allitems[MyId].itemName;
             ItemInfor.text = data.allitems[MyId].description;

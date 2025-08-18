@@ -61,7 +61,7 @@ public class CollectionPanel : MonoBehaviour
     private void ClickButton(GameObject targetButton)
     {
         // 11개 씩 나타나는, 페이지를 넘기거나 하는 추가적인 수정 있을 예정. 고려하여 작성함
-
+        int i = 0;
         foreach (GameObject child in CollectiopnButtons)
         {
             CollectionButton codexBtn = child.GetComponent<CollectionButton>();
@@ -69,51 +69,49 @@ public class CollectionPanel : MonoBehaviour
             codexBtn.gameObject.SetActive(true);
             //Debug.Log(codexBtn.isAwakeActivated);
 
-            for (int i = 0; i < 11; i++)
+            // 구체적인 수치는 변경 필요!!
+            if (targetButton == EnemyButton) // 적 ID 라인으로 변경 필요
             {
-                // 구체적인 수치는 변경 필요!!
-                if (targetButton == EnemyButton) // 적 ID 라인으로 변경 필요
-                {
-                    InsertMyID = 2000 + i;
-                    //if (data.allitems.ContainsKey(InsertMyID))
-                    //{
-                    //    codexBtn.gameObject.SetActive(true);
-                    codexBtn.MyId = InsertMyID;
-                    //}
-                    //else
-                    //{
-                    //    codexBtn.gameObject.SetActive(false);
-                    //}
+                InsertMyID = 2000 + i;
+                //if (data.allitems.ContainsKey(InsertMyID))
+                //{
+                //    codexBtn.gameObject.SetActive(true);
+                codexBtn.MyId = InsertMyID;
+                //}
+                //else
+                //{
+                //    codexBtn.gameObject.SetActive(false);
+                //}
 
-                }
-                else if (targetButton == ItemButton) // 아이템 ID 수정 완료, 아이템 수 추가될 시 변경 필요
-                {
-                    InsertMyID = 1017 + i;
-
-                    //if (data.allitems.ContainsKey(InsertMyID))
-                    //{
-                    //    codexBtn.gameObject.SetActive(true);
-                    codexBtn.MyId = InsertMyID;
-                    //}
-                    //else
-                    //{
-                    //    codexBtn.gameObject.SetActive(false);
-                    //}
-                }
-                else if (targetButton == DocumentButton) // 문서 ID 라인으로 변경 필요
-                {
-                    InsertMyID = 3000 + i;
-                    //if (data.allitems.ContainsKey(InsertMyID))
-                    //{
-                    //    codexBtn.gameObject.SetActive(true);
-                    codexBtn.MyId = InsertMyID;
-                    //}
-                    //else
-                    //{
-                    //    codexBtn.gameObject.SetActive(false);
-                    //}
-                }
             }
+            else if (targetButton == ItemButton) // 아이템 ID 수정 완료, 아이템 수 추가될 시 변경 필요
+            {
+                InsertMyID = 1017 + i;
+
+                //if (data.allitems.ContainsKey(InsertMyID))
+                //{
+                //    codexBtn.gameObject.SetActive(true);
+                codexBtn.MyId = InsertMyID;
+                //}
+                //else
+                //{
+                //    codexBtn.gameObject.SetActive(false);
+                //}
+            }
+            else if (targetButton == DocumentButton) // 문서 ID 라인으로 변경 필요
+            {
+                InsertMyID = 3000 + i;
+                //if (data.allitems.ContainsKey(InsertMyID))
+                //{
+                //    codexBtn.gameObject.SetActive(true);
+                codexBtn.MyId = InsertMyID;
+                //}
+                //else
+                //{
+                //    codexBtn.gameObject.SetActive(false);
+                //}
+            }
+            i++;
         }
         /*
             // 이전 자식 버튼 제거
