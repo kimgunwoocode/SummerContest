@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
 
         bool sequenceExcuting = true;
         VFXSequence sequence = new VFXBuilder()
-            .AppendBlackOut(1.5f,true)
+            .AppendBlackOut(1.3f,true)
             .AppendBossNameAppearance(0.8f, "Game Over", "       ", 0f, true)
             .AppendCallBacks(()=> {
                 sequenceExcuting = false;
@@ -136,7 +136,7 @@ public class GameManager : MonoBehaviour
         sequenceExcuting = true;
 
         sequence = new VFXBuilder()
-            .AppendBlackIn(0.8f, true)
+            .AppendBlackIn(0.7f, true)
             .AppendCallBacks(() => {
                 sequenceExcuting = false;
             })
@@ -199,7 +199,7 @@ public class GameManager : MonoBehaviour
             if (CheckCount % 3 == 0)
             {
                 GameDataManager.MaxBreathGauge += 20;
-
+                UIManager.MainGameUI.InitializeBreathGauge();
             }
         }
     }
@@ -213,7 +213,7 @@ public class GameManager : MonoBehaviour
 
     public void SetBreath_to_EquipSkill(int slot)
     {
-
+        UIManager.MainGameUI.BreathIconFix();
     }
 
 

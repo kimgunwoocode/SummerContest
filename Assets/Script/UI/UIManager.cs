@@ -28,6 +28,9 @@ public class UIManager : MonoBehaviour
     private List<GameObject> hiddenUiSubObjects = new List<GameObject>(); //UiSub 레이어 오브젝트들
     [SerializeField] GameObject _tip;
 
+    [Space]
+    public MainGameUI MainGameUI;
+
     void Start()
     {
         // 게임 시작시 활성화 등 초기화
@@ -37,6 +40,11 @@ public class UIManager : MonoBehaviour
         MainGamePanel.SetActive(true);
         CloseButton.SetActive(false);
         ActivePanel = null;
+
+        if (MainGameUI == null)
+        {
+            MainGameUI = gameObject.transform.Find("MaingamePanel")?.GetComponent<MainGameUI>();
+        }
 
         isPause = false;                                // 게임 시작시 false로
     }
