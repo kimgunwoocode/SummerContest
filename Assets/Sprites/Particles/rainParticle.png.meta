@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 1c1331532f229e54ab3e7fac19e3f45e
+guid: 36e3fb6d1f02342468941050ecd63805
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 8038637297364411996
     second: rainParticle_0
+  - first:
+      213: 8508206290493669033
+    second: rainParticle_1
+  - first:
+      213: -4238660007062690283
+    second: rainParticle_2
+  - first:
+      213: 1450353882625823019
+    second: rainParticle_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -129,10 +138,10 @@ TextureImporter:
       name: rainParticle_0
       rect:
         serializedVersion: 2
-        x: 273
-        y: 274
-        width: 1455
-        height: 651
+        x: 198
+        y: 199
+        width: 1457
+        height: 801
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,6 +152,72 @@ TextureImporter:
       bones: []
       spriteID: c56ac9b080afe8f60800000000000000
       internalID: 8038637297364411996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rainParticle_1
+      rect:
+        serializedVersion: 2
+        x: 1707
+        y: 540
+        width: 32
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ae7e94fa88331670800000000000000
+      internalID: 8508206290493669033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rainParticle_2
+      rect:
+        serializedVersion: 2
+        x: 1725
+        y: 480
+        width: 59
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 516af535e214d25c0800000000000000
+      internalID: -4238660007062690283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rainParticle_3
+      rect:
+        serializedVersion: 2
+        x: 1693
+        y: 405
+        width: 60
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2155840c21b02410800000000000000
+      internalID: 1450353882625823019
       vertices: []
       indices: 
       edges: []
@@ -162,6 +237,9 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       rainParticle_0: 8038637297364411996
+      rainParticle_1: 8508206290493669033
+      rainParticle_2: -4238660007062690283
+      rainParticle_3: 1450353882625823019
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

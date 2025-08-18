@@ -1,62 +1,133 @@
-Shader "Unlit/ChadVision"
+Shader "Lit/ChadVision"
 {
     Properties
     {
-        _Color("Color", Color) = (1,1,1,1)
-        _MainTex("Texture", 2D) = "white" {}
-        _PlayerPos("Player Position", Vector) = (0,0,0,0)
-        _Radius("Fade Radius", Float) = 1.0
-        _FadeStrength("Fade Strength", Range(0.0, 1.0)) = 0.5
+        _MainTex("Diffuse", 2D) = "white" {}
+        _MaskTex("Mask", 2D) = "white" {}  // 옵션: 마스크 텍스처
+        _NormalMap("Normal Map", 2D) = "bump" {}  // 옵션: 노멀 맵
+        
+        _PlayerPos("PlayerPos", Vector) = (0, 0, 0, 0)
+        _Radius ("Transparency Radius", Float) = 2.0
+        _Smootheness("Smootheness", Float) = 1.0
+
+        [HideInInspector] _RendererColor("RendererColor", Color) = (1,1,1,1)
+        [HideInInspector] _Color("Tint", Color) = (1,1,1,1)
+
     }
+
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
-        LOD 100
+        Tags { "Queue" = "Transparent" "RenderType" = "Transparent" "RenderPipeline" = "UniversalPipeline" }
+
+        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
+        Cull Off
+        ZWrite Off
 
         Pass
         {
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-            // make fog work
-            #pragma multi_compile_fog
+            Tags { "LightMode" = "Universal2D" }
 
-            #include "UnityCG.cginc"
+            HLSLPROGRAM
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/LightingUtility.hlsl"
 
-            struct appdata
+            #pragma vertex CombinedShapeLightVertex
+            #pragma fragment CombinedShapeLightFragment
+
+            #pragma multi_compile USE_SHAPE_LIGHT_TYPE_0 __
+            #pragma multi_compile USE_SHAPE_LIGHT_TYPE_1 __
+            #pragma multi_compile USE_SHAPE_LIGHT_TYPE_2 __
+            #pragma multi_compile USE_SHAPE_LIGHT_TYPE_3 __
+            #pragma multi_compile _ DEBUG_DISPLAY
+
+            struct Attributes
             {
-                float4 vertex : POSITION;
-                float2 uv : TEXCOORD0;
+                float3 positionOS   : POSITION;
+                float4 color        : COLOR;
+                float2 uv           : TEXCOORD0;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
-            struct v2f
+            struct Varyings
             {
-                float2 uv : TEXCOORD0;
-                UNITY_FOG_COORDS(1)
-                float4 vertex : SV_POSITION;
+                float4  positionCS  : SV_POSITION;
+                half4   color       : COLOR;
+                float2  uv          : TEXCOORD0;
+                float3 worldPos     : TEXCOORD1;
+                float4  screenPos   : TEXCOORD2;
+                #if defined(DEBUG_DISPLAY)
+                float3  positionWS  : TEXCOORD3;
+                #endif
+                UNITY_VERTEX_OUTPUT_STEREO
             };
 
-            sampler2D _MainTex;
-            float4 _MainTex_ST;
+            TEXTURE2D(_MainTex);
+            SAMPLER(sampler_MainTex);
+            TEXTURE2D(_MaskTex);
+            SAMPLER(sampler_MaskTex);
+            TEXTURE2D(_NormalMap);
+            SAMPLER(sampler_NormalMap);
+            half4 _MainTex_ST;
+            half4 _Color;
+            half4 _RendererColor;
+            float4 _PlayerPos;  
+            float _Radius;
+            float _Smootheness;
 
-            v2f vert (appdata v)
+            #if USE_SHAPE_LIGHT_TYPE_0
+            SHAPE_LIGHT(0)
+            #endif
+            #if USE_SHAPE_LIGHT_TYPE_1
+            SHAPE_LIGHT(1)
+            #endif
+            #if USE_SHAPE_LIGHT_TYPE_2
+            SHAPE_LIGHT(2)
+            #endif
+            #if USE_SHAPE_LIGHT_TYPE_3
+            SHAPE_LIGHT(3)
+            #endif
+
+            Varyings CombinedShapeLightVertex(Attributes v)
             {
-                v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
+                Varyings o = (Varyings)0;
+                UNITY_SETUP_INSTANCE_ID(v);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+
+                o.positionCS = TransformObjectToHClip(v.positionOS);
+                #if defined(DEBUG_DISPLAY)
+                o.positionWS = TransformObjectToWorld(v.positionOS);
+                #endif
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                UNITY_TRANSFER_FOG(o,o.vertex);
+                o.worldPos = TransformObjectToWorld(v.positionOS);
+                o.screenPos = ComputeScreenPos(o.positionCS);
+                o.color = v.color * _Color * _RendererColor;
+
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/CombinedShapeLightShared.hlsl"
+
+            half4 CombinedShapeLightFragment(Varyings i) : SV_Target
             {
-                // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv);
-                // apply fog
-                UNITY_APPLY_FOG(i.fogCoord, col);
-                return col;
+                const half4 main = i.color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
+                const half4 mask = SAMPLE_TEXTURE2D(_MaskTex, sampler_MaskTex, i.uv);
+
+                SurfaceData2D surfaceData;
+                InputData2D inputData;
+
+                InitializeSurfaceData(main.rgb, main.a, mask, surfaceData);
+                half2 lightingUV = i.screenPos.xy / i.screenPos.w;
+                InitializeInputData(i.uv, lightingUV, inputData);
+                
+                float dist = distance(i.worldPos.xy, _PlayerPos.xy);
+                float fadeValue = saturate((dist - _Radius)/_Smootheness);
+
+                half4 final = CombinedShapeLightShared(surfaceData, inputData);
+                final.a *= fadeValue;
+                return final;
+                //return half4(i.worldPos.xyz * 0.1, 1.0); 
             }
-            ENDCG
+            ENDHLSL
         }
     }
 }
