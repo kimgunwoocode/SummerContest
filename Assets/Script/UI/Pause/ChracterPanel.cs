@@ -2,9 +2,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using TMPro;
 public class ChracterPanel : MonoBehaviour
 {
     GameDataManager data;
+
+    [Header("하트, 고추 플레이버 텍스트")]
+
+    public TextMeshProUGUI Heart_Text;
+    public TextMeshProUGUI Pepper_Text;
+
 
     [Header("장착 브레스 아이콘 관련")]
     public Image BreathIcon_1;
@@ -42,6 +49,40 @@ public class ChracterPanel : MonoBehaviour
     {
         data = Singleton.GameManager_Instance.Get<GameDataManager>();
         Image[] breathIcons = { BreathIcon_1, BreathIcon_2, BreathIcon_3 };
+
+        // 플레이버 텍스트 초기화
+        // 텍스트 수정 필요
+        switch (data.GettedItems[1001] / 3)
+        {
+            case 0:
+                Heart_Text.text = "어쩌구";
+                break;
+            case 1:
+                Heart_Text.text = "저쩌구";
+                break;
+            case 2:
+                Heart_Text.text = "그쩌구";
+                break;
+            default:
+                Heart_Text.text = "???";
+                break;
+        }
+
+        switch (data.GettedItems[1002] / 3)
+        {
+            case 0:
+                Pepper_Text.text = "어쩌구";
+                break;
+            case 1:
+                Pepper_Text.text = "저쩌구";
+                break;
+            case 2:
+                Pepper_Text.text = "그쩌구";
+                break;
+            default:
+                Pepper_Text.text = "???";
+                break;
+        }
 
         // 장착 브레스 아이콘 초기화
         for (int i = 0; i < 3; i++)
@@ -81,7 +122,7 @@ public class ChracterPanel : MonoBehaviour
         foreach (GameObject child in heartImages)
         { child.gameObject.SetActive(false); }
         // 최대체력만큼 활성
-        for (int i = 0; i < data.MaxHP/2; i++)
+        for (int i = 0; i < data.MaxHP / 2; i++)
         {
             heartImages[i].gameObject.SetActive(true);
         }
@@ -123,6 +164,8 @@ public class ChracterPanel : MonoBehaviour
         // 아이템 번호 수정 필요!!!! (수정 완료)
         int index = data.GettedItems[1002] / 3;
         BreathGauge.sprite = gaugeSprites[index];
+
+
     }
 
 }
