@@ -1,10 +1,10 @@
-/*using UnityEngine;
+using UnityEngine;
+using UnityEngine.U2D;
 
-public class ParallaxBackground : MonoBehaviour
-{
+public class ParallaxBackground : MonoBehaviour {
     [Tooltip("0에 가까울수록 멀리 있는 배경 (느리게 움직임)")]
-    [Range(0f, 1f)]
-    public float parallaxFactor;
+    [Range(-1f, 1f)]
+    public float parallaxEffectMultiplier;
 
     private Transform cameraTransform;
     private Vector3 lastCameraPosition;
@@ -12,14 +12,16 @@ public class ParallaxBackground : MonoBehaviour
     private float minX;
     private float maxX;
 
-    [SerializeField]GameObject worldStartMarker;
+    [SerializeField] GameObject worldStartMarker;
     [SerializeField] GameObject worldEndMarker;
 
     void Start() {
         cameraTransform = Camera.main.transform;
         lastCameraPosition = cameraTransform.position;
+        SpriteRenderer spriteRenderer = null;
+        TryGetComponent<SpriteRenderer>(out spriteRenderer);
 
-        float spriteWidth = GetComponent<SpriteRenderer>().bounds.size.x;
+        float spriteWidth = (spriteRenderer != null) ? spriteRenderer.bounds.size.x : GetComponent<SpriteShapeRenderer>().bounds.size.x;
 
         if (worldStartMarker == null || worldEndMarker == null) {
             this.enabled = false;
@@ -36,7 +38,7 @@ public class ParallaxBackground : MonoBehaviour
     void LateUpdate() {
         Vector3 deltaMovement = cameraTransform.position - lastCameraPosition;
 
-        Vector3 newPosition = transform.position + new Vector3(deltaMovement.x * parallaxFactor, 0, 0); 
+        Vector3 newPosition = transform.position + new Vector3(deltaMovement.x * parallaxEffectMultiplier, 0, 0);
 
         if (minX < maxX) {
             newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
@@ -46,9 +48,9 @@ public class ParallaxBackground : MonoBehaviour
 
         lastCameraPosition = cameraTransform.position;
     }
-}*/
+}
 
-using UnityEngine;
+/*using UnityEngine;
 
 public class ParallaxBackground : MonoBehaviour {
     public float parallaxEffectMultiplier;
@@ -88,3 +90,4 @@ public class ParallaxBackground : MonoBehaviour {
         lastCameraPosition = cameraTransform.position;
     }
 }
+*/
