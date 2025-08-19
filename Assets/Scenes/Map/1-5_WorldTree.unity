@@ -509,7 +509,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1490528761
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: -1
   m_Sprite: {fileID: 1412874715992483679, guid: 68767f1668b97a94eadf6d001fa53e35, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2226,6 +2226,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parallaxEffectMultiplier: 0.025
+  worldStartMarker: {fileID: 0}
+  worldEndMarker: {fileID: 0}
 --- !u!1 &176806250
 GameObject:
   m_ObjectHideFlags: 0
@@ -4350,7 +4352,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1490528761
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 6630341104690361922, guid: 9a90142cf0071f242967efb330ed68b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -8699,7 +8701,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4460951213685608970, guid: c725c71400ad2104b884fad0e3aac33c, type: 3}
+  m_Sprite: {fileID: -532491523257396459, guid: dc4fc2b34948e47328634dcb04fae3d8, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -16349,7 +16351,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1490528761
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 6630341104690361922, guid: 5aba1b4153f19964b88bd6adb4e514e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -16359,7 +16361,7 @@ SpriteRenderer:
   m_Size: {x: 71.93559, y: 45.18}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &1294410819 stripped
@@ -20191,7 +20193,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1490528761
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: -986322004, guid: 80721fdfe45b1664288228e742b4784a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
