@@ -14,6 +14,8 @@ public abstract class ItemData : ScriptableObject
     public string itemName;
     [TextArea]
     public string description;
+    [TextArea]
+    public string _flavorText;
 
     public int price;           //아이템 구매 또는 판매할 때 금액
 }
