@@ -17,6 +17,7 @@ public class ChracterPanel : MonoBehaviour
     public Image BreathIcon_1;
     public Image BreathIcon_2;
     public Image BreathIcon_3;
+    [SerializeField] private GameObject _Ifuneducated;
 
     public Sprite nullsprite;           // 비어있는 칸 이미지
     public Sprite Dragonsprite;         // 첫번째 칸 비어있을 시 기본 이미지
@@ -43,6 +44,9 @@ public class ChracterPanel : MonoBehaviour
     public Image BreathGauge;
     public Sprite[] gaugeSprites;   // 게이지 스프라이트 리스트, 스프라이트 차례로 추가 필요
 
+    [SerializeField] private int _heartTest;
+    [SerializeField] private int _pepperTest;
+
 
 
     void OnEnable()
@@ -52,53 +56,67 @@ public class ChracterPanel : MonoBehaviour
 
         // 플레이버 텍스트 초기화
         // 텍스트 수정 필요
-        switch (data.GettedItems[1001] / 3)
+        switch (data.GettedItems[1001])
+        //switch (_heartTest)
         {
             case 0:
-                Heart_Text.text = "어쩌구";
+                Heart_Text.text = "흥미로운 물건들을 조사하자.";
                 break;
             case 1:
-                Heart_Text.text = "저쩌구";
+                Heart_Text.text = "- 붉은색 수정 조각이다.";
                 break;
             case 2:
-                Heart_Text.text = "그쩌구";
+                Heart_Text.text = "- 어딘가 익숙한 기운을 낸다.";
+                break;
+            case 3:
+                Heart_Text.text = "- 내 안에 같은 게 뛰고 있어.";
                 break;
             default:
-                Heart_Text.text = "???";
+                Heart_Text.text = "- - -";
                 break;
         }
 
-        switch (data.GettedItems[1002] / 3)
+        switch (data.GettedItems[1002])
+        //switch(_pepperTest)
         {
             case 0:
-                Pepper_Text.text = "어쩌구";
+                Pepper_Text.text = "녹색 책갈피에 도감이 있다.";
                 break;
             case 1:
-                Pepper_Text.text = "저쩌구";
+                Pepper_Text.text = "- 매콤한 향을 낸다.";
                 break;
             case 2:
-                Pepper_Text.text = "그쩌구";
+                Pepper_Text.text = "- 점점 채소의 원형을 갖춰 간다.";
+                break;
+            case 3:
+                Pepper_Text.text = "- 이방의 매운 맛을 내는 열매.";
                 break;
             default:
-                Pepper_Text.text = "???";
+                Pepper_Text.text = "· · ·";
                 break;
         }
 
         // 장착 브레스 아이콘 초기화
-        for (int i = 0; i < 3; i++)
+        for (int i = 0, _breathUnlocked = 0; i < 3; i++)
         {
             if (i < data.EquipSkill.Count)
             {
                 // 스킬이 존재하면 해당 아이콘으로 설정
                 breathIcons[i].sprite = data.allitems[data.EquipSkill[i]].icon;
             }
-            else if (i == 0)
+            else ++_breathUnlocked;
+            if (i == 0)
             {
                 breathIcons[i].sprite = Dragonsprite;
             }
             else
             {
                 breathIcons[i].sprite = nullsprite;
+                if (_breathUnlocked == 3) {
+                    breathIcons[1].color = new Color(255,255,255,0);
+                    breathIcons[2].color = new Color(255, 255, 255,0);
+                    _Ifuneducated.SetActive(true);
+                }
             }
         }
         /*
