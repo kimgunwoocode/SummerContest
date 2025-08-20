@@ -72,7 +72,7 @@ public class ChracterPanel : MonoBehaviour
         //switch (_heartTest)
         {
             case 0:
-                Heart_Text.text = "흥미로운 것들을 조사하자.";
+                Heart_Text.text = "- 흥미로운 것들을 조사하자.";
                 break;
             case 1:
                 Heart_Text.text = "- 붉은색 수정 조각이다.";
@@ -92,7 +92,7 @@ public class ChracterPanel : MonoBehaviour
         //switch(_pepperTest)
         {
             case 0:
-                Pepper_Text.text = "녹색 책갈피에 도감이 있다.";
+                Pepper_Text.text = "- 녹색 책갈피에 도감이 있다.";
                 break;
             case 1:
                 Pepper_Text.text = "- 매콤한 향을 낸다.";
