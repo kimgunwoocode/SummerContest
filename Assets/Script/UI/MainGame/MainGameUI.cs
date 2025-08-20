@@ -18,7 +18,8 @@ public class MainGameUI : MonoBehaviour
     public Sprite Dragonsprite;         // 첫번째 칸 비어있을 시 기본 이미지
 
     [Header("브레스 게이지 관련")]
-    public Image breatGauge;        // 브레스 게이지 이미지
+    public Image breathGauge;        // 브레스 게이지 이미지
+    public Image breathGauge_back;  // 브레스 게이지 뒷배경
     public Sprite[] gaugeSprites;   // 게이지 스프라이트 리스트, 스프라이트 차례로 추가 필요
 
     [Header("Hp 관련")]
@@ -47,12 +48,21 @@ public class MainGameUI : MonoBehaviour
         InitializeHP(UIMaxHP);
     }
 
+    private void Start()
+    {
+        if(!data.PlayerAbility[1])
+        {
+            GetAbility_Breath(false);
+
+        }
+    }
+
     void Update()
     {
         MoneyText.text = data.Money.ToString(); // 돈 텍스트 초기화
 
         float fillAmount = data.CurrentBreathGauge / data.MaxBreathGauge;
-        breatGauge.fillAmount = Mathf.Clamp01(fillAmount); // 게이지 UI 초기화
+        breathGauge.fillAmount = Mathf.Clamp01(fillAmount); // 게이지 UI 초기화
 
 
         // 임시 확인용 체력 변화 감지
@@ -96,7 +106,14 @@ public class MainGameUI : MonoBehaviour
     public void InitializeBreathGauge()
     {
         // 아이템 번호 고추 조각으로 변경 필요!!!!!!! (수정 완료)
-        breatGauge.sprite = gaugeSprites[data.GettedItems[1002] / 3];
+        breathGauge.sprite = gaugeSprites[data.GettedItems[1002] / 3];
+    }
+    public void GetAbility_Breath(bool active)
+    {
+        breathGauge.enabled = active;
+        breathGauge_back.enabled = active;
+        breatGaugeIcon_2.enabled = active;
+        breatGaugeIcon_3.enabled = active;
     }
 
     // 최대체력 갱신시 호출
