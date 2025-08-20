@@ -93,13 +93,15 @@ public class GameManager : MonoBehaviour
     {
         string SavedSceneName = "None Scene";
 
-        if (GameDataManager.SpawnPoint == -1)// 게임 시작 후 세이브를 안했을 때, 초기화시키기
+        if (GameDataManager.SpawnPoint == 0)// 게임 시작 후 세이브를 안했을 때, 초기화시키기
         {
+            Debug.Log("세이브 안함");
             CurrentScenePointID = -1;
-            SavedSceneName = "1-1_ForgottenNest";
+            SavedSceneName = "Title";
         }
         else //이전 세이브 포인트로 시점 되돌리기
         {
+            Debug.Log("세이브 함");
             CurrentScenePointID = -GameDataManager.SpawnPoint;
             SavedSceneName = SavePointID_list[GameDataManager.SpawnPoint];
         }
@@ -222,11 +224,17 @@ public class GameManager : MonoBehaviour
         //TODO : PlayerAbility 작성하기
         if (GameDataManager.PlayerAbility.Count != 0)
             GameDataManager.PlayerAbility[PlayerAbilityID] = true;
-
         else
         {
             GameDataManager.PlayerAbility = new List<bool>() { false, false, false, false, false, false };
             GameDataManager.PlayerAbility[PlayerAbilityID] = true;
+        }
+
+        switch(PlayerAbilityID)
+        {
+            case 1:
+                UIManager.MainGameUI.GetAbility_Breath(true);
+                break;
         }
 
         // 플레이어에서 기능 해금 이벤트 호출하기

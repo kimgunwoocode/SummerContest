@@ -1,13 +1,20 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
-using System;
+using static UnityEngine.Rendering.DebugManager;
 
 public class MainGameUI : MonoBehaviour
 {
     GameDataManager data;
 
-    public Text MoneyText;          // 가진 돈 텍스트
+    [Header("재화 관련")]
+    public GameObject MoneyText_objBefore;
+    public GameObject MoneyText_objAfter;
+    public Text MoneyTextBefore;          // 가진 돈 텍스트
+    public Text MoneyTextAfter;           // 가진 돈 텍스트
+    private Text MoneyTextCurrent;
+
     [Header("브레스 아이콘 관련")]
     public Image breatGaugeIcon_1;
     public Image breatGaugeIcon_2;
@@ -18,7 +25,8 @@ public class MainGameUI : MonoBehaviour
     public Sprite Dragonsprite;         // 첫번째 칸 비어있을 시 기본 이미지
 
     [Header("브레스 게이지 관련")]
-    public Image breatGauge;        // 브레스 게이지 이미지
+    public Image breathGauge;        // 브레스 게이지 이미지
+    public Image breathGauge_back;  // 브레스 게이지 뒷배경
     public Sprite[] gaugeSprites;   // 게이지 스프라이트 리스트, 스프라이트 차례로 추가 필요
 
     [Header("Hp 관련")]
@@ -34,6 +42,7 @@ public class MainGameUI : MonoBehaviour
     // UI에서 따로 카운팅하는 체력 관련, 삭제가능
     private int UICurrentHP;
     private int UIMaxHP;
+    private int UImoney;
     public List<Image> heart_image = new(); // 하트 이미지 리스트
 
     void Awake()
@@ -41,18 +50,29 @@ public class MainGameUI : MonoBehaviour
         data = Singleton.GameManager_Instance.Get<GameDataManager>();
         UICurrentHP = data.CurrentHP;
         UIMaxHP = data.MaxHP;
+        UImoney = data.Money;
 
-        MoneyText.text = data.Money.ToString(); // 돈 텍스트 초기화
+        MoneyTextBefore.text = data.Money.ToString(); // 돈 텍스트 초기화
 
         InitializeHP(UIMaxHP);
     }
 
+    private void Start()
+    {
+        if(!data.PlayerAbility[1])
+        {
+            GetAbility_Breath(false);
+        }
+    }
+
     void Update()
     {
-        MoneyText.text = data.Money.ToString(); // 돈 텍스트 초기화
-
+        if (UImoney != data.Money)
+        {
+            MoneyTextCurrent.text = data.Money.ToString(); // 돈 텍스트 초기화
+        }
         float fillAmount = data.CurrentBreathGauge / data.MaxBreathGauge;
-        breatGauge.fillAmount = Mathf.Clamp01(fillAmount); // 게이지 UI 초기화
+        breathGauge.fillAmount = Mathf.Clamp01(fillAmount); // 게이지 UI 초기화
 
 
         // 임시 확인용 체력 변화 감지
@@ -96,7 +116,27 @@ public class MainGameUI : MonoBehaviour
     public void InitializeBreathGauge()
     {
         // 아이템 번호 고추 조각으로 변경 필요!!!!!!! (수정 완료)
-        breatGauge.sprite = gaugeSprites[data.GettedItems[1002] / 3];
+        breathGauge.sprite = gaugeSprites[data.GettedItems[1002] / 3];
+    }
+    public void GetAbility_Breath(bool active)
+    {
+        breathGauge.enabled = active;
+        breathGauge_back.enabled = active;
+        breatGaugeIcon_2.enabled = active;
+        breatGaugeIcon_3.enabled = active;
+
+        if (active)
+        {
+            MoneyTextCurrent = MoneyTextAfter;
+            MoneyText_objBefore.SetActive(false);
+            MoneyText_objAfter.SetActive(true);
+        }
+        else
+        {
+            MoneyTextCurrent = MoneyTextAfter;
+            MoneyText_objBefore.SetActive(true);
+            MoneyText_objAfter.SetActive(false);
+        }
     }
 
     // 최대체력 갱신시 호출

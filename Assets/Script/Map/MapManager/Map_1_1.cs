@@ -22,7 +22,7 @@ public class Map_1_1 : MonoBehaviour
         {
             //Debug.Log("게임 첫 시작 애니메이션");
 
-            GameDataManager.SpawnPoint = 1001;
+            GameDataManager.SpawnPoint = 0;
             
             MoveBound(5);
             Intro_obj.SetActive(true);
