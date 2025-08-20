@@ -27,6 +27,7 @@ public class BreakableWall : EnemyEntity
     }
     public override void TakeDamage(int damageAmount, Vector2 attackerPosition)
     {
+        GameObject child;
         // 애니메이션, 사운드 추가
         gameDataManager.InteractionObjects[interaction.ID] = false;
 
@@ -39,7 +40,10 @@ public class BreakableWall : EnemyEntity
             int childCount = gameObject.transform.childCount;
             for (int i = 0; i < childCount; i++)
             {
-                gameObject.transform.GetChild(i).gameObject.SetActive(false);
+                child = gameObject.transform.GetChild(i).gameObject;
+                
+                if (child != animator.gameObject)
+                    child.SetActive(false);
             }
         }
     }
