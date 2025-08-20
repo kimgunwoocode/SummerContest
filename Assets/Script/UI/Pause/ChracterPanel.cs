@@ -33,7 +33,7 @@ public class ChracterPanel : MonoBehaviour
     public Transform heartContainer;// 하트들이 자식으로 정렬될 부모 오브젝트
     */
 
-    public List<GameObject> heartImages = new(); // 하트 이미지 리스트
+    public List<GameObject> heartImages; //= new(); 하트 이미지 리스트
 
     [Header("브레스 게이지 관련")]
     public Image Pepper;
@@ -44,11 +44,23 @@ public class ChracterPanel : MonoBehaviour
     public Image BreathGauge;
     public Sprite[] gaugeSprites;   // 게이지 스프라이트 리스트, 스프라이트 차례로 추가 필요
 
+    
+    //[SerializeField]
+    private Image[] _heartSprite;
+    [SerializeField] private Sprite _heartFull;
     [SerializeField] private int _heartTest;
     [SerializeField] private int _pepperTest;
+    [SerializeField] private int _heartSpriteEa;
 
+    private void Awake()
+    {
+        _heartSprite = new Image[heartImages.Count];
+        for (int i = 0; i < heartImages.Count; ++i)
+        {
+            _heartSprite[i] = heartImages[i].GetComponent<Image>();
+        }
 
-
+    }
     void OnEnable()
     {
         data = Singleton.GameManager_Instance.Get<GameDataManager>();
@@ -60,7 +72,7 @@ public class ChracterPanel : MonoBehaviour
         //switch (_heartTest)
         {
             case 0:
-                Heart_Text.text = "흥미로운 물건들을 조사하자.";
+                Heart_Text.text = "흥미로운 것들을 조사하자.";
                 break;
             case 1:
                 Heart_Text.text = "- 붉은색 수정 조각이다.";
@@ -139,10 +151,14 @@ public class ChracterPanel : MonoBehaviour
         // 전체 비활성
         foreach (GameObject child in heartImages)
         { child.gameObject.SetActive(false); }
-        // 최대체력만큼 활성
-        for (int i = 0; i < data.MaxHP / 2; i++)
+        // 시스템상 가능한 추가 체력만큼 오브젝트 활성
+        for (int i = 0; i < _heartSpriteEa; ++i) {
+            heartImages[i].SetActive(true);
+        }
+        //획득한 최대 체력만큼 활성화 이미지로 변경
+        for (int i = 0; i < data.MaxHP / 2 - 6; i++)
         {
-            heartImages[i].gameObject.SetActive(true);
+            _heartSprite[i].sprite = _heartFull;
         }
 
         // 모은 만큼 하트 조각 이미지 스프라이트 추가
