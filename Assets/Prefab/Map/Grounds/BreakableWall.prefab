@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6557627544887177904}
   - component: {fileID: 2633459241468880864}
+  - component: {fileID: 1573841559332345912}
   m_Layer: 0
   m_Name: BwallSp_0
   m_TagString: Untagged
@@ -26,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 38101359957308280}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.03, y: 0.02, z: 0}
-  m_LocalScale: {x: 0.137505, y: 0.099053085, z: 1}
+  m_LocalPosition: {x: 0.2043, y: -0.0561, z: 0}
+  m_LocalScale: {x: 0.22028574, y: 0.118241884, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5505560654318433701}
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2097974465740195669, guid: afd021c66408c2e48a002b84891061cc, type: 3}
+  m_Sprite: {fileID: -5122436801592508538, guid: 7fb3fd5c6e0014c4b9837de0fe8ab7e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -87,6 +88,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1573841559332345912
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38101359957308280}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d68227bfe70e23f4a98c4f0b38a7425a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &524236343976882212
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,6 +266,7 @@ MonoBehaviour:
   ledgeCheck: {fileID: 0}
   groundCheck: {fileID: 0}
   playerCheck: {fileID: 0}
+  animator: {fileID: 1573841559332345912}
 --- !u!114 &3642353287358555366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,7 +299,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   ID: 0
-  isInteracted: 1
+  State: 1
   InteractionGuide: {fileID: 0}
 --- !u!1001 &334906174491470523
 PrefabInstance:
