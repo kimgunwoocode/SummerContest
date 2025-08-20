@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: fd4f7b103f11a43e1be114d610d84fdb
+guid: e2989e36395ef43088b967511b42d29f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7673387192893453554
-    second: DragonHeart_UI_0
-  - first:
-      213: 5987625942956949983
-    second: DragonHeart_UI_1
-  - first:
-      213: -5039138574624219579
-    second: DragonHeart_UI_2
+      213: 2667595169727093173
+    second: breakable_wall_straw_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -78,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -106,67 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DragonHeart_UI_0
+      name: breakable_wall_straw_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 10
-        width: 80
-        height: 80
+        x: 0
+        y: 0
+        width: 439
+        height: 1110
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e0bcd8fd007a28590800000000000000
-      internalID: -7673387192893453554
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DragonHeart_UI_1
-      rect:
-        serializedVersion: 2
-        x: 110
-        y: 10
-        width: 80
-        height: 80
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fd1ccd14212581350800000000000000
-      internalID: 5987625942956949983
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DragonHeart_UI_2
-      rect:
-        serializedVersion: 2
-        x: 210
-        y: 10
-        width: 80
-        height: 80
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 54e1e853a22611ab0800000000000000
-      internalID: -5039138574624219579
+      spriteID: 5b991206ca3350520800000000000000
+      internalID: 2667595169727093173
       vertices: []
       indices: 
       edges: []
@@ -175,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 2a2923ff9a8b14a949d1e1e3c6a5d71e
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -183,13 +133,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":100.0,"y":100.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      DragonHeart_UI_0: -7673387192893453554
-      DragonHeart_UI_1: 5987625942956949983
-      DragonHeart_UI_2: -5039138574624219579
+      breakable_wall_straw_0: 2667595169727093173
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

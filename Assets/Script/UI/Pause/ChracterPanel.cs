@@ -17,6 +17,7 @@ public class ChracterPanel : MonoBehaviour
     public Image BreathIcon_1;
     public Image BreathIcon_2;
     public Image BreathIcon_3;
+    [SerializeField] private GameObject _Ifuneducated;
 
     public Sprite nullsprite;           // 비어있는 칸 이미지
     public Sprite Dragonsprite;         // 첫번째 칸 비어있을 시 기본 이미지
@@ -32,7 +33,7 @@ public class ChracterPanel : MonoBehaviour
     public Transform heartContainer;// 하트들이 자식으로 정렬될 부모 오브젝트
     */
 
-    public List<GameObject> heartImages = new(); // 하트 이미지 리스트
+    public List<GameObject> heartImages; //= new(); 하트 이미지 리스트
 
     [Header("브레스 게이지 관련")]
     public Image Pepper;
@@ -43,8 +44,23 @@ public class ChracterPanel : MonoBehaviour
     public Image BreathGauge;
     public Sprite[] gaugeSprites;   // 게이지 스프라이트 리스트, 스프라이트 차례로 추가 필요
 
+    
+    //[SerializeField]
+    private Image[] _heartSprite;
+    [SerializeField] private Sprite _heartFull;
+    [SerializeField] private int _heartTest;
+    [SerializeField] private int _pepperTest;
+    [SerializeField] private int _heartSpriteEa;
 
+    private void Awake()
+    {
+        _heartSprite = new Image[heartImages.Count];
+        for (int i = 0; i < heartImages.Count; ++i)
+        {
+            _heartSprite[i] = heartImages[i].GetComponent<Image>();
+        }
 
+    }
     void OnEnable()
     {
         data = Singleton.GameManager_Instance.Get<GameDataManager>();
@@ -52,53 +68,67 @@ public class ChracterPanel : MonoBehaviour
 
         // 플레이버 텍스트 초기화
         // 텍스트 수정 필요
-        switch (data.GettedItems[1001] / 3)
+        switch (data.GettedItems[1001])
+        //switch (_heartTest)
         {
             case 0:
-                Heart_Text.text = "어쩌구";
+                Heart_Text.text = "흥미로운 것들을 조사하자.";
                 break;
             case 1:
-                Heart_Text.text = "저쩌구";
+                Heart_Text.text = "- 붉은색 수정 조각이다.";
                 break;
             case 2:
-                Heart_Text.text = "그쩌구";
+                Heart_Text.text = "- 어딘가 익숙한 기운을 낸다.";
+                break;
+            case 3:
+                Heart_Text.text = "- 내 안에 같은 게 뛰고 있어.";
                 break;
             default:
-                Heart_Text.text = "???";
+                Heart_Text.text = "- - -";
                 break;
         }
 
-        switch (data.GettedItems[1002] / 3)
+        switch (data.GettedItems[1002])
+        //switch(_pepperTest)
         {
             case 0:
-                Pepper_Text.text = "어쩌구";
+                Pepper_Text.text = "녹색 책갈피에 도감이 있다.";
                 break;
             case 1:
-                Pepper_Text.text = "저쩌구";
+                Pepper_Text.text = "- 매콤한 향을 낸다.";
                 break;
             case 2:
-                Pepper_Text.text = "그쩌구";
+                Pepper_Text.text = "- 점점 채소의 원형을 갖춰 간다.";
+                break;
+            case 3:
+                Pepper_Text.text = "- 이방의 매운 맛을 내는 열매.";
                 break;
             default:
-                Pepper_Text.text = "???";
+                Pepper_Text.text = "· · ·";
                 break;
         }
 
         // 장착 브레스 아이콘 초기화
-        for (int i = 0; i < 3; i++)
+        for (int i = 0, _breathUnlocked = 0; i < 3; i++)
         {
             if (i < data.EquipSkill.Count)
             {
                 // 스킬이 존재하면 해당 아이콘으로 설정
                 breathIcons[i].sprite = data.allitems[data.EquipSkill[i]].icon;
             }
-            else if (i == 0)
+            else ++_breathUnlocked;
+            if (i == 0)
             {
                 breathIcons[i].sprite = Dragonsprite;
             }
             else
             {
                 breathIcons[i].sprite = nullsprite;
+                if (_breathUnlocked == 3) {
+                    breathIcons[1].color = new Color(255,255,255,0);
+                    breathIcons[2].color = new Color(255, 255, 255,0);
+                    _Ifuneducated.SetActive(true);
+                }
             }
         }
         /*
@@ -121,10 +151,14 @@ public class ChracterPanel : MonoBehaviour
         // 전체 비활성
         foreach (GameObject child in heartImages)
         { child.gameObject.SetActive(false); }
-        // 최대체력만큼 활성
-        for (int i = 0; i < data.MaxHP / 2; i++)
+        // 시스템상 가능한 추가 체력만큼 오브젝트 활성
+        for (int i = 0; i < _heartSpriteEa; ++i) {
+            heartImages[i].SetActive(true);
+        }
+        //획득한 최대 체력만큼 활성화 이미지로 변경
+        for (int i = 0; i < data.MaxHP / 2 - 6; i++)
         {
-            heartImages[i].gameObject.SetActive(true);
+            _heartSprite[i].sprite = _heartFull;
         }
 
         // 모은 만큼 하트 조각 이미지 스프라이트 추가
