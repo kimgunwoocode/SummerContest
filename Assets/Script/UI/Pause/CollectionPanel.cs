@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using System.Collections.Generic;
+using TMPro;
+
 public class CollectionPanel : MonoBehaviour
 {
     GameDataManager data;
@@ -12,11 +14,15 @@ public class CollectionPanel : MonoBehaviour
     private Vector3 originalScale = new Vector3(1f, 1f, 1f);        // 원래 크기
 
 
+    enum ScreenType { Enemy, Item, Document }
+
     [Header("퍼즈 - 도감 - 서브화면 버튼")]
     public GameObject EnemyButton;
     public GameObject ItemButton;
     public GameObject DocumentButton;
+    ScreenType targetButton_type;
 
+    public TMP_Text PageText;
 
     private List<GameObject> allsubButtons;     // 도감 서브 버튼 리스트
     /*
@@ -36,9 +42,23 @@ public class CollectionPanel : MonoBehaviour
     private Dictionary<GameObject, Tween> buttonTweens = new();     // 버튼별 트윈 저장용 딕셔너리
 
 
+    //private int itemCount = 0; // Breath 아이템은 제외시키기 위해 미리 Breath를 제외한 아이템 개수 저장하기
+
+    private int fullPage = 0;
+    private int currentPage = 0;
+
+
+
     void Awake()
     {
         data = Singleton.GameManager_Instance.Get<GameDataManager>();
+        /*
+        for (int i = 0; i < data.allitems_SO.allitems.Count; i++)
+        {
+            if (data.allitems_SO.allitems[i].itemType != ItemType.Breath)
+                itemCount++;
+        }
+        */
     }
     void OnEnable()
     {
@@ -60,123 +80,140 @@ public class CollectionPanel : MonoBehaviour
     // 서브 탭(적, 아이템, 문서) 클릭시 실행
     private void ClickButton(GameObject targetButton)
     {
-        // 11개 씩 나타나는, 페이지를 넘기거나 하는 추가적인 수정 있을 예정. 고려하여 작성함
-        int i = 0;
+        ReFreshButtonContainor();
+
+        if (targetButton == EnemyButton)
+        {
+            fullPage = 1;
+            currentPage = 1;
+            PageText.text = (currentPage + "/" + fullPage).ToString();
+        }
+        else if (targetButton == ItemButton)
+        {
+            fullPage = (data.allitems_SO.allitems.Count%9 == 0) ? data.allitems_SO.allitems.Count / 9 : data.allitems_SO.allitems.Count / 9 + 1;
+            currentPage = 1;
+            PageText.text = (currentPage + "/" + fullPage).ToString();
+        }
+
+            /*
+                // 이전 자식 버튼 제거
+                foreach (Transform child in ButtonContainer)
+                {
+                    Destroy(child.gameObject);
+                }
+
+                // 버튼 프리팹 생성
+                for (int i = 0; i < 11; i++)
+                {
+                    GameObject Colletionbutton = Instantiate(buttonPrefab, ButtonContainer);
+
+                    CollectionButton codexBtn = Colletionbutton.GetComponent<CollectionButton>();
+
+                    // 버튼에서의 연결
+                    codexBtn.ItemName = itemNameText;
+                    codexBtn.ItemInfor = itemInforText;
+                    codexBtn.ItemImage = itemImageImage;
+
+                    // 구체적인 수치는 변경 필요!!
+                    if (targetButton == EnemyButton) // 적 ID 라인으로 변경 필요
+                    {
+                        codexBtn.MyId = 1000 + i;
+                    }
+                    else if (targetButton == ItemButton) // 아이템 ID 수정 완료, 아이템 수 추가될 시 변경 필요
+                    {
+                        codexBtn.MyId = 1017 + i;
+                        if (i == 5) break;
+                    }
+                    else if (targetButton == DocumentButton) // 문서 ID 라인으로 변경 필요
+                    {
+                        codexBtn.MyId = 3000 + i;
+                    }
+
+                }*/
+
+
+            // 누른 버튼의 크기 고정, 나머지 버튼 초기화
+            foreach (var button in allsubButtons)
+            {
+                // 클릭 여부 설정
+                var pauseScript = button.GetComponent<PauseButton>();
+                pauseScript.isclick = (button == targetButton);
+
+                var btnTransform = button.transform;
+
+                // 현재 실행중인 트윈 있을시 중단
+                if (buttonTweens.TryGetValue(button, out Tween existingTween))
+                {
+                    existingTween.Kill();
+                }
+
+                Tween newTween;                 // 새 트윈 생성
+                                                // 버튼에 따라 맞는 애니메이션 실행
+                if (button == targetButton)
+                {
+                    newTween = btnTransform.DOScale(originalScale * clickUp, duration).SetUpdate(true);
+                }
+                else
+                {
+                    newTween = btnTransform.DOScale(originalScale, duration).SetUpdate(true);
+                }
+
+                buttonTweens[button] = newTween; // 트윈 할당
+            }
+    }
+
+    public void ReFreshButtonContainor()
+    {
+        int i = 9 * (currentPage-1);
+        PageText.text = (currentPage + "/" + fullPage).ToString();
+
         foreach (GameObject child in CollectiopnButtons)
         {
             CollectionButton codexBtn = child.GetComponent<CollectionButton>();
-            //Debug.Log(codexBtn.gameObject.activeSelf);
-            codexBtn.gameObject.SetActive(true);
-            //Debug.Log(codexBtn.isAwakeActivated);
-
-            // 구체적인 수치는 변경 필요!!
-            if (targetButton == EnemyButton) // 적 ID 라인으로 변경 필요
+            //Debug.Log("i : "+i);
+            if (i < data.allitems_SO.allitems.Count)
             {
-                InsertMyID = 2000 + i;
-                //if (data.allitems.ContainsKey(InsertMyID))
-                //{
-                //    codexBtn.gameObject.SetActive(true);
-                codexBtn.MyId = InsertMyID;
-                //}
-                //else
-                //{
-                //    codexBtn.gameObject.SetActive(false);
-                //}
-
-            }
-            else if (targetButton == ItemButton) // 아이템 ID 수정 완료, 아이템 수 추가될 시 변경 필요
-            {
-                InsertMyID = 1017 + i;
-
-                //if (data.allitems.ContainsKey(InsertMyID))
-                //{
-                //    codexBtn.gameObject.SetActive(true);
-                codexBtn.MyId = InsertMyID;
-                //}
-                //else
-                //{
-                //    codexBtn.gameObject.SetActive(false);
-                //}
-            }
-            else if (targetButton == DocumentButton) // 문서 ID 라인으로 변경 필요
-            {
-                InsertMyID = 3000 + i;
-                //if (data.allitems.ContainsKey(InsertMyID))
-                //{
-                //    codexBtn.gameObject.SetActive(true);
-                codexBtn.MyId = InsertMyID;
-                //}
-                //else
-                //{
-                //    codexBtn.gameObject.SetActive(false);
-                //}
-            }
-            i++;
-        }
-        /*
-            // 이전 자식 버튼 제거
-            foreach (Transform child in ButtonContainer)
-            {
-                Destroy(child.gameObject);
-            }
-
-            // 버튼 프리팹 생성
-            for (int i = 0; i < 11; i++)
-            {
-                GameObject Colletionbutton = Instantiate(buttonPrefab, ButtonContainer);
-
-                CollectionButton codexBtn = Colletionbutton.GetComponent<CollectionButton>();
-
-                // 버튼에서의 연결
-                codexBtn.ItemName = itemNameText;
-                codexBtn.ItemInfor = itemInforText;
-                codexBtn.ItemImage = itemImageImage;
-
-                // 구체적인 수치는 변경 필요!!
-                if (targetButton == EnemyButton) // 적 ID 라인으로 변경 필요
-                {
-                    codexBtn.MyId = 1000 + i;
-                }
-                else if (targetButton == ItemButton) // 아이템 ID 수정 완료, 아이템 수 추가될 시 변경 필요
-                {
-                    codexBtn.MyId = 1017 + i;
-                    if (i == 5) break;
-                }
-                else if (targetButton == DocumentButton) // 문서 ID 라인으로 변경 필요
-                {
-                    codexBtn.MyId = 3000 + i;
-                }
-
-            }*/
-
-
-        // 누른 버튼의 크기 고정, 나머지 버튼 초기화
-        foreach (var button in allsubButtons)
-        {
-            // 클릭 여부 설정
-            var pauseScript = button.GetComponent<PauseButton>();
-            pauseScript.isclick = (button == targetButton);
-
-            var btnTransform = button.transform;
-
-            // 현재 실행중인 트윈 있을시 중단
-            if (buttonTweens.TryGetValue(button, out Tween existingTween))
-            {
-                existingTween.Kill();
-            }
-
-            Tween newTween;                 // 새 트윈 생성
-            // 버튼에 따라 맞는 애니메이션 실행
-            if (button == targetButton)
-            {
-                newTween = btnTransform.DOScale(originalScale * clickUp, duration).SetUpdate(true);
+                child.SetActive(true);
             }
             else
             {
-                newTween = btnTransform.DOScale(originalScale, duration).SetUpdate(true);
+                child.SetActive(false);
+                continue;
             }
+            //Debug.Log(codexBtn.isAwakeActivated);
 
-            buttonTweens[button] = newTween; // 트윈 할당
+            // 구체적인 수치는 변경 필요!!
+            if (targetButton_type == ScreenType.Enemy) // 적 ID 라인으로 변경 필요
+            {
+                InsertMyID = 2000 + i;
+
+                codexBtn.MyId = InsertMyID;
+            }
+            else if (targetButton_type == ScreenType.Item) // 아이템 ID 수정 완료, 아이템 수 추가될 시 변경 필요
+            {
+                InsertMyID = data.allitems_SO.allitems[i].itemID;
+
+                codexBtn.MyId = InsertMyID;
+            }
+            i++;
+        }
+    }
+
+
+    public void OnLeftButton()
+    {
+        if (currentPage != 1)
+        {
+            currentPage--;
+            ReFreshButtonContainor();
+        }
+    }
+    public void OnRightButton()
+    {
+        if (currentPage < fullPage)
+        {
+            currentPage++;
+            ReFreshButtonContainor();
         }
     }
 
@@ -184,16 +221,19 @@ public class CollectionPanel : MonoBehaviour
     public void OnEnemyButtonClicked()
     {
         ClickButton(EnemyButton);
+        targetButton_type = ScreenType.Enemy;
     }
 
     public void OnItemButtonClicked()
     {
         ClickButton(ItemButton);
+        targetButton_type = ScreenType.Item;
     }
 
     public void OnDocumentButtonClicked()
     {
         ClickButton(DocumentButton);
+        targetButton_type = ScreenType.Document;
     }
 
 

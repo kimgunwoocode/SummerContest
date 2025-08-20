@@ -43,12 +43,13 @@ public class CollectionButton : MonoBehaviour
         //if (data == null) return;
         if (data.GettedItems.TryGetValue(MyId, out int isUnlocked) && isUnlocked != 0)
         {
-            Debug.Log("(init) item 존재 " + MyId);
+            //Debug.Log("(init) item 획득됨 " + MyId + " " + isUnlocked);
             // 획득
             L_ItemName.text = data.allitems[MyId].itemName;
         }
         else
         {
+            //Debug.Log("(init) item 미획득 " + MyId + " " + isUnlocked);
             // 미획득
             L_ItemName.text = "???";
         }
