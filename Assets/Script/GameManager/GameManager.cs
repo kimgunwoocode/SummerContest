@@ -164,6 +164,7 @@ public class GameManager : MonoBehaviour
     public void Get_Money(int min, int max)
     {
         GameDataManager.Money += UnityEngine.Random.Range(min, max);
+        UIManager.MainGameUI.UpdateMoney();
     }
 
     public void Get_Item(int ItemID)
