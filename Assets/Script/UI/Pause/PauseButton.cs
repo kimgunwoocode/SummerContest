@@ -7,9 +7,9 @@ public class PauseButton : MonoBehaviour,
     IPointerEnterHandler, IPointerExitHandler
 {
     public float hoverUp = 1.05f;          // 호버 시 확대 비율
-    public float duration = 0.15f;        // 애니메이션 시간
+    public float duration = 0.1f;        // 애니메이션 시간
 
-    private Vector3 originalScale;        // 원래 크기
+    public Vector3 originalScale = new Vector3(1,1,1);        // 원래 크기
 
     private Tween currentTween;           // 현재 트윈
 
@@ -18,7 +18,7 @@ public class PauseButton : MonoBehaviour,
 
     void Start()
     {
-        originalScale = transform.localScale;        // 시작 크기 저장
+        //originalScale = transform.localScale;        // 시작 크기 저장
     }
 
     public void OnPointerEnter(PointerEventData eventData)
