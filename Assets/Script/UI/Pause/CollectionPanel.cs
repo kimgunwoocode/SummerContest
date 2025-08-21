@@ -46,7 +46,9 @@ public class CollectionPanel : MonoBehaviour
     private Dictionary<GameObject, Tween> buttonTweens = new();     // 버튼별 트윈 저장용 딕셔너리
 
 
-    //private int itemCount = 0; // Breath 아이템은 제외시키기 위해 미리 Breath를 제외한 아이템 개수 저장하기
+    private List<int> itemIDs = new(); // Breath 아이템과 Ability 제외시키기 위해 미리 Breath를 제외한 아이템 개수 저장하기
+    private List<int> documentIDs = new();
+    private int EnemyCount = 0;
 
     private int fullPage = 0;
     private int currentPage = 0;
@@ -56,13 +58,26 @@ public class CollectionPanel : MonoBehaviour
     void Awake()
     {
         data = Singleton.GameManager_Instance.Get<GameDataManager>();
-        /*
+        
         for (int i = 0; i < data.allitems_SO.allitems.Count; i++)
         {
-            if (data.allitems_SO.allitems[i].itemType != ItemType.Breath)
-                itemCount++;
+            if (data.allitems_SO.allitems[i].itemType == ItemType.Breath || data.allitems_SO.allitems[i].itemType == ItemType.Ability)
+            {
+                documentIDs.Add(data.allitems_SO.allitems[i].itemID);
+            }
+            else
+            {
+                itemIDs.Add(data.allitems_SO.allitems[i].itemID);
+            }
         }
-        */
+
+        // 1001과 1002 제외하기
+        itemIDs.Remove(1001);
+        itemIDs.Remove(1002);
+        documentIDs.Remove(1001);
+        documentIDs.Remove(1002);
+        Debug.Log($"itemIDs count : {itemIDs.Count}");
+        Debug.Log($"documentIDs count : {documentIDs.Count}");
     }
     void OnEnable()
     {
@@ -92,12 +107,18 @@ public class CollectionPanel : MonoBehaviour
         }
         else if (targetButton == ItemButton)
         {
-            fullPage = (data.allitems_SO.allitems.Count%9 == 0) ? data.allitems_SO.allitems.Count / 9 : data.allitems_SO.allitems.Count / 9 + 1;
+            fullPage = (itemIDs.Count % 9 == 0) ? itemIDs.Count / 9 : itemIDs.Count / 9 + 1;
+            currentPage = 1;
+            SetPageNum();
+        }
+        else if (targetButton == DocumentButton)
+        {
+            fullPage = (documentIDs.Count % 9 == 0) ? documentIDs.Count / 9 : documentIDs.Count / 9 + 1;
             currentPage = 1;
             SetPageNum();
         }
 
-        ReFreshButtonContainor();
+            ReFreshButtonContainor();
 
 
         /*
@@ -169,8 +190,6 @@ public class CollectionPanel : MonoBehaviour
 
     public void ReFreshButtonContainor()
     {
-        int i = 9 * (currentPage-1);
-
         if (fullPage == 1)
         {
             LeftArrow.interactable = false;
@@ -197,16 +216,36 @@ public class CollectionPanel : MonoBehaviour
         SetPageNum();
 
 
+
+        int i = 9 * (currentPage - 1);
+        int count = 0;
+
+        if (targetButton_type == ScreenType.Item)
+        {
+            count = itemIDs.Count;
+        }
+        else if (targetButton_type == ScreenType.Enemy)
+        {
+            count = EnemyCount;
+        }
+        else if (targetButton_type == ScreenType.Document)
+        {
+            count = documentIDs.Count;
+        }
+
+        Debug.Log($"count : {count},  currentPage : {currentPage}");
+
         foreach (GameObject child in CollectiopnButtons)
         {
             CollectionButton codexBtn = child.GetComponent<CollectionButton>();
-            //Debug.Log("i : "+i);
-            if (i < data.allitems_SO.allitems.Count)
+            if (i < count)
             {
+                Debug.Log("i : "+i+"  true");
                 child.SetActive(true);
             }
             else
             {
+                Debug.Log("i : "+i+"  false");
                 child.SetActive(false);
                 continue;
             }
@@ -221,9 +260,11 @@ public class CollectionPanel : MonoBehaviour
             }
             else if (targetButton_type == ScreenType.Item) // 아이템 ID 수정 완료, 아이템 수 추가될 시 변경 필요
             {
-                InsertMyID = data.allitems_SO.allitems[i].itemID;
-
-                codexBtn.MyId = InsertMyID;
+                codexBtn.MyId = itemIDs[i];
+            }
+            else if (targetButton_type == ScreenType.Document)
+            {
+                codexBtn.MyId = documentIDs[i];
             }
             i++;
         }
@@ -257,20 +298,20 @@ public class CollectionPanel : MonoBehaviour
     // 각 버튼의 On Click()에 참조
     public void OnEnemyButtonClicked()
     {
-        ClickButton(EnemyButton);
         targetButton_type = ScreenType.Enemy;
+        ClickButton(EnemyButton);
     }
 
     public void OnItemButtonClicked()
     {
-        ClickButton(ItemButton);
         targetButton_type = ScreenType.Item;
+        ClickButton(ItemButton);
     }
 
     public void OnDocumentButtonClicked()
     {
-        ClickButton(DocumentButton);
         targetButton_type = ScreenType.Document;
+        ClickButton(DocumentButton);
     }
 
 
