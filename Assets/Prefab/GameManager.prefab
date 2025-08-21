@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SystemData:
+    Day: 
     MouseSensitivity: 1
     MasterVolume: 1
     BGMVolume: 1
@@ -125,7 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3a34dbe4bd93c147adf60b75cc3e99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorTex: {fileID: 2800000, guid: c0b55e16840fbb642b2d8836c473dc39, type: 3}
+  NomalCursor: {fileID: 2800000, guid: c0b55e16840fbb642b2d8836c473dc39, type: 3}
+  AttackCursor: {fileID: 2800000, guid: e3d2f781540b0e443a491b2cfdf4b477, type: 3}
+  BreathCursor: {fileID: 2800000, guid: 6e99333980b514c428ffe070adec54c9, type: 3}
 --- !u!114 &7258978633776394569
 MonoBehaviour:
   m_ObjectHideFlags: 0
