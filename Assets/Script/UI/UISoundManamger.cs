@@ -5,7 +5,6 @@ using static SoundManager;
 
 public class UISoundManamger : MonoBehaviour
 {
-    SoundManager _SoundManager;
     SystemDataManager _SystemDataManager;
 
     public Slider MasterVolume_Slider;
@@ -15,7 +14,6 @@ public class UISoundManamger : MonoBehaviour
 
     private void Start()
     {
-        _SoundManager = SoundManager.instance;
         _SystemDataManager = Singleton.GameManager_Instance.Get<SystemDataManager>();
         SetSliderValue();
     }
@@ -51,6 +49,15 @@ public class UISoundManamger : MonoBehaviour
 
     private void SetVolume(VolumeName VolumeName, float Volume)
     {
-        _SoundManager.SetVolume(VolumeName, Volume);
+        SoundManager.instance.SetVolume(VolumeName, Volume);
+    }
+
+    public void ButtonSound()
+    {
+        SoundManager.instance.PlaySFX("ui_click");
+    }
+    public void ButtonSound_paper()
+    {
+        SoundManager.instance.PlaySFX("ui_paper");
     }
 }
