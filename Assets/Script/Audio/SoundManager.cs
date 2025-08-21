@@ -3,6 +3,7 @@ using GameAudio;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 
 /**
@@ -151,7 +152,7 @@ public class SoundManager : MonoBehaviour
 
     }
 
-    public void PlaySFX(string sfxName)
+    public void PlaySFX(string sfxName, float startTime = 0f, float endTime=0f)
     {
         for (int i = 0; i < currentSfxSource.Length; i++)
         {
@@ -166,8 +167,11 @@ public class SoundManager : MonoBehaviour
                     return;
                 }
 
+                currentSfxSource[i].time = startTime;
+                if (endTime == 0f) endTime = currentSfxSource[i].clip.length;
                 currentSfxSource[i].Play();
                 currentSfxSource[i].loop = false;
+                DOVirtual.DelayedCall(endTime, () => currentSfxSource[i].Stop());
                 return;
             }
         }
