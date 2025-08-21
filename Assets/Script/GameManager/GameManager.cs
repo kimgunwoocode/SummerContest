@@ -93,11 +93,17 @@ public class GameManager : MonoBehaviour
     {
         string SavedSceneName = "None Scene";
 
-        if (GameDataManager.SpawnPoint == 0)// 게임 시작 후 세이브를 안했을 때, 초기화시키기
+        if (GameDataManager.SpawnPoint == -1)
         {
             Debug.Log("세이브 안함");
             CurrentScenePointID = -1;
-            SavedSceneName = "Title";
+            SavedSceneName = "1-1_ForgottenNest";
+        }
+        else if (GameDataManager.SpawnPoint == 0)// 게임 시작 후 세이브를 안했을 때, 초기화시키기
+        {
+            Debug.Log("세이브 안함");
+            CurrentScenePointID = -1;
+            SavedSceneName = "1-1_ForgottenNest";
         }
         else //이전 세이브 포인트로 시점 되돌리기
         {
@@ -125,7 +131,7 @@ public class GameManager : MonoBehaviour
         while(sequenceExcuting)
             yield return null;
 
-        if (GameDataManager.SpawnPoint == -1)// 게임 시작 후 세이브를 안했을 때, 초기화시키기
+        if (GameDataManager.SpawnPoint == -1 || GameDataManager.SpawnPoint == 0)// 게임 시작 후 세이브를 안했을 때, 초기화시키기
             SaveFileManager.Load_forNewGame(InitData.text, GameDataManager.GameData.Slot);
         else
             LoadData__SavePoint();
