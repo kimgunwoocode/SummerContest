@@ -1235,6 +1235,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7066146461792856490, guid: 67290c5d6aebf07448d0e3d021dd947e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7066146461792856491, guid: 67290c5d6aebf07448d0e3d021dd947e, type: 3}
       propertyPath: m_Creator
       value: 
@@ -3059,6 +3063,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 1491152884}
+    - target: {fileID: 4494930001627154478, guid: 8a02031f78cf2544d925b7e949b4dad7, type: 3}
+      propertyPath: _child
+      value: 
+      objectReference: {fileID: 2014382239}
     - target: {fileID: 4494930001627154478, guid: 8a02031f78cf2544d925b7e949b4dad7, type: 3}
       propertyPath: _dropTem
       value: 
@@ -15713,6 +15721,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 150288705}
     m_Modifications:
+    - target: {fileID: 493988930160766732, guid: c8c59eef6f705524cb158b85590b6d31, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 552744912134394547, guid: c8c59eef6f705524cb158b85590b6d31, type: 3}
       propertyPath: m_Name
       value: Fox_Drop
@@ -23186,6 +23198,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2014382239 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1602531768990090806, guid: 8a02031f78cf2544d925b7e949b4dad7, type: 3}
+  m_PrefabInstance: {fileID: 850505235}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2038523753
 PrefabInstance:
   m_ObjectHideFlags: 0

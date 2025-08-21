@@ -9,6 +9,7 @@ public class Gumiho_DeadState : DeadState
     Boss_Gumiho gumiho;
 
     [SerializeField] private GameObject _dropTem;
+    [SerializeField] private Transform _child;
 
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
@@ -20,10 +21,10 @@ public class Gumiho_DeadState : DeadState
     {
         base.Enter();
 
-        Debug.Log($"pos: {enemy.transform.position}");
         Debug.Log($"facingDIr: {enemy.facingDir}");
         _dropTem.SetActive(true);
-        _dropTem.transform.position = enemy.transform.position;
+        _dropTem.transform.position = _child.position; //new Vector2(gameObject.transform.position.x-0.45f,gameObject.transform.position.y);
+        Debug.Log($"pos: {_dropTem.transform.position}");
         Vector2 _direction = new Vector2(enemy.facingDir, 1).normalized;
         _dropTem.GetComponent<Rigidbody2D>().AddForce(_direction * 5f, ForceMode2D.Impulse);
 
