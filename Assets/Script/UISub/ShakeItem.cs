@@ -9,8 +9,12 @@ public class ShakeItem : MonoBehaviour
 
     private Vector3 _originalPosition;
 
-    void Start()
+    protected void Start()
     {
+        Hover();
+    }
+
+    protected void Hover(){
         _originalPosition = transform.localPosition;
 
         // 위아래 반복 애니메이션
@@ -18,5 +22,5 @@ public class ShakeItem : MonoBehaviour
             .SetEase(Ease.InOutSine)
             .SetLoops(-1, LoopType.Yoyo)
             .SetLink(gameObject);
-    }
+    } 
 }

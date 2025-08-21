@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 3677939271890526175}
   - component: {fileID: 493988930160766732}
   - component: {fileID: 8578222594065944166}
-  - component: {fileID: 2702310160909831733}
+  - component: {fileID: 4867624565056102236}
   - component: {fileID: 3884696057385855582}
+  - component: {fileID: -8258825518842658839}
   m_Layer: 0
   m_Name: Fox_Drop
   m_TagString: Untagged
@@ -198,7 +199,7 @@ MonoBehaviour:
   ID: 4043
   State: 1
   InteractionGuide: {fileID: 5854497253813318159}
---- !u!114 &2702310160909831733
+--- !u!114 &4867624565056102236
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -207,11 +208,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 552744912134394547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c880dc586562f1b4ca09f4513be85d6a, type: 3}
+  m_Script: {fileID: 11500000, guid: a16396e8b941ae3409b414a493320cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   floatHeight: 0.2
   duration: 1.2
+  _rb: {fileID: -8258825518842658839}
 --- !u!114 &3884696057385855582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +226,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f8f59c773dc8b4f89d403ebda1e0ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &-8258825518842658839
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552744912134394547}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5854497253813318159
 GameObject:
   m_ObjectHideFlags: 0
