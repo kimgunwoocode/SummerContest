@@ -86,7 +86,6 @@ public class CameraManager : MonoBehaviour
         MoveCamera_InLateUpdate();
         ZoomInOut_InLateUpdate();
         BackgroundMove_InLateUpdate();
-        SetBackgroundSize();
     }
 
     #region LateUpdate 관련
