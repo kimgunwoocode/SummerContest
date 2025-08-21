@@ -231,7 +231,7 @@ public class CollectionPanel : MonoBehaviour
 
     private void SetPageNum()
     {
-        LeftPageText.text = currentPage.ToString();
+        LeftPageText.text = ((currentPage * 2) - 1).ToString();
         RightPageText.text = (currentPage * 2).ToString();
         //Debug.Log("page  current : " + currentPage + " full : " + fullPage);
     }
