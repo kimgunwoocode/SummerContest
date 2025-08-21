@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class PlayerAttack : MonoBehaviour {
     [SerializeField] private GameObject MeleeEffect;
@@ -40,7 +41,7 @@ public class PlayerAttack : MonoBehaviour {
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Instantiate(MeleeEffect, attackPos, Quaternion.Euler(0, 0, angle - 90));
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, _attackStats.MeleeAttackRange, _attackStats.EnemyLayer);
-        SoundManager.instance.PlaySFX("player_attack");
+        SoundManager.instance.PlaySFX("player_attack", 0.12f, 0.62f);
         foreach (var hit in hits) {
             hit.GetComponentInParent<EnemyEntity>()?.TakeDamage(_data.ATK, transform.position);
             _data.CurrentBreathGauge += 1;
