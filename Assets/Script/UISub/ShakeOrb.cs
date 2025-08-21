@@ -10,8 +10,9 @@ public class ShakeOrb : ShakeItem
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if ((collision.gameObject.layer & 1 << 3) != 0) {
-            if (_hasLanded) return;
+        if (_hasLanded) return;
+        if ((1 << collision.gameObject.layer) == (1 << 3)) {
+            _hasLanded = true;
             _rb.simulated = false;
             Hover();
         }
