@@ -46,7 +46,7 @@ public class Lightning : MonoBehaviour
         while (currentTime < curveDuration) {
             currentTime += Time.deltaTime;
             curveValue = myCurve.Evaluate(currentTime / curveDuration);
-            lightnings[0].intensity = curveValue * 10f;
+            lightnings[0].intensity = curveValue;
             yield return null;
         }
     } 
