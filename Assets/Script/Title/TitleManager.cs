@@ -169,6 +169,12 @@ public class TitleManager : MonoBehaviour
     }
 
 
+    public void ButtonSound()
+    {
+        SoundManager.instance.PlaySFX("ui_click");
+    }
+
+
     public void QuitGame()
     {
         Application.Quit();
