@@ -3,12 +3,16 @@ using UnityEngine;
 public class BlindArea : MonoBehaviour
 {
     public SpriteRenderer SpriteRenderer;
-    private GameObject[] obj;
+    public GameObject[] obj;
 
     private void Awake()
     {
-        for (int i = 0; i < gameObject.transform.childCount; i++) {
-            obj[i] = gameObject.transform.GetChild(i).gameObject;
+        if (obj == null)
+        {
+            for (int i = 0; i < gameObject.transform.childCount; i++)
+            {
+                obj[i] = gameObject.transform.GetChild(i).gameObject;
+            }
         }
     }
 
