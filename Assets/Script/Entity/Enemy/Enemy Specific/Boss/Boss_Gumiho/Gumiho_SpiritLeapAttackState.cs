@@ -142,6 +142,10 @@ public class Gumiho_SpiritLeapAttackState : AttackState
 
     private void DestroyFoxFire()
     {
+        if (foxFires == null) {
+            Debug.Log("FoxFires are assignged a null value");
+            return; 
+        }
         for (int i = 0; i < foxFires.Count; i++)
         {
             //if (foxFires[i] != null) foxFires[i].SetActive(false);
