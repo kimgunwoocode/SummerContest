@@ -5,48 +5,23 @@ public class ParallaxBackground : MonoBehaviour {
     [Tooltip("0에 가까울수록 멀리 있는 배경 (느리게 움직임)")]
     [Range(-1f, 1f)]
     public float parallaxEffectMultiplier;
-
+    public bool isActive = true;
     private Transform cameraTransform;
-    private Vector3 lastCameraPosition;
-
-    private float minX;
-    private float maxX;
-
-    [SerializeField] GameObject worldStartMarker;
-    [SerializeField] GameObject worldEndMarker;
+    private Vector3 initialPosition;
 
     void Start() {
         cameraTransform = Camera.main.transform;
-        lastCameraPosition = cameraTransform.position;
-        SpriteRenderer spriteRenderer = null;
-        TryGetComponent<SpriteRenderer>(out spriteRenderer);
-
-        float spriteWidth = (spriteRenderer != null) ? spriteRenderer.bounds.size.x : GetComponent<SpriteShapeRenderer>().bounds.size.x;
-
-        if (worldStartMarker == null || worldEndMarker == null) {
-            this.enabled = false;
-            return;
-        }
-
-        float worldStartX = worldStartMarker.transform.position.x;
-        float worldEndX = worldEndMarker.transform.position.x;
-
-        minX = worldStartX + (spriteWidth / 2f);
-        maxX = worldEndX - (spriteWidth / 2f);
+        initialPosition = transform.position;
     }
 
     void LateUpdate() {
-        Vector3 deltaMovement = cameraTransform.position - lastCameraPosition;
+        if (!isActive) return;
+        // 카메라의 X좌표를 기준으로 배경의 새로운 X좌표를 계산한다.
+        // 이게 핵심이다.
+        float newX = initialPosition.x + (cameraTransform.position.x * parallaxEffectMultiplier);
 
-        Vector3 newPosition = transform.position + new Vector3(deltaMovement.x * parallaxEffectMultiplier, 0, 0);
-
-        if (minX < maxX) {
-            newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
-        }
-
-        transform.position = newPosition;
-
-        lastCameraPosition = cameraTransform.position;
+        // Z축은 원래 위치 그대로 유지한다.
+        transform.position = new Vector3(newX, transform.position.y, initialPosition.z);
     }
 }
 
