@@ -7,6 +7,7 @@ public class GetHeartPanel : MonoBehaviour
 {
     public EventTrigger clossTrigger;
     public Image[] Heart;
+    public GameObject NextText_obj;
 
     private float duration = 1.5f;
 
@@ -29,6 +30,7 @@ public class GetHeartPanel : MonoBehaviour
     IEnumerator GetHeartPiece(int step)
     {
         clossTrigger.enabled = false;
+        NextText_obj.SetActive(false);
 
         float startX = 0f;
         float endX = 1;
@@ -44,7 +46,7 @@ public class GetHeartPanel : MonoBehaviour
             yield return null;
         }
         Heart[step-1].color = fullColor;
-
+        NextText_obj.SetActive(true);
         clossTrigger.enabled = true;
         yield break;
     }

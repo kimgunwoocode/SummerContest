@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.InputSystem.InputSettings;
 using static UnityEngine.Rendering.DebugManager;
 
 public class MainGameUI : MonoBehaviour
@@ -13,7 +14,7 @@ public class MainGameUI : MonoBehaviour
     public GameObject MoneyText_objAfter;
     public Text MoneyTextBefore;          // 가진 돈 텍스트
     public Text MoneyTextAfter;           // 가진 돈 텍스트
-    private Text MoneyTextCurrent;
+    //private Text MoneyTextCurrent;
 
     [Header("브레스 아이콘 관련")]
     public Image breatGaugeIcon_1;
@@ -52,7 +53,7 @@ public class MainGameUI : MonoBehaviour
         UIMaxHP = data.MaxHP;
         UImoney = data.Money;
 
-        MoneyTextBefore.text = data.Money.ToString(); // 돈 텍스트 초기화
+        UpdateMoney();
 
         InitializeHP(UIMaxHP);
     }
@@ -69,7 +70,8 @@ public class MainGameUI : MonoBehaviour
     {
         if (UImoney != data.Money)
         {
-            MoneyTextCurrent.text = data.Money.ToString(); // 돈 텍스트 초기화
+            UImoney = data.Money;
+            UpdateMoney();
         }
         float fillAmount = data.CurrentBreathGauge / data.MaxBreathGauge;
         breathGauge.fillAmount = Mathf.Clamp01(fillAmount); // 게이지 UI 초기화
@@ -127,13 +129,13 @@ public class MainGameUI : MonoBehaviour
 
         if (active)
         {
-            MoneyTextCurrent = MoneyTextAfter;
+            //MoneyTextCurrent = MoneyTextAfter;
             MoneyText_objBefore.SetActive(false);
             MoneyText_objAfter.SetActive(true);
         }
         else
         {
-            MoneyTextCurrent = MoneyTextAfter;
+            //MoneyTextCurrent = MoneyTextAfter;
             MoneyText_objBefore.SetActive(true);
             MoneyText_objAfter.SetActive(false);
         }
@@ -229,5 +231,9 @@ public class MainGameUI : MonoBehaviour
             }
         }
     }
-
+    public void UpdateMoney()
+    {
+        MoneyTextBefore.text = data.Money.ToString(); // 돈 텍스트 초기화
+        MoneyTextAfter.text = data.Money.ToString(); // 돈 텍스트 초기화
+    }
 }
