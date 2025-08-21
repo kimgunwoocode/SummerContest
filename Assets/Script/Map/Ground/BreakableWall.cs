@@ -55,6 +55,7 @@ public class BreakableWall : EnemyEntity
         gameObject.SetActive(active);
     }
 
+    // Enemy를 상속받았기 때문에, 벽에 필요없는 요소를 위한 오버라이드
     #region overide
     protected override void Awake() {
         gameDataManager = Singleton.GameManager_Instance.Get<GameDataManager>();

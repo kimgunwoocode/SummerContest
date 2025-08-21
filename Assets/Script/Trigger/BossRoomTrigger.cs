@@ -4,9 +4,13 @@ using DG.Tweening;
 public class BossRoomTrigger : MonoBehaviour
 {
     [SerializeField] GameObject gumiho;
+    [SerializeField] PlayerManager Player;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) {
+        if (other.CompareTag("Player"))
+        {
+            Player.SetControllable(false);
             VFXSequence sequence = new VFXBuilder()
             .AppendDelay(1.7f)
             .AppendBlackOut(1.2f)
@@ -17,6 +21,7 @@ public class BossRoomTrigger : MonoBehaviour
             .AppendCallBacks(() => { 
                 gumiho.SetActive(true);
                 SoundManager.instance.PlayBossBGM("Gumiho");
+                Player.SetControllable(true);
             })
             .Build();
         }
