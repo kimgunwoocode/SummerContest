@@ -13,6 +13,7 @@ public class BreakableWallEditor : Editor
         //EditorGUILayout.PropertyField(serializedObject.FindProperty("변수 이름"));
 
         EditorGUILayout.PropertyField(serializedObject.FindProperty("animator"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("sound"));
 
         serializedObject.ApplyModifiedProperties();
     }

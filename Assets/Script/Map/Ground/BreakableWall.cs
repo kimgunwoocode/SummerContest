@@ -4,8 +4,10 @@ using UnityEngine.InputSystem;
 public class BreakableWall : EnemyEntity
 {
     // 인스펙터창에 변수 보이게 하려면 BreakableWallEditor 스크립트에서 설정하기
+    
 
     public Animator animator;
+    public string sound = "break3";
 
     GameDataManager gameDataManager;
     Interaction interaction;
@@ -17,7 +19,7 @@ public class BreakableWall : EnemyEntity
         else
         {
             animator.SetTrigger("breaked");
-
+            SoundManager.instance.PlaySFX(sound);
             int childCount = gameObject.transform.childCount;
             for (int i = 0; i < childCount; i++)
             {
