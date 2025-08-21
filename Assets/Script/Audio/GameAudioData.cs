@@ -83,6 +83,12 @@ namespace GameAudio
                     return effectSound.mapSound.Lightning2;
                 case "map_Thunder3":
                     return effectSound.mapSound.Lightning3;
+                case "map_break1":
+                    return effectSound.mapSound.break1;
+                case "map_break2":
+                    return effectSound.mapSound.break2;
+                case "map_break3":
+                    return effectSound.mapSound.break3;
                 default:
                     return null;
             }
@@ -164,5 +170,8 @@ namespace GameAudio
         public AudioClip Lightning1;
         public AudioClip Lightning2;
         public AudioClip Lightning3;
+        public AudioClip break1;
+        public AudioClip break2;
+        public AudioClip break3;
     }
 }
