@@ -58,18 +58,26 @@ public class CollectionPanel : MonoBehaviour
     void Awake()
     {
         data = Singleton.GameManager_Instance.Get<GameDataManager>();
-        
+
+        List<int> breath_list = new();        
         for (int i = 0; i < data.allitems_SO.allitems.Count; i++)
         {
-            if (data.allitems_SO.allitems[i].itemType == ItemType.Breath || data.allitems_SO.allitems[i].itemType == ItemType.Ability)
+            if (data.allitems_SO.allitems[i].itemType == ItemType.Breath)
             {
                 documentIDs.Add(data.allitems_SO.allitems[i].itemID);
             }
             else
             {
-                itemIDs.Add(data.allitems_SO.allitems[i].itemID);
+                int ID = data.allitems_SO.allitems[i].itemID;
+
+                if (data.allitems_SO.allitems[i].itemType == ItemType.Ability)
+                    breath_list.Add(ID);
+                else
+                    itemIDs.Add(ID);
             }
         }
+
+        itemIDs.InsertRange(0, breath_list);
 
         // 1001과 1002 제외하기
         itemIDs.Remove(1001);
