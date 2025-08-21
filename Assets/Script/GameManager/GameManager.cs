@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
         bool sequenceExcuting = true;
         VFXSequence sequence = new VFXBuilder()
             .AppendBlackOut(1.3f,true)
-            .AppendBossNameAppearance(0.8f, "Game Over", "       ", 0f, true)
+            //.AppendBossNameAppearance(0.8f, "Game Over", "       ", 0f, true)
             .AppendCallBacks(()=> {
                 sequenceExcuting = false;
             })
