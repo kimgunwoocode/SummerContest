@@ -72,6 +72,8 @@ namespace GameAudio
                 /* UI */
                 case "ui_click":
                     return effectSound.uiSound.click;
+                case "ui_paper":
+                    return effectSound.uiSound.paper;
                 /* map */
                 case "map_save":
                     return effectSound.mapSound.save;
@@ -149,6 +151,7 @@ namespace GameAudio
     public class UISoundGroup
     {
         public AudioClip click;
+        public AudioClip paper;
         public AudioClip confirm;
         public AudioClip cancel;
     }
