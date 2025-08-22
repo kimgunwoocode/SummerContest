@@ -15,9 +15,9 @@ public class Yoko_MeleeAttackState : MeleeAttackState
     {
         base.LogicUpdate();
 
-        if(isAnimationFinished)
+        if (isAnimationFinished)
         {
-            if(isPlayerMinRange)
+            if (isPlayerMinRange)
             {
                 stateMachine.ChangeState(yoKo.PlayerDetectedState);
             }
@@ -26,5 +26,12 @@ public class Yoko_MeleeAttackState : MeleeAttackState
                 stateMachine.ChangeState(yoKo.LookForPlayerState);
             }
         }
+    }
+
+    public override void TriggerAttack()
+    {
+        base.TriggerAttack();
+
+        SoundManager.instance.PlaySFX("yoko_attack");
     }
 }

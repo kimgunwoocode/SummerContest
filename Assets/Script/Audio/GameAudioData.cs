@@ -73,6 +73,16 @@ namespace GameAudio
                     return effectSound.enemySound.damage;
                 case "enemy_death":
                     return effectSound.enemySound.death;
+                case "yoko_jump":
+                    return effectSound.enemySound.yoko_jump;
+                case "yoko_attack":
+                    return effectSound.enemySound.yoko_attack;
+                case "fenFire_attack":
+                    return effectSound.enemySound.fenFire_attack;
+                case "jaii_charge":
+                    return effectSound.enemySound.jaii_charge;
+                case "jaii_attack":
+                    return effectSound.enemySound.jaii_attack;
                     /* gumiho */
                 case "gumiho_clawAttack":
                     return effectSound.enemySound.clawAttack;
@@ -86,6 +96,8 @@ namespace GameAudio
                     return effectSound.enemySound.jump;
                 case "gumiho_spiritLeap":
                     return effectSound.enemySound.spiritLeap;
+                case "gumiho_phase2":
+                    return effectSound.enemySound.phase2;
                 /* UI */
                 case "ui_heartUp":
                     return effectSound.uiSound.heartUp;
@@ -171,6 +183,13 @@ namespace GameAudio
     {
         public AudioClip damage;
         public AudioClip death;
+
+        public AudioClip yoko_jump;
+        public AudioClip yoko_attack;
+        public AudioClip fenFire_attack;
+        public AudioClip jaii_charge;
+        public AudioClip jaii_attack;
+
         /* Boss Gumiho */
         public AudioClip clawAttack;
         public AudioClip tailAttack;
@@ -178,6 +197,7 @@ namespace GameAudio
         public AudioClip foxFire;
         public AudioClip jump;
         public AudioClip spiritLeap;
+        public AudioClip phase2;
     }
 
     /* UI Effect Sounds */

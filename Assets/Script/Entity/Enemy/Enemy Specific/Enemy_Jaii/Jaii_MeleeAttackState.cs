@@ -15,9 +15,9 @@ public class Jaii_MeleeAttackState : MeleeAttackState
     {
         base.LogicUpdate();
 
-        if(isAnimationFinished)
+        if (isAnimationFinished)
         {
-            if(isPlayerMinRange)
+            if (isPlayerMinRange)
             {
                 stateMachine.ChangeState(jaii.PlayerDetectedState);
             }
@@ -26,5 +26,12 @@ public class Jaii_MeleeAttackState : MeleeAttackState
                 stateMachine.ChangeState(jaii.LookForPlayerState);
             }
         }
+    }
+
+    public override void TriggerAttack()
+    {
+        base.TriggerAttack();
+
+        SoundManager.instance.PlaySFX("jaii_attack", 0.13f, 1f);
     }
 }
