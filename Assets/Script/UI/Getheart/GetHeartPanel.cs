@@ -23,7 +23,7 @@ public class GetHeartPanel : MonoBehaviour
             else
                 Heart[i].color = emptyColor;
         }
-        SoundManager.instance.PlaySFX("ui_heartUp");
+        SoundManager.instance.PlaySFX("ui_heartUp", 0.03f, 0.3f);
         StartCoroutine(GetHeartPiece(step));
     }
 
