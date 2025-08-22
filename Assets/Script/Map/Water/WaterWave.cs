@@ -41,7 +41,7 @@ public class WaterWave : MonoBehaviour {
         Debug.Log(collision.transform.position);
         int? column = WorldToColumn(collision.transform.position);
         if (column.HasValue) {
-            columns[column.Value].velocity = 0.3f;
+            columns[column.Value].velocity = 0.6f;
         }
     }
 
