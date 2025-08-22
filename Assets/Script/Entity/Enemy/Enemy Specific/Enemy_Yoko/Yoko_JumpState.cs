@@ -19,7 +19,7 @@ public class Yoko_JumpState : JumpState
     {
         base.Enter();
 
-        SoundManager.instance.PlaySFX("yoko_jump");
+        SoundManager.instance.PlaySFX("yoko_jump", 0.07f);
 
         player = Singleton.GameManager_Instance.Get<GameManager>().Player.transform;
         float distanceFromPlayer = Math.Abs(player.position.x - enemy.aliveGO.transform.position.x) - jumpOffset;
