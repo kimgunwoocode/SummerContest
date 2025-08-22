@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 public class CollectionButton : MonoBehaviour
 {
     GameDataManager data;
@@ -23,6 +24,7 @@ public class CollectionButton : MonoBehaviour
     public Text ItemName;               // 아이템 이름 출력 텍스트박스
     public Text ItemInfor;              // 아이템 정보 출력 텍스트박스
     public Image ItemImage;             // 아이템 이미지 출력 이미지창
+    [SerializeField] private TextMeshProUGUI _ItemFlavor;
 
 
     void Awake()
@@ -63,6 +65,7 @@ public class CollectionButton : MonoBehaviour
             // 획득
             ItemName.text = data.allitems[MyId].itemName;
             ItemInfor.text = data.allitems[MyId].description;
+            _ItemFlavor.text = data.allitems[MyId]._flavorText;
             ItemImage.color = new Color(1f, 1f, 1f, 1f);
             ItemImage.sprite = data.allitems[MyId].icon;
         }
@@ -71,7 +74,8 @@ public class CollectionButton : MonoBehaviour
             // 미획득
             ItemName.text = "???";
             ItemInfor.text = "???";
-            ItemImage.color = new Color(0.3f, 0.3f, 0.3f, 1f);
+            _ItemFlavor.text = "";
+            ItemImage.color = new Color(0f, 0f, 0f, 0.3f);//(0.3f, 0.3f, 0.3f, 1f);
             if (data.allitems.ContainsKey(MyId))
             {
                 ItemImage.sprite = data.allitems[MyId].icon;
