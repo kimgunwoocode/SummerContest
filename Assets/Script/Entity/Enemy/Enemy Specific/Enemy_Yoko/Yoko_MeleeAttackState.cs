@@ -32,6 +32,6 @@ public class Yoko_MeleeAttackState : MeleeAttackState
     {
         base.TriggerAttack();
 
-        SoundManager.instance.PlaySFX("yoko_attack");
+        SoundManager.instance.PlaySFX("yoko_attack", 0.07f);
     }
 }
