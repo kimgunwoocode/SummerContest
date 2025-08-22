@@ -124,6 +124,7 @@ public class PlayerMovement : MonoBehaviour {
         _isDashing = true;
         _calculatedVelocity.y = 0;
         _PM.IsInvincible = true;
+        SoundManager.instance.PlaySFX("player_dash");
         StartCoroutine(StopDash());
         StartCoroutine(DashCooldown());
     }
@@ -228,7 +229,8 @@ public class PlayerMovement : MonoBehaviour {
 
 
 
-    internal void OnJumpPerformed(InputAction.CallbackContext context) {
+    internal void OnJumpPerformed(InputAction.CallbackContext context)
+    {
         _heldJump = true;
         _jumpPressTime = Time.time;
         _isJumpRequestExist = true;
@@ -237,16 +239,20 @@ public class PlayerMovement : MonoBehaviour {
     private void ExecuteJump(int jumpType)
     { // 1 : bonus Jump
         _moveDirection = _currentInput.x == 0 ? _moveDirection : _currentInput;
-        if (jumpType == 0) {
+        if (jumpType == 0)
+        {
             _isJumped = true;
         }
-        else if (jumpType == 1) {
+        else if (jumpType == 1)
+        {
             if (!_PM.Abilitis[2]) return;
             _leftBonusJump -= 1;
             _PM.Anima.EnterDoubleJump();
         }
         _calculatedVelocity.y = _movementStats.JumpForce;
         _isJumpRequestExist = false;
+
+        SoundManager.instance.PlaySFX("player_jump");
     }
 
     private IEnumerator WallJump() {
@@ -256,6 +262,8 @@ public class PlayerMovement : MonoBehaviour {
         float startVelocityX = _calculatedVelocity.x;
 
          _calculatedVelocity.y = _movementStats.JumpForce;
+
+        SoundManager.instance.PlaySFX("player_jump");
 
         float lerpDuration = _movementStats.WallJumpingDuration;
         float timeElapsed = 0f;

@@ -19,6 +19,7 @@ public class Jaii_StunState : StunState
 
         if (DoStunKnockback)
         {
+            SoundManager.instance.PlaySFX("jaii_attack", 0.13f, 1f);
             enemy.SetVelocity(stunKnockbackPower, stunKnockbackAngle, -enemy.facingDir);
             DoStunKnockback = false;
         }

@@ -14,6 +14,13 @@ public class Jaii_ChargeState : ChargeState
         jaii = enemy as Jaii;
     }
 
+    public override void Enter()
+    {
+        base.Enter();
+
+        SoundManager.instance.PlaySFX("jaii_charge");
+    }
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();
