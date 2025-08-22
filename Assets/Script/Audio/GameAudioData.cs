@@ -105,6 +105,10 @@ namespace GameAudio
                     return effectSound.uiSound.click;
                 case "ui_paper":
                     return effectSound.uiSound.paper;
+                case "ui_title":
+                    return effectSound.uiSound.title;
+                case "ui_name":
+                    return effectSound.uiSound.name;
                 /* map */
                 case "map_save":
                     return effectSound.mapSound.save;
@@ -209,6 +213,8 @@ namespace GameAudio
         public AudioClip paper;
         public AudioClip confirm;
         public AudioClip cancel;
+        public AudioClip title;
+        public AudioClip name;
     }
 
     /* Map Effect Sounds */

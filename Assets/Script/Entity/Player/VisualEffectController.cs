@@ -396,6 +396,7 @@ public class VisualEffectController : MonoBehaviour
         float textAppearanceTime = duration / _title.Length;
         while (curretentText != _title) {
             curretentText += _title[index];
+            SoundManager.instance.PlaySFX("ui_title");
             title.text = curretentText;
             index++;
             if (isRealTime) {
@@ -410,6 +411,8 @@ public class VisualEffectController : MonoBehaviour
             yield return new WaitForSeconds(nameAppearanceDelay);
         }
         bossName.text = _name;
+
+        SoundManager.instance.PlaySFX("ui_name");
         isRunningVFX = false;
     }
 
