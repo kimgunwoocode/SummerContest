@@ -24,12 +24,11 @@ public class FenFire : EnemyEntity
     {
         //if (stateMachine.currentState == knockbackState) return;
 
-        if(isDead) SoundManager.instance.PlaySFX("enemy_death");
-
         base.TakeDamage(damageAmount, attackerPosition);
 
         if(isDead && stateMachine.currentState != deadState)
         {
+            SoundManager.instance.PlaySFX("enemy_death");
             stateMachine.ChangeState(deadState);
         }
         else if(stateMachine.currentState != knockbackState)
