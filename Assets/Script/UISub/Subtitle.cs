@@ -141,6 +141,7 @@ public class Subtitle : MonoBehaviour
     private IEnumerator ShowAndHideRoutine()
     {
         _isAnimating = true;
+        AnimateBag();
 
         // === 등장 애니메이션 ===
         yield return StartCoroutine(ShowAnimation());
@@ -153,6 +154,21 @@ public class Subtitle : MonoBehaviour
         yield return StartCoroutine(HideAnimation());
 
         _isAnimating = false;
+    }
+
+    private void AnimateBag() {
+        DOTween.Kill(_bagTrans);
+        Vector3 _originalScale = _bagTrans.localScale;
+        Sequence _bagSequence = DOTween.Sequence();
+        _bagSequence.Append(_bagTrans.DOPunchScale(
+            punch: new Vector3(0.12f, 0.12f, 0),
+            duration: 1.2f,
+            vibrato: 1,
+            elasticity: 1f
+            )).Append(_bagTrans.DOScale(_originalScale * 0.8f, 0.15f).SetEase(Ease.OutQuad))
+            .Append(_bagTrans.DOScale(_originalScale, 0.4f).SetEase(Ease.OutBack));
+        _bagSequence.SetId(_bagTrans);
+
     }
 
     private IEnumerator ShowAnimation()
