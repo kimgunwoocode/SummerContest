@@ -18,7 +18,7 @@ public class Jaii_ChargeState : ChargeState
     {
         base.Enter();
 
-        SoundManager.instance.PlaySFX("jaii_charge");
+        SoundManager.instance.PlaySFX("jaii_charge", 0.16f);
     }
 
     public override void LogicUpdate()
