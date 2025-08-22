@@ -2,6 +2,8 @@ using UnityEngine.Events;
 using UnityEngine;
 using Unity.VisualScripting;
 using GameAudio;
+using DG.Tweening;
+using static UnityEditor.EditorApplication;
 
 public class Gumiho_DeadState : DeadState
 {
@@ -13,6 +15,7 @@ public class Gumiho_DeadState : DeadState
     [SerializeField] private Transform _child;
     [SerializeField] private GameObject[] Fightingbacks;
     [SerializeField] private GameObject origineBacks;
+    [SerializeField] private GameObject _fire;
 
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
@@ -23,6 +26,7 @@ public class Gumiho_DeadState : DeadState
     public override void Enter()
     {
         base.Enter();
+        DOVirtual.DelayedCall(1.15f, SpawnFire);
 
         Debug.Log($"facingDIr: {enemy.facingDir}");
         _dropTem.SetActive(true);
@@ -31,15 +35,31 @@ public class Gumiho_DeadState : DeadState
         Vector2 _direction = new Vector2(enemy.facingDir, 1).normalized;
         _dropTem.GetComponent<Rigidbody2D>().AddForce(_direction * 9f, ForceMode2D.Impulse);
 
+        // 여기에 아이템 획득 등의 함수 추가
+        DieEvent?.Invoke();// 맵에서 등록한 구미호 처치와 관련된 메서드 실행
+        //Singleton.GameManager_Instance.Get<GameManager>().Get_Item(1501);// 브레스 아이템 획득
+    }
+
+    private void SpawnFire() {
         VFXSequence sequence = new VFXBuilder()
             .AppendCallBacks(() => {
                 SoundManager.instance.StopCurrentBGM();
             })
             .AppendBlackOut(1.2f)
+            .AppendDelay(0.2f)
+            .AppendCallBacks(() => {
+                foreach (var a in Fightingbacks)
+                {
+                    a.SetActive(false);
+                }
+                origineBacks.SetActive(true);
+            })
+            .AppendBlackIn(0.2f)
+            .AppendCallBacks(() => {
+                _fire.SetActive(true);
+                _fire.transform.position = new Vector2(_child.position.x, _child.position.y - 0.3f);
+            })
             .Build();
-
-        // 여기에 아이템 획득 등의 함수 추가
-        DieEvent?.Invoke();// 맵에서 등록한 구미호 처치와 관련된 메서드 실행
-        //Singleton.GameManager_Instance.Get<GameManager>().Get_Item(1501);// 브레스 아이템 획득
+        
     }
 }
