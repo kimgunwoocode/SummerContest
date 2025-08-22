@@ -59,6 +59,8 @@ public class Gumiho_FoxFireAttackState : AttackState
         base.TriggerAttack();
         gumiho.CanBeKnockedBack = true;
 
+        SoundManager.instance.PlaySFX("gumiho_foxFire", 0.58f, 2.33f);
+
         foxFires = new List<GameObject>();
 
         // 여우불 5개 생성

@@ -33,6 +33,8 @@ public class Jaii : EnemyEntity
     {
         //if (stateMachine.currentState == knockbackState) return;
 
+        if(isDead) SoundManager.instance.PlaySFX("enemy_death");
+
         base.TakeDamage(damageAmount, attackerPosition);
 
         if (isDead && stateMachine.currentState != deadState)

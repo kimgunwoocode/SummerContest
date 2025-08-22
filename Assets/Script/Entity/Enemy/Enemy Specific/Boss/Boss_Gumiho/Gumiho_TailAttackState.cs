@@ -52,6 +52,8 @@ public class Gumiho_TailAttackState : MeleeAttackState
             Debug.Log($"{enemy.gameObject.name}가 플레이어를 밀침");
             playerManager.Knockback(enemy.aliveGO.transform.position, 4, 1);
         }
+
+        SoundManager.instance.PlaySFX("gumiho_tailAttack", 0.05f);
     }
 
     public override void Exit()

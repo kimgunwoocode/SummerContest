@@ -54,6 +54,8 @@ public class Gumiho_SpiritLeapAttackState : AttackState
 
     private void Jump()
     {
+        SoundManager.instance.PlaySFX("gumiho_jump", 0.05f);
+
         if (!hasJumped)
         {
             hasJumped = true;
@@ -82,6 +84,8 @@ public class Gumiho_SpiritLeapAttackState : AttackState
         gumiho.CanBeKnockedBack = true;
 
         base.TriggerAttack();
+
+        SoundManager.instance.PlaySFX("gumiho_spiritLeap", 0.11f, 2f);
 
         foxFires = new List<GameObject>();
 

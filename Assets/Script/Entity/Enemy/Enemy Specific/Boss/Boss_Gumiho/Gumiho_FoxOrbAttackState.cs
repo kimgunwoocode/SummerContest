@@ -58,6 +58,8 @@ public class Gumiho_FoxOrbAttackState : AttackState
         base.TriggerAttack();
         gumiho.CanBeKnockedBack = true;
         startTime = Time.time;
+
+        SoundManager.instance.PlaySFX("gumiho_foxOrb", 0.13f, 1f);
         
         FoxOrbAttack();
     }

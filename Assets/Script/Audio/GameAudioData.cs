@@ -73,6 +73,19 @@ namespace GameAudio
                     return effectSound.enemySound.damage;
                 case "enemy_death":
                     return effectSound.enemySound.death;
+                    /* gumiho */
+                case "gumiho_clawAttack":
+                    return effectSound.enemySound.clawAttack;
+                case "gumiho_tailAttack":
+                    return effectSound.enemySound.tailAttack;
+                case "gumiho_foxOrb":
+                    return effectSound.enemySound.foxOrb;
+                case "gumiho_foxFire":
+                    return effectSound.enemySound.foxFire;
+                case "gumiho_jump":
+                    return effectSound.enemySound.jump;
+                case "gumiho_spiritLeap":
+                    return effectSound.enemySound.spiritLeap;
                 /* UI */
                 case "ui_heartUp":
                     return effectSound.uiSound.heartUp;
@@ -159,7 +172,12 @@ namespace GameAudio
         public AudioClip damage;
         public AudioClip death;
         /* Boss Gumiho */
-        
+        public AudioClip clawAttack;
+        public AudioClip tailAttack;
+        public AudioClip foxOrb;
+        public AudioClip foxFire;
+        public AudioClip jump;
+        public AudioClip spiritLeap;
     }
 
     /* UI Effect Sounds */
