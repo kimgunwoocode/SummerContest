@@ -21,6 +21,8 @@ public class Gumiho_Phase2State : Boss_PhaseChangeState
         gumiho.CanBeKnockedBack = false;
         gumiho.MoveState.isClawAttackCancelled = false;
 
+        SoundManager.instance.PlaySFX("gumiho_phase2");
+
         // 페이즈 전환 효과
         SpawnPhase2Fx();
         PlayerPush();

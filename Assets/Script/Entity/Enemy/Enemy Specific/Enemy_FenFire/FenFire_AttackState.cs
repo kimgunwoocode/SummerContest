@@ -33,6 +33,9 @@ public class FenFire_AttackState : AttackState
     {
         base.TriggerAttack();
 
+        if(Mathf.Abs(fenFire.player.position.x - enemy.aliveGO.transform.position.x) <= 12f)
+            SoundManager.instance.PlaySFX("fenFire_attack");
+
         CreatBullet();
     }
 

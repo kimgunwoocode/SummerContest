@@ -13,10 +13,13 @@ public class FenFire : EnemyEntity
     public FenFire_KnockbackState KnockbackState => knockbackState;
     public FenFire_DeadState DeadState => deadState;
 
+    public Transform player;
+
     protected override void Start()
     {
         base.Start();
-
+        
+        player = Singleton.GameManager_Instance.Get<GameManager>().Player.transform;
         stateMachine.Initialize(idleState);
     }
 
