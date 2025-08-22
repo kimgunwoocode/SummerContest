@@ -234,22 +234,25 @@ public class PlayerMovement : MonoBehaviour {
         _heldJump = true;
         _jumpPressTime = Time.time;
         _isJumpRequestExist = true;
-        SoundManager.instance.PlaySFX("player_jump", 0.08f);
     }
 
     private void ExecuteJump(int jumpType)
     { // 1 : bonus Jump
         _moveDirection = _currentInput.x == 0 ? _moveDirection : _currentInput;
-        if (jumpType == 0) {
+        if (jumpType == 0)
+        {
             _isJumped = true;
         }
-        else if (jumpType == 1) {
+        else if (jumpType == 1)
+        {
             if (!_PM.Abilitis[2]) return;
             _leftBonusJump -= 1;
             _PM.Anima.EnterDoubleJump();
         }
         _calculatedVelocity.y = _movementStats.JumpForce;
         _isJumpRequestExist = false;
+
+        SoundManager.instance.PlaySFX("player_jump");
     }
 
     private IEnumerator WallJump() {
@@ -259,6 +262,8 @@ public class PlayerMovement : MonoBehaviour {
         float startVelocityX = _calculatedVelocity.x;
 
          _calculatedVelocity.y = _movementStats.JumpForce;
+
+        SoundManager.instance.PlaySFX("player_jump");
 
         float lerpDuration = _movementStats.WallJumpingDuration;
         float timeElapsed = 0f;
