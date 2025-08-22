@@ -11,6 +11,10 @@ public class BossRoomTrigger : MonoBehaviour
     [SerializeField] ParticleSystem[] rains;
     [SerializeField] Lightning lightning;
     [SerializeField] Light2D global;
+    [SerializeField] GameObject[] you;
+    [SerializeField] GameObject[] ItsHuntingSeasonAndTheLambsAreOnTheRunSearchingForMeaning;
+    [SerializeField] GameObject ButAreWeAreLostStarsTyingToLightUpTheDark;
+    [SerializeField] GameObject[] AndIThounghtISawYouOutThereCrying;
     BoxCollider2D PlayerCollider;
     CameraManager cameraManager;
 
@@ -54,7 +58,16 @@ public class BossRoomTrigger : MonoBehaviour
                 gumihoIntro.SetActive(false);
                 gumiho.SetActive(true);
                 global.intensity = 1;
-                
+                foreach(var fuck in you) {
+                    fuck.SetActive(true);
+                }
+                ItsHuntingSeasonAndTheLambsAreOnTheRunSearchingForMeaning[0].SetActive(false);
+                ItsHuntingSeasonAndTheLambsAreOnTheRunSearchingForMeaning[1].SetActive(true);
+                ButAreWeAreLostStarsTyingToLightUpTheDark.SetActive(true);
+                foreach(var AndIThoughtIHeardYouCallMyName in AndIThounghtISawYouOutThereCrying) {
+                    AndIThoughtIHeardYouCallMyName.SetActive(true);
+                }
+
             })
 
             .AppendDelay(0.5f)

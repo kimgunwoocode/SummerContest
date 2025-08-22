@@ -109,6 +109,7 @@ public class EnemyEntity : MonoBehaviour
         // Hit 파티클 재생
         if (hitParticle == null)
         {
+            if (enemyData == null) return;
             if (enemyData.hitParticle != null)
                 hitParticle = Instantiate(enemyData.hitParticle, aliveGO.transform.position, Quaternion.identity, aliveGO.transform).GetComponent<ParticleSystem>();
         }

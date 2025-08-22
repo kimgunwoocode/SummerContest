@@ -31,6 +31,7 @@ public class PlayerManager : MonoBehaviour {
     private PlayerInteraction _interaction;
     private GameDataManager _data;
     private GameManager _manager;
+    Vector3 attackDirection;
 
 
     internal List<bool> Abilitis;
@@ -155,13 +156,17 @@ public class PlayerManager : MonoBehaviour {
         _ui.Pausing();
     }
 
+    private Vector3 GetDirection() {
+        return (_mousePosition - transform.position).normalized;
+    }
+
     private void Attack(InputAction.CallbackContext context) {
         if (!isControllablePlayer) return;
         if (context.action.name == "Attack")
-            _attack.MeleeAttack((_mousePosition - transform.position).normalized);
+            _attack.MeleeAttack(attackDirection);
         else if (context.action.name == "Breath") {
             if (!Abilitis[1]) return;
-            _attack.FireBreath((_mousePosition - transform.position).normalized);
+            _attack.FireBreath(attackDirection);
         }
     }
 
@@ -231,6 +236,10 @@ public class PlayerManager : MonoBehaviour {
 
 
     private void Update() {
-        _mousePosition = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition.z = 10f;
+        _mousePosition = cam.ScreenToWorldPoint(mousePosition);
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        attackDirection = (worldPosition - transform.position).normalized;
     }
 }

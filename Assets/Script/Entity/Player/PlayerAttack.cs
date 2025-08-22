@@ -20,8 +20,6 @@ public class PlayerAttack : MonoBehaviour {
     }
 
     internal void InitiateBreath() {
-        //MaxBreathGauge = _data.MaxBreathGauge == 0 ? 100 : _data.MaxBreathGauge;
-        //CurrentBreathGauge = MaxBreathGauge;
 
         _currentBreathId = _data.EquipSkill.Count == 0 ? -1 : _data.EquipSkill[0];
         _currentBreathInfo = _currentBreathId == -1 ? basic :_data.allitems[_currentBreathId] as BreathItemData;
@@ -37,10 +35,10 @@ public class PlayerAttack : MonoBehaviour {
             return;
         }
 
-        Vector3 attackPos = transform.position + direction.normalized * _attackStats.MeleeAttackRange * 2f;
+        Vector3 attackPos = transform.position + direction.normalized * _attackStats.MeleeAttackRange;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Instantiate(MeleeEffect, attackPos, Quaternion.Euler(0, 0, angle - 90));
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, _attackStats.MeleeAttackRange, _attackStats.EnemyLayer);
+        Instantiate(MeleeEffect, attackPos, Quaternion.Euler(0, 0, angle));
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPos, _attackStats.MeleeAttackRange, _attackStats.EnemyLayer);
         SoundManager.instance.PlaySFX("player_attack", 0.12f, 0.62f);
         foreach (var hit in hits) {
             hit.GetComponentInParent<EnemyEntity>()?.TakeDamage(_data.ATK, transform.position);
