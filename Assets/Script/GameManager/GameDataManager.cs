@@ -13,6 +13,8 @@ public class GameDataManager : MonoBehaviour
     public float MaxBreathGauge;
     public float CurrentBreathGauge;
     public int Money = 0;
+    public bool woorung = false;
+    public bool jangdok = false;
     public List<int> EquipSkill = new();
 
     [Space]

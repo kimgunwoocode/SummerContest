@@ -12157,7 +12157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.6016693}
+  m_AnchoredPosition: {x: 0, y: 0.961}
   m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &474166088
@@ -12180,7 +12180,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC774\uC0C1\uD558\uAC8C \uC0DD\uAE34 \uC0DD\uBA85\uCCB4\uB2E4...(E)"
+  m_text: '.
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 80fd16e2330ae354793007da89569ae0, type: 2}
   m_sharedMaterial: {fileID: 2128559113529046236, guid: 80fd16e2330ae354793007da89569ae0, type: 2}
@@ -12207,15 +12209,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.5
-  m_fontSizeBase: 0.5
+  m_fontSize: 1
+  m_fontSizeBase: 1
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -31381,6 +31383,7 @@ GameObject:
   - component: {fileID: 1431108046}
   - component: {fileID: 1431108045}
   - component: {fileID: 1431108048}
+  - component: {fileID: 1431108049}
   m_Layer: 0
   m_Name: WooRung
   m_TagString: Untagged
@@ -31406,7 +31409,19 @@ MonoBehaviour:
       m_Calls: []
   InteractEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1431108049}
+        m_TargetAssemblyTypeName: WOORUNG, Assembly-CSharp
+        m_MethodName: Rung
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ID: 4011
   State: 1
   InteractionGuide: {fileID: 474166086}
@@ -31454,7 +31469,7 @@ SpriteRenderer:
   m_SortingLayerID: 1392649749
   m_SortingLayer: -3
   m_SortingOrder: 1
-  m_Sprite: {fileID: 1539514169, guid: f21d45aeb0269495da02d0381e2bc483, type: 3}
+  m_Sprite: {fileID: -1873150593565513695, guid: 3067dc038709546028d79820653dc164, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -31474,8 +31489,8 @@ Transform:
   m_GameObject: {fileID: 1431108044}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 94.896, y: -71.2475, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalPosition: {x: 94.86, y: -71.9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 474166087}
@@ -31519,7 +31534,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.99, y: 1.02}
+    oldSize: {x: 1.34, y: 1.71}
     newSize: {x: 0.99, y: 1.02}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -31527,6 +31542,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.99, y: 1.02}
   m_EdgeRadius: 0
+--- !u!114 &1431108049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431108044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e8241c6d0fe0484990240077af53141, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  woorung: {fileID: 474166088}
+  woorungwoorungwoowoorungrung: {fileID: 1593235460}
 --- !u!1 &1435887916
 GameObject:
   m_ObjectHideFlags: 0
@@ -34314,6 +34343,17 @@ Material:
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
+--- !u!114 &1593235460 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8420885227792175148, guid: f6b2b89c290b2fc4e8cb0729810cf1ab, type: 3}
+  m_PrefabInstance: {fileID: 424628063}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 461947d47eb422a4ca2fb3e613981d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!21 &1597267077
 Material:
   serializedVersion: 8

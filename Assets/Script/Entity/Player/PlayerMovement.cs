@@ -76,9 +76,10 @@ public class PlayerMovement : MonoBehaviour {
     private bool[] _isClimb = new bool[2];
     private float _wallLeftTime;
     private bool _isStun = false;
+    private bool _isC;
 
     internal void forceStop() {
-        _calculatedVelocity = new Vector2(0, _calculatedVelocity.y);
+        _isC = false;
     }
 
     private IEnumerator DownPlatform() {
@@ -92,7 +93,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     internal void OnMovePerformed(InputAction.CallbackContext context) {
-        if (!_PM.GetControllable()) return;
+        if (!_PM.GetControllable()) { _currentInput = Vector2.zero; return; };
         _currentInput = context.ReadValue<Vector2>();
     }
 
@@ -178,6 +179,10 @@ public class PlayerMovement : MonoBehaviour {
     private void Move() {
         //UpdateMoveDir();
         Climb();
+        GameManager t = Singleton.GameManager_Instance.Get<GameManager>();
+        if (_data.woorung) {
+            transform.localScale = new Vector3(-_moveDirection.x, 1, 1);
+        }
 
         if((_isClimb[0] && _currentInput.x <= 0 && !_isWallJumping) || _isClimb[1] && _currentInput.x >= 0 && !_isWallJumping) {
             _calculatedVelocity.y = 0;
