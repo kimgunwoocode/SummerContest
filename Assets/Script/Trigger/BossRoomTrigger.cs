@@ -52,7 +52,7 @@ public class BossRoomTrigger : MonoBehaviour
             .AppendDelay(0.2f)
             .AppendBlackOut(2f)
 
-            .AppendBossNameAppearance(1f, "헛된 기다림", "구미호", 0.5f)
+            .AppendBossNameAppearance(1f, "기다림의 종착", "구미호", 0.5f)
             .AppendCallBacks(() => {
                 gumihoIntro.SetActive(false);
                 gumiho.SetActive(true);

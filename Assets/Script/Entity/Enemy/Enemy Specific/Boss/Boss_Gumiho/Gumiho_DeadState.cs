@@ -1,6 +1,7 @@
 using UnityEngine.Events;
 using UnityEngine;
 using Unity.VisualScripting;
+using GameAudio;
 
 public class Gumiho_DeadState : DeadState
 {
@@ -10,6 +11,8 @@ public class Gumiho_DeadState : DeadState
 
     [SerializeField] private GameObject _dropTem;
     [SerializeField] private Transform _child;
+    [SerializeField] private GameObject[] Fightingbacks;
+    [SerializeField] private GameObject origineBacks;
 
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
@@ -28,6 +31,20 @@ public class Gumiho_DeadState : DeadState
         Vector2 _direction = new Vector2(enemy.facingDir, 1).normalized;
         _dropTem.GetComponent<Rigidbody2D>().AddForce(_direction * 9f, ForceMode2D.Impulse);
 
+        VFXSequence sequence = new VFXBuilder()
+            .AppendCallBacks(() => {
+                SoundManager.instance.StopCurrentBGM();
+            })
+            .AppendBlackOut(1.2f)
+            .AppendDelay(0.2f)
+            .AppendCallBacks(() => {
+                foreach (var a in Fightingbacks) {
+                    a.SetActive(false);
+                }
+                origineBacks.SetActive(true);
+            })
+            .AppendBlackIn(0.2f)
+            .Build();
 
         // 여기에 아이템 획득 등의 함수 추가
         DieEvent?.Invoke();// 맵에서 등록한 구미호 처치와 관련된 메서드 실행
