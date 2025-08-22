@@ -125,6 +125,10 @@ public class Gumiho_FoxFireAttackState : AttackState
 
     private void DestroyFoxFire()
     {
+        if (foxFires == null || foxFires.Count < 1) {
+            Debug.Log("Null Reference Exception occured");
+            return;
+        }
         for (int i = 0; i < foxFires.Count; i++)
         {
             //foxFires[i].SetActive(false);

@@ -77,6 +77,10 @@ public class PlayerMovement : MonoBehaviour {
     private float _wallLeftTime;
     private bool _isStun = false;
 
+    internal void forceStop() {
+        _calculatedVelocity = new Vector2(0, _calculatedVelocity.y);
+    }
+
     private IEnumerator DownPlatform() {
         _isPlatformDownRequestExist = true;
         EdgeCollider2D _platformC = _currentPlatform.GetComponent<EdgeCollider2D>();
@@ -518,7 +522,7 @@ public class PlayerMovement : MonoBehaviour {
     #endregion
 
     #region Frame Buffer
-    private const int FRAME_BUFFER_SIZE = 20;
+    private const int FRAME_BUFFER_SIZE = 1;
     private float[] _prevInputInfo = new float[FRAME_BUFFER_SIZE];
     private int _frameIndex = 0;
 

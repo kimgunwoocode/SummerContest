@@ -143,6 +143,8 @@ public class PlayerManager : MonoBehaviour {
 
     internal void SetControllable(bool value) {
         isControllablePlayer = value;
+        if (!value)
+            _movement.forceStop();
     }
 
     internal bool GetControllable() {

@@ -39,7 +39,8 @@ public class CameraManager : MonoBehaviour
     private bool _transitioning = false;
 
     private Vector2 screenCenter;
-
+    public bool CanCameraMove { get { return canCameraMove; }  set { canCameraMove = value; } }
+    private bool canCameraMove = true;
     [HideInInspector] public float _targetZoom;
     private float _zoomSpeed = 10f;
 
@@ -124,6 +125,7 @@ public class CameraManager : MonoBehaviour
     }
     private void MoveCamera_InLateUpdate()
     {
+        if (!canCameraMove) return;
         _smoothedFollowPos = Set_smoothedFollowPos();
         _currentMouseOffset = Set_currentMouseOffset();
 
@@ -249,27 +251,5 @@ public class CameraManager : MonoBehaviour
 
     public void SetBackgroundTarget(Transform target) {
         _backgroundTarget = target;
-    }
-
-    public void SetBackgroundSize() {
-
-        float cameraHeight = _cam.orthographicSize * 2;
-
-        float cameraWidth = cameraHeight * _cam.aspect;
-
-        SpriteRenderer spriteRenderer = _currentBG.GetComponent<SpriteRenderer>();
-
-        if (spriteRenderer != null) {
-            float spriteWidth = spriteRenderer.sprite.bounds.size.x;
-            float spriteHeight = spriteRenderer.sprite.bounds.size.y;
-
-            float scaleX = cameraWidth / spriteWidth;
-            float scaleY = cameraHeight / spriteHeight;
-
-            float scale = Mathf.Max(scaleX, scaleY);
-            _currentBG.transform.localScale = new Vector3(scale * 1f, scale * 1f, 1);
-        } else {
-            Debug.LogError("SpriteRenderer didn't found");
-        }
     }
 }

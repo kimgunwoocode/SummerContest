@@ -20,11 +20,12 @@ public enum VFX_Type {
     ShakeCamera,
     ClearScreen,
     Delay,
-    Callback
+    Callback,
+    CameraMove
 }
 
 public class VFX_Info {
-    public VFX_Info(VFX_Type _type, string _title = null, string _name = null, float _nameAppearanceDelay = 0.1f, float _duration = 1.0f, float _startDelay = 0, float _vibrato = 10f, Ease _ease = Ease.Linear, Action _callback = null, bool _isRealTime = false) {
+    public VFX_Info(VFX_Type _type, string _title = null, string _name = null, float _nameAppearanceDelay = 0.1f, float _duration = 1.0f, float _startDelay = 0, int _vibrato = 10, Ease _ease = Ease.Linear, Action _callback = null, bool _isRealTime = false, Vector3 _targetPos = new Vector3(), bool _snapping = false, Vector3 _strength = new Vector3()) {
         type = _type;
         title = _title;
         name = _name;
@@ -35,6 +36,10 @@ public class VFX_Info {
         ease = _ease;
         callback = _callback;
         isRealTime = _isRealTime;
+        targetPos = _targetPos;
+        snapping = _snapping;
+        strength = _strength;
+        
     }
     public VFX_Type type;
     public string title;
@@ -42,10 +47,13 @@ public class VFX_Info {
     public float nameAppearanceDelay;
     public float duration;
     public float startDelay;
-    public float vibrato;
+    public int vibrato;
     public Ease ease;
     public Action callback;
     public bool isRealTime;
+    public Vector3 targetPos;
+    public bool snapping;
+    public Vector3 strength;
 }
 
 public class VFXBuilder {
@@ -213,21 +221,29 @@ public class VFXBuilder {
         return this;
     }
 
-    public VFXBuilder AppendShakeCamera(float duration, float vibrato) {
-        VFX_Info info = new VFX_Info(VFX_Type.ShakeCamera, _duration : duration, _vibrato : vibrato);
+    public VFXBuilder AppendShakeCamera(float duration, Vector3 strength, int vibrato, Ease ease = Ease.Linear) {
+        VFX_Info info = new VFX_Info(VFX_Type.ShakeCamera, _duration : duration, _strength : strength, _vibrato : vibrato, _ease: ease);
         List<VFX_Info> sequence = new List<VFX_Info>();
         sequence.Add(info);
         infos.Add(sequence);
         return this;
     }
-    public VFXBuilder JoinShakeCamera(float duration, float vibrato, Ease ease = Ease.Linear) {
-        VFX_Info info = new VFX_Info(VFX_Type.ShakeCamera, _duration: duration, _vibrato: vibrato, _ease : ease);
+    public VFXBuilder JoinShakeCamera(float duration, Vector3 strength, int vibrato, Ease ease = Ease.Linear) {
+        VFX_Info info = new VFX_Info(VFX_Type.ShakeCamera, _duration: duration, _strength : strength, _vibrato: vibrato, _ease : ease);
         infos[infos.Count - 1].Add(info);
         return this;
     }
 
     public VFXBuilder AppendCallBacks(Action callback) {
         VFX_Info info = new VFX_Info(VFX_Type.Callback, _callback : callback);
+        List<VFX_Info> sequence = new List<VFX_Info>();
+        sequence.Add(info);
+        infos.Add(sequence);
+        return this;
+    }
+
+    public VFXBuilder AppendMoveCamera(Vector3 targetPos ,float duration, bool snapping = false) {
+        VFX_Info info = new VFX_Info(VFX_Type.CameraMove, _duration: duration, _targetPos: targetPos, _snapping: snapping);
         List<VFX_Info> sequence = new List<VFX_Info>();
         sequence.Add(info);
         infos.Add(sequence);
@@ -304,6 +320,7 @@ public class VFXSequence {
                         break;
                     case VFX_Type.ShakeCamera:
                         newCoroutine = VisualEffectController.Instance.ShakeCamera(info);
+                        runningCoroutines.Add(newCoroutine);
                         break;
                     case VFX_Type.ClearScreen:
                         newCoroutine = VisualEffectController.Instance.ClearScreen();
@@ -315,6 +332,10 @@ public class VFXSequence {
                         break;
                     case VFX_Type.Callback:
                         info.callback.Invoke();
+                        break;
+                    case VFX_Type.CameraMove:
+                        newCoroutine = VisualEffectController.Instance.CameraMove(info);
+                        runningCoroutines.Add(newCoroutine);
                         break;
                 }
             }
@@ -619,13 +640,21 @@ public class VisualEffectController : MonoBehaviour
     }
 
     public Coroutine ShakeCamera(VFX_Info info) {
-        return StartCoroutine(IShakeCamera(info.duration, info.vibrato, info.ease));
+        return StartCoroutine(IShakeCamera(info.duration, info.strength, info.vibrato, info.ease));
     }
 
-    private IEnumerator IShakeCamera(float duration, float vibrato, Ease ease = Ease.Linear) {
-        mainCam.transform.DOShakePosition(duration, vibrato).SetEase(ease);
+    private IEnumerator IShakeCamera(float duration,Vector3 strength, int vibrato, Ease ease = Ease.Linear) {
+        mainCam.DOShakePosition(duration, strength, vibrato, 90, true, ShakeRandomnessMode.Full).SetEase(ease);
 
         yield return new WaitForSeconds(duration);
-        
+    }
+
+    public Coroutine CameraMove(VFX_Info info) {
+        return StartCoroutine(ICameraMove(info.targetPos, info.duration, info.snapping));
+    }
+
+    private IEnumerator ICameraMove(Vector3 targetPos, float duration, bool snapping) {
+        mainCam.transform.DOMove(targetPos, duration, snapping);
+        yield return new WaitForSeconds(duration);
     }
 }

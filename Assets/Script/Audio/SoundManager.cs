@@ -12,6 +12,10 @@ using DG.Tweening;
  *      Description          : Manage playing sounds
  *      Todo                    : Implement playing boss thema in runtime
  */
+
+public enum BossBgm {
+    Gumiho
+}
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance { get; private set; }
@@ -132,12 +136,11 @@ public class SoundManager : MonoBehaviour
         */
     }
 
-
-    public void PlayBossBGM(string bossName)
+    public void PlayBossBGM(BossBgm bossBgm)
     {
         if (!HasAudioSource()) return;
 
-        currentBGMSource.clip = gameAudioData.GetBossBGMClip(bossName);
+        currentBGMSource.clip = gameAudioData.GetBossBGMClip(bossBgm);
         Debug.Log("PlayBossBGM: bossName -" + currentBGMSource.clip);
         if (currentBGMSource.clip != null)
         {
