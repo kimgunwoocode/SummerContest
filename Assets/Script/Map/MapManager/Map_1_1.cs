@@ -59,6 +59,11 @@ public class Map_1_1 : MonoBehaviour
         Player_obj.transform.position = PlayerInitPosition;
     }
 
+    public void PlayEggSFX()
+    {
+        SoundManager.instance.PlaySFX("player_eggCrack");
+    }
+
     IEnumerator SetIntro_middle()
     {
         yield return null;
