@@ -9,7 +9,7 @@ public class Boss_IdleState : State
 
     public float idleTime = 0f;
     private bool hasPlayerEnteredBossRoom = false;
-    private bool isPlayerMaxRange;
+    private bool isPlayerInRange;
 
     public override void Initialize(EnemyEntity enemy, FiniteStateMachine stateMachine)
     {
@@ -22,7 +22,7 @@ public class Boss_IdleState : State
     {
         base.DoCheck();
 
-        isPlayerMaxRange = enemy.CheckPlayerMaxRange();
+        isPlayerInRange = enemy.CheckPlayerMaxRange() || enemy.CheckPlayerBehind();
     }
 
     public override void Enter()
@@ -41,7 +41,7 @@ public class Boss_IdleState : State
         
         if (!hasPlayerEnteredBossRoom)
         {
-            if (isPlayerMaxRange)
+            if (isPlayerInRange)
             {
                 hasPlayerEnteredBossRoom = true;
                 startTime = Time.time;

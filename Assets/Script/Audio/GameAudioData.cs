@@ -58,18 +58,24 @@ namespace GameAudio
                 /* player */
                 case "player_attack":
                     return effectSound.characterSound.attack;
+                case "player_run":
+                    return effectSound.characterSound.run;
                 case "player_jump":
                     return effectSound.characterSound.jump;
                 case "player_dash":
                     return effectSound.characterSound.dash;
                 case "player_damage":
                     return effectSound.characterSound.damage;
+                case "player_eggCrack":
+                    return effectSound.characterSound.eggCrack;
                 /* enemy */
                 case "enemy_damage":
                     return effectSound.enemySound.damage;
                 case "enemy_death":
                     return effectSound.enemySound.death;
                 /* UI */
+                case "ui_heartUp":
+                    return effectSound.uiSound.heartUp;
                 case "ui_click":
                     return effectSound.uiSound.click;
                 case "ui_paper":
@@ -137,11 +143,13 @@ namespace GameAudio
     [System.Serializable]
     public class CharacterSoundGroup
     {
+        public AudioClip run;
         public AudioClip attack;
         public AudioClip jump;
         public AudioClip dash;
         public AudioClip breath;
         public AudioClip damage;
+        public AudioClip eggCrack;
     }
 
     /* Enemy Effect Sounds */
@@ -150,12 +158,15 @@ namespace GameAudio
     {
         public AudioClip damage;
         public AudioClip death;
+        /* Boss Gumiho */
+        
     }
 
     /* UI Effect Sounds */
     [System.Serializable]
     public class UISoundGroup
     {
+        public AudioClip heartUp;
         public AudioClip click;
         public AudioClip paper;
         public AudioClip confirm;
