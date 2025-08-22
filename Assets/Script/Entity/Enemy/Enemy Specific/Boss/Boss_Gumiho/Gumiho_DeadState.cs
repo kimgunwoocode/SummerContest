@@ -26,7 +26,7 @@ public class Gumiho_DeadState : DeadState
         _dropTem.transform.position = _child.position; //new Vector2(gameObject.transform.position.x-0.45f,gameObject.transform.position.y);
         Debug.Log($"pos: {_dropTem.transform.position}");
         Vector2 _direction = new Vector2(enemy.facingDir, 1).normalized;
-        _dropTem.GetComponent<Rigidbody2D>().AddForce(_direction * 5f, ForceMode2D.Impulse);
+        _dropTem.GetComponent<Rigidbody2D>().AddForce(_direction * 9f, ForceMode2D.Impulse);
 
 
         // 여기에 아이템 획득 등의 함수 추가

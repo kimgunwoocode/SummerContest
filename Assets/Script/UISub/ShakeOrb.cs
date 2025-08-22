@@ -14,7 +14,7 @@ public class ShakeOrb : ShakeItem
         if (_hasLanded) return;
         if ((1 << collision.gameObject.layer) == (1 << 3)) {
             _hasLanded = true;
-            _rb.simulated = false;
+            Destroy(_rb);
             _collider.isTrigger = true;
             Hover();
         }
