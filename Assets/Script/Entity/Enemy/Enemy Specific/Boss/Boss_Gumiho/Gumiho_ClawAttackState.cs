@@ -36,5 +36,6 @@ public class Gumiho_ClawAttackState : MeleeAttackState
     public override void TriggerAttack()
     {
         base.TriggerAttack();
+        SoundManager.instance.PlaySFX("gumiho_clawAttack", 0.04f);
     }
 }

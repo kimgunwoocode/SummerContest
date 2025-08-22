@@ -130,11 +130,6 @@ public class EnemyEntity : MonoBehaviour
         if (currentHP <= 0)
         {
             isDead = true;
-            SoundManager.instance.PlaySFX("enemy_death");
-        }
-        else
-        {
-            // SoundManager.instance.PlaySFX("enemy_damage");
         }
     }
     public virtual void Flip()
