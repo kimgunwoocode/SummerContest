@@ -36,14 +36,6 @@ public class Gumiho_DeadState : DeadState
                 SoundManager.instance.StopCurrentBGM();
             })
             .AppendBlackOut(1.2f)
-            .AppendDelay(0.2f)
-            .AppendCallBacks(() => {
-                foreach (var a in Fightingbacks) {
-                    a.SetActive(false);
-                }
-                origineBacks.SetActive(true);
-            })
-            .AppendBlackIn(0.2f)
             .Build();
 
         // 여기에 아이템 획득 등의 함수 추가
