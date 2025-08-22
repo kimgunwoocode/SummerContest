@@ -76,10 +76,9 @@ public class PlayerMovement : MonoBehaviour {
     private bool[] _isClimb = new bool[2];
     private float _wallLeftTime;
     private bool _isStun = false;
-    private bool _isC;
 
-    internal void forceStop() {
-        _isC = false;
+    public void ForceStop() {
+        _calculatedVelocity.x = 0;
     }
 
     private IEnumerator DownPlatform() {
@@ -179,7 +178,6 @@ public class PlayerMovement : MonoBehaviour {
     private void Move() {
         //UpdateMoveDir();
         Climb();
-        GameManager t = Singleton.GameManager_Instance.Get<GameManager>();
         if (_data.woorung) {
             transform.localScale = new Vector3(-_moveDirection.x, 1, 1);
         }
@@ -187,7 +185,6 @@ public class PlayerMovement : MonoBehaviour {
         if((_isClimb[0] && _currentInput.x <= 0 && !_isWallJumping) || _isClimb[1] && _currentInput.x >= 0 && !_isWallJumping) {
             _calculatedVelocity.y = 0;
         }
-        if (!_PM.GetControllable()) return;
         _calculatedVelocity.x = _isWallJumping ? _calculatedVelocity.x : (_isTouchingWall[0] && _moveDirection.x < 0) || (_isTouchingWall[1] && _moveDirection.x > 0) || (_isClimb[0] && _currentInput.x <= 0) || (_isClimb[1] && _currentInput.x >= 0) ? 0f : _isDashing ? (_movementStats.DashSpeed * _moveDirection.x * Time.fixedDeltaTime) : _isCrouch ? ((_isGrounded ? _movementStats.CrounchSpeed : _movementStats.WalkSpeed) * Time.fixedDeltaTime * _currentInput.x) : (_movementStats.WalkSpeed * Time.fixedDeltaTime * _currentInput.x);
     }
 

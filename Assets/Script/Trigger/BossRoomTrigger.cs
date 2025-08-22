@@ -26,7 +26,6 @@ public class BossRoomTrigger : MonoBehaviour
             .AppendCallBacks(() => {
                 Player.SetControllable(false);
                 PlayerCollider = Player.GetComponent<BoxCollider2D>();
-                PlayerCollider.enabled = false;
 
                 SoundManager.instance.StopCurrentBGM();
                 foreach (var r in rains) {

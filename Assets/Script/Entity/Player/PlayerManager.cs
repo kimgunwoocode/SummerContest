@@ -10,7 +10,7 @@ public class PlayerManager : MonoBehaviour {
     private PlayerInput_Action _inputActions;
     private Rigidbody2D _rb;
     internal bool IsInvincible;
-    private bool isControllablePlayer = true;
+    internal bool isControllablePlayer = true;
     internal bool isWoorung = false;
     internal bool isJangDok = false;
 
@@ -147,8 +147,9 @@ public class PlayerManager : MonoBehaviour {
 
     internal void SetControllable(bool value) {
         isControllablePlayer = value;
-        if (!value)
-            _movement.forceStop();
+        if (value) {
+            _movement.ForceStop();
+        }
     }
 
     internal bool GetControllable() {
@@ -166,7 +167,6 @@ public class PlayerManager : MonoBehaviour {
     private void Attack(InputAction.CallbackContext context) {
         if (!isControllablePlayer) return;
         if (context.action.name == "Attack") {
-            _manager.Get_Money(1000, 1100);
             _attack.MeleeAttack(attackDirection);
         } else if (context.action.name == "Breath") {
             if (!Abilitis[1]) return;
