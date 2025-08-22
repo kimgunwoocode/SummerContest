@@ -3,7 +3,6 @@ using UnityEngine;
 using Unity.VisualScripting;
 using GameAudio;
 using DG.Tweening;
-using static UnityEditor.EditorApplication;
 
 public class Gumiho_DeadState : DeadState
 {
