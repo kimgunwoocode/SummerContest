@@ -124,6 +124,7 @@ public class PlayerMovement : MonoBehaviour {
         _isDashing = true;
         _calculatedVelocity.y = 0;
         _PM.IsInvincible = true;
+        SoundManager.instance.PlaySFX("player_dash");
         StartCoroutine(StopDash());
         StartCoroutine(DashCooldown());
     }
@@ -228,10 +229,12 @@ public class PlayerMovement : MonoBehaviour {
 
 
 
-    internal void OnJumpPerformed(InputAction.CallbackContext context) {
+    internal void OnJumpPerformed(InputAction.CallbackContext context)
+    {
         _heldJump = true;
         _jumpPressTime = Time.time;
         _isJumpRequestExist = true;
+        SoundManager.instance.PlaySFX("player_jump", 0.08f);
     }
 
     private void ExecuteJump(int jumpType)
