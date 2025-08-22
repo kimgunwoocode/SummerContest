@@ -5,6 +5,7 @@ public class ShakeOrb : ShakeItem
 {
     private bool _hasLanded = false;
     [SerializeField]private Rigidbody2D _rb;
+    [SerializeField] private BoxCollider2D _collider;
 
     private new void Start() { }
 
@@ -14,6 +15,7 @@ public class ShakeOrb : ShakeItem
         if ((1 << collision.gameObject.layer) == (1 << 3)) {
             _hasLanded = true;
             _rb.simulated = false;
+            _collider.isTrigger = true;
             Hover();
         }
     }
