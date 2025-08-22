@@ -11,6 +11,8 @@ public class PlayerManager : MonoBehaviour {
     private Rigidbody2D _rb;
     internal bool IsInvincible;
     private bool isControllablePlayer = true;
+    internal bool isWoorung = false;
+    internal bool isJangDok = false;
 
     [Header("Stats")]
     [SerializeField] internal ScriptablePlayerMovementStats playerMovementStats;
@@ -21,8 +23,10 @@ public class PlayerManager : MonoBehaviour {
     [Header("camera")]
     [SerializeField] private Camera cam;
     private Vector3 _mousePosition;
-    [Header("debug")]
-    [Tooltip("DO NOT TURN ON IN BULID TEST VERSION.")][SerializeField] private bool isTestingEnvironment = false;
+    [Header("WOORUNG")]
+    [SerializeField] private GameObject WooRungSkin;
+    [SerializeField] private GameObject JangDokSkin;
+    [SerializeField] private GameObject Original;
 
     private UIManager _ui;
     private PlayerMovement _movement;
@@ -56,6 +60,8 @@ public class PlayerManager : MonoBehaviour {
         Anima = GetComponent<PlayerAnimation>();
 
         if(_ui == null) _ui = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+        if(_data.woorung) { Original.SetActive(false); WooRungSkin.SetActive(true); JangDokSkin.SetActive(false); }
+        else if (_data.jangdok) { Original.SetActive(false); WooRungSkin.SetActive(false); JangDokSkin.SetActive(true); }
     }
 
     private void Start() {
@@ -66,9 +72,6 @@ public class PlayerManager : MonoBehaviour {
         if (Anima == null) Debug.LogError("Missing required component: PlayerAnimation");
         if (playerMovementStats == null) Debug.LogError("Missing required component: PlayerMovementStats");
         if (playerAttackStats == null) Debug.LogError("Missing required component: PlayerAttackStats");
-        
-        if (isTestingEnvironment) {
-        }
 
         LoadData();
         _attack.InitiateBreath();
@@ -162,12 +165,26 @@ public class PlayerManager : MonoBehaviour {
 
     private void Attack(InputAction.CallbackContext context) {
         if (!isControllablePlayer) return;
-        if (context.action.name == "Attack")
+        if (context.action.name == "Attack") {
+            _manager.Get_Money(1000, 1100);
             _attack.MeleeAttack(attackDirection);
-        else if (context.action.name == "Breath") {
+        } else if (context.action.name == "Breath") {
             if (!Abilitis[1]) return;
             _attack.FireBreath(attackDirection);
         }
+    }
+
+    public void LETSCHANGE() {
+        if (_data.woorung) { 
+            Original.SetActive(false); WooRungSkin.SetActive(true); JangDokSkin.SetActive(false); 
+        } 
+        else if (_data.jangdok) {
+            Original.SetActive(false); WooRungSkin.SetActive(false); JangDokSkin.SetActive(true); 
+        } 
+        else {
+            Original.SetActive(true); WooRungSkin.SetActive(false); JangDokSkin.SetActive(false);
+        }
+
     }
 
     public bool TakeDamage(int damage, Vector3 attackerPosition) {

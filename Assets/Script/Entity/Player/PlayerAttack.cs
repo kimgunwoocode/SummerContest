@@ -20,7 +20,6 @@ public class PlayerAttack : MonoBehaviour {
     }
 
     internal void InitiateBreath() {
-
         _currentBreathId = _data.EquipSkill.Count == 0 ? -1 : _data.EquipSkill[0];
         _currentBreathInfo = _currentBreathId == -1 ? basic :_data.allitems[_currentBreathId] as BreathItemData;
         if (_currentBreathInfo == null) Debug.LogError("error");
