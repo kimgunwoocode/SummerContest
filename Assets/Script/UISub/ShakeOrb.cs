@@ -1,11 +1,13 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using DG.Tweening;
 
 public class ShakeOrb : ShakeItem
 {
     private bool _hasLanded = false;
     [SerializeField]private Rigidbody2D _rb;
     [SerializeField] private BoxCollider2D _collider;
+    [SerializeField] private Transform _fire;
 
     private new void Start() { }
 
@@ -18,5 +20,9 @@ public class ShakeOrb : ShakeItem
             _collider.isTrigger = true;
             Hover();
         }
+    }
+
+    public void FireOff() {
+        _fire.gameObject.SetActive(false);
     }
 }
