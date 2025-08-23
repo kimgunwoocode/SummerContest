@@ -72,7 +72,7 @@ public class Interaction : MonoBehaviour
 
     private void OnInteractPerformed()
     {
-        if (isPlayerNearby) {
+        if (isPlayerNearby && State) {
             InteractEvent.Invoke();
         }
     }

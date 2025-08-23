@@ -21,6 +21,7 @@ public class Subtitle : MonoBehaviour
     private bool _isAnimating = false;
     private string _currentText = "";
     private bool _isItem = false;
+    //private bool _isCollected = false;
 
     private void Start()
     {
@@ -69,6 +70,8 @@ public class Subtitle : MonoBehaviour
     public void SubPrint(string body)
     {
         if (string.IsNullOrEmpty(body)) return;
+
+        //_isCollected = true;
 
         // 진행 중인 애니메이션 중단
         StopCurrentAnimation();
